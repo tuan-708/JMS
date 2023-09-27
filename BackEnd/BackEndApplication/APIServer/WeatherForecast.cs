@@ -1,4 +1,4 @@
-namespace BackEndApplication
+namespace APIServer
 {
     public class WeatherForecast
     {

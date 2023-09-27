@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEndApplication", "BackEndApplication\BackEndApplication.csproj", "{BA972106-D690-4F6E-8EC6-6D89D8302680}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIApplication", "BackEndApplication\APIApplication.csproj", "{BA972106-D690-4F6E-8EC6-6D89D8302680}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
