@@ -1,0 +1,41 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AdminComponent } from './modules/admin/admin.component';
+import { CandidateComponent } from './modules/candidate/candidate.component';
+import { RecruiterComponent } from './modules/recruiter/recruiter.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+
+
+const routes: Routes = [
+
+
+  // Router admin
+  {
+    path: "admin",
+    component: AdminComponent,
+    loadChildren:() => import('./modules/admin/admin.module').then(x=>x.AdminModule)
+  },
+
+  // Router candidate
+  {
+    path: "candidate",
+    component: CandidateComponent,
+    loadChildren: () => import('./modules/candidate/candidate.module').then(x => x.CandidateModule)
+  },
+
+  // Router recuiter
+  {
+    path: "recruiter",
+    component: RecruiterComponent,
+    loadChildren: () => import('./modules/recruiter/recruiter.module').then(x => x.RecruiterModule)
+  },
+
+  {path: "**", component: NotFoundComponent},
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

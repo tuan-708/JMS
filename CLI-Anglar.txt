@@ -1,0 +1,23 @@
+npm install g @angular/cli@lasest	| Tải phiên bản mới nhất
+ng version 				| Kiểm tra version
+ng new nameproject			| Tạo project
+ng build nameproject			| Build project
+code .					| Mở project bằng visual
+ng serve 				| Run project và build
+ng generate component header		| Tự tạo component header
+npm install --save bootstrap		| Install bootstrap
+npx kill-port 4200
+
+ng g m modules/cadidate --routing
+
+
+npm install --save bootstrap
+
+
+Extension
+https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css
+https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics
+
+Two way binding
+import { FormsModule } from '@angular/forms';		| Add import vào file app.model.ts
+add FormsModule và imports				| add FormsModule 
