@@ -127,7 +127,8 @@ namespace APIServer.Services
             var newToken = generateToken(user, _configuration);
             var newRefresh = generateRefreshToken();
             user.RefreshToken = newRefresh;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(15);
+            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(
+                double.Parse(_configuration["Jwt:expireRefresh"]));
             return new TokenModel
             {
                 accessToken = newToken,

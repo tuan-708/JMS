@@ -16,6 +16,8 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.createdDate, src => src.MapFrom(src => src.createdDate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.lastUpdate, src => src.MapFrom(src => src.lastUpdate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.roleName, src => src.MapFrom(src => src.role.ToString()));
+            CreateMap<JobDTO, JobPost>();
+            CreateMap<JobPost, JobDTO>();
         }
     }
 }

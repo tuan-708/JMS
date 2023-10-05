@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231005101159_update_db_job")]
+    partial class update_db_job
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,8 +170,8 @@ namespace APIServer.Migrations
                     b.Property<int?>("Userid")
                         .HasColumnType("int");
 
-                    b.Property<int>("status")
-                        .HasColumnType("int");
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("JobId");
 
@@ -268,13 +270,13 @@ namespace APIServer.Migrations
                         new
                         {
                             id = 1,
-                            createdDate = new DateTime(2023, 10, 5, 20, 52, 23, 673, DateTimeKind.Local).AddTicks(1691),
-                            dob = new DateTime(2023, 10, 5, 20, 52, 23, 673, DateTimeKind.Local).AddTicks(1676),
+                            createdDate = new DateTime(2023, 10, 5, 17, 11, 59, 556, DateTimeKind.Local).AddTicks(6527),
+                            dob = new DateTime(2023, 10, 5, 17, 11, 59, 556, DateTimeKind.Local).AddTicks(6515),
                             email = "admin@JMS.com",
                             fullName = "super admin",
                             isActive = true,
                             isDelete = false,
-                            lastUpdate = new DateTime(2023, 10, 5, 20, 52, 23, 673, DateTimeKind.Local).AddTicks(1692),
+                            lastUpdate = new DateTime(2023, 10, 5, 17, 11, 59, 556, DateTimeKind.Local).AddTicks(6528),
                             male = true,
                             password = "admin",
                             phoneNumber = "1234567890",

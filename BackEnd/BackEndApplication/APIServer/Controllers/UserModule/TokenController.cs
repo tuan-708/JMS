@@ -35,7 +35,8 @@ namespace APIServer.Controllers.UserModule
                 var user = userService.Login(loginModel.username, loginModel.password);
                 var refreshTok = userService.generateRefreshToken();
                 user.RefreshToken = refreshTok;
-                user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(15);
+                user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(
+                    double.Parse(_configuration["Jwt:expireRefresh"]));
                 userService.Update(user);
                 return new BaseResponseBody<TokenModel>
                 {
@@ -67,7 +68,7 @@ namespace APIServer.Controllers.UserModule
             {
                 return new BaseResponseBody<TokenModel>
                 {
-                    statusCode = HttpStatusCode.Unauthorized,
+                    statusCode = HttpStatusCode.OK,
                     data = userService.regenerateToken(tokenApiModel, _configuration),
                     message = GlobalStrings.SUCCESSFULLY,
                 };
