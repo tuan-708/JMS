@@ -2,6 +2,7 @@
 using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IServices;
+using APIServer.Models.Entity;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,6 @@ namespace APIServer.Controllers.UserModule
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -26,6 +26,7 @@ namespace APIServer.Controllers.UserModule
 
         [HttpGet]
         [Route("View/{id}")]
+        [Authorize(Roles = $"{GlobalStrings.ROLE_ADMIN}")]
         public BaseResponseBody<UserDTO> getById(int id)
         {
             try

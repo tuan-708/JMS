@@ -115,6 +115,8 @@ namespace APIServer
         {
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IBaseRepository<JobPost>, JobRepository>();
+            builder.Services.AddTransient<IJobService, JobService>();
         }
     }
 }

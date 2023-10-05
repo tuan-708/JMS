@@ -7,6 +7,9 @@ namespace APIServer.Models
     public class JMSDBContext : DbContext
     {
         public DbSet<User> users { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CurriculumVitae> CurriculumVitaes { get; set; }
+        public DbSet<JobPost> JobPosts { get; set; }
 
         public JMSDBContext(DbContextOptions options) : base(options)
         {
