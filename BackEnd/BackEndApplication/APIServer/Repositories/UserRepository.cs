@@ -60,5 +60,13 @@ namespace APIServer.Repositories
                 x.userName == username)
                 .FirstOrDefault();
         }
+
+        public bool checkExistUserNameEmail(string username, string email)
+        {
+            var acc = context.users
+                .Where(x => x.userName.ToLower() == username.ToLower() ||
+                x.email.ToLower() == email.ToLower()).ToArray();
+            return acc.Length > 0;
+        }
     }
 }

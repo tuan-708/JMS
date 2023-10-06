@@ -9,7 +9,7 @@ namespace APIServer.MappingObj
     {
         public MapObject()
         {
-            CreateMap<UserDTO, User>()
+            CreateMap<UserCreatingDTO, User>()
                 .ForMember(x => x.dob, src => src.MapFrom(src => Validation.convertDateTime(src.dobStr)));
             CreateMap<User, UserDTO>()
                 .ForMember(x => x.dobStr, src => src.MapFrom(src => src.dob.ToString(GlobalStrings.FORMAT_DATE)))
@@ -17,7 +17,8 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.lastUpdate, src => src.MapFrom(src => src.lastUpdate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.roleName, src => src.MapFrom(src => src.role.ToString()));
             CreateMap<JobDTO, JobPost>();
-            CreateMap<JobPost, JobDTO>();
+            CreateMap<JobPost, JobDTO>()
+                .ForMember(x => x.status, src => src.MapFrom(src => src.status.ToString()));
         }
     }
 }

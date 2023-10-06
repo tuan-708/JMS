@@ -13,5 +13,6 @@ namespace APIServer.IServices
         public User getById(int? id);
         public TokenModel regenerateToken(TokenModel? expiredToken, IConfiguration _configuration);
         public void revokeToken(TokenModel? token);
+        public int CreateCandidateAccount(User? account);
     }
 }

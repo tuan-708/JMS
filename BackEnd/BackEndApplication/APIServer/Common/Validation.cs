@@ -12,7 +12,7 @@
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException("wrong format date");
+                throw ex;
             }
         }
 

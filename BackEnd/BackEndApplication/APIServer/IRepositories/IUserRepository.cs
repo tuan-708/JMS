@@ -6,5 +6,6 @@ namespace APIServer.IRepositories
     {
         public User Login(string? username, string? password);
         public User findByUserName(string? username);
+        public bool checkExistUserNameEmail(string username, string email);
     }
 }

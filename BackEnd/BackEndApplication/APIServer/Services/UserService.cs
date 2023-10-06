@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace APIServer.Services
 {
@@ -23,13 +24,7 @@ namespace APIServer.Services
 
         public int Create(User data)
         {
-            data.createdDate = DateTime.Now;
-            data.lastUpdate = DateTime.Now;
-            data.isActive = true;
-            data.isDelete = false;
-            data.role = Role.User;
-            data.createdBy = null;
-            return _userRepository.Create(data);
+            throw new NotImplementedException();
         }
 
         public int CreateAdminAccount(User account, int? adminId)
@@ -42,6 +37,39 @@ namespace APIServer.Services
             account.isDelete = false;
             account.role = Role.Admin;
             account.createdBy = adminId;
+            return _userRepository.Create(account);
+        }
+
+        public int CreateCandidateAccount(User? account)
+        {
+            if (account == null)
+                throw new ArgumentNullException("account not exist");
+            if (Validation.checkStringIsEmpty(
+                account.fullName, account.userName,
+                account.password, account.email))
+            {
+                throw new ArgumentNullException("account not completed yet");
+            }
+            if (!checkEmail(account.email))
+            {
+                throw new ArgumentNullException("Email not accepted");
+            }
+            if (_userRepository.checkExistUserNameEmail(account.userName, account.email))
+            {
+                throw new Exception("Username or email already in use");
+            }
+            var age = CalculateAge(account.dob);
+            if (account.dob >= DateTime.Now || age < 18 || age > 100)
+            {
+                throw new Exception("Date of birth is not accepted");
+            }
+            account.createdDate = DateTime.Now;
+            account.lastUpdate = DateTime.Now;
+            account.isDelete = false;
+            account.isActive = true;
+            account.createdBy = null;
+            account.role = Role.User;
+            account.male = account.male == null ? true : account.male;
             return _userRepository.Create(account);
         }
 
@@ -115,12 +143,12 @@ namespace APIServer.Services
 
         public TokenModel regenerateToken(TokenModel? expiredToken, IConfiguration _configuration)
         {
-            if(expiredToken == null || 
+            if (expiredToken == null ||
                 Validation.checkStringIsEmpty(expiredToken.accessToken, expiredToken.refreshToken))
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
             var username = GetUserFromExpiredToken(expiredToken.accessToken);
             var user = _userRepository.findByUserName(username);
-            if (user == null || 
+            if (user == null ||
                 user.RefreshToken != expiredToken.refreshToken ||
                 user.RefreshTokenExpiryTime <= DateTime.Now)
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
@@ -169,6 +197,23 @@ namespace APIServer.Services
             {
                 return null;
             }
+        }
+
+        private bool checkEmail(string? email)
+        {
+            string pattern = @"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$";
+            return Regex.IsMatch(email, pattern);
+        }
+
+        private static int CalculateAge(DateTime ngaySinh)
+        {
+            DateTime ngayHienTai = DateTime.Now;
+            int tuoi = ngayHienTai.Year - ngaySinh.Year;
+            if (ngayHienTai.Month < ngaySinh.Month || (ngayHienTai.Month == ngaySinh.Month && ngayHienTai.Day < ngaySinh.Day))
+            {
+                tuoi--;
+            }
+            return tuoi;
         }
     }
 }
