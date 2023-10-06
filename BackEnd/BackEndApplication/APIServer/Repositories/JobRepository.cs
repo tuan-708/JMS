@@ -1,6 +1,7 @@
 ﻿using APIServer.IRepositories;
 using APIServer.Models;
 using APIServer.Models.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace APIServer.Repositories
 {
@@ -34,9 +35,10 @@ namespace APIServer.Repositories
         public List<JobPost> GetAll()
         {
             var rs = _context.JobPosts
+                .Include(x => x.User)
+                .Include(x => x.Category)
                 .Where(x => x.IsDelete == false && x.ExipredDate >= DateTime.Now)
                 .ToList();
-            Console.WriteLine(rs);
             return rs;
         }
 

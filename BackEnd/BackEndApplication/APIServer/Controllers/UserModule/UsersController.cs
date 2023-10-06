@@ -50,5 +50,29 @@ namespace APIServer.Controllers.UserModule
                 };
             }
         }
+
+        [HttpPost]
+        [Route("create-candidate")]
+        public BaseResponseBody<string> createCandidateAccount(UserCreatingDTO? userDto)
+        {
+            try
+            {
+                var user = _mapper.Map<User>(userDto);
+                _userService.CreateCandidateAccount(user);
+                return new BaseResponseBody<string>
+                {
+                    statusCode = HttpStatusCode.Created,
+                    message = GlobalStrings.SUCCESSFULLY_SAVED
+                };
+            }
+            catch(Exception ex)
+            {
+                return new BaseResponseBody<string>
+                {
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message
+                };
+            }
+        }
     }
 }

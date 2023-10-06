@@ -18,7 +18,7 @@ namespace APIServer.Services
         {
             if(Validation.checkStringIsEmpty(
                 data.EmailConnect, data.JobDescription, data.JobRequirement,
-                data.JobType, data.Title, data.Address, data.SalaryMin
+                data.JobType, data.Title, data.Address, data.SalaryMin, data.CandidateBenefit
                 ))
             {
                 throw new MissingFieldException("job not completed yet");
