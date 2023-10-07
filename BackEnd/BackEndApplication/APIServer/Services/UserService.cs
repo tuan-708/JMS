@@ -129,6 +129,11 @@ namespace APIServer.Services
             return rs;
         }
 
+        public Task<string> GetResult(string prompt)
+        {
+            throw new NotImplementedException();
+        }
+
         public User Login(string? username, string? password)
         {
             if (Validation.checkStringIsEmpty(username, password))
@@ -214,6 +219,16 @@ namespace APIServer.Services
                 tuoi--;
             }
             return tuoi;
+        }
+
+        public void CreateCandidateCV(CurriculumVitae curriculumVitae)
+        {
+            
+        }
+
+        public List<User> getAllById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

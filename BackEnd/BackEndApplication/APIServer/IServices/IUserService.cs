@@ -14,5 +14,7 @@ namespace APIServer.IServices
         public TokenModel regenerateToken(TokenModel? expiredToken, IConfiguration _configuration);
         public void revokeToken(TokenModel? token);
         public int CreateCandidateAccount(User? account);
+
+        public void CreateCandidateCV(CurriculumVitae curriculumVitae);
     }
 }
