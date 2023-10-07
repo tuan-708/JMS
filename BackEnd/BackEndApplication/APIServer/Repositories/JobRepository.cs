@@ -42,6 +42,11 @@ namespace APIServer.Repositories
             return rs;
         }
 
+        public List<JobPost> GetAllById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public JobPost GetById(int id)
         {
             throw new NotImplementedException();

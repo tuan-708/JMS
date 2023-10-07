@@ -68,5 +68,10 @@ namespace APIServer.Repositories
                 x.email.ToLower() == email.ToLower()).ToArray();
             return acc.Length > 0;
         }
+
+        public List<User> GetAllById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

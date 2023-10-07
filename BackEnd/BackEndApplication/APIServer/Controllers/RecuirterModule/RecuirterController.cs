@@ -3,6 +3,7 @@ using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IServices;
 using APIServer.Models.Entity;
+using APIServer.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,14 +26,16 @@ namespace APIServer.Controllers.RecuirterModule
 
         [HttpGet]
         [Route("get-all")]
-        public BaseResponseBody<List<JobDTO>> getAllPostJob()
+        public PagingResponseBody<List<JobDTO>> getAllPostJob()
         {
             var rs = _mapper.Map<List<JobDTO>>(_jobService.getAll());
-            return new BaseResponseBody<List<JobDTO>>
+            return new PagingResponseBody<List<JobDTO>>
             {
                 data = rs,
                 message = GlobalStrings.SUCCESSFULLY,
                 statusCode = HttpStatusCode.OK,
+                ObjectLength = rs.Count,
+                TotalPage = rs.Count
             };
         }
 
@@ -57,6 +60,21 @@ namespace APIServer.Controllers.RecuirterModule
                     message = GlobalStrings.BAD_REQUEST,
                     statusCode = HttpStatusCode.BadRequest,
                 };
+            }
+        }
+
+        [HttpPost]
+        [Route("get-answer-from-chatpgt")]
+        public async Task<IActionResult> GetResult(string prompt)
+        {
+            try
+            {
+                string response = await _jobService.GetResult(prompt);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }
