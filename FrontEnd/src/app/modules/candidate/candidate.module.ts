@@ -9,7 +9,10 @@ import { CandidateSignUpComponent } from './components/sign-up/sign-up.component
 import { CandidateRegisterComponent } from './components/register/register.component';
 import { CandidateHomeComponent } from './components/home/home.component';
 import { CandidateForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-
+import { CandidateCreateCvComponent } from './components/create-cv/create-cv.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -20,11 +23,15 @@ import { CandidateForgotPasswordComponent } from './components/forgot-password/f
     CandidateSignUpComponent,
     CandidateRegisterComponent,
     CandidateHomeComponent,
-    CandidateForgotPasswordComponent
+    CandidateForgotPasswordComponent,
+    CandidateCreateCvComponent,
   ],
   imports: [
     CommonModule,
-    CadidateRoutingModule
+    CadidateRoutingModule,
+    CKEditorModule,
+    FormsModule,
+    DragDropModule
   ]
 })
 export class CandidateModule { }
