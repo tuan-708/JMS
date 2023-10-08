@@ -46,7 +46,7 @@ namespace APIServer.Controllers.RecuirterModule
             try
             {
                 var job = _mapper.Map<JobPost>(jobDTO);
-                _jobService.Create(job);
+                _jobService.CreateNewPost(job, jobDTO.UserId);
                 return new BaseResponseBody<string>
                 {
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
