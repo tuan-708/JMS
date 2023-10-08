@@ -18,6 +18,16 @@ namespace APIServer.Repositories
         {
             _context.JobPosts.Add(data);
             return _context.SaveChanges();
+            throw new NotImplementedException();
+
+        }
+
+        public int CreateById(JobPost data, int id)
+        {
+            User user = _context.users.FirstOrDefault(x => x.id == id);
+            data.User = user;
+            _context.JobPosts.Add(data);
+            return _context.SaveChanges();
         }
 
         public int Delete(int id)

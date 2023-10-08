@@ -15,6 +15,15 @@ namespace APIServer.Repositories
 
         public int Create(CurriculumVitae data)
         {
+
+            _context.Add(data);
+            return _context.SaveChanges();
+        }
+
+        public int CreateById(CurriculumVitae data, int id)
+        {
+            User user = _context.users.FirstOrDefault(x => x.id == id);
+            data.User = user;
             _context.Add(data);
             return _context.SaveChanges();
         }
