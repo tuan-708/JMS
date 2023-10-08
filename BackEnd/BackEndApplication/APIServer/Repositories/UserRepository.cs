@@ -73,5 +73,10 @@ namespace APIServer.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public int CreateById(User data, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

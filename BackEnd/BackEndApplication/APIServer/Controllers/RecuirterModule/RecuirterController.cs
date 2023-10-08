@@ -41,7 +41,7 @@ namespace APIServer.Controllers.RecuirterModule
 
         [HttpPost]
         [Route("new-post")]
-        public BaseResponseBody<string> createNewPost(JobDTO jobDTO)
+        public BaseResponseBody<string> createNewPost(JobDTO jobDTO, int userId)
         {
             try
             {

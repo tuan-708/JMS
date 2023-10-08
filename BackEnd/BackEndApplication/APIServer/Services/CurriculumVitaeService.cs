@@ -26,7 +26,17 @@ namespace APIServer.Services
             return _context.Create(data);
         }
 
-
+        public int CreateById(CurriculumVitae data, int id)
+        {
+            if (Validation.checkStringIsEmpty(data.DisplayName, data.Phone, data.Gender.ToString(), data.DisplayEmail, data.DOB.ToString(),
+                            data.Address, data.LevelApply, data.JobExperience, data.Education))
+            {
+                throw new MissingFieldException("job not completed yet");
+            }
+            data.IsFinding = true;
+            data.IsDelete = false;
+            return _context.CreateById(data, id);
+        }
 
         public int Delete(CurriculumVitae data)
         {

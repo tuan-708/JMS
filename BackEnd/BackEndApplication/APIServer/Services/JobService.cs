@@ -41,7 +41,7 @@ namespace APIServer.Services
 
         public async Task<string> GetResult(string prompt)
         {
-            string apiKey = "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";
+            
             string answer = string.Empty;
             var openai = new OpenAIAPI(apiKey);
             CompletionRequest completion = new CompletionRequest();
@@ -52,7 +52,7 @@ namespace APIServer.Services
 
             if (result != null && result.Completions.Count > 0)
             {
-                answer = result.Completions[0].Text;
+                answer = result.Completions[0].Text.Trim();
                 return answer;
             }
             else

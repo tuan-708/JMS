@@ -230,5 +230,10 @@ namespace APIServer.Services
         {
             throw new NotImplementedException();
         }
+
+        public int CreateById(User data, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
