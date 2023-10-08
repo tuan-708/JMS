@@ -16,12 +16,15 @@ namespace APIServer.Controllers.CandidateModule
         private readonly ICurriculumVitaeService _curriculumVitaeService;
         private readonly IJobService _jobService;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _config;
 
-        public CandidateController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper)
+
+        public CandidateController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration)
         {
             _jobService = jobService;
             _curriculumVitaeService = curriculumVitaeService;
             _mapper = mapper;
+            _config = configuration;
         }
 
         [HttpGet("get-cv-by-id")]
@@ -50,7 +53,7 @@ namespace APIServer.Controllers.CandidateModule
                     "property nhỏ bên trong các property lớn,  tối đa và không được vượt quá 1500 chữ cái cho json object, nếu vượt quá phải làm lại,  " +
                     "nếu nhiều hơn các property yêu cầu, phải làm lại:";
                 var cv = _mapper.Map<CurriculumVitae>(curriculumVitaeDTO);
-                string response = await _jobService.GetResult(prompt + "jobExperience: " + cv.JobExperience + ". education: " + cv.Education + ". skill: " + cv.Award);
+                string response = await _jobService.GetResult(prompt + "jobExperience: " + cv.JobExperience + ". education: " + cv.Education + ". skill: " + cv.Skills, _config);
                 cv.Summary = response;
                 _curriculumVitaeService.CreateById(cv, userId);
                 return new BaseResponseBody<string>

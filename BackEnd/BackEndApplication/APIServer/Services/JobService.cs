@@ -12,6 +12,7 @@ namespace APIServer.Services
         private readonly IBaseRepository<JobPost> context;
         private readonly IUserRepository userRepository;
 
+
         public JobService(IBaseRepository<JobPost> context, IUserRepository userRepository)
         {
             this.context = context;
@@ -39,15 +40,16 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public async Task<string> GetResult(string prompt)
+        public async Task<string> GetResult(string prompt, IConfiguration configuration)
         {
-            
+            string apiKey = configuration["chatGPTKey"];
             string answer = string.Empty;
             var openai = new OpenAIAPI(apiKey);
             CompletionRequest completion = new CompletionRequest();
             completion.Prompt = prompt;
             completion.Model = OpenAI_API.Models.Model.DavinciText;
             completion.MaxTokens = 1000;
+            completion.Temperature = 0;
             var result = await openai.Completions.CreateCompletionAsync(completion);
 
             if (result != null && result.Completions.Count > 0)
@@ -90,6 +92,11 @@ namespace APIServer.Services
             data.CreatedAt = DateTime.Now;
             data.ExipredDate = DateTime.Now.AddDays(7);
             return context.Create(data);
+        }
+
+        public int CreateById(JobPost data, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

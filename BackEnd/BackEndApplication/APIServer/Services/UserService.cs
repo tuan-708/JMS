@@ -129,7 +129,7 @@ namespace APIServer.Services
             return rs;
         }
 
-        public Task<string> GetResult(string prompt)
+        public Task<string> GetResult(string prompt, IConfiguration configuration)
         {
             throw new NotImplementedException();
         }

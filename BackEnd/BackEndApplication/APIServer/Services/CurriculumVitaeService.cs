@@ -53,7 +53,7 @@ namespace APIServer.Services
             return _context.GetAllById(id);
         }
 
-        public Task<string> GetResult(string prompt)
+        public Task<string> GetResult(string prompt, IConfiguration configuration)
         {
             throw new NotImplementedException();
         }
