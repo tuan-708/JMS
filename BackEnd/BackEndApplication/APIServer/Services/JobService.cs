@@ -10,26 +10,17 @@ namespace APIServer.Services
     public class JobService : IJobService
     {
         private readonly IBaseRepository<JobPost> context;
+        private readonly IUserRepository userRepository;
 
-        public JobService(IBaseRepository<JobPost> context)
+        public JobService(IBaseRepository<JobPost> context, IUserRepository userRepository)
         {
             this.context = context;
+            this.userRepository = userRepository;
         }
 
         public int Create(JobPost data)
         {
-            if(Validation.checkStringIsEmpty(
-                data.EmailConnect, data.JobDescription, data.JobRequirement,
-                data.JobType, data.Title, data.Address, data.SalaryMin, data.CandidateBenefit
-                ))
-            {
-                throw new MissingFieldException("job not completed yet");
-            }
-            data.IsDelete = false;
-            data.status = StatusJob.Finding;
-            data.CreatedAt = DateTime.Now;
-            data.ExipredDate = DateTime.Now.AddDays(7);
-            return context.Create(data);
+            throw new NotImplementedException();
         }
 
         public int Delete(JobPost data)
@@ -73,6 +64,32 @@ namespace APIServer.Services
         public List<JobPost> getAllById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public int CreateNewPost(JobPost data, int? userId)
+        {
+            if (Validation.checkStringIsEmpty(
+                data.EmailConnect, data.JobDescription, data.JobRequirement,
+                data.JobType, data.Title, data.Address, data.SalaryMin, data.CandidateBenefit
+                ))
+            {
+                throw new MissingFieldException("job not completed yet");
+            }
+            if (userId == null)
+            {
+                throw new Exception("user not exist");
+            }
+            var u = userRepository.GetById((int)userId);
+            if(u.role == Role.User)
+            {
+                throw new Exception("account not have permission");
+            }
+            data.User = u;
+            data.IsDelete = false;
+            data.status = StatusJob.Finding;
+            data.CreatedAt = DateTime.Now;
+            data.ExipredDate = DateTime.Now.AddDays(7);
+            return context.Create(data);
         }
     }
 }

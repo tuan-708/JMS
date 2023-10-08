@@ -15,6 +15,7 @@ namespace APIServer.Models.Entity
         public DateTime DOB { get; set; }
         public string? Address { get; set; }
         public string? LevelApply { get; set; }
+        public string? Skills { get; set; }
         public string? Education { get; set; }
         public string? JobExperience { get; set; }
         public string? Activity { get; set; }
