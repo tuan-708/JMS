@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <candidate-header></candidate-header>
+
+    <div class="container">
+
+        <ckeditor #editor [(ngModel)]="model.editorData" [editor]="Editor" (ready)="onReady($event)"></ckeditor>
+
+
+        <button type="button" class="btn btn-primary mt-5" (click)="handleSave($event)">Save</button>
+    </div>
+</div>

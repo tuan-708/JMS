@@ -20,4 +20,11 @@ https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schemati
 
 Two way binding
 import { FormsModule } from '@angular/forms';		| Add import vào file app.model.ts
-add FormsModule và imports				| add FormsModule 
+add FormsModule và imports				| add FormsModule
+
+custom ckeditor5 toolbar:
+1. ckeditor5-custom-build open terminal  npm install --save @ckeditor/ckeditor5-upload
+2. add import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
+3. Base64UploadAdapter in to builtinPlugins
+4. toolbar add name items
+5. npm run build
