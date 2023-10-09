@@ -1,4 +1,6 @@
-﻿namespace APIServer.Common
+﻿using System.Text.RegularExpressions;
+
+namespace APIServer.Common
 {
     public class Validation
     {
@@ -31,6 +33,35 @@
                 return false;
             }
             catch { return true; }
+        }
+
+        public static string processStringGpt(string input)
+        {
+            Match match = Regex.Match(input, @"\{([^}]+)\}");
+
+            if (match.Success)
+            {
+                string innerText = match.Groups[1].Value.Trim();
+                return "{" + innerText + "}";
+            }
+            else
+            {
+                return input;
+            }
+        }
+
+        public static string readKey()
+        {
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Common\\gptKey.txt"; 
+            try
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                return lines[0];
+            }
+            catch (IOException e)
+            {
+                return null;
+            }
         }
     }
 }

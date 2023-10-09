@@ -42,7 +42,7 @@ namespace APIServer.Services
 
         public async Task<string> GetResult(string prompt, IConfiguration configuration)
         {
-            string apiKey = configuration["chatGPTKey"];
+            string apiKey = Validation.readKey();
             string answer = string.Empty;
             var openai = new OpenAIAPI(apiKey);
             CompletionRequest completion = new CompletionRequest();
@@ -55,7 +55,7 @@ namespace APIServer.Services
             if (result != null && result.Completions.Count > 0)
             {
                 answer = result.Completions[0].Text.Trim();
-                return answer;
+                return Validation.processStringGpt(answer);
             }
             else
             {
