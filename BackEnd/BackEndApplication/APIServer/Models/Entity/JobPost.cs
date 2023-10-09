@@ -7,12 +7,15 @@ namespace APIServer.Models.Entity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobId { get; set; }
+        public int? UserId { get; set; }
         public virtual User? User { get; set; }
         [StringLength(500)]
         [Required]
         public string Title { get; set; }
+        [StringLength(500)]
         public string? LevelRequired { get; set; }
         public string? JobType { get; set; }
+        public int? CategoryId { get; set; }
         public virtual Category? Category { get; set; }
         public string? Address { get; set; }
         [Required]
@@ -29,5 +32,6 @@ namespace APIServer.Models.Entity
         public StatusJob status { get; set; }
         public string? Summary { get; set; }
         public bool IsDelete { get; set; }
+        public virtual ICollection<CurriculumVitae>? CurriculumVitaes { get; set; }
     }
 }

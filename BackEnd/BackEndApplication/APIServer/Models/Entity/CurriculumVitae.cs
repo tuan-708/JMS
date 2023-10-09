@@ -7,6 +7,7 @@ namespace APIServer.Models.Entity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public int? UserId { get; set; }
         public virtual User? User { get; set; }
         public string? Phone { get; set; }
         public string? DisplayName { get; set; }
@@ -23,5 +24,8 @@ namespace APIServer.Models.Entity
         public string? Summary{ get; set; }
         public bool IsFinding { get; set; }
         public bool IsDelete { get; set; }
+        public int? CategoryId { get; set; }
+        public virtual Category? Category { get; set; }
+        public virtual ICollection<JobPost>? JobPosts { get; set; }
     }
 }

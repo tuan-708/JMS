@@ -32,7 +32,8 @@ namespace APIServer.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -64,6 +65,9 @@ namespace APIServer.Migrations
 
                     b.Property<string>("Award")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
@@ -101,12 +105,14 @@ namespace APIServer.Migrations
                     b.Property<string>("Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Userid")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Userid");
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CurriculumVitaes");
                 });
@@ -153,7 +159,8 @@ namespace APIServer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LevelRequired")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("SalaryMax")
                         .HasColumnType("nvarchar(max)");
@@ -169,7 +176,7 @@ namespace APIServer.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int?>("Userid")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<int>("status")
@@ -179,7 +186,7 @@ namespace APIServer.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("Userid");
+                    b.HasIndex("UserId");
 
                     b.ToTable("JobPosts");
                 });
@@ -266,19 +273,19 @@ namespace APIServer.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("User");
+                    b.ToTable("users");
 
                     b.HasData(
                         new
                         {
                             id = 1,
-                            createdDate = new DateTime(2023, 10, 8, 20, 32, 40, 273, DateTimeKind.Local).AddTicks(7576),
-                            dob = new DateTime(2023, 10, 8, 20, 32, 40, 273, DateTimeKind.Local).AddTicks(7565),
+                            createdDate = new DateTime(2023, 10, 9, 12, 30, 55, 274, DateTimeKind.Local).AddTicks(2535),
+                            dob = new DateTime(2023, 10, 9, 12, 30, 55, 274, DateTimeKind.Local).AddTicks(2523),
                             email = "admin@JMS.com",
                             fullName = "super admin",
                             isActive = true,
                             isDelete = false,
-                            lastUpdate = new DateTime(2023, 10, 8, 20, 32, 40, 273, DateTimeKind.Local).AddTicks(7576),
+                            lastUpdate = new DateTime(2023, 10, 9, 12, 30, 55, 274, DateTimeKind.Local).AddTicks(2536),
                             male = true,
                             password = "admin",
                             phoneNumber = "1234567890",
@@ -287,11 +294,32 @@ namespace APIServer.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CurriculumVitaeJobPost", b =>
+                {
+                    b.Property<int>("CurriculumVitaesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobPostsJobId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CurriculumVitaesId", "JobPostsJobId");
+
+                    b.HasIndex("JobPostsJobId");
+
+                    b.ToTable("CurriculumVitaeJobPost");
+                });
+
             modelBuilder.Entity("APIServer.Models.Entity.CurriculumVitae", b =>
                 {
+                    b.HasOne("APIServer.Models.Entity.Category", "Category")
+                        .WithMany("CurriculumVitaes")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("APIServer.Models.Entity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("Userid");
+                        .WithMany("CurriculumVitaes")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Category");
 
                     b.Navigation("User");
                 });
@@ -299,16 +327,45 @@ namespace APIServer.Migrations
             modelBuilder.Entity("APIServer.Models.Entity.JobPost", b =>
                 {
                     b.HasOne("APIServer.Models.Entity.Category", "Category")
-                        .WithMany()
+                        .WithMany("JobPosts")
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("APIServer.Models.Entity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("Userid");
+                        .WithMany("JobPosts")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Category");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CurriculumVitaeJobPost", b =>
+                {
+                    b.HasOne("APIServer.Models.Entity.CurriculumVitae", null)
+                        .WithMany()
+                        .HasForeignKey("CurriculumVitaesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("APIServer.Models.Entity.JobPost", null)
+                        .WithMany()
+                        .HasForeignKey("JobPostsJobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("APIServer.Models.Entity.Category", b =>
+                {
+                    b.Navigation("CurriculumVitaes");
+
+                    b.Navigation("JobPosts");
+                });
+
+            modelBuilder.Entity("APIServer.Models.Entity.User", b =>
+                {
+                    b.Navigation("CurriculumVitaes");
+
+                    b.Navigation("JobPosts");
                 });
 #pragma warning restore 612, 618
         }
