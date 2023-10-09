@@ -50,7 +50,8 @@ namespace APIServer.Controllers.RecuirterModule
                 string prompt = @"tóm tắt thông tin dưới đây dưới dạng json object, với tên property chỉ bao gồm: jobDescription, jobRequirment,  Address 
                     (Không thểm thắt, nếu property nào không có dữ liệu hãy để giá trị null) nội dung là nội dung trong thông tin, yêu cầu chính xác, ngắn gọn, không dài dòng, 
                     và tất cả đều là text nếu có xuống dòng hãy gộp đến khi thông tin còn 1 dòng và bỏ các dấu hiệu của dòng đó thay bằng dấu phẩy, không được chứa thêm 
-                    property nhỏ bên trong, tối đa và không được vượt quá 1500 chữ cái cho json object, nếu vượt quá phải làm lại:";
+                    property nhỏ bên trong, tối đa và không được vượt quá 1500 chữ cái cho json object, chỉ yêu cầu đáp án
+                    không cần phải giải thích hoặc có bất kì kí tự nào khác ngoài json object đã yêu cầu, nếu không đáp ứng được phải làm lại:";
                 var job = _mapper.Map<JobPost>(jobDTO);
                 string response = await _jobService.GetResult(prompt + " jobDescription:" + job.JobDescription + ". jobRequirment:" + job.JobRequirement + ". address:" + job.Address, _config);
                 job.Summary = response;
