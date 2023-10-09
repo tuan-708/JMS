@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace APIServer.Models.Entity
 {
-    [Table("User")]
     public class User
     {
         [Column("user_id")]
@@ -56,5 +55,7 @@ namespace APIServer.Models.Entity
         public bool isDelete { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
+        public virtual ICollection<CurriculumVitae>? CurriculumVitaes { get; set;}
+        public virtual ICollection<JobPost>? JobPosts { get; set;}
     }
 }
