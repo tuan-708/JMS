@@ -47,9 +47,9 @@ namespace APIServer.Services
             var openai = new OpenAIAPI(apiKey);
             CompletionRequest completion = new CompletionRequest();
             completion.Prompt = prompt;
-            completion.Model = OpenAI_API.Models.Model.DavinciText;
+            completion.Model = OpenAI_API.Models.Model.ChatGPTTurbo;
             completion.MaxTokens = 1000;
-            completion.Temperature = 0;
+            completion.Temperature = 0.2;
             var result = await openai.Completions.CreateCompletionAsync(completion);
 
             if (result != null && result.Completions.Count > 0)
