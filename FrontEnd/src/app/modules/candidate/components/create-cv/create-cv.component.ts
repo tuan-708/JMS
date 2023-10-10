@@ -50,6 +50,9 @@ export class CandidateCreateCvComponent {
   displayImage = "none"
   displayChange = "none"
   fileSrc: any;
+  fontCV = "Sans-serif"
+  backgroudSelectedLink = "../../../../../assets/images/background0.jpg" ;
+
 
   getFile(event: any){
     if (event.target.files && event.target.files[0]) {
@@ -65,6 +68,16 @@ export class CandidateCreateCvComponent {
         this.fileSrc = event.target?.result;
       }
     }
+  }
+
+  selectedFont(event: any){
+    this.fontCV = event.target.value
+    // console.log(event.target.value);
+  }
+
+  SelectedBackGround(value:any){
+    this.backgroudSelectedLink = value;
+    console.log(value)
   }
 
 }
