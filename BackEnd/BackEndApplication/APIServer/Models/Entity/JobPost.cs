@@ -32,6 +32,7 @@ namespace APIServer.Models.Entity
         public StatusJob status { get; set; }
         public string? Summary { get; set; }
         public bool IsDelete { get; set; }
-        public virtual ICollection<CurriculumVitae>? CurriculumVitaes { get; set; }
+        public int? CompanyId { get; set; }
+        public virtual Company? Company { get; set; }
     }
 }
