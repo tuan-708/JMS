@@ -129,7 +129,7 @@ namespace APIServer.Services
             return rs;
         }
 
-        public Task<string> GetResult(string prompt, IConfiguration configuration)
+        public string GetResult(string prompt, IConfiguration configuration)
         {
             throw new NotImplementedException();
         }
@@ -232,6 +232,11 @@ namespace APIServer.Services
         }
 
         public int CreateById(User data, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User? GetById(int id)
         {
             throw new NotImplementedException();
         }

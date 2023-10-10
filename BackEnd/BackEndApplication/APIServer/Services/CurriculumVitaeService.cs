@@ -45,7 +45,7 @@ namespace APIServer.Services
 
         public List<CurriculumVitae> getAll()
         {
-            throw new NotImplementedException();
+            return _context.GetAll();
         }
 
         public List<CurriculumVitae> getAllById(int id)
@@ -53,7 +53,17 @@ namespace APIServer.Services
             return _context.GetAllById(id);
         }
 
-        public Task<string> GetResult(string prompt, IConfiguration configuration)
+        public CurriculumVitae? GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CurriculumVitae GetCurriculumVitae(int id)
+        {
+            return _context.GetById(id);
+        }
+
+        public string GetResult(string prompt, IConfiguration configuration)
         {
             throw new NotImplementedException();
         }
@@ -62,5 +72,7 @@ namespace APIServer.Services
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

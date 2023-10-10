@@ -40,21 +40,21 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public async Task<string> GetResult(string prompt, IConfiguration configuration)
+        public string GetResult(string prompt, IConfiguration configuration)
         {
             string apiKey = Validation.readKey();
             string answer = string.Empty;
             var openai = new OpenAIAPI(apiKey);
             CompletionRequest completion = new CompletionRequest();
             completion.Prompt = prompt;
-            completion.Model = OpenAI_API.Models.Model.ChatGPTTurbo;
+            completion.Model = OpenAI_API.Models.Model.DavinciText;
             completion.MaxTokens = 1000;
             completion.Temperature = 0.2;
-            var result = await openai.Completions.CreateCompletionAsync(completion);
+            var result = openai.Completions.CreateCompletionAsync(completion);
 
-            if (result != null && result.Completions.Count > 0)
+            if (result != null && result.Result.Completions.Count > 0)
             {
-                answer = result.Completions[0].Text.Trim();
+                answer = result.Result.Completions[0].Text.Trim();
                 return Validation.processStringGpt(answer);
             }
             else
@@ -97,6 +97,11 @@ namespace APIServer.Services
         public int CreateById(JobPost data, int id)
         {
             throw new NotImplementedException();
+        }
+
+        public JobPost? GetById(int id)
+        {
+            return context.GetById(id);
         }
     }
 }
