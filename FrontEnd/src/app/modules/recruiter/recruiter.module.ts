@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RecruiterComponent } from './recruiter.component';
 import { CompanyRegisterComponent } from './components/company-register/company-register.component';
+import { JobPostComponent } from './components/jobpost-register/job-post.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { CompanyRegisterComponent } from './components/company-register/company-
     HeaderComponent,
     FooterComponent,
     RecruiterComponent,
-    CompanyRegisterComponent
+    CompanyRegisterComponent,
+    JobPostComponent
   ],
   imports: [
     CommonModule,
