@@ -1,11 +1,388 @@
 <div class="container-fluid">
     <candidate-header></candidate-header>
 
-    <div class="container">
+    <div class=" container header__container">
+        <div class="flex">
+            <div class="header__title">
+                <input type="text" class="header__input" placeholder="Tên CV">
+            </div>
+            <div class="header__tool">
+                <div class="header__preview-cv">
+                    <button class="btn-cv btn-cv--success btn-cv--fix-size is-plain">
+                        <i class="mr-8 fa-regular fa-eye"></i><span class="btn-cv__text">Xem trước</span></button>
+                </div>
+                <div>
+                    <button class="ml-20 mr-20 btn-cv btn-cv--success btn-cv--fix-size is-plain">
+                        <i class="mr-8 fa-solid fa-download"></i>
+                        <span class="btn-cv__text">Lưu và tải xuống</span>
+                    </button>
+                </div>
+                <div class="save-cv">
+                    <button class="save-cv save-cv__btn btn-cv btn-cv--success btn-cv--fix-size">
+                        <i class="save-cv__icon fa-solid fa-floppy-disk mr-8"></i>
+                        <span class="btn-cv__text">Lưu lại</span>
+                    </button>
+                </div>
+                <div class="confirm-modal">
+                    <div class="el-overlay" style="z-index: 2001; display: none;">
+                        <div class="el-overlay-dialog"><!--v-if--></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <ckeditor #editor [(ngModel)]="model.editorData" [editor]="Editor" (ready)="onReady($event)"></ckeditor>
+
+    <div class="container mb-5" [style.font-family]="fontCV">
+
+        <div class="container Header">
+
+            <div class="select" (change)="selectedFont($event)">
+                <select>
+                    <option value="Sans-serif">Sans-serif</option>
+                    <option value="Monospace">Monospace</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Courier">Courier</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Verdana">Verdana</option>
+                </select>
+            </div>
+
+            <div class="block-BackGroundCV">
+                <div class="">
+                    <label class="mr-4" data-v-d95532fe="">
+                        <i class="fa-solid fa-image mr-6" data-v-d95532fe=""></i>
+                        <span>Hình nền CV</span>
+                    </label><!--v-if-->
+                </div>
+                <div class="wrapModel">
+                    <div class="modelBackground">
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background0.jpg')">
+                            <img src="../../../../../assets/images/background0.jpg" alt="">
+                        </div>
+
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background1.jpg')">
+                            <img src="../../../../../assets/images/background1.jpg" alt="">
+                        </div>
+
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background2.webp')">
+                            <img src="../../../../../assets/images/background2.webp" alt="">
+                        </div>
+
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background3.webp')">
+                            <img src="../../../../../assets/images/background3.webp" alt="">
+                        </div>
+
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background4.webp')">
+                            <img src="../../../../../assets/images/background4.webp" alt="">
+                        </div>
+
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background5.webp')">
+                            <img src="../../../../../assets/images/background5.webp" alt="">
+                        </div>
+
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background6.webp')">
+                            <img src="../../../../../assets/images/background6.webp" alt="">
+                        </div>
+
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background7.webp')">
+                            <img src="../../../../../assets/images/background7.webp" alt="">
+                        </div>
+
+                        <div class="items" (click)="SelectedBackGround('../../../../../assets/images/background8.webp')">
+                            <img src="../../../../../assets/images/background8.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-        <button type="button" class="btn btn-primary mt-5" (click)="handleSave($event)">Save</button>
+
+        <!-- <ckeditor #editor [(ngModel)]="model.editorData" [editor]="Editor" (ready)="onReady($event)"></ckeditor>
+
+
+        <button type="button" class="btn btn-primary mt-5" (click)="handleSave($event)">Save</button> -->
+
+        <div class="conten-detail-cv">
+            <div class="col-4 p-3 block-left" [style.background-image]="'url('+ backgroudSelectedLink + ')'">
+                <div class="avatar-candidate">
+                    <div class="file-upload">
+                        <div class="image-upload-wrap" ng-hide="true" [style.display]="hideImage">
+                            <input class="file-upload-input" type='file' multiple=false (change)="getFile($event);"
+                                accept="image/*" />
+                            <div class="drag-text">
+                                <h3>Kéo thả ảnh hoặc chọn ảnh</h3>
+                            </div>
+                        </div>
+                        <div class="file-upload-content" [style.display]="displayImage">
+                            <img class="file-upload-image" [src]="fileSrc" alt="your image" />
+                            <div class="btn-Change-Image">
+                                <i class="fa-solid fa-plus file-upload-btn"
+                                    onclick="$('.file-upload-input').trigger( 'click' )"
+                                    [style.display]="displayChange"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Form Infor  -->
+                <div class="mt-3 form-info form-input-value">
+                    <!-- Header  -->
+                    <div>
+                        <input type="text" placeholder="Thông tin cá nhân" value="Thông tin cá nhân" disabled
+                            class="form-header-left width100">
+                    </div>
+                    <!-- Input Email  -->
+                    <div class="mt-1">
+                        <i class="fa-solid fa-envelope form-info-header-icon"></i>
+                        <input type="text" placeholder="Email" class="form-info-input">
+                    </div>
+                    <!-- Input Phone  -->
+                    <div class="mt-1">
+                        <i class="fa-solid fa-phone form-info-header-icon"></i>
+                        <input type="text" placeholder="Số điện thoại" class="form-info-input">
+                    </div>
+                    <!-- Input Media  -->
+                    <div class="mt-1">
+                        <i class="fa-solid fa-earth-americas form-info-header-icon"></i>
+                        <input type="text" placeholder="Link web" class="form-info-input">
+                    </div>
+                    <!-- Input Address  -->
+                    <div class="mt-1 d-flex">
+                        <i class="fa-solid fa-location-dot form-info-header-icon"></i>
+                        <textarea rows="2" maxlength="60" placeholder="Địa chỉ" class="form-info-input"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Skills  -->
+                <div class="mt-3 form-skills form-input-value">
+                    <!-- Header  -->
+                    <div>
+                        <input type="text" placeholder="Kỹ năng" value="Kỹ năng" disabled
+                            class="form-header-left width100">
+                    </div>
+
+                    <!-- Input Name Skills  -->
+                    <div class="mt-1">
+                        <input type="text" placeholder="Tên kỹ năng" class="form-info-input">
+                    </div>
+
+                    <!-- Input Describe Skills  -->
+                    <div class="mt-1">
+                        <textarea rows="4" maxlength="120" placeholder="Mô tả kỹ năng"
+                            class="form-info-input"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Certificates  -->
+                <div class="mt-3 form-Certificates form-input-value">
+                    <!-- Header  -->
+                    <div>
+                        <input type="text" placeholder="Chứng chỉ" value="Chứng chỉ" disabled
+                            class="form-header-left width100">
+                    </div>
+
+                    <!-- Input Time Certificates  -->
+                    <div class="mt-1">
+                        <input type="text" placeholder="Thời gian" class="form-info-input">
+                    </div>
+
+                    <!-- Input Name Certificates  -->
+                    <div class="mt-1">
+                        <textarea rows="2" maxlength="60" placeholder="Tên chứng chỉ"
+                            class="form-info-input"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Prizes  -->
+                <div class="mt-3 form-prizes form-input-value">
+                    <!-- Header  -->
+                    <div>
+                        <input type="text" placeholder="Giải thưởng" value="Giải thưởng" disabled
+                            class="form-header-left width100">
+                    </div>
+
+                    <!-- Input Time Prizes  -->
+                    <div class="mt-1">
+                        <input type="text" placeholder="Thời gian" class="form-info-input">
+                    </div>
+
+                    <!-- Input Name Prizes  -->
+                    <div class="mt-1">
+                        <textarea rows="2" maxlength="60" type="text" placeholder="Tên giải thưởng"
+                            class="form-info-input"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Other Skills  -->
+                <div class="mt-3 form-other-skills form-input-value">
+                    <!-- Header  -->
+                    <div>
+                        <input type="text" placeholder="Kỹ năng mềm" value="Kỹ năng mềm" disabled
+                            class="form-header-left width100">
+                    </div>
+
+                    <!-- Input Decribe Skills  -->
+                    <div class="mt-1">
+                        <textarea rows="5" maxlength="150" placeholder="miêu tả" class="form-info-input"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8 p-4 block-right">
+
+                <!-- Name and Position job -->
+                <div class="form-input-value">
+                    <!-- Header  Title-->
+                    <div>
+                        <input type="text" placeholder="Họ và tên" class="form-header-right mt-2">
+                    </div>
+
+                    <!-- Header -->
+                    <div>
+                        <input type="text" placeholder="Vị trí công việc" class="form-header-right mt-2">
+                    </div>
+                </div>
+
+                <!-- Form Target  -->
+                <div class="mt-3 form-input-value">
+                    <!-- Header Title -->
+                    <div>
+                        <input type="text" placeholder="Mục tiêu nghề nghiệp" value="Mục tiêu nghề nghiệp" disabled
+                            class="form-header-right mt-2">
+                    </div>
+
+                    <!-- Input Decribe Target  -->
+                    <div class="mt-1">
+                        <textarea rows="3" maxlength="200"
+                            placeholder="mục tiêu nghề nghiệp của bạn, bao gồm mục tiêu ngắn và dài hạn"
+                            class="input-side-right mt-2"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Experience  -->
+                <div class="mt-3 form-input-value">
+                    <!-- Header Title -->
+                    <div>
+                        <input type="text" placeholder="Kinh nghiệm việc làm" value="Kinh nghiệm việc làm" disabled
+                            class="form-header-right mt-2">
+                    </div>
+
+                    <!-- Header Experience  -->
+                    <div class="mt-1">
+                        <i class="fa-solid fa-suitcase"></i>
+                        <input type="text" placeholder="Vị trí công việc" class="form-info-input-right mt-2">
+                        <span>//</span>
+                        <input type="text" placeholder="Bắt đầu" class="form-info-input-right mt-2">
+                        <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2">
+                    </div>
+
+                    <div>
+                        <input type="text" placeholder="Tên công ty " class="form-info-input-right mt-2">
+                    </div>
+
+                    <div>
+                        <textarea rows="3" maxlength="200" placeholder="Mô tả kinh nghiệm việc làm của bạn"
+                            class="form-info-input-right width100 mt-2"></textarea>
+                    </div>
+
+                </div>
+
+                <!-- Form Project  -->
+                <div class="mt-3 form-input-value">
+                    <!-- Header Title -->
+                    <div>
+                        <input type="text" placeholder="Dự án" value="Dự án" disabled class="form-header-right mt-2">
+                    </div>
+
+                    <!-- Header Experience  -->
+                    <div class="mt-1">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        <input type="text" placeholder="Vị trí công việc" class="form-info-input-right mt-2">
+                        <span>//</span>
+                        <input type="text" placeholder="Bắt đầu" class="form-info-input-right mt-2">
+                        <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2">
+                    </div>
+
+                    <div>
+                        <input type="text" placeholder="Tên công ty" class="form-info-input-right mt-2">
+                    </div>
+
+                    <div>
+                        <textarea rows="3" maxlength="200" placeholder="Mô tả kinh nghiệm việc làm của bạn"
+                            class="form-info-input-right width100 mt-2"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Educations  -->
+                <div class="mt-3 form-input-value">
+                    <!-- Header Title -->
+                    <div>
+                        <input type="text" placeholder="Học vấn" value="Học vấn" disabled
+                            class="form-header-right mt-2">
+                    </div>
+
+                    <!-- Header Educations  -->
+                    <div class="mt-1">
+                        <i class="fa-solid fa-school"></i>
+                        <input type="text" placeholder="Ngành học - môn học " class="form-info-input-right mt-2">
+                        <span>//</span>
+                        <input type="text" placeholder="Bắt đầu" class="form-info-input-right mt-2">
+                        <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2">
+                    </div>
+
+                    <div>
+                        <input type="text" placeholder="Tên trường học" class="form-info-input-right mt-2">
+                    </div>
+
+                    <div>
+                        <textarea rows="3" maxlength="200" placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
+                            class="form-info-input-right width100 mt-2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </div>
+
+<script>
+    $(".custom-select").each(function () {
+        var classes = $(this).attr("class"),
+            id = $(this).attr("id"),
+            name = $(this).attr("name");
+        var template = '<div class="' + classes + '">';
+        template += '<span class="custom-select-trigger">' + $(this).attr("placeholder") + '</span>';
+        template += '<div class="custom-options">';
+        $(this).find("option").each(function () {
+            template += '<span class="custom-option ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
+        });
+        template += '</div></div>';
+
+        $(this).wrap('<div class="custom-select-wrapper"></div>');
+        $(this).hide();
+        $(this).after(template);
+    });
+    $(".custom-option:first-of-type").hover(function () {
+        $(this).parents(".custom-options").addClass("option-hover");
+    }, function () {
+        $(this).parents(".custom-options").removeClass("option-hover");
+    });
+    $(".custom-select-trigger").on("click", function () {
+        $('html').one('click', function () {
+            $(".custom-select").removeClass("opened");
+        });
+        $(this).parents(".custom-select").toggleClass("opened");
+        event.stopPropagation();
+    });
+    $(".custom-option").on("click", function () {
+        $(this).parents(".custom-select-wrapper").find("select").val($(this).data("value"));
+        $(this).parents(".custom-options").find(".custom-option").removeClass("selection");
+        $(this).addClass("selection");
+        $(this).parents(".custom-select").removeClass("opened");
+        $(t
+</script>

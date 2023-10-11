@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231010092508_update_job_2")]
+    partial class update_job_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,6 +287,9 @@ namespace APIServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(max)");
 
@@ -358,48 +363,27 @@ namespace APIServer.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("users");
 
                     b.HasData(
                         new
                         {
                             id = 1,
-                            createdDate = new DateTime(2023, 10, 10, 16, 38, 10, 465, DateTimeKind.Local).AddTicks(8853),
-                            dob = new DateTime(2023, 10, 10, 16, 38, 10, 465, DateTimeKind.Local).AddTicks(8839),
+                            createdDate = new DateTime(2023, 10, 10, 16, 25, 7, 806, DateTimeKind.Local).AddTicks(7649),
+                            dob = new DateTime(2023, 10, 10, 16, 25, 7, 806, DateTimeKind.Local).AddTicks(7633),
                             email = "admin@JMS.com",
                             fullName = "super admin",
                             isActive = true,
                             isDelete = false,
-                            lastUpdate = new DateTime(2023, 10, 10, 16, 38, 10, 465, DateTimeKind.Local).AddTicks(8854),
+                            lastUpdate = new DateTime(2023, 10, 10, 16, 25, 7, 806, DateTimeKind.Local).AddTicks(7649),
                             male = true,
                             password = "admin",
                             phoneNumber = "1234567890",
                             role = 0,
                             userName = "admin"
                         });
-                });
-
-            modelBuilder.Entity("APIServer.Models.Entity.UserFollowing", b =>
-                {
-                    b.Property<int>("UserFollowingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserFollowingId"), 1L, 1);
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserFollowingId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserFollowings");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.CurriculumVitae", b =>
@@ -457,23 +441,11 @@ namespace APIServer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("APIServer.Models.Entity.UserFollowing", b =>
+            modelBuilder.Entity("APIServer.Models.Entity.User", b =>
                 {
-                    b.HasOne("APIServer.Models.Entity.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("APIServer.Models.Entity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("User");
+                    b.HasOne("APIServer.Models.Entity.Company", null)
+                        .WithMany("Users")
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Category", b =>
@@ -486,6 +458,8 @@ namespace APIServer.Migrations
             modelBuilder.Entity("APIServer.Models.Entity.Company", b =>
                 {
                     b.Navigation("JobPosts");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.User", b =>

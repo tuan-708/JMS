@@ -14,6 +14,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+
 @NgModule({
   declarations: [
     CandidateComponent,

@@ -10,6 +10,9 @@ namespace APIServer.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<CurriculumVitae> CurriculumVitaes { get; set; }
         public DbSet<JobPost> JobPosts { get; set; }
+        public DbSet<CVApply> CVApplies { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<UserFollowing> UserFollowings { get; set; }
 
         public JMSDBContext(DbContextOptions options) : base(options)
         {

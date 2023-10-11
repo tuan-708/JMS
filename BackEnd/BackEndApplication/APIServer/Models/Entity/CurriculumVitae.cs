@@ -26,6 +26,5 @@ namespace APIServer.Models.Entity
         public bool IsDelete { get; set; }
         public int? CategoryId { get; set; }
         public virtual Category? Category { get; set; }
-        public virtual ICollection<JobPost>? JobPosts { get; set; }
     }
 }
