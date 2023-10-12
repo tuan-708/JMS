@@ -11,8 +11,9 @@ import { CandidateHomeComponent } from './components/home/home.component';
 import { CandidateForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { CandidateCreateCvComponent } from './components/create-cv/create-cv.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule  } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     CadidateRoutingModule,
     CKEditorModule,
     FormsModule,
-    DragDropModule
+    DragDropModule,
   ]
 })
 export class CandidateModule { }
