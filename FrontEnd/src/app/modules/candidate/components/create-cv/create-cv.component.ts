@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
 import DecoupledEditor from 'ckeditor5-custom-build/build/ckeditor';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
+import { themeList } from './constant';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-cv',
@@ -49,9 +51,16 @@ export class CandidateCreateCvComponent {
   hideImage = "block"
   displayImage = "none"
   displayChange = "none"
+  apiURL = environment.apiUrl;
   fileSrc: any;
   fontCV = "Sans-serif"
-  backgroudSelectedLink = "../../../../../assets/images/background0.jpg" ;
+
+  colorLeftHeader = "#FFFFFF"
+  colorRightHeader = "#111111"
+  colorLeftInput = "#FFFFFF"
+  ThemStyle = "ThemeDefault"
+  backgroudSelectedLink = `${environment.apiUrl}/assets/images/themeDefault.jpg`
+
 
 
   getFile(event: any){
@@ -75,9 +84,13 @@ export class CandidateCreateCvComponent {
     // console.log(event.target.value);
   }
 
-  SelectedBackGround(value:any){
-    this.backgroudSelectedLink = value;
-    console.log(value)
+  SelectedBackGround(value : any){
+    this.colorLeftHeader = themeList[value].colorLeftHeader
+    this.colorRightHeader = themeList[value].colorRightHeader
+    this.colorLeftInput = themeList[value].colorLeftInput
+    this.ThemStyle = themeList[value].ThemStyle
+    this.backgroudSelectedLink = themeList[value].backgroudSelectedLink
+    
   }
 
 }

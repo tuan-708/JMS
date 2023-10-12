@@ -19,7 +19,6 @@
     border-radius: .25em;
     overflow: hidden;
     align-self: center;
-    border-right: 1px #ccc solid;
 }
 
 
@@ -260,9 +259,8 @@ textarea {
     animation: linear 0.5;
 }
 
-.form-header-left {
+.form-left--header {
     background-color: transparent;
-    color: var(--surface-primary);
     font-size: large;
     outline: none;
     font-weight: 700;
@@ -271,22 +269,92 @@ textarea {
     max-width: 400px;
 }
 
-/* .form-header-left:hover {
-    border: 2px #ccc dotted;
-} */
-
-.form-info-header-icon {
-    color: var(--surface-primary);
-}
-
-::placeholder {
-    color: #deabad;
+.ThemeDefault::placeholder{
+    color: #eebaba;
     opacity: 1;
-    /* Firefox */
 }
+
+.ThemeDefault{
+    color: #eebaba;
+}
+
+.Theme1::placeholder{
+    color: #444444;
+    opacity: 1;
+}
+
+.Theme1{
+    color: #444444;
+}
+
+.Theme2::placeholder{
+    color: #FF6666;
+    opacity: 1;
+}
+
+.Theme2{
+    color: #FF6666;
+}
+
+.Theme3::placeholder{
+    color: #888888;
+    opacity: 1;
+}
+
+.Theme3{
+    color: #888888;
+}
+
+
+.Theme4::placeholder{
+    color: #888888;
+    opacity: 1;
+}
+
+.Theme4{
+    color: #888888;
+}
+
+.Theme5::placeholder{
+    color: #888888;
+    opacity: 1;
+}
+
+.Theme5{
+    color: #888888;
+}
+
+.Theme6::placeholder{
+    color: #888888;
+    opacity: 1;
+}
+
+.Theme6{
+    color: #888888;
+}
+
+.Theme7::placeholder{
+    color: #888888;
+    opacity: 1;
+}
+
+.Theme7{
+    color: #888888;
+}
+
+.Theme8::placeholder{
+    color: #888888;
+    opacity: 1;
+}
+
+.Theme8{
+    color: #888888;
+}
+
+
+
 
 .form-info-input {
-    color: var(--surface-primary);
     background-color: transparent;
     outline: none;
     font-size: medium;
@@ -300,19 +368,14 @@ textarea {
 }
 
 /* ----------------------------------- */
-.form-header-right {
+.form-right--header {
     outline: none;
     width: 100%;
     font-size: large;
     font-weight: 700;
     padding: 3;
     text-transform: uppercase;
-    color: var(--text-primary);
     background-color: transparent;
-}
-
-.form-header-right:hover {
-    border: 2px #ccc dotted;
 }
 
 .input-side-right {
@@ -385,14 +448,17 @@ textarea {
 }
 
 .image-upload-wrap {
-    border: 2px dashed #deabad;
+    border-width: 2px;
+    border-style: dashed;
+    /* border-color: 
+     #deabad; */
     position: relative;
 }
 
 .image-dropping,
 .image-upload-wrap:hover {
-    opacity: 0.7;
-    border: 2px dashed #ffffff;
+    opacity: 0.8;
+    border: 2px dashed;
 }
 
 .image-title-wrap {
@@ -407,7 +473,6 @@ textarea {
 .drag-text h3 {
     font-weight: 100;
     text-transform: uppercase;
-    color: #deabad;
     padding: 60px 0;
 }
 
