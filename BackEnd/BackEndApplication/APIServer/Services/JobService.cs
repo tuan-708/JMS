@@ -3,7 +3,6 @@ using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
 using OpenAI_API;
-using OpenAI_API.Completions;
 
 namespace APIServer.Services
 {
@@ -40,26 +39,29 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public async Task<string> GetResult(string prompt, IConfiguration configuration)
+        public  string GetResult(string prompt, IConfiguration configuration)
         {
             string apiKey = Validation.readKey();
             string answer = string.Empty;
             var openai = new OpenAIAPI(apiKey);
             CompletionRequest completion = new CompletionRequest();
             completion.Prompt = prompt;
-            completion.Model = OpenAI_API.Models.Model.DavinciText;
-            completion.MaxTokens = 1000;
-            completion.Temperature = 0;
-            var result = await openai.Completions.CreateCompletionAsync(completion);
+            completion.Model = OpenAI_API.Model.DavinciText;
+            completion.MaxTokens = 4000;
+            //completion.Temperature = 0.2;
+            var result = openai.Completions.CreateCompletionAsync(completion);
 
-            if (result != null && result.Completions.Count > 0)
+            if (result != null)
             {
-                answer = result.Completions[0].Text.Trim();
-                return Validation.processStringGpt(answer);
+                foreach (var item in result.Result.Completions)
+                {
+                    answer = item.Text;
+                }
+                return answer;
             }
             else
             {
-                return null;
+                return "not found";
             }
         }
 
@@ -97,6 +99,11 @@ namespace APIServer.Services
         public int CreateById(JobPost data, int id)
         {
             throw new NotImplementedException();
+        }
+
+        public JobPost? GetById(int id)
+        {
+            return context.GetById(id);
         }
     }
 }

@@ -19,7 +19,8 @@ namespace APIServer.MappingObj
             CreateMap<JobDTO, JobPost>();
             CreateMap<JobPost, JobDTO>()
                 .ForMember(x => x.status, src => src.MapFrom(src => src.status.ToString()));
-            CreateMap<CurriculumVitaeDTO, CurriculumVitae>();
+            CreateMap<CurriculumVitaeDTO, CurriculumVitae>()
+                .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)));
             CreateMap<CurriculumVitae, CurriculumVitaeDTO>()
                 .ForMember(x => x.UserId, src => src.MapFrom(src => src.User != null ? src.User.id : 0));
         }

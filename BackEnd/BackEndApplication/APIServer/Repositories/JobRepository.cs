@@ -59,7 +59,7 @@ namespace APIServer.Repositories
 
         public JobPost GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.JobPosts.FirstOrDefault(x => x.JobId == id);
         }
 
         public int Update(JobPost data)
