@@ -49,14 +49,14 @@ namespace APIServer.Controllers.RecuirterModule
         {
             try
             {
-                string prompt = @"tóm tắt thông tin dưới đây dưới dạng JSON object, với tên property chỉ bao gồm: jobDescription, jobRequirment,  address 
-                    (Không thểm thắt, nếu property nào không có dữ liệu hãy để giá trị null) nội dung là nội dung trong thông tin, yêu cầu chính xác, ngắn gọn, không dài dòng, 
-                    và tất cả đều là text nếu có xuống dòng hãy gộp đến khi thông tin còn 1 dòng và bỏ các dấu hiệu của dòng đó thay bằng dấu phẩy, không được chứa thêm 
-                    property nhỏ bên trong, tối đa và không được vượt quá 1500 chữ cái cho json object, chỉ yêu cầu đáp án
-                    không cần phải giải thích hoặc có bất kì kí tự nào khác ngoài json object đã yêu cầu, nếu không đáp ứng được phải làm lại:";
+                //string prompt = @"tóm tắt thông tin dưới đây dưới dạng JSON object, với tên property chỉ bao gồm: jobDescription, jobRequirment,  address 
+                //    (Không thểm thắt, nếu property nào không có dữ liệu hãy để giá trị null) nội dung là nội dung trong thông tin, yêu cầu chính xác, ngắn gọn, không dài dòng, 
+                //    và tất cả đều là text nếu có xuống dòng hãy gộp đến khi thông tin còn 1 dòng và bỏ các dấu hiệu của dòng đó thay bằng dấu phẩy, không được chứa thêm 
+                //    property nhỏ bên trong, tối đa và không được vượt quá 1500 chữ cái cho json object, chỉ yêu cầu đáp án
+                //    không cần phải giải thích hoặc có bất kì kí tự nào khác ngoài json object đã yêu cầu, nếu không đáp ứng được phải làm lại:";
                 var job = _mapper.Map<JobPost>(jobDTO);
-                string response = _jobService.GetResult(prompt + " jobDescription:" + job.JobDescription + ". jobRequirment:" + job.JobRequirement + ". address:" + job.Address, _config);
-                job.Summary = response;
+                //string response = await _jobService.GetResult(prompt + " jobDescription:" + job.JobDescription + ". jobRequirment:" + job.JobRequirement + ". address:" + job.Address, _config);
+                //job.Summary = response;
                 _jobService.CreateNewPost(job, jobDTO.UserId);
                 return new BaseResponseBody<string>
                 {
@@ -76,12 +76,11 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet("matching-job")]
-        public async Task<BaseResponseBody<List<CurriculumVitaeDTO>>> MatchingJob(int id)
+        public BaseResponseBody<List<CurriculumVitaeDTO>> MatchingJob(int jobPostId)
         {
-            int delayBetweenRequestsMs = 4000;
             try
             {
-                JobPost? job = _jobService.GetById(id);
+                JobPost? job = _jobService.GetById(jobPostId);
                 List<CurriculumVitae> curriculumVitaes = _curriculumVitaeService.getAll();
                 List<CurriculumVitae> recommentedCurriculumVitaes = new List<CurriculumVitae>();
                 if(job != null)
@@ -95,6 +94,7 @@ namespace APIServer.Controllers.RecuirterModule
 
                         prompt += ". Người ứng tuyển và yêu cầu của nhà tuyển dụng có đáp ứng cho nhau về mặt công việc cũng như chuyên ngành hay không , chỉ trả lời " +
                         "True or False , nếu True thì trả về thêm số CVId với format là True.CVId = ___";
+
                         string response = _jobService.GetResult(prompt, _config);
                         if (response.Contains("true"))
                         {
@@ -104,7 +104,6 @@ namespace APIServer.Controllers.RecuirterModule
                                 recommentedCurriculumVitaes.Add(recommentedCurriculumVitae);
                             }
                         }
-                            await Task.Delay(delayBetweenRequestsMs);
                     }
                 }
                 var rs = _mapper.Map<List<CurriculumVitaeDTO>>(recommentedCurriculumVitaes);
