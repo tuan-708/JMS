@@ -16,7 +16,8 @@ namespace APIServer.Repositories
 
         public int Create(JobDescription data)
         {
-            throw new NotImplementedException();
+            _context.JobDescriptions.Add(data);
+            return _context.SaveChanges();
         }
 
         public int CreateById(JobDescription data, int id)
@@ -26,12 +27,27 @@ namespace APIServer.Repositories
 
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+            var job = _context.JobDescriptions.FirstOrDefault(x => x.JobId == id);
+            if (job == null)
+            {
+                throw new NullReferenceException("JD not exist");
+            }
+            job.IsDelete = true;
+            _context.JobDescriptions.Update(job);
+            return _context.SaveChanges();
         }
 
         public List<JobDescription> GetAll()
         {
-            throw new NotImplementedException();
+            var rs = _context.JobDescriptions
+                .Include(x => x.Recuirter)
+                .Include(x => x.PositionTitles)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Company)
+                .Include(x => x.Category)
+                .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now)
+                .ToList();
+            return rs;
         }
 
         public List<JobDescription> GetAllById(int id)
@@ -41,12 +57,20 @@ namespace APIServer.Repositories
 
         public JobDescription GetById(int id)
         {
-            throw new NotImplementedException();
+            var rs = _context.JobDescriptions
+                .Include(x => x.Recuirter)
+                .Include(x => x.PositionTitles)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Company)
+                .Include(x => x.Category)
+                .FirstOrDefault(x => !x.IsDelete && x.ExpiredDate > DateTime.Now && x.JobId == id);
+            return rs;
         }
 
         public int Update(JobDescription data)
         {
-            throw new NotImplementedException();
+            _context.JobDescriptions.Update(data);
+            return _context.SaveChanges();  
         }
     }
 }
