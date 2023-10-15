@@ -22,8 +22,8 @@ namespace APIServer.Repositories
 
         public int CreateById(CurriculumVitae data, int id)
         {
-            User user = _context.users.FirstOrDefault(x => x.id == id);
-            data.User = user;
+            //Recuirter user = _context.users.FirstOrDefault(x => x.id == id);
+            //data.User = user;
             _context.Add(data);
             return _context.SaveChanges();
         }
@@ -46,7 +46,8 @@ namespace APIServer.Repositories
 
         public List<CurriculumVitae> GetAllById(int id)
         {
-            return _context.CurriculumVitaes.Where(x => x.User != null ? x.User.id == id : x.User == null).ToList();
+            return null;
+            //return _context.CurriculumVitaes.Where(x => x.User != null ? x.User.id == id : x.User == null).ToList();
         }
 
         public CurriculumVitae GetById(int id)

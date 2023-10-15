@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231015032312_update_db_3")]
+    partial class update_db_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,10 +39,6 @@ namespace APIServer.Migrations
 
                     b.Property<int?>("CurriculumVitaeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("FromYear")
                         .HasColumnType("int");
@@ -240,10 +238,6 @@ namespace APIServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<int?>("CandidateId")
                         .HasColumnType("int");
 
@@ -313,9 +307,6 @@ namespace APIServer.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ApplyDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Award")
                         .HasColumnType("nvarchar(max)");
@@ -462,6 +453,29 @@ namespace APIServer.Migrations
                     b.ToTable("EmploymentTypes");
                 });
 
+            modelBuilder.Entity("APIServer.Models.Entity.Following", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CandidateId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CandidateId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Followings");
+                });
+
             modelBuilder.Entity("APIServer.Models.Entity.JobDescription", b =>
                 {
                     b.Property<int>("JobId")
@@ -563,18 +577,11 @@ namespace APIServer.Migrations
                     b.Property<int?>("CurriculumVitaeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
                     b.Property<int?>("EmploymentTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FromDate")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -584,10 +591,8 @@ namespace APIServer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ToDate")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -884,6 +889,21 @@ namespace APIServer.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Recuirter");
+                });
+
+            modelBuilder.Entity("APIServer.Models.Entity.Following", b =>
+                {
+                    b.HasOne("APIServer.Models.Entity.Candidate", "Candidate")
+                        .WithMany()
+                        .HasForeignKey("CandidateId");
+
+                    b.HasOne("APIServer.Models.Entity.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.JobDescription", b =>

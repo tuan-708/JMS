@@ -21,6 +21,9 @@ namespace APIServer.Models.Entity
         public int? TotalFollower { get; set; }
         public string? WebURL { get; set; }
         public bool IsDelete { get; set; }
-        public virtual ICollection<JobPost> JobPosts { get; set; }
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
+        public virtual ICollection<EmployeeInCompany>? EmployeeInCompanies { get; set; } 
+        public virtual ICollection<JobDescription>? JobDescriptions { get; set; }
     }
 }

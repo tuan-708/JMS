@@ -15,7 +15,7 @@ namespace APIServer
     public class Program
     {
         public static void Main(string[] args)
-        {
+       {
             var builder = WebApplication.CreateBuilder(args);
 
             var allowFE = "_AllowFrontEndClient";
@@ -115,7 +115,7 @@ namespace APIServer
         {
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
-            builder.Services.AddTransient<IBaseRepository<JobPost>, JobRepository>();
+            builder.Services.AddTransient<IBaseRepository<JobDescription>, JobRepository>();
             builder.Services.AddTransient<IJobService, JobService>();
             builder.Services.AddTransient<IBaseRepository<CurriculumVitae>, CurriculumVitaeRepository>();
             builder.Services.AddTransient<ICurriculumVitaeService, CurriculumVitaeService>();

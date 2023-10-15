@@ -4,16 +4,16 @@ using APIServer.Models.Entity;
 
 namespace APIServer.IServices
 {
-    public interface IUserService : IBaseService<User>
+    public interface IUserService : IBaseService<Recuirter>
     {
-        public User Login(string? username, string? password);
-        public int CreateAdminAccount(User? account, int? adminId);
-        public string generateToken(User? userInfo, IConfiguration _configuration);
+        public Recuirter Login(string? username, string? password);
+        public int CreateAdminAccount(Recuirter? account, int? adminId);
+        public string generateToken(Recuirter? userInfo, IConfiguration _configuration);
         public string generateRefreshToken();
-        public User getById(int? id);
+        public Recuirter getById(int? id);
         public TokenModel regenerateToken(TokenModel? expiredToken, IConfiguration _configuration);
         public void revokeToken(TokenModel? token);
-        public int CreateCandidateAccount(User? account);
+        public int CreateCandidateAccount(Recuirter? account);
 
         public void CreateCandidateCV(CurriculumVitae curriculumVitae);
     }
