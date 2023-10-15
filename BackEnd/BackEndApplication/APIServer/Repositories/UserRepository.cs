@@ -8,15 +8,19 @@ namespace APIServer.Repositories
     {
         public JMSDBContext context { get; set; }
 
-        public UserRepository(JMSDBContext context)
+        public bool checkExistUserNameEmail(string username, string email)
         {
-            this.context = context;
+            throw new NotImplementedException();
         }
 
-        public int Create(User data)
+        public int Create(Recuirter data)
         {
-            context.users.Add(data);
-            return context.SaveChanges();
+            throw new NotImplementedException();
+        }
+
+        public int CreateById(Recuirter data, int id)
+        {
+            throw new NotImplementedException();
         }
 
         public int Delete(int id)
@@ -24,57 +28,32 @@ namespace APIServer.Repositories
             throw new NotImplementedException();
         }
 
-        public List<User> GetAll()
-        {
-            return context.users.ToList();
-        }
-
-        public User GetById(int id)
-        {
-            return context.users
-                .Where(x => x.isDelete == false)
-                .FirstOrDefault(x => x.id == id);
-        }
-
-        public User Login(string? username, string? password)
-        {
-            return context.users
-                .Where(x => x.isActive == true && 
-                x.isDelete == false &&
-                x.userName == username && 
-                x.password == password)
-                .FirstOrDefault();
-        }
-
-        public int Update(User data)
-        {
-            context.users.Update(data);
-            return context.SaveChanges();
-        }
-
-        public User findByUserName(string? username)
-        {
-            return context.users
-                .Where(x => x.isActive == true &&
-                x.isDelete == false &&
-                x.userName == username)
-                .FirstOrDefault();
-        }
-
-        public bool checkExistUserNameEmail(string username, string email)
-        {
-            var acc = context.users
-                .Where(x => x.userName.ToLower() == username.ToLower() ||
-                x.email.ToLower() == email.ToLower()).ToArray();
-            return acc.Length > 0;
-        }
-
-        public List<User> GetAllById(int id)
+        public Recuirter findByUserName(string? username)
         {
             throw new NotImplementedException();
         }
 
-        public int CreateById(User data, int id)
+        public List<Recuirter> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Recuirter> GetAllById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Recuirter GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Recuirter Login(string? username, string? password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Update(Recuirter data)
         {
             throw new NotImplementedException();
         }

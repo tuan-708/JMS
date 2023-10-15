@@ -57,7 +57,7 @@ namespace APIServer.Controllers.UserModule
         {
             try
             {
-                var user = _mapper.Map<User>(userDto);
+                var user = _mapper.Map<Recuirter>(userDto);
                 _userService.CreateCandidateAccount(user);
                 return new BaseResponseBody<string>
                 {

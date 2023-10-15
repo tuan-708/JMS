@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231015030834_update_db_1")]
+    partial class update_db_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,10 +238,6 @@ namespace APIServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<int?>("CandidateId")
                         .HasColumnType("int");
 
@@ -455,6 +453,29 @@ namespace APIServer.Migrations
                     b.ToTable("EmploymentTypes");
                 });
 
+            modelBuilder.Entity("APIServer.Models.Entity.Following", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CandidateId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CandidateId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("UserFollowings");
+                });
+
             modelBuilder.Entity("APIServer.Models.Entity.JobDescription", b =>
                 {
                     b.Property<int>("JobId")
@@ -511,6 +532,9 @@ namespace APIServer.Migrations
                     b.Property<string>("OtherInformation")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PositionTitleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProjectRequirement")
                         .HasColumnType("nvarchar(max)");
 
@@ -536,9 +560,11 @@ namespace APIServer.Migrations
 
                     b.HasIndex("EmploymentTypeId");
 
+                    b.HasIndex("PositionTitleId");
+
                     b.HasIndex("RecuirterId");
 
-                    b.ToTable("JobDescriptions");
+                    b.ToTable("JobPosts");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.JobExperience", b =>
@@ -711,7 +737,7 @@ namespace APIServer.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Recuirters");
+                    b.ToTable("Recuirter");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Role", b =>
@@ -760,19 +786,19 @@ namespace APIServer.Migrations
                     b.ToTable("Skills");
                 });
 
-            modelBuilder.Entity("JobDescriptionPositionTitle", b =>
+            modelBuilder.Entity("CandidateCompany", b =>
                 {
-                    b.Property<int>("JobDescriptionsJobId")
+                    b.Property<int>("CandidatesFollowingId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PositionTitlesId")
+                    b.Property<int>("CompaniesFollowCompanyId")
                         .HasColumnType("int");
 
-                    b.HasKey("JobDescriptionsJobId", "PositionTitlesId");
+                    b.HasKey("CandidatesFollowingId", "CompaniesFollowCompanyId");
 
-                    b.HasIndex("PositionTitlesId");
+                    b.HasIndex("CompaniesFollowCompanyId");
 
-                    b.ToTable("JobDescriptionPositionTitle");
+                    b.ToTable("CandidateCompany");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Award", b =>
@@ -870,6 +896,21 @@ namespace APIServer.Migrations
                     b.Navigation("Recuirter");
                 });
 
+            modelBuilder.Entity("APIServer.Models.Entity.Following", b =>
+                {
+                    b.HasOne("APIServer.Models.Entity.Candidate", "Candidate")
+                        .WithMany()
+                        .HasForeignKey("CandidateId");
+
+                    b.HasOne("APIServer.Models.Entity.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("APIServer.Models.Entity.JobDescription", b =>
                 {
                     b.HasOne("APIServer.Models.Entity.Category", "Category")
@@ -884,6 +925,10 @@ namespace APIServer.Migrations
                         .WithMany()
                         .HasForeignKey("EmploymentTypeId");
 
+                    b.HasOne("APIServer.Models.Entity.PositionTitle", "PositionTitle")
+                        .WithMany("JobDescriptions")
+                        .HasForeignKey("PositionTitleId");
+
                     b.HasOne("APIServer.Models.Entity.Recuirter", "Recuirter")
                         .WithMany()
                         .HasForeignKey("RecuirterId");
@@ -893,6 +938,8 @@ namespace APIServer.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("EmploymentType");
+
+                    b.Navigation("PositionTitle");
 
                     b.Navigation("Recuirter");
                 });
@@ -939,17 +986,17 @@ namespace APIServer.Migrations
                     b.Navigation("CurriculumVitae");
                 });
 
-            modelBuilder.Entity("JobDescriptionPositionTitle", b =>
+            modelBuilder.Entity("CandidateCompany", b =>
                 {
-                    b.HasOne("APIServer.Models.Entity.JobDescription", null)
+                    b.HasOne("APIServer.Models.Entity.Candidate", null)
                         .WithMany()
-                        .HasForeignKey("JobDescriptionsJobId")
+                        .HasForeignKey("CandidatesFollowingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("APIServer.Models.Entity.PositionTitle", null)
+                    b.HasOne("APIServer.Models.Entity.Company", null)
                         .WithMany()
-                        .HasForeignKey("PositionTitlesId")
+                        .HasForeignKey("CompaniesFollowCompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -988,6 +1035,8 @@ namespace APIServer.Migrations
                     b.Navigation("CVApplies");
 
                     b.Navigation("CurriculumVitaes");
+
+                    b.Navigation("JobDescriptions");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Recuirter", b =>

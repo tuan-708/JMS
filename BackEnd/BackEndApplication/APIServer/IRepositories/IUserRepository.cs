@@ -2,10 +2,10 @@
 
 namespace APIServer.IRepositories
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface IUserRepository : IBaseRepository<Recuirter>
     {
-        public User Login(string? username, string? password);
-        public User findByUserName(string? username);
+        public Recuirter Login(string? username, string? password);
+        public Recuirter findByUserName(string? username);
         public bool checkExistUserNameEmail(string username, string email);
     }
 }
