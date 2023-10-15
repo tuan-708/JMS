@@ -15,9 +15,9 @@ namespace APIServer.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRecuirterRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IRecuirterRepository userRepository)
         {
             _userRepository = userRepository;
         }
