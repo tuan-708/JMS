@@ -19,11 +19,12 @@ Environment.NewLine;
                 {
                     foreach (var e in cv.JobExperiences)
                     {
-                        var str = processStr(e.Description);
-                        foreach (var s in str)
-                        {
-                            prompt += "Vế 1: '" + o + "' và Vế 2: '" + e.ToString() + s.Trim() + "' " + Environment.NewLine;
-                        }
+                        //var str = processStr(e.Description);
+                        //foreach (var s in str)
+                        //{
+                        //    prompt += "Vế 1: '" + o + "' và Vế 2: '" + e.ToString() + s.Trim() + "' " + Environment.NewLine;
+                        //}
+                        prompt += "Vế 1: '" + o + "' và Vế 2: '" + e.ToString() + "' " + Environment.NewLine;
                     }
                 }
             }

@@ -9,6 +9,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OpenAI_API;
 using System.Net;
 
 namespace APIServer.Controllers.RecuirterModule
@@ -79,7 +80,7 @@ namespace APIServer.Controllers.RecuirterModule
 
         [HttpGet]
         [Route("test-prompt")]
-        public IActionResult getTest()
+        public async Task<IActionResult> getTest()
         {
             var job = context.JobDescriptions
                .Include(x => x.Recuirter)
@@ -97,7 +98,49 @@ namespace APIServer.Controllers.RecuirterModule
                 .Include(x => x.Awards)
                 .FirstOrDefault();
             var rs = GPT_PROMPT.MATCHING_FOR_RECUITER(job, cv);
-            return Ok(rs);
+            rs = _jobService.GetResult(rs);
+            var str = await GetResult1(rs);
+            return Ok(str);
+        }
+
+        [HttpGet("test-cv")]
+        public IActionResult test1()
+        {
+            var cv = context.CurriculumVitaes
+                .Include(x => x.JobExperiences)
+                .Include(x => x.Skills)
+                .Include(x => x.Educations)
+                .Include(x => x.Projects)
+                .Include(x => x.Certificates)
+                .Include(x => x.Awards)
+                .FirstOrDefault();
+            return Ok(cv);
+        }
+
+        private async Task<string> GetResult1(string prompt)
+        {
+            string apiKey = Validation.readKey();
+            string answer = string.Empty;
+            var openai = new OpenAIAPI(apiKey);
+            CompletionRequest completion = new CompletionRequest();
+            completion.Prompt = prompt;
+            completion.Model = OpenAI_API.Model.DavinciText;
+            completion.MaxTokens = 500;
+            completion.Temperature = 0;
+            var result = await openai.Completions.CreateCompletionAsync(completion);
+
+            if (result != null)
+            {
+                foreach (var item in result.Completions)
+                {
+                    answer = item.Text;
+                }
+                return answer;
+            }
+            else
+            {
+                return "not found";
+            }
         }
     }
 }
