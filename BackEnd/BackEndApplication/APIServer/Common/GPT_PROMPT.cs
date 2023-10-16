@@ -1,4 +1,4 @@
-﻿using APIServer.Models.Entity;
+using APIServer.Models.Entity;
 
 namespace APIServer.Common
 {
