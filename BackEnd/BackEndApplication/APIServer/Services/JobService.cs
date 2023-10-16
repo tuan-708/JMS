@@ -17,7 +17,7 @@ namespace APIServer.Services
         {
             throw new NotImplementedException();
         }
-
+        
         public int CreateNewPost(JobDescription jobPost, int? userId)
         {
             throw new NotImplementedException();
@@ -38,7 +38,7 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public Task<string> GetResult(string prompt, IConfiguration configuration)
+        public JobDescription? GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -48,9 +48,30 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public JobPost? GetById(int id)
+        public string GetResult(string prompt)
         {
-            return context.GetById(id);
+            string apiKey = Validation.readKey();
+            string answer = string.Empty;
+            var openai = new OpenAIAPI(apiKey);
+            CompletionRequest completion = new CompletionRequest();
+            completion.Prompt = prompt;
+            completion.Model = OpenAI_API.Model.DavinciText;
+            completion.MaxTokens = 1000;
+            completion.Temperature = 0;
+            var result = openai.Completions.CreateCompletionAsync(completion);
+
+            if (result != null)
+            {
+                foreach (var item in result.Result.Completions)
+                {
+                    answer = item.Text;
+                }
+                return answer;
+            }
+            else
+            {
+                return "not found";
+            }
         }
     }
 }

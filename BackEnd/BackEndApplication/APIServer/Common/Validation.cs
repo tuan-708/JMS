@@ -63,5 +63,16 @@ namespace APIServer.Common
                 return null;
             }
         }
+
+        public static int CalculateAge(DateTime ngaySinh)
+        {
+            DateTime ngayHienTai = DateTime.Now;
+            int tuoi = ngayHienTai.Year - ngaySinh.Year;
+            if (ngayHienTai.Month < ngaySinh.Month || (ngayHienTai.Month == ngaySinh.Month && ngayHienTai.Day < ngaySinh.Day))
+            {
+                tuoi--;
+            }
+            return tuoi;
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace APIServer.Repositories
 
         public List<JobDescription> GetAllById(int id)
         {
-            return _context.JobPosts.FirstOrDefault(x => x.JobId == id);
+            return _context.JobDescriptions.Where(x => x.JobId == id).ToList();
         }
 
         public JobDescription GetById(int id)

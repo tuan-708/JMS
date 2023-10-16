@@ -113,7 +113,7 @@ namespace APIServer
 
         private static void configurationInterfce(WebApplicationBuilder builder)
         {
-            builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddTransient<IRecuirterService, RecuirterService>();
             builder.Services.AddTransient<IRecuirterRepository, RecuirterRepository>();
             builder.Services.AddTransient<IBaseRepository<JobDescription>, JobRepository>();
             builder.Services.AddTransient<IJobService, JobService>();

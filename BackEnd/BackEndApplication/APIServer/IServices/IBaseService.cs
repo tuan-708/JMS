@@ -9,6 +9,5 @@
         public int Create(T data);
         public int CreateById(T data, int id);
         public T? GetById(int id);
-        public string GetResult(string prompt, IConfiguration configuration);
     }
 }
