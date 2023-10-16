@@ -27,7 +27,6 @@ namespace APIServer.Controllers.UserModule
         [HttpGet]
         [Route("View/{id}")]
         //[Authorize(Roles = $"{GlobalStrings.ROLE_ADMIN}")]
-        //[Authorize(Roles = $"{GlobalStrings.ROLE_ADMIN}")]
         public BaseResponseBody<UserDTO> getById(int id)
         {
             try
