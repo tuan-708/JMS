@@ -75,7 +75,7 @@ namespace APIServer.Controllers.CandidateModule
         }
 
         [HttpGet("matching-job")]
-        public BaseResponseBody<string> MatchingJob(int id)
+        public async Task<BaseResponseBody<string>> MatchingJob(int id)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace APIServer.Controllers.CandidateModule
                 //prompt += prompt + "người ứng tuyển và yêu cầu của từng công ty có đáp ứng cho nhau về mặt công việc cũng như chuyên ngành hay không , chỉ trả lời " +
                 //    "True or False và Percent of matching tương ứng cho từng jobId";
                 var prompt = "say something";
-                string response = _jobService.GetResult(prompt);
+                string response = await _jobService.GetResult(prompt);
                 return new BaseResponseBody<string>
                 {
                     data = response,

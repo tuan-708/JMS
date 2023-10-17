@@ -5,6 +5,6 @@ namespace APIServer.IServices
     public interface IJobService : IBaseService<JobDescription>
     {
         public int CreateNewPost(JobDescription jobPost, int? userId);
-        public string GetResult(string prompt);
+        public Task<string> GetResult(string prompt);
     }
 }

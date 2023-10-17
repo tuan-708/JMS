@@ -3,6 +3,9 @@ using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
 using OpenAI_API;
+using OpenAI_API.Chat;
+using OpenAI_API.Completions;
+using OpenAI_API.Models;
 
 namespace APIServer.Services
 {
@@ -49,25 +52,29 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public string GetResult(string prompt)
+        public async Task<string> GetResult(string prompt)
         {
             string apiKey = Validation.readKey();
-            string answer = string.Empty;
-            var openai = new OpenAIAPI(apiKey);
-            CompletionRequest completion = new CompletionRequest();
-            completion.Prompt = prompt;
-            completion.Model = OpenAI_API.Model.DavinciText;
-            completion.MaxTokens = 1000;
-            completion.Temperature = 0;
-            var result = openai.Completions.CreateCompletionAsync(completion);
+            var api = new OpenAIAPI(apiKey);
+            var result = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
+            {
+                Model = Model.GPT4,
+                Temperature = 0f,
+                MaxTokens = 50,
+                Messages = new ChatMessage[] {
+            new ChatMessage(ChatMessageRole.User, prompt)
+        }
+            });
 
             if (result != null)
             {
-                foreach (var item in result.Result.Completions)
+                var arr = result.Choices;
+                var rs = "";
+                foreach (var choice in arr)
                 {
-                    answer = item.Text;
+                    rs += choice.Message.Content;
                 }
-                return answer;
+                return rs;
             }
             else
             {
