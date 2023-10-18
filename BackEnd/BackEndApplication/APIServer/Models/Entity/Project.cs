@@ -9,10 +9,13 @@ namespace APIServer.Models.Entity
         public int Id { get; set; }
         public int? CurriculumVitaeId { get; set; }
         public CurriculumVitae? CurriculumVitae { get; set; }
+        [StringLength(200)]
         public string ProjectName { get; set; }
         public string? Description { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        [StringLength(50)]
+        public string? FromDate { get; set; }
+        [StringLength(50)]
+        public string? ToDate { get; set; }
         public bool IsStillWorking { get; set; }
     }
 }

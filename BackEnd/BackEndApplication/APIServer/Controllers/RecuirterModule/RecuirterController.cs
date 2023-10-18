@@ -82,35 +82,29 @@ namespace APIServer.Controllers.RecuirterModule
 
         [HttpGet]
         [Route("test-prompt")]
-        public async Task<IActionResult> getTest()
+        public async Task<IActionResult> getTest(int jobDescriptionId, int CVId)
         {
-            string prompt = @"hãy so sánh các yêu cầu bên trái và các đáp ứng bên phải sau, mỗi ý so sánh dưới đấy sẽ bao gồm nhiều cặp vế, mỗi cặp vế sẽ có một vế 1 so sánh với một vế 2 tương ứng, nếu bên vế 2 có đáp ứng bên vế 1 hãy cặp vế đó trả về 1 còn không thì trả về 0 cho tất cả các cặp vế so sánh, và nếu trong một ý so sánh có một hoặc nhiều cặp vế trả về 1 thì cả ý so sánh sẽ trả về 1 và ngược lại, vui lòng chỉ trả lời bằng một mảng int kết quả với format [0, 1] mà không có bất kỳ giải thích nào.: 
-- ý so sánh 1:
-Vế 1: '- Tối thiểu 2 năm kinh nghiệm dẫn dắt đội nhóm từ 5 người, đã từng chạy hiệu quả ngân sách từ 5 tỷ/tháng với tỷ lệ chuyển đổi <20% CPQC/DT' và Vế 2: 'Đã từng là: Digital Marketing, tại công ty: Công ty Bất động sản CV 365, từ 11/2018 đến 05/2019, với vị trí: nhân viên tạm thời, với mô tả như sau: ' 
-Vế 1: '- Tối thiểu 2 năm kinh nghiệm dẫn dắt đội nhóm từ 5 người, đã từng chạy hiệu quả ngân sách từ 5 tỷ/tháng với tỷ lệ chuyển đổi <20% CPQC/DT' và Vế 2: 'Đã từng là: Nhân viên Content – Marketing, tại công ty: Công ty Cổ phần kiến trúc và nội thất CV365, từ 02/2018 đến 05/2018, với vị trí: nhân viên tạm thời, với mô tả như sau: ' 
-- ý so sánh 2:
-Vế 1: 'yêu cầu giỏi java' và Vế 2: 'giỏi java' 
-Vế 1: 'yêu cầu giỏi java' và Vế 2: 'giỏi đàn' 
-Vế 1: 'yêu cầu giỏi java' và Vế 2: 'giỏi hát'";
-            //var job = context.JobDescriptions
-            //   .Include(x => x.Recuirter)
-            //   .Include(x => x.PositionTitles)
-            //   .Include(x => x.EmploymentType)
-            //   .Include(x => x.Company)
-            //   .Include(x => x.Category)
-            //   .FirstOrDefault();
-            //var cv = context.CurriculumVitaes
-            //    .Include(x => x.JobExperiences)
-            //    .Include(x => x.Skills)
-            //    .Include(x => x.Educations)
-            //    .Include(x => x.Projects)
-            //    .Include(x => x.Certificates)
-            //    .Include(x => x.Awards)
-            //    .FirstOrDefault();
-            //var rs = GPT_PROMPT.MATCHING_FOR_RECUITER(job, cv);
-            //rs = _jobService.GetResult(rs);
-            var str = await _jobService.GetResult(prompt);
-            return Ok(str);
+
+            var job = context.JobDescriptions
+               .Include(x => x.Recuirter)
+               .Include(x => x.PositionTitles)
+               .Include(x => x.EmploymentType)
+               .Include(x => x.Company)
+               .Include(x => x.Category)
+               .FirstOrDefault(x => x.JobId == jobDescriptionId);
+            var cv = context.CurriculumVitaes
+                .Include(x => x.JobExperiences)
+                .Include(x => x.Skills)
+                .Include(x => x.Educations)
+                .Include(x => x.Projects)
+                .Include(x => x.Certificates)
+                .Include(x => x.Awards)
+                .FirstOrDefault(x => x.Id == CVId);
+            var rs = GPT_PROMPT.MatchingEducationForRecruiter(job, cv);
+            var rs2 = GPT_PROMPT.MatchingExperienceForRecruiter(job, cv);
+            var rs3 = GPT_PROMPT.MatchingSkillForRecruiter(job, cv);
+            var rs4 = rs + Environment.NewLine + await _jobService.GetResult(rs) + Environment.NewLine + rs2 + await _jobService.GetResult(rs2) + Environment.NewLine + rs3 + await _jobService.GetResult(rs3);
+            return Ok(rs4);
         }
 
         [HttpGet("test-cv")]
