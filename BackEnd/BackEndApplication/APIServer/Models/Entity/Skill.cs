@@ -9,7 +9,9 @@ namespace APIServer.Models.Entity
         public int Id { get; set; }
         public int? CurriculumVitaeId { get; set; }
         public CurriculumVitae? CurriculumVitae { get; set; }
+        [StringLength(100)]
         public string Title { get; set; }
-        public string SkillDescription { get; set; }
+        [StringLength(500)]
+        public string? SkillDescription { get; set; }
     }
 }

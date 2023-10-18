@@ -13,6 +13,6 @@ namespace APIServer.Models.Entity
         public string AwardName { get; set; }
         [StringLength(1000)]
         public string? Description { get; set; }
-        public int FromYear { get; set; }
+        public int? FromYear { get; set; }
     }
 }
