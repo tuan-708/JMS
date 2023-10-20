@@ -52,7 +52,7 @@ namespace APIServer.Common
 
         public static string readKey()
         {
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Common\\gptKey.txt"; 
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Common\\gptKey.txt";
             try
             {
                 string[] lines = File.ReadAllLines(filePath);
@@ -73,6 +73,23 @@ namespace APIServer.Common
                 tuoi--;
             }
             return tuoi;
+        }
+
+        public static bool IsPhoneNumberValid(string phoneNumber)
+        {
+            return phoneNumber.Length == 10 && phoneNumber.All(char.IsDigit);
+        }
+
+        public static int ConvertInt(string? input)
+        {
+            try
+            {
+                return int.Parse((string) input.Trim());
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Input number not valid");
+            }
         }
     }
 }

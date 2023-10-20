@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace APIServer.Migrations
 {
-    public partial class update_db_1 : Migration
+    public partial class init_db : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,7 +69,7 @@ namespace APIServer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -83,7 +83,7 @@ namespace APIServer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -133,6 +133,7 @@ namespace APIServer.Migrations
                     DisplayName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     IsMale = table.Column<bool>(type: "bit", nullable: false),
                     DisplayEmail = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -167,7 +168,7 @@ namespace APIServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Recuirter",
+                name: "Recuirters",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -191,60 +192,12 @@ namespace APIServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Recuirter", x => x.Id);
+                    table.PrimaryKey("PK_Recuirters", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recuirter_Roles_RoleId",
+                        name: "FK_Recuirters_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CandidateCompany",
-                columns: table => new
-                {
-                    CandidatesFollowingId = table.Column<int>(type: "int", nullable: false),
-                    CompaniesFollowCompanyId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CandidateCompany", x => new { x.CandidatesFollowingId, x.CompaniesFollowCompanyId });
-                    table.ForeignKey(
-                        name: "FK_CandidateCompany_Candidates_CandidatesFollowingId",
-                        column: x => x.CandidatesFollowingId,
-                        principalTable: "Candidates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CandidateCompany_Companies_CompaniesFollowCompanyId",
-                        column: x => x.CompaniesFollowCompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserFollowings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CandidateId = table.Column<int>(type: "int", nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserFollowings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserFollowings_Candidates_CandidateId",
-                        column: x => x.CandidateId,
-                        principalTable: "Candidates",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_UserFollowings_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId");
                 });
 
             migrationBuilder.CreateTable(
@@ -255,7 +208,8 @@ namespace APIServer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CurriculumVitaeId = table.Column<int>(type: "int", nullable: true),
                     AwardName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    FromYear = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    FromYear = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -275,10 +229,10 @@ namespace APIServer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CurriculumVitaeId = table.Column<int>(type: "int", nullable: true),
                     CertificateName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    CertificateProvider = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    credentialURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExpiredDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CertificateProvider = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    credentialURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IssuedDate = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ExpiredDate = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -298,8 +252,10 @@ namespace APIServer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CurriculumVitaeId = table.Column<int>(type: "int", nullable: true),
                     SchoolName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    FromYear = table.Column<int>(type: "int", nullable: false),
-                    ToYear = table.Column<int>(type: "int", nullable: false),
+                    MajorName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    FromYear = table.Column<int>(type: "int", nullable: true),
+                    ToYear = table.Column<int>(type: "int", nullable: true),
                     StillLearning = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -319,11 +275,12 @@ namespace APIServer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CurriculumVitaeId = table.Column<int>(type: "int", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ComapanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    ComapanyName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FromDate = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ToDate = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     EmploymentTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -348,10 +305,10 @@ namespace APIServer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CurriculumVitaeId = table.Column<int>(type: "int", nullable: true),
-                    ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProjectName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FromDate = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ToDate = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     IsStillWorking = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -371,8 +328,8 @@ namespace APIServer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CurriculumVitaeId = table.Column<int>(type: "int", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SkillDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    SkillDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -405,24 +362,23 @@ namespace APIServer.Migrations
                         principalTable: "Companies",
                         principalColumn: "CompanyId");
                     table.ForeignKey(
-                        name: "FK_EmployeeInCompanies_Recuirter_RecuirterId",
+                        name: "FK_EmployeeInCompanies_Recuirters_RecuirterId",
                         column: x => x.RecuirterId,
-                        principalTable: "Recuirter",
+                        principalTable: "Recuirters",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "JobPosts",
+                name: "JobDescriptions",
                 columns: table => new
                 {
                     JobId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RecuirterId = table.Column<int>(type: "int", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    PositionTitleId = table.Column<int>(type: "int", nullable: true),
                     EmploymentTypeId = table.Column<int>(type: "int", nullable: true),
-                    GenderRequirement = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AgeRequirement = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GenderRequirement = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    AgeRequirement = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     EducationRequirement = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobDetail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExperienceRequirement = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -431,8 +387,8 @@ namespace APIServer.Migrations
                     CertificateRequirement = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OtherInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CandidateBenefit = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Salary = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salary = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    ContactEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpiredDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -442,31 +398,26 @@ namespace APIServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobPosts", x => x.JobId);
+                    table.PrimaryKey("PK_JobDescriptions", x => x.JobId);
                     table.ForeignKey(
-                        name: "FK_JobPosts_Categories_CategoryId",
+                        name: "FK_JobDescriptions_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_JobPosts_Companies_CompanyId",
+                        name: "FK_JobDescriptions_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "CompanyId");
                     table.ForeignKey(
-                        name: "FK_JobPosts_EmploymentTypes_EmploymentTypeId",
+                        name: "FK_JobDescriptions_EmploymentTypes_EmploymentTypeId",
                         column: x => x.EmploymentTypeId,
                         principalTable: "EmploymentTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_JobPosts_PositionTitles_PositionTitleId",
-                        column: x => x.PositionTitleId,
-                        principalTable: "PositionTitles",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_JobPosts_Recuirter_RecuirterId",
+                        name: "FK_JobDescriptions_Recuirters_RecuirterId",
                         column: x => x.RecuirterId,
-                        principalTable: "Recuirter",
+                        principalTable: "Recuirters",
                         principalColumn: "Id");
                 });
 
@@ -491,6 +442,7 @@ namespace APIServer.Migrations
                     Project = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Certificate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Award = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApplyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PositionTitleId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -502,9 +454,9 @@ namespace APIServer.Migrations
                         principalTable: "Candidates",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CVApplies_JobPosts_JobDescriptionId",
+                        name: "FK_CVApplies_JobDescriptions_JobDescriptionId",
                         column: x => x.JobDescriptionId,
-                        principalTable: "JobPosts",
+                        principalTable: "JobDescriptions",
                         principalColumn: "JobId");
                     table.ForeignKey(
                         name: "FK_CVApplies_PositionTitles_PositionTitleId",
@@ -513,15 +465,34 @@ namespace APIServer.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "JobDescriptionPositionTitle",
+                columns: table => new
+                {
+                    JobDescriptionsJobId = table.Column<int>(type: "int", nullable: false),
+                    PositionTitlesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobDescriptionPositionTitle", x => new { x.JobDescriptionsJobId, x.PositionTitlesId });
+                    table.ForeignKey(
+                        name: "FK_JobDescriptionPositionTitle_JobDescriptions_JobDescriptionsJobId",
+                        column: x => x.JobDescriptionsJobId,
+                        principalTable: "JobDescriptions",
+                        principalColumn: "JobId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JobDescriptionPositionTitle_PositionTitles_PositionTitlesId",
+                        column: x => x.PositionTitlesId,
+                        principalTable: "PositionTitles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Awards_CurriculumVitaeId",
                 table: "Awards",
                 column: "CurriculumVitaeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CandidateCompany_CompaniesFollowCompanyId",
-                table: "CandidateCompany",
-                column: "CompaniesFollowCompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Certificates_CurriculumVitaeId",
@@ -584,6 +555,31 @@ namespace APIServer.Migrations
                 column: "RecuirterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_JobDescriptionPositionTitle_PositionTitlesId",
+                table: "JobDescriptionPositionTitle",
+                column: "PositionTitlesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobDescriptions_CategoryId",
+                table: "JobDescriptions",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobDescriptions_CompanyId",
+                table: "JobDescriptions",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobDescriptions_EmploymentTypeId",
+                table: "JobDescriptions",
+                column: "EmploymentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobDescriptions_RecuirterId",
+                table: "JobDescriptions",
+                column: "RecuirterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_JobExperiences_CurriculumVitaeId",
                 table: "JobExperiences",
                 column: "CurriculumVitaeId");
@@ -594,63 +590,25 @@ namespace APIServer.Migrations
                 column: "EmploymentTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobPosts_CategoryId",
-                table: "JobPosts",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobPosts_CompanyId",
-                table: "JobPosts",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobPosts_EmploymentTypeId",
-                table: "JobPosts",
-                column: "EmploymentTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobPosts_PositionTitleId",
-                table: "JobPosts",
-                column: "PositionTitleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobPosts_RecuirterId",
-                table: "JobPosts",
-                column: "RecuirterId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Projects_CurriculumVitaeId",
                 table: "Projects",
                 column: "CurriculumVitaeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recuirter_RoleId",
-                table: "Recuirter",
+                name: "IX_Recuirters_RoleId",
+                table: "Recuirters",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Skills_CurriculumVitaeId",
                 table: "Skills",
                 column: "CurriculumVitaeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserFollowings_CandidateId",
-                table: "UserFollowings",
-                column: "CandidateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserFollowings_CompanyId",
-                table: "UserFollowings",
-                column: "CompanyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Awards");
-
-            migrationBuilder.DropTable(
-                name: "CandidateCompany");
 
             migrationBuilder.DropTable(
                 name: "Certificates");
@@ -665,6 +623,9 @@ namespace APIServer.Migrations
                 name: "EmployeeInCompanies");
 
             migrationBuilder.DropTable(
+                name: "JobDescriptionPositionTitle");
+
+            migrationBuilder.DropTable(
                 name: "JobExperiences");
 
             migrationBuilder.DropTable(
@@ -674,10 +635,7 @@ namespace APIServer.Migrations
                 name: "Skills");
 
             migrationBuilder.DropTable(
-                name: "UserFollowings");
-
-            migrationBuilder.DropTable(
-                name: "JobPosts");
+                name: "JobDescriptions");
 
             migrationBuilder.DropTable(
                 name: "CurriculumVitaes");
@@ -686,7 +644,7 @@ namespace APIServer.Migrations
                 name: "Companies");
 
             migrationBuilder.DropTable(
-                name: "Recuirter");
+                name: "Recuirters");
 
             migrationBuilder.DropTable(
                 name: "Candidates");

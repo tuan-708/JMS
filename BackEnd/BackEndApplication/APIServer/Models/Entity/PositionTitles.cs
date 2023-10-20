@@ -10,8 +10,8 @@ namespace APIServer.Models.Entity
         public int Id { get; set; }
         [Required, StringLength(100)]
         public string Title { get; set; }
-        [AllowNull]
-        public string Description { get; set; }
+        [StringLength(1000)]
+        public string? Description { get; set; }
         public bool IsDelete { get; set; }
         public virtual ICollection<JobDescription>? JobDescriptions { get; set; }
         public virtual ICollection<CurriculumVitae>? CurriculumVitaes { get; set; }
