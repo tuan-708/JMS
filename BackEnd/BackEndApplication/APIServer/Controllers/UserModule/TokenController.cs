@@ -17,9 +17,9 @@ namespace APIServer.Controllers.UserModule
     {
         private readonly IMapper mapper;
         public IConfiguration _configuration;
-        private readonly IUserService userService;
+        private readonly IRecuirterService userService;
 
-        public TokenController(IMapper mapper, IUserService userService, IConfiguration configuration)
+        public TokenController(IMapper mapper, IRecuirterService userService, IConfiguration configuration)
         {
             this.mapper = mapper;
             this.userService = userService;

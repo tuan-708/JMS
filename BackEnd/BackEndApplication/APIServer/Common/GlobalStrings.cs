@@ -12,6 +12,7 @@
         public const string INTERNAL_SERVER_ERROR = "INTERNAL SERVER ERROR";
         public const string LOGIN_ERROR = "Invalid username, password or timeout";
         public const string EMPTY = "Not exist";
+        public const string NOT_FOUND = "Not found";
 
         //role
         public const string ROLE_ADMIN = "Admin";

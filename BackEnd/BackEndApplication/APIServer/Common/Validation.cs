@@ -52,7 +52,7 @@ namespace APIServer.Common
 
         public static string readKey()
         {
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Common\\gptKey.txt"; 
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Common\\gptKey.txt";
             try
             {
                 string[] lines = File.ReadAllLines(filePath);
@@ -61,6 +61,34 @@ namespace APIServer.Common
             catch (IOException e)
             {
                 return null;
+            }
+        }
+
+        public static int CalculateAge(DateTime ngaySinh)
+        {
+            DateTime ngayHienTai = DateTime.Now;
+            int tuoi = ngayHienTai.Year - ngaySinh.Year;
+            if (ngayHienTai.Month < ngaySinh.Month || (ngayHienTai.Month == ngaySinh.Month && ngayHienTai.Day < ngaySinh.Day))
+            {
+                tuoi--;
+            }
+            return tuoi;
+        }
+
+        public static bool IsPhoneNumberValid(string phoneNumber)
+        {
+            return phoneNumber.Length == 10 && phoneNumber.All(char.IsDigit);
+        }
+
+        public static int ConvertInt(string? input)
+        {
+            try
+            {
+                return int.Parse((string) input.Trim());
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Input number not valid");
             }
         }
     }

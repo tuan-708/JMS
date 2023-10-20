@@ -15,10 +15,10 @@ namespace APIServer.Controllers.UserModule
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IRecuirterService _userService;
         private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(IRecuirterService userService, IMapper mapper)
         {
             _userService = userService;
             _mapper = mapper;
@@ -26,7 +26,7 @@ namespace APIServer.Controllers.UserModule
 
         [HttpGet]
         [Route("View/{id}")]
-        [Authorize(Roles = $"{GlobalStrings.ROLE_ADMIN}")]
+        //[Authorize(Roles = $"{GlobalStrings.ROLE_ADMIN}")]
         public BaseResponseBody<UserDTO> getById(int id)
         {
             try
@@ -57,8 +57,8 @@ namespace APIServer.Controllers.UserModule
         {
             try
             {
-                var user = _mapper.Map<User>(userDto);
-                _userService.CreateCandidateAccount(user);
+                var user = _mapper.Map<Recuirter>(userDto);
+                _userService.CreateRecuirterAccount(user);
                 return new BaseResponseBody<string>
                 {
                     statusCode = HttpStatusCode.Created,

@@ -13,67 +13,54 @@ using System.Text.RegularExpressions;
 
 namespace APIServer.Services
 {
-    public class UserService : IUserService
+    public class RecuirterService : IRecuirterService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRecuirterRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public RecuirterService(IRecuirterRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public int Create(User data)
+        public int Create(Recuirter data)
         {
             throw new NotImplementedException();
         }
 
-        public int CreateAdminAccount(User account, int? adminId)
-        {
-            if (adminId == null || adminId == 0)
-                throw new ArgumentNullException("need admin permission");
-            account.createdDate = DateTime.Now;
-            account.lastUpdate = DateTime.Now;
-            account.isActive = true;
-            account.isDelete = false;
-            account.role = Role.Admin;
-            account.createdBy = adminId;
-            return _userRepository.Create(account);
-        }
-
-        public int CreateCandidateAccount(User? account)
+        public int CreateRecuirterAccount(Recuirter? account)
         {
             if (account == null)
                 throw new ArgumentNullException("account not exist");
             if (Validation.checkStringIsEmpty(
-                account.fullName, account.userName,
-                account.password, account.email))
+                account.FullName, account.UserName,
+                account.Password, account.Email))
             {
                 throw new ArgumentNullException("account not completed yet");
             }
-            if (!checkEmail(account.email))
+            if (!checkEmail(account.Email))
             {
                 throw new ArgumentNullException("Email not accepted");
             }
-            if (_userRepository.checkExistUserNameEmail(account.userName, account.email))
+            if (_userRepository.checkExistUserNameEmail(account.UserName, account.Email))
             {
                 throw new Exception("Username or email already in use");
             }
-            var age = CalculateAge(account.dob);
-            if (account.dob >= DateTime.Now || age < 18 || age > 100)
+            var age = Validation.CalculateAge(account.DOB);
+            if (account.DOB >= DateTime.Now || age < 18 || age > 100)
             {
                 throw new Exception("Date of birth is not accepted");
             }
-            account.createdDate = DateTime.Now;
-            account.lastUpdate = DateTime.Now;
-            account.isDelete = false;
-            account.isActive = true;
-            account.createdBy = null;
-            account.role = Role.User;
-            account.male = account.male == null ? true : account.male;
+            account.CreatedDate = DateTime.Now;
+            account.LastUpdate = DateTime.Now;
+            account.IsDelete = false;
+            account.IsActive = true;
+            account.CreatedBy = null;
+            //account.role = Role.User;
+            account.IsMale = account.IsMale == null ? true : account.IsMale;
             return _userRepository.Create(account);
         }
 
-        public int Delete(User data)
+        public int Delete(Recuirter data)
         {
             throw new NotImplementedException();
         }
@@ -88,17 +75,17 @@ namespace APIServer.Services
             }
         }
 
-        public string generateToken(User? userInfo, IConfiguration _configuration)
+        public string generateToken(Recuirter? userInfo, IConfiguration _configuration)
         {
             var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
-                        new Claim("UserId", userInfo.id.ToString()),
-                        new Claim("DisplayName", userInfo.fullName),
-                        new Claim("UserName", userInfo.userName),
-                        new Claim("Email", userInfo.email),
-                        new Claim(ClaimTypes.Role, userInfo.role.ToString()),
+                        new Claim("UserId", userInfo.Id.ToString()),
+                        new Claim("DisplayName", userInfo.FullName),
+                        new Claim("UserName", userInfo.UserName),
+                        new Claim("Email", userInfo.Email),
+                        new Claim(ClaimTypes.Role, userInfo.Role.ToString()),
                     };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -115,12 +102,12 @@ namespace APIServer.Services
             return accessToken;
         }
 
-        public List<User> getAll()
+        public List<Recuirter> getAll()
         {
             throw new NotImplementedException();
         }
 
-        public User getById(int? id)
+        public Recuirter getById(int? id)
         {
             if (id == null) throw new ArgumentNullException("error");
             var rs = _userRepository.GetById((int)id);
@@ -134,7 +121,7 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public User Login(string? username, string? password)
+        public Recuirter Login(string? username, string? password)
         {
             if (Validation.checkStringIsEmpty(username, password))
             {
@@ -182,7 +169,7 @@ namespace APIServer.Services
             _userRepository.Update(user);
         }
 
-        public int Update(User data)
+        public int Update(Recuirter data)
         {
             return _userRepository.Update(data);
         }
@@ -210,33 +197,24 @@ namespace APIServer.Services
             return Regex.IsMatch(email, pattern);
         }
 
-        private static int CalculateAge(DateTime ngaySinh)
-        {
-            DateTime ngayHienTai = DateTime.Now;
-            int tuoi = ngayHienTai.Year - ngaySinh.Year;
-            if (ngayHienTai.Month < ngaySinh.Month || (ngayHienTai.Month == ngaySinh.Month && ngayHienTai.Day < ngaySinh.Day))
-            {
-                tuoi--;
-            }
-            return tuoi;
-        }
+        
 
-        public void CreateCandidateCV(CurriculumVitae curriculumVitae)
-        {
-            
-        }
-
-        public List<User> getAllById(int id)
+        public List<Recuirter> getAllById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public int CreateById(User data, int id)
+        public int CreateById(Recuirter data, int id)
         {
             throw new NotImplementedException();
         }
 
-        public User? GetById(int id)
+        public Recuirter? GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetResult(string prompt)
         {
             throw new NotImplementedException();
         }

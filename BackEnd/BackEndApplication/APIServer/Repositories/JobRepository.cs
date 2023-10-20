@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APIServer.Repositories
 {
-    public class JobRepository : IBaseRepository<JobPost>
+    public class JobRepository : IBaseRepository<JobDescription>
     {
         private readonly JMSDBContext _context;
 
@@ -14,58 +14,63 @@ namespace APIServer.Repositories
             _context = context;
         }
 
-        public int Create(JobPost data)
+        public int Create(JobDescription data)
         {
-            _context.JobPosts.Add(data);
+            _context.JobDescriptions.Add(data);
             return _context.SaveChanges();
-            throw new NotImplementedException();
-
         }
 
-        public int CreateById(JobPost data, int id)
+        public int CreateById(JobDescription data, int id)
         {
-            User user = _context.users.FirstOrDefault(x => x.id == id);
-            data.User = user;
-            _context.JobPosts.Add(data);
-            return _context.SaveChanges();
+            throw new NotImplementedException();
         }
 
         public int Delete(int id)
         {
-            var data = _context.JobPosts.FirstOrDefault(x => x.JobId == id);
-            if (data == null)
+            var job = _context.JobDescriptions.FirstOrDefault(x => x.JobId == id);
+            if (job == null)
             {
-                throw new ArgumentNullException();
+                throw new NullReferenceException("JD not exist");
             }
-            data.IsDelete = true;
-            _context.JobPosts.Update(data);
+            job.IsDelete = true;
+            _context.JobDescriptions.Update(job);
             return _context.SaveChanges();
         }
 
-        public List<JobPost> GetAll()
+        public List<JobDescription> GetAll()
         {
-            var rs = _context.JobPosts
-                .Include(x => x.User)
+            var rs = _context.JobDescriptions
+                .Include(x => x.Recuirter)
+                .Include(x => x.PositionTitles)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Company)
                 .Include(x => x.Category)
-                .Where(x => x.IsDelete == false && x.ExipredDate >= DateTime.Now)
+                .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now)
                 .ToList();
             return rs;
         }
 
-        public List<JobPost> GetAllById(int id)
+        public List<JobDescription> GetAllById(int id)
         {
-            throw new NotImplementedException();
+            return _context.JobDescriptions.Where(x => x.JobId == id).ToList();
         }
 
-        public JobPost GetById(int id)
+        public JobDescription GetById(int id)
         {
-            return _context.JobPosts.FirstOrDefault(x => x.JobId == id);
+            var rs = _context.JobDescriptions
+                .Include(x => x.Recuirter)
+                .Include(x => x.PositionTitles)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Company)
+                .Include(x => x.Category)
+                .FirstOrDefault(x => !x.IsDelete && x.ExpiredDate > DateTime.Now && x.JobId == id);
+            return rs;
         }
 
-        public int Update(JobPost data)
+        public int Update(JobDescription data)
         {
-            _context.JobPosts.Update(data);
-            return _context.SaveChanges();
+            _context.JobDescriptions.Update(data);
+            return _context.SaveChanges();  
         }
     }
 }

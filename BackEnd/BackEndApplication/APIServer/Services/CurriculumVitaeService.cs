@@ -14,28 +14,25 @@ namespace APIServer.Services
         {
             _context = context;
         }
+
         public int Create(CurriculumVitae data)
         {
-            if (Validation.checkStringIsEmpty(data.DisplayName, data.Phone, data.Gender.ToString(), data.DisplayEmail, data.DOB.ToString(),
-                            data.Address, data.LevelApply, data.JobExperience, data.Education))
-            {
-                throw new MissingFieldException("job not completed yet");
-            }
-            data.IsFinding = true;
-            data.IsDelete = false;
-            return _context.Create(data);
+            throw new NotImplementedException();
         }
 
-        public int CreateById(CurriculumVitae data, int id)
+        public int CreateById(CurriculumVitae cv, int candidateId)
         {
-            if (Validation.checkStringIsEmpty(data.DisplayName, data.Phone, data.Gender.ToString(), data.DisplayEmail, data.DOB.ToString(),
-                            data.Address, data.LevelApply, data.JobExperience, data.Education))
+            cv.CandidateId = candidateId;
+            if (Validation.checkStringIsEmpty(cv.Phone, cv.DisplayName, cv.DisplayEmail) &&
+                Validation.IsPhoneNumberValid(cv.Phone))
             {
-                throw new MissingFieldException("job not completed yet");
+                throw new ArgumentNullException("cv not finished yet");
             }
-            data.IsFinding = true;
-            data.IsDelete = false;
-            return _context.CreateById(data, id);
+            cv.IsActive = true;
+            cv.IsDelete = false;
+            cv.CreatedDate = DateTime.Now;
+            cv.LastUpdateDate = DateTime.Now;
+            return _context.Create(cv);
         }
 
         public int Delete(CurriculumVitae data)
@@ -50,12 +47,15 @@ namespace APIServer.Services
 
         public List<CurriculumVitae> getAllById(int id)
         {
-            return _context.GetAllById(id);
+            throw new NotImplementedException();
         }
 
         public CurriculumVitae? GetById(int id)
         {
-            throw new NotImplementedException();
+            var rs = _context.GetById(id);
+            if (rs == null)
+                throw new Exception("CV not exist");
+            return rs;
         }
 
         public CurriculumVitae GetCurriculumVitae(int id)
@@ -63,16 +63,9 @@ namespace APIServer.Services
             return _context.GetById(id);
         }
 
-        public string GetResult(string prompt, IConfiguration configuration)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Update(CurriculumVitae data)
         {
             throw new NotImplementedException();
         }
-
-        
     }
 }
