@@ -100,11 +100,9 @@ namespace APIServer.Controllers.RecuirterModule
                 .Include(x => x.Certificates)
                 .Include(x => x.Awards)
                 .FirstOrDefault(x => x.Id == CVId);
-            var rs = GPT_PROMPT.MatchingEducationForRecruiter(job, cv);
-            var rs2 = GPT_PROMPT.MatchingExperienceForRecruiter(job, cv);
-            var rs3 = GPT_PROMPT.MatchingSkillForRecruiter(job, cv);
-            var rs4 = rs + Environment.NewLine + await _jobService.GetResult(rs) + Environment.NewLine + rs2 + await _jobService.GetResult(rs2) + Environment.NewLine + rs3 + await _jobService.GetResult(rs3);
-            return Ok(rs4);
+            string prompt = GPT_PROMPT.MatchingForRecruiter(job, cv);
+            return Ok(prompt);
+                
         }
 
         [HttpGet("test-cv")]
