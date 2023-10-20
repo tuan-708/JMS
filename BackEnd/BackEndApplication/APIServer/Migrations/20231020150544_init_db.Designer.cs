@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    [Migration("20231015075822_update_db_6")]
-    partial class update_db_6
+    [Migration("20231020150544_init_db")]
+    partial class init_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,7 @@ namespace APIServer.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<int>("FromYear")
+                    b.Property<int?>("FromYear")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -151,21 +151,21 @@ namespace APIServer.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("CertificateProvider")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<int?>("CurriculumVitaeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ExpiredDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ExpiredDate")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("IssuedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("IssuedDate")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("credentialURL")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -316,6 +316,9 @@ namespace APIServer.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("ApplyDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Award")
                         .HasColumnType("nvarchar(max)");
 
@@ -387,8 +390,16 @@ namespace APIServer.Migrations
                     b.Property<int?>("CurriculumVitaeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FromYear")
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("FromYear")
                         .HasColumnType("int");
+
+                    b.Property<string>("MajorName")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("SchoolName")
                         .IsRequired()
@@ -398,7 +409,7 @@ namespace APIServer.Migrations
                     b.Property<bool>("StillLearning")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ToYear")
+                    b.Property<int?>("ToYear")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -473,7 +484,8 @@ namespace APIServer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AgeRequirement")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("CandidateBenefit")
                         .HasColumnType("nvarchar(max)");
@@ -488,7 +500,8 @@ namespace APIServer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ContactEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -506,7 +519,8 @@ namespace APIServer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("GenderRequirement")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
@@ -524,7 +538,8 @@ namespace APIServer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Salary")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("SkillRequirement")
                         .HasColumnType("nvarchar(max)");
@@ -557,16 +572,23 @@ namespace APIServer.Migrations
 
                     b.Property<string>("ComapanyName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int?>("CurriculumVitaeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
                     b.Property<int?>("EmploymentTypeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("FromDate")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -574,10 +596,13 @@ namespace APIServer.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ToDate")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -597,8 +622,8 @@ namespace APIServer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
@@ -627,18 +652,21 @@ namespace APIServer.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("FromDate")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsStillWorking")
                         .HasColumnType("bit");
 
                     b.Property<string>("ProjectName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ToDate")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -733,7 +761,8 @@ namespace APIServer.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -752,12 +781,13 @@ namespace APIServer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SkillDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 

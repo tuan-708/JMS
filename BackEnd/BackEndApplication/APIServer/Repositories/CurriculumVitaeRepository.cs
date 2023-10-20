@@ -1,6 +1,7 @@
 ﻿using APIServer.IRepositories;
 using APIServer.Models;
 using APIServer.Models.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace APIServer.Repositories
 {
@@ -15,7 +16,6 @@ namespace APIServer.Repositories
 
         public int Create(CurriculumVitae data)
         {
-
             _context.Add(data);
             return _context.SaveChanges();
         }
@@ -41,18 +41,49 @@ namespace APIServer.Repositories
 
         public List<CurriculumVitae> GetAll()
         {
-            return _context.CurriculumVitaes.ToList();
+            return _context.CurriculumVitaes
+                .Include(x => x.Candidate)
+                .Include(x => x.Awards)
+                .Include(x => x.JobExperiences)
+                .Include(x => x.Educations)
+                .Include(x => x.PositionTitle)
+                .Include(x => x.Skills)
+                .Include(x => x.Projects)
+                .Include(x => x.Certificates)
+                .Include(x => x.EmploymentType)
+                .Where(x => !x.IsDelete)
+                .ToList();
         }
 
-        public List<CurriculumVitae> GetAllById(int id)
+        public List<CurriculumVitae> GetAllById(int candidateId)
         {
-            return null;
-            //return _context.CurriculumVitaes.Where(x => x.User != null ? x.User.id == id : x.User == null).ToList();
+            return _context.CurriculumVitaes
+                //.Include(x => x.Candidate)
+                //.Include(x => x.Awards)
+                //.Include(x => x.JobExperiences)
+                //.Include(x => x.Educations)
+                //.Include(x => x.PositionTitle)
+                //.Include(x => x.Skills)
+                //.Include(x => x.Projects)
+                //.Include(x => x.Certificates)
+                //.Include(x => x.EmploymentType)
+                .Where(x => !x.IsDelete && x.CandidateId == candidateId)
+                .ToList();
         }
 
         public CurriculumVitae GetById(int id)
         {
-            CurriculumVitae? curriculumVitae = _context.CurriculumVitaes.FirstOrDefault(x => x.Id == id);
+            CurriculumVitae? curriculumVitae = _context.CurriculumVitaes
+                .Include(x => x.Candidate)
+                .Include(x => x.Awards)
+                .Include(x => x.JobExperiences)
+                .Include(x => x.Educations)
+                .Include(x => x.PositionTitle)
+                .Include(x => x.Skills)
+                .Include(x => x.Projects)
+                .Include(x => x.Certificates)
+                .Include(x => x.EmploymentType)
+                .FirstOrDefault(x => x.Id == id);
             if( curriculumVitae != null )
                 return curriculumVitae;
             return null;

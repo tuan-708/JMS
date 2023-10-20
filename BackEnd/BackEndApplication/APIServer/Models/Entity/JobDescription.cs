@@ -15,7 +15,9 @@ namespace APIServer.Models.Entity
         public virtual ICollection<PositionTitle>? PositionTitles { get; set; }
         public int? EmploymentTypeId { get; set; }
         public EmploymentType? EmploymentType { get; set; }
+        [StringLength(100)]
         public string? GenderRequirement { get; set; }
+        [StringLength(500)]
         public string? AgeRequirement { get; set; }
         public string? EducationRequirement { get; set; }
         public string? JobDetail { get; set; }
@@ -25,7 +27,9 @@ namespace APIServer.Models.Entity
         public string? CertificateRequirement { get; set; }
         public string? OtherInformation { get; set; }
         public string? CandidateBenefit { get; set; }
+        [StringLength(1000)]
         public string? Salary { get; set; }
+        [StringLength(100)]
         public string? ContactEmail { get; set; }
         public string? Address { get; set; }
         public DateTime CreatedAt { get; set; }
