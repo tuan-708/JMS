@@ -44,6 +44,7 @@ namespace APIServer.Services
         public JobDescription? GetById(int id)
         {
             throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public int Update(JobDescription data)
