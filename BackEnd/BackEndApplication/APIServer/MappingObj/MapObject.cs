@@ -21,14 +21,13 @@ namespace APIServer.MappingObj
             CreateMap<CurriculumVitaeDTO, CurriculumVitae>()
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
                 .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName)))
-                .ForMember(x => x.PositionTitleId, src => src.MapFrom(src => Validation.ConvertInt(src.PositionTitle)));
+                .ForMember(x => x.PositionTitleId, src => src.MapFrom(src => Validation.ConvertInt(src.PositionTitleName)));
             CreateMap<CurriculumVitae, CurriculumVitaeDTO>()
                 .ForMember(x => x.EmploymentTypeName, src => src.MapFrom(src => src.EmploymentType.Title))
-                .ForMember(x => x.Male, src => src.MapFrom(src => src.IsMale ? "Male" : "Female"))
                 .ForMember(x => x.DOB, src => src.MapFrom(src => src.DOB.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.CreatedDate, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.LastUpdateDate, src => src.MapFrom(src => src.LastUpdateDate.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.PositionTitle, src => src.MapFrom(src => src.PositionTitle.Title))
+                .ForMember(x => x.CreatedDateDisplay, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE)))
+                .ForMember(x => x.LastUpdateDateDisplay, src => src.MapFrom(src => src.LastUpdateDate.ToString(GlobalStrings.FORMAT_DATE)))
+                .ForMember(x => x.PositionTitleName, src => src.MapFrom(src => src.PositionTitle.Title))
                 ;
 
             CreateMap<Award, AwardDTO>();

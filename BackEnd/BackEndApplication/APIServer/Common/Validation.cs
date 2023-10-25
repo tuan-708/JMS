@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace APIServer.Common
 {
@@ -80,15 +81,40 @@ namespace APIServer.Common
             return phoneNumber.Length == 10 && phoneNumber.All(char.IsDigit);
         }
 
-        public static int ConvertInt(string? input)
+        public static int? ConvertInt(string? input)
         {
             try
             {
-                return int.Parse((string) input.Trim());
+                return int.Parse((string)input.Trim());
             }
             catch (Exception e)
             {
-                throw new Exception("Input number not valid");
+                return null;
+            }
+        }
+
+        public static float checkPercentMatchingFromJSON(string? json)
+        {
+            if (checkStringIsEmpty(json))
+            {
+                throw new Exception("Input not valid");
+            }
+            try
+            {
+                JObject jsonObject = JObject.Parse(json);
+                float trueVal = 0;
+                foreach (var property in jsonObject.Properties())
+                {
+                    if(property.Value.ToString().ToLower() == "true")
+                    {
+                        trueVal++;
+                    } 
+                }
+                return trueVal / jsonObject.Properties().Count();
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
     }

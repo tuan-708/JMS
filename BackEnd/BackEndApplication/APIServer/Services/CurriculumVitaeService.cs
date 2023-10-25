@@ -23,8 +23,8 @@ namespace APIServer.Services
         public int CreateById(CurriculumVitae cv, int candidateId)
         {
             cv.CandidateId = candidateId;
-            if (Validation.checkStringIsEmpty(cv.Phone, cv.DisplayName, cv.DisplayEmail) &&
-                Validation.IsPhoneNumberValid(cv.Phone))
+            if (!Validation.checkStringIsEmpty(cv.Phone, cv.DisplayName, cv.DisplayEmail) &&
+                !Validation.IsPhoneNumberValid(cv.Phone))
             {
                 throw new ArgumentNullException("cv not finished yet");
             }
@@ -45,9 +45,12 @@ namespace APIServer.Services
             return _context.GetAll();
         }
 
-        public List<CurriculumVitae> getAllById(int id)
+        public List<CurriculumVitae> getAllById(int candidateId)
         {
-            throw new NotImplementedException();
+            var rs = _context.GetAllById(candidateId);
+            if (rs == null)
+                throw new Exception("CV not exist");
+            return rs;
         }
 
         public CurriculumVitae? GetById(int id)
@@ -58,9 +61,16 @@ namespace APIServer.Services
             return rs;
         }
 
-        public CurriculumVitae GetCurriculumVitae(int id)
+        public CurriculumVitae GetCurriculumVitaeByCandidateId(int candidateId, int CVid)
         {
-            return _context.GetById(id);
+            var rs = _context.GetById(CVid);
+            if (rs == null)
+                throw new Exception("CV not exist");
+            if (rs.CandidateId != candidateId)
+            {
+                throw new Exception("Permission denied");
+            }
+            return rs;
         }
 
         public int Update(CurriculumVitae data)

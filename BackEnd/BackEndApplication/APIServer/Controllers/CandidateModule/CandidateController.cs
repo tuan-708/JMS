@@ -79,7 +79,7 @@ namespace APIServer.Controllers.CandidateModule
         {
             try
             {
-                CurriculumVitae curriculumVitae = _curriculumVitaeService.GetCurriculumVitae(id);
+                //CurriculumVitae curriculumVitae = _curriculumVitaeService.GetCurriculumVitae(id);
                 //string prompt = @"Có các thông tin của người ứng tuyển gồm 3 properties là jobExperience, education và skill như sau: " + curriculumVitae.Summary + 
                 //    ". Và có 1 danh sách yêu cầu các công việc đang tuyển dụng" +
                 //    "bao gồm 4 thông tin là jobId, JobDescription, JobRequirement và address cho từng công việc như sau: ";

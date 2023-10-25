@@ -23,5 +23,6 @@ namespace APIServer.DTO.EntityDTO
         public string? Salary { get; set; }
         public string? ContactEmail { get; set; }
         public string? Address { get; set; }
+        public int? NumberRequirement { get; set; }
     }
 }

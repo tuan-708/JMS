@@ -12,13 +12,13 @@ namespace APIServer.DTO.EntityDTO
         public string? EmploymentTypeName { get; set; }
         public string? Phone { get; set; }
         public string? DisplayName { get; set; }
-        public string Male { get; set; }
+        public bool IsMale { get; set; }
         public string? DisplayEmail { get; set; }
         public string? Address { get; set; }
         public string DOB { get; set; }
-        public string CreatedDate { get; set; }
-        public string LastUpdateDate { get; set; }
-        public string? PositionTitle { get; set; }
+        public string? CreatedDateDisplay { get; set; }
+        public string? LastUpdateDateDisplay { get; set; }
+        public string? PositionTitleName { get; set; }
         public List<JobExperienceDTO>? JobExperiences { get; set; }
         public List<SkillDTO>? Skills { get; set; }
         public List<EducationDTO>? Educations { get; set; }
