@@ -39,5 +39,6 @@ namespace APIServer.Models.Entity
         public Company? Company { get; set; }
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
+        public int? NumberRequirement { get; set; }
     }
 }

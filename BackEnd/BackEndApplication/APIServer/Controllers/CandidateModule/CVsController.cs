@@ -2,6 +2,7 @@
 using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IServices;
+using APIServer.Models.Entity;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,13 +28,40 @@ namespace APIServer.Controllers.CandidateModule
         }
 
         [HttpGet]
-        [Route("all-cv/{id}")]
-        public BaseResponseBody<CurriculumVitaeDTO> getAllCVs(int id)
+        [Route("all-cv/{candidateId}")]
+        public PagingResponseBody<List<CurriculumVitaeDTO>> getAllCVs(int candidateId)
         {
             try
             {
-                var data = cvService.GetById(id);
-                var rs = mapper.Map<CurriculumVitaeDTO>(data);
+                var data = cvService.getAllById(candidateId);
+                var rs = mapper.Map<List<CurriculumVitaeDTO>>(data);
+                return new PagingResponseBody<List<CurriculumVitaeDTO>>
+                {
+                    data = rs,
+                    message = GlobalStrings.SUCCESSFULLY,
+                    statusCode = HttpStatusCode.OK,
+                    ObjectLength = rs.Count,
+                    TotalPage = 1,
+                };
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return new PagingResponseBody<List<CurriculumVitaeDTO>>
+                {
+                    message = GlobalStrings.BAD_REQUEST,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("getCV/{candidateId}/{cvId}")]
+        public BaseResponseBody<CurriculumVitaeDTO> getOneCVByCanID(int candidateId, int cvId)
+        {
+            try
+            {
+                var rs = mapper.Map<CurriculumVitaeDTO>(cvService.GetCurriculumVitaeByCandidateId(candidateId, cvId));
                 return new BaseResponseBody<CurriculumVitaeDTO>
                 {
                     data = rs,
@@ -43,8 +71,33 @@ namespace APIServer.Controllers.CandidateModule
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
                 return new BaseResponseBody<CurriculumVitaeDTO>
+                {
+                    message = e.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("new-cv/{candidateId}")]
+        public BaseResponseBody<string> createNewCV(int candidateId,
+            [FromBody] CurriculumVitaeDTO cv)
+        {
+            try
+            {
+                var c = mapper.Map<CurriculumVitae>(cv);
+                var rs = cvService.CreateById(c, candidateId);
+                return new BaseResponseBody<string>
+                {
+                    message = GlobalStrings.SUCCESSFULLY_SAVED,
+                    statusCode = HttpStatusCode.Created,
+                };
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return new BaseResponseBody<string>
                 {
                     message = GlobalStrings.BAD_REQUEST,
                     statusCode = HttpStatusCode.BadRequest,

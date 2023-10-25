@@ -4,6 +4,6 @@ namespace APIServer.IServices
 {
     public interface ICurriculumVitaeService : IBaseService<CurriculumVitae>
     {
-        public CurriculumVitae GetCurriculumVitae(int id);
+        public CurriculumVitae GetCurriculumVitaeByCandidateId(int candidateId, int CVid);
     }
 }

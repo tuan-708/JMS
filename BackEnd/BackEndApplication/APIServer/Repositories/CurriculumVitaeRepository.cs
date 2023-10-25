@@ -58,15 +58,15 @@ namespace APIServer.Repositories
         public List<CurriculumVitae> GetAllById(int candidateId)
         {
             return _context.CurriculumVitaes
-                //.Include(x => x.Candidate)
-                //.Include(x => x.Awards)
-                //.Include(x => x.JobExperiences)
-                //.Include(x => x.Educations)
-                //.Include(x => x.PositionTitle)
-                //.Include(x => x.Skills)
-                //.Include(x => x.Projects)
-                //.Include(x => x.Certificates)
-                //.Include(x => x.EmploymentType)
+                .Include(x => x.Candidate)
+                .Include(x => x.Awards)
+                .Include(x => x.JobExperiences)
+                .Include(x => x.Educations)
+                .Include(x => x.PositionTitle)
+                .Include(x => x.Skills)
+                .Include(x => x.Projects)
+                .Include(x => x.Certificates)
+                .Include(x => x.EmploymentType)
                 .Where(x => !x.IsDelete && x.CandidateId == candidateId)
                 .ToList();
         }

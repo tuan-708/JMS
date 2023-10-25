@@ -4,6 +4,6 @@
     {
         public int ObjectLength { get; set; }
         public int TotalPage { get; set; }
-
+        public int currentPage {  get; set; }
     }
 }
