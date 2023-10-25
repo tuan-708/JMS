@@ -2,6 +2,8 @@
 using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
+using APIServer.Repositories;
+using Newtonsoft.Json.Linq;
 using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.Completions;
@@ -11,6 +13,15 @@ namespace APIServer.Services
 {
     public class JobService : IJobService
     {
+        private readonly IBaseRepository<JobDescription> _JDRepository;
+        private readonly IBaseRepository<CurriculumVitae> _CVRepository;
+
+        public JobService(IBaseRepository<JobDescription> JDRepository, IBaseRepository<CurriculumVitae> CVRepository)
+        {
+            _JDRepository = JDRepository;
+            _CVRepository = CVRepository;
+        }
+
         public int Create(JobDescription data)
         {
             throw new NotImplementedException();
@@ -59,8 +70,8 @@ namespace APIServer.Services
             var result = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
             {
                 Model = Model.GPT4,
-                Temperature = 0f,
-                MaxTokens = 50,
+                //Temperature = 0f,
+                MaxTokens = 100,
                 Messages = new ChatMessage[] {
             new ChatMessage(ChatMessageRole.User, prompt)
         }
@@ -81,5 +92,31 @@ namespace APIServer.Services
                 return "not found";
             }
         }
+
+        public List<int> GetVitaeListByMatching(int jobDesciptionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public async List<int> GetVitaeListByMatching(int jobDesciptionId)
+        //{
+        //    JobDescription jobDescription = _JDRepository.GetById(jobDesciptionId);
+        //    List<CurriculumVitae> vitaeList = _CVRepository.GetAll();
+
+        //    foreach(CurriculumVitae curriculumVitae in vitaeList)
+        //    {
+        //        string rs = await GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, curriculumVitae));
+
+        //        rs = Validation.processStringGpt(rs);
+
+        //        JObject jsonObject = JObject.Parse(rs);
+
+
+        //    }
+
+        //    return null;
+        //}
+
+
     }
 }
