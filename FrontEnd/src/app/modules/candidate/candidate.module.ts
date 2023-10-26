@@ -13,6 +13,7 @@ import { CandidateCreateCvComponent } from './components/create-cv/create-cv.com
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule  } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SlidersComponent } from './components/sliders/sliders.component';
 
 
 
@@ -27,6 +28,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     CandidateHomeComponent,
     CandidateForgotPasswordComponent,
     CandidateCreateCvComponent,
+    SlidersComponent,
   ],
   imports: [
     CommonModule,

@@ -12,6 +12,7 @@ const routes: Routes = [
   // Router admin
   {
     path: "admin",
+    title: "Admin",
     component: AdminComponent,
     loadChildren:() => import('./modules/admin/admin.module').then(x=>x.AdminModule)
   },
@@ -19,6 +20,7 @@ const routes: Routes = [
   // Router candidate
   {
     path: "candidate",
+    title: "Ứng Viên",
     component: CandidateComponent,
     loadChildren: () => import('./modules/candidate/candidate.module').then(x => x.CandidateModule)
   },
@@ -26,6 +28,7 @@ const routes: Routes = [
   // Router recuiter
   {
     path: "recruiter",
+    title: "Nhà tuyển dụng",
     component: RecruiterComponent,
     loadChildren: () => import('./modules/recruiter/recruiter.module').then(x => x.RecruiterModule)
   },

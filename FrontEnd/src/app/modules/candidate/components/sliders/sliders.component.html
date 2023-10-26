@@ -1,0 +1,161 @@
+<div class="container d-flex">
+    <div id="carouselExampleIndicators" class="carousel col-7 slide p-3" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{apiURL}}/assets/sliders/slider1.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>First slide label</h5>
+                    <p>Some representative placeholder content for the first slide.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{apiURL}}/assets/sliders/slider2.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>First slide label</h5>
+                    <p>Some representative placeholder content for the first slide.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{apiURL}}/assets/sliders/slider3.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>First slide label</h5>
+                    <p>Some representative placeholder content for the first slide.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <form id="frm-search-job" class="pt-3" method="GET" onsubmit="return false;">
+            <div class="formSearch">
+                <div class="col-5">
+                    <div class="inputPostistionJob">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Vị trí ứng tuyển">
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="slectAddress">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <select name="city" id="city" class="form-control select2 shadow-none" tabindex="-1"
+                            aria-hidden="true">
+                            <option value="">Tất cả địa điểm</option>
+                            <option value="1">Hà Nội</option>
+                            <option value="2">Hồ Chí Minh</option>
+                            <option value="3">Bình Dương</option>
+                            <option value="4">Bắc Ninh</option>
+                            <option value="5">Đồng Nai</option>
+                            <option value="6">Hưng Yên</option>
+                            <option value="7">Hải Dương</option>
+                            <option value="8">Đà Nẵng</option>
+                            <option value="9">Hải Phòng</option>
+                            <option value="10">An Giang</option>
+                            <option value="11">Bà Rịa-Vũng Tàu</option>
+                            <option value="12">Bắc Giang</option>
+                            <option value="13">Bắc Kạn</option>
+                            <option value="14">Bạc Liêu</option>
+                            <option value="15">Bến Tre</option>
+                            <option value="16">Bình Định</option>
+                            <option value="17">Bình Phước</option>
+                            <option value="18">Bình Thuận</option>
+                            <option value="19">Cà Mau</option>
+                            <option value="20">Cần Thơ</option>
+                            <option value="21">Cao Bằng</option>
+                            <option value="22">Cửu Long</option>
+                            <option value="23">Đắk Lắk</option>
+                            <option value="24">Đắc Nông</option>
+                            <option value="25">Điện Biên</option>
+                            <option value="26">Đồng Tháp</option>
+                            <option value="27">Gia Lai</option>
+                            <option value="28">Hà Giang</option>
+                            <option value="29">Hà Nam</option>
+                            <option value="30">Hà Tĩnh</option>
+                            <option value="31">Hậu Giang</option>
+                            <option value="32">Hoà Bình</option>
+                            <option value="33">Khánh Hoà</option>
+                            <option value="34">Kiên Giang</option>
+                            <option value="35">Kon Tum</option>
+                            <option value="36">Lai Châu</option>
+                            <option value="37">Lâm Đồng</option>
+                            <option value="38">Lạng Sơn</option>
+                            <option value="39">Lào Cai</option>
+                            <option value="40">Long An</option>
+                            <option value="41">Miền Bắc</option>
+                            <option value="42">Miền Nam</option>
+                            <option value="43">Miền Trung</option>
+                            <option value="44">Nam Định</option>
+                            <option value="45">Nghệ An</option>
+                            <option value="46">Ninh Bình</option>
+                            <option value="47">Ninh Thuận</option>
+                            <option value="48">Phú Thọ</option>
+                            <option value="49">Phú Yên</option>
+                            <option value="50">Quảng Bình</option>
+                            <option value="51">Quảng Nam</option>
+                            <option value="52">Quảng Ngãi</option>
+                            <option value="53">Quảng Ninh</option>
+                            <option value="54">Quảng Trị</option>
+                            <option value="55">Sóc Trăng</option>
+                            <option value="56">Sơn La</option>
+                            <option value="57">Tây Ninh</option>
+                            <option value="58">Thái Bình</option>
+                            <option value="59">Thái Nguyên</option>
+                            <option value="60">Thanh Hoá</option>
+                            <option value="61">Thừa Thiên Huế</option>
+                            <option value="62">Tiền Giang</option>
+                            <option value="63">Toàn Quốc</option>
+                            <option value="64">Trà Vinh</option>
+                            <option value="65">Tuyên Quang</option>
+                            <option value="66">Vĩnh Long</option>
+                            <option value="67">Vĩnh Phúc</option>
+                            <option value="68">Yên Bái</option>
+                            <option value="100">Nước Ngoài</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2 btnSearchCustom ">
+                    <button type="button" class="btn btn-info btnCustom">Tìm</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="box-demand-job">
+            <div class="box-demand-job_work-market">
+                <div class="work-market_header">
+                    <span>
+                        <img src="https://static.topcv.vn/v4/image/welcome/section-header/work_market_star.png" alt="">
+                        Thị trường việc làm hôm nay:
+                    </span>
+                    <span class="date">17/10/2023</span>
+                </div>
+                <div class="work-market_content">
+                    <div class="job-hiring">
+                        <span>Việc làm đang tuyển</span>
+                        <span class="quantity" name="quantity_job_recruitment">34.262</span>
+                        <div class="status up">
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                        </div>
+                    </div>
+                    <div class="job-hiring">
+                        <span>Việc làm mới hôm nay</span>
+                        <span class="quantity" name="quantity_job_new_today">3.926</span>
+                    </div>
+                </div>
+            </div>
+       
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+</script>

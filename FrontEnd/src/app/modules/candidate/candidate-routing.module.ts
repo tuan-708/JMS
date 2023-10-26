@@ -10,11 +10,11 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 const routes: Routes = [
-  {path: "sign-in", component: CandidateSignInComponent},
-  {path: "sign-up", component: CandidateSignUpComponent},
-  {path: "register", component: CandidateRegisterComponent},
-  {path: "create-cv", component: CandidateCreateCvComponent},
-  {path: "forgot-password", component: CandidateForgotPasswordComponent},
+  {path: "sign-in", title: "Ứng viên - Đăng nhập", component: CandidateSignInComponent},
+  {path: "sign-up", title: "Ứng viên - Đăng xuất", component: CandidateSignUpComponent},
+  {path: "register", title: "Ứng viên - Đăng ký", component: CandidateRegisterComponent},
+  {path: "create-cv", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent},
+  {path: "forgot-password", title: "Ứng viên - Quên mật khẩu", component: CandidateForgotPasswordComponent},
   {path: "", component: CandidateHomeComponent}
 ];
 

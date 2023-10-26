@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-sign-in',
@@ -8,7 +7,4 @@ import {Title} from "@angular/platform-browser";
 })
 export class CandidateSignInComponent {
 
-  constructor(private titleService:Title) {
-    this.titleService.setTitle("Ứng viên - Đăng nhập");
-  }
 }
