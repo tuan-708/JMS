@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@ckeditor/ckeditor5-build-decoupled-document": "^40.0.0"
+    "@ckeditor/ckeditor5-build-decoupled-document": "^40.0.0",
+    "jquery": "^3.7.1"
   }
 }
