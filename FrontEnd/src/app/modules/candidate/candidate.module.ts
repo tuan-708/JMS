@@ -11,7 +11,7 @@ import { CandidateHomeComponent } from './components/home/home.component';
 import { CandidateForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { CandidateCreateCvComponent } from './components/create-cv/create-cv.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { FormsModule  } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SlidersComponent } from './components/sliders/sliders.component';
 import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
@@ -21,27 +21,27 @@ import { CandidateMyCvsComponent } from './components/my-cvs/my-cvs.component';
 
 
 @NgModule({
-  declarations: [
-    CandidateComponent,
-    HeaderComponent,
-    FooterComponent,
-    CandidateSignInComponent,
-    CandidateSignUpComponent,
-    CandidateRegisterComponent,
-    CandidateHomeComponent,
-    CandidateForgotPasswordComponent,
-    CandidateCreateCvComponent,
-    SlidersComponent,
-    ListJobsComponent,
-    CandidateListCompanysComponent,
-    CandidateMyCvsComponent,
-  ],
-  imports: [
-    CommonModule,
-    CadidateRoutingModule,
-    CKEditorModule,
-    FormsModule,
-    DragDropModule,
-  ]
+   declarations: [
+      CandidateComponent,
+      HeaderComponent,
+      FooterComponent,
+      CandidateSignInComponent,
+      CandidateSignUpComponent,
+      CandidateRegisterComponent,
+      CandidateHomeComponent,
+      CandidateForgotPasswordComponent,
+      CandidateCreateCvComponent,
+      SlidersComponent,
+      ListJobsComponent,
+      CandidateListCompanysComponent,
+      CandidateMyCvsComponent,
+   ],
+   imports: [
+      CommonModule,
+      CadidateRoutingModule,
+      CKEditorModule,
+      FormsModule,
+      DragDropModule,
+   ]
 })
 export class CandidateModule { }

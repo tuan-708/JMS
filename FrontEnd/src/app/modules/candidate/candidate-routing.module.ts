@@ -12,21 +12,21 @@ import { CandidateMyCvsComponent } from './components/my-cvs/my-cvs.component';
 
 
 const routes: Routes = [
-  {path: "sign-in", title: "Ứng viên - Đăng nhập", component: CandidateSignInComponent},
-  {path: "sign-up", title: "Ứng viên - Đăng xuất", component: CandidateSignUpComponent},
-  {path: "register", title: "Ứng viên - Đăng ký", component: CandidateRegisterComponent},
-  {path: "create-cv", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent},
-  {path: "your-cvs", title: "Ứng viên - Danh sách hồ sơ", component: CandidateMyCvsComponent  },
-  {path: "forgot-password", title: "Ứng viên - Quên mật khẩu", component: CandidateForgotPasswordComponent},
-  {path: "list-companys", title: "Ứn viên - Danh sách công ty", component: CandidateListCompanysComponent},
-  {path: "", component: CandidateHomeComponent}
+   { path: "sign-in", title: "Ứng viên - Đăng nhập", component: CandidateSignInComponent },
+   { path: "sign-up", title: "Ứng viên - Đăng xuất", component: CandidateSignUpComponent },
+   { path: "register", title: "Ứng viên - Đăng ký", component: CandidateRegisterComponent },
+   { path: "create-cv", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent },
+   { path: "your-cvs", title: "Ứng viên - Danh sách hồ sơ", component: CandidateMyCvsComponent },
+   { path: "forgot-password", title: "Ứng viên - Quên mật khẩu", component: CandidateForgotPasswordComponent },
+   { path: "list-companys", title: "Ứn viên - Danh sách công ty", component: CandidateListCompanysComponent },
+   { path: "", component: CandidateHomeComponent }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-    CKEditorModule
-  ],
-  exports: [RouterModule]
+   imports: [
+      RouterModule.forChild(routes),
+      CKEditorModule
+   ],
+   exports: [RouterModule]
 })
 export class CadidateRoutingModule { }

@@ -1,29 +1,29 @@
 .gradient-custom {
-    /* fallback for old browsers */
-    background: #03041c;
+   /* fallback for old browsers */
+   background: #03041c;
 }
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
-    font-size: 1rem;
-    line-height: 2.15;
-    padding-left: .75em;
-    padding-right: .75em;
+   font-size: 1rem;
+   line-height: 2.15;
+   padding-left: .75em;
+   padding-right: .75em;
 }
 
 .card-registration .select-arrow {
-    top: 13px;
+   top: 13px;
 }
 
 input {
-    font-size: medium;
+   font-size: medium;
 }
 
 button {
-    color: blue;
+   color: blue;
 }
 
 .file-upload-image {
-    max-height: 300px;
-    margin: auto;
-    object-fit: cover;
+   max-height: 300px;
+   margin: auto;
+   object-fit: cover;
 }

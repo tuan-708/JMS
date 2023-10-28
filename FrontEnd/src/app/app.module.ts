@@ -4,17 +4,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CKEditorModule,
-    BrowserAnimationsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+   declarations: [
+      AppComponent,
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutingModule,
+      CKEditorModule,
+      BrowserAnimationsModule,
+   ],
+   providers: [],
+   bootstrap: [AppComponent],
 })
 export class AppModule { }

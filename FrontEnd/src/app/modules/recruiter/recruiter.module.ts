@@ -21,28 +21,28 @@ import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
-  declarations: [
-    RecruiterSignInComponent,
-    RecruiterSignUpComponent,
-    HeaderComponent,
-    FooterComponent,
-    RecruiterComponent,
-    CompanyRegisterComponent,
-    JobPostComponent,
-    RegisterComponent
-  ],
-  imports: [
-    CommonModule,
-    RecruiterRoutingModule,
-    CKEditorModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-  ]
+   declarations: [
+      RecruiterSignInComponent,
+      RecruiterSignUpComponent,
+      HeaderComponent,
+      FooterComponent,
+      RecruiterComponent,
+      CompanyRegisterComponent,
+      JobPostComponent,
+      RegisterComponent
+   ],
+   imports: [
+      CommonModule,
+      RecruiterRoutingModule,
+      CKEditorModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatInputModule,
+      MatFormFieldModule,
+      MatSelectModule,
+      MatToolbarModule,
+      MatButtonModule,
+      MatIconModule,
+   ]
 })
 export class RecruiterModule { }

@@ -1,112 +1,112 @@
 .container {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
+   position: absolute;
+   top: 20%;
+   left: 50%;
+   transform: translateX(-50%);
 }
 
-.content{
-    background-color: #ddd;
-    height: 1000px;
+.content {
+   background-color: #ddd;
+   height: 1000px;
 }
 
-.listCompany{
-    margin-top: 30px;
+.listCompany {
+   margin-top: 30px;
 }
 
-.itemCompany{
-    height: 340px;
-    border-radius: 15px;
-    border: 1px solid #ccc;
-    width: 32%;
-    margin-bottom: 20px;
-    padding: 10px;
-    position: relative;
+.itemCompany {
+   height: 340px;
+   border-radius: 15px;
+   border: 1px solid #ccc;
+   width: 32%;
+   margin-bottom: 20px;
+   padding: 10px;
+   position: relative;
 }
 
-.itemCompanyHeader img{
-    width: 95px;
-    height: 95px;
-    object-fit: contain;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    position: absolute;
-    top: 60px;
-    left: 35px;
+.itemCompanyHeader img {
+   width: 95px;
+   height: 95px;
+   object-fit: contain;
+   border-radius: 5px;
+   border: 3px solid #fff;
+   position: absolute;
+   top: 60px;
+   left: 35px;
 }
 
-.categoryCompany{
-    margin-bottom: 10px;
+.categoryCompany {
+   margin-bottom: 10px;
 }
 
-.amountJobs{
-    margin-bottom: 10px;
+.amountJobs {
+   margin-bottom: 10px;
 }
 
-.btnSeeMore{
-    width: 100%;
+.btnSeeMore {
+   width: 100%;
 }
 
-.companyName{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
-    margin-bottom: 10px;
+.companyName {
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   -webkit-line-clamp: 2;
+   margin-bottom: 10px;
 }
 
-.contentCompany{
-    margin-top: 10px;
+.contentCompany {
+   margin-top: 10px;
 }
 
-.fllower{
-    margin-left: 140px;
-    line-height: 45px;
+.fllower {
+   margin-left: 140px;
+   line-height: 45px;
 }
 
-.backgroundImage img{
-    width: 100%;
-    height: 95px;
-    object-fit: cover;
-    border-radius: 5px;
+.backgroundImage img {
+   width: 100%;
+   height: 95px;
+   object-fit: cover;
+   border-radius: 5px;
 }
 
-.itemCompany:hover{
-    cursor: pointer;
+.itemCompany:hover {
+   cursor: pointer;
 }
 
-.imgJob{
-    height: 95px;
+.imgJob {
+   height: 95px;
 }
 
-.imgJob img{
-    width: 95px;
-    height: 95px;
-    object-fit: contain;
-    border-radius: 5px;
+.imgJob img {
+   width: 95px;
+   height: 95px;
+   object-fit: contain;
+   border-radius: 5px;
 }
 
-.detailJob{
-    margin-left: 10px;
-    padding: 0;
+.detailJob {
+   margin-left: 10px;
+   padding: 0;
 }
 
-.textOver{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.textOver {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 
-.fontBold{
-    font-weight: 700;
+.fontBold {
+   font-weight: 700;
 }
 
-.colorOrange{
-    color: orange;
+.colorOrange {
+   color: orange;
 }
 
 @media only screen and (min-width: 600px) {
-    input#search {
-        width: 40vw;
-    }
+   input#search {
+      width: 40vw;
+   }
 }
