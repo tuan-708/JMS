@@ -67,8 +67,6 @@ namespace APIServer.Services
         {
             if (id <= 0) throw new Exception("Not exist");
             return _jobRepo.GetAllById(id);
-            if (id <= 0) throw new Exception("Not exist");
-            return _jobRepo.GetAllById(id);
         }
 
         public JobDescription? GetById(int id)
