@@ -1,6 +1,8 @@
 ﻿using APIServer.Common;
 using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
+using APIServer.DTO.EntityDTO;
+using APIServer.DTO.ResponseBody;
 using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
@@ -10,6 +12,7 @@ using AutoMapper;
 using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.Models;
+using X.PagedList;
 using X.PagedList;
 
 namespace APIServer.Services
@@ -62,6 +65,8 @@ namespace APIServer.Services
 
         public List<JobDescription> getAllById(int id)
         {
+            if (id <= 0) throw new Exception("Not exist");
+            return _jobRepo.GetAllById(id);
             if (id <= 0) throw new Exception("Not exist");
             return _jobRepo.GetAllById(id);
         }

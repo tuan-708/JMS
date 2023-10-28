@@ -1,5 +1,7 @@
 ﻿using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
+using APIServer.DTO.EntityDTO;
+using APIServer.DTO.ResponseBody;
 using APIServer.Models.Entity;
 
 namespace APIServer.IServices
