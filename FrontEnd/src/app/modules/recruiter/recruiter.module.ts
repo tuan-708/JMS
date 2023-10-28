@@ -17,6 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RecruiterComponent } from './recruiter.component';
 import { CompanyRegisterComponent } from './components/company-register/company-register.component';
 import { JobPostComponent } from './components/jobpost-register/job-post.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { JobPostComponent } from './components/jobpost-register/job-post.compone
     FooterComponent,
     RecruiterComponent,
     CompanyRegisterComponent,
-    JobPostComponent
+    JobPostComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

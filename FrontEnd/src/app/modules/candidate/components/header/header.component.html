@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-custom shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand" [routerLink]="['/candidate/']">Trang chủ</a>
+        <a class="navbar-brand" [routerLink]="['/candidate/']">Việc làm</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -8,17 +8,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Việc làm</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hồ sơ</a>
+                    <a class="nav-link" [routerLink]="['/candidate/your-cvs/']">Hồ sơ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/candidate/list-companys/']">Công ty</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Việc làm của bạn</a>
+                    <a class="nav-link" [routerLink]="['/candidate/list-companys/']" tabindex="-1" aria-disabled="true">Việc làm của bạn</a>
                 </li>
             </ul>
             <form class="d-flex">

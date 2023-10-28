@@ -119,70 +119,10 @@
     line-height: 22px;
 }
 
-.box-demand-job_work-market .work-market_header span.date {
-    color: #11d769;
-}
-
-.box-demand-job_work-market .work-market_header span img {
-    width: 24px;
-}
-
-.box-demand-job_work-market .work-market_content .job-hiring:nth-child(odd) {
-    border-image-slice: 1;
-    border-image-source: linear-gradient(90deg, rgba(17, 215, 105, 0), #11d769 51.04%, rgba(17, 215, 105, 0));
-    border-right: 1px solid;
-    position: relative;
-}
-
-.box-demand-job_work-market .work-market_content .job-hiring {
-    display: flex;
-    gap: 8px;
-}
-
-.box-demand-job_work-market .work-market_content .job-hiring span {
-    font-feature-settings: "clig" off, "liga" off;
-    color: #fff;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: .175px;
-    line-height: 22px;
-}
-
-.box-demand-job_work-market .work-market_content .job-hiring span.quantity {
-    color: #11d769;
-}
-
-.box-demand-job_work-market .work-market_content .job-hiring .status {
-    align-items: center;
-    background: rgba(17, 215, 105, .1);
-    border-radius: 15px;
-    color: #11d769;
-    display: flex;
-    height: 24px;
-    justify-content: center;
-    padding: 6px;
-    width: 24px;
-}
-
-.box-demand-job_work-market .work-market_content .job-hiring .status i {
-    font-size: 12px;
-}
-
-.box-demand-job_work-market .work-market_content .job-hiring:nth-child(2n) {
-    justify-content: end;
-}
-
-.carousel-control-prev-icon {
-    background-color: #11d769;
-    border-radius: 10px
-}
-
 .list {
     width: 200px;
     height: 190px;
-    background-image: linear-gradient(to top, #d8e0f3 0%, #eef1f5 100%);
+    background-image: linear-gradient(to top, #c2e9fb 0%, #a1c4fd 100%);
     display: inline-block;
     text-align: center;
     border-radius: 10px;
