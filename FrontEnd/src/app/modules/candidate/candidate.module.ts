@@ -15,7 +15,7 @@ import { FormsModule  } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SlidersComponent } from './components/sliders/sliders.component';
 import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
-import { ListCompanysComponent } from './components/list-companys/list-companys.component';
+import { CandidateListCompanysComponent } from './components/list-companys/list-companys.component';
 
 
 
@@ -32,7 +32,7 @@ import { ListCompanysComponent } from './components/list-companys/list-companys.
     CandidateCreateCvComponent,
     SlidersComponent,
     ListJobsComponent,
-    ListCompanysComponent,
+    CandidateListCompanysComponent,
   ],
   imports: [
     CommonModule,

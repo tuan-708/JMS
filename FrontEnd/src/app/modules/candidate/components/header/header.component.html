@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-custom shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Trang chủ</a>
+        <a class="navbar-brand" [routerLink]="['/candidate/']">Trang chủ</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -14,7 +14,7 @@
                     <a class="nav-link" href="#">Hồ sơ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Công ty</a>
+                    <a class="nav-link" [routerLink]="['/candidate/list-companys/']">Công ty</a>
                 </li>
 
                 <li class="nav-item">
@@ -22,8 +22,8 @@
                 </li>
             </ul>
             <form class="d-flex">
-                <button type="button" class="btn btn-outline-primary m-2 p-3">Đăng nhập</button>
-                <button type="button" class="btn btn-success m-2 p-3">Đăng ký</button>
+                <button type="button" class="btn btn-outline-primary m-2 p-3"  [routerLink]="['/candidate/sign-in/']">Đăng nhập</button>
+                <button type="button" class="btn btn-success m-2 p-3" [routerLink]="['/candidate/register/']">Đăng ký</button>
                 <button type="button" class="btn btn-secondary m-2 p-3">Đăng tuyển & tìm hồ sơ</button>
             </form>
         </div>
