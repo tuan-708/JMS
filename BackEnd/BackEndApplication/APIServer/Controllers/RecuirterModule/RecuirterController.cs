@@ -147,7 +147,7 @@ namespace APIServer.Controllers.RecuirterModule
                 {
                     message = GlobalStrings.SUCCESSFULLY,
                     data = _jobService.updateByRecuirterId(recuirterId, jobDTO),
-                    statusCode = HttpStatusCode.BadRequest,
+                    statusCode = HttpStatusCode.OK,
                 };
             }
             catch (Exception ex)

@@ -215,7 +215,7 @@ namespace APIServer.Services
             return _jobRepo.Update(jd);
         }
 
-        public int createById(JobDTO jobDTO, int recuirterId)
+        public int createById(JobDTO jobDTO, int? recuirterId)
         {
             var data = _mapper.Map<JobDescription>(jobDTO);
             if (recuirterId <= 0) throw new Exception("recuirter not exist");
@@ -251,6 +251,39 @@ namespace APIServer.Services
         public List<int> GetVitaeListByMatching(int jobDesciptionId)
         {
             throw new NotImplementedException();
+        }
+
+        public int createById(JobDTO jobDTO, int recuirterId)
+        {
+            var data = _mapper.Map<JobDescription>(jobDTO);
+            if (recuirterId <= 0) throw new Exception("recuirter not exist");
+            if (data == null) throw new Exception("JD not accepted");
+            if (!_recuirterRepo.checkExistById(recuirterId))
+            {
+                throw new Exception("recuirter not exist");
+            }
+            if (Validation.checkStringIsEmpty(data.Title, data.EducationRequirement,
+                data.ExperienceRequirement, data.SkillRequirement, data.CandidateBenefit,
+                data.Salary, data.ContactEmail, data.Address, data.JobDetail
+                ))
+            {
+                throw new Exception("job not completed yet");
+            }
+
+            var newPosTitle = new List<PositionTitle>();
+            foreach (var item in jobDTO.PositionTitlesName)
+            {
+                var pos = _positionTitleRepo.GetById((int)Validation.ConvertInt(item));
+                if (pos == null)
+                    throw new Exception("Position title not exist");
+                newPosTitle.Add(pos);
+            }
+
+            data.PositionTitles = newPosTitle;
+            data.IsDelete = false;
+            data.CreatedAt = DateTime.Now;
+            data.ExpiredDate = DateTime.Now.AddDays(7);
+            return _jobRepo.CreateById(data, recuirterId);
         }
 
         //public async List<int> GetVitaeListByMatching(int jobDesciptionId)
