@@ -14,6 +14,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule  } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SlidersComponent } from './components/sliders/sliders.component';
+import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
+import { ListCompanysComponent } from './components/list-companys/list-companys.component';
 
 
 
@@ -29,6 +31,8 @@ import { SlidersComponent } from './components/sliders/sliders.component';
     CandidateForgotPasswordComponent,
     CandidateCreateCvComponent,
     SlidersComponent,
+    ListJobsComponent,
+    ListCompanysComponent,
   ],
   imports: [
     CommonModule,
