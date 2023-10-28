@@ -29,5 +29,6 @@ namespace APIServer.Models.Entity
         public string? Certificate { get; set; }
         public string? Award { get; set; }
         public DateTime ApplyDate { get; set; }
+        public string? PercentMatching { get; set; }
     }
 }

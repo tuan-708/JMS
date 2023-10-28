@@ -12,7 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.Models;
+using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Net;
+using X.PagedList;
 
 namespace APIServer.Controllers.RecuirterModule
 {
@@ -23,7 +26,7 @@ namespace APIServer.Controllers.RecuirterModule
         private readonly IJobService _jobService;
         private readonly ICurriculumVitaeService _curriculumVitaeService;
         private readonly IMapper _mapper;
-        private IConfiguration _config;
+        private readonly IConfiguration _config;
         private readonly JMSDBContext context;
 
         public RecuirterController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration, JMSDBContext jMSDBContext)
@@ -37,44 +40,31 @@ namespace APIServer.Controllers.RecuirterModule
 
         [HttpGet]
         [Route("get-all")]
-        public PagingResponseBody<List<JobDTO>> getAllPostJob()
+        public PagingResponseBody<List<JobDTO>> getAllPostJob(int? page)
         {
-            //var rs = _mapper.Map<List<JobDTO>>(_jobService.getAll());
-            var rs = context.JobDescriptions.ToList();
-            return new PagingResponseBody<List<JobDTO>>
-            {
-                data = _mapper.Map<List<JobDTO>>(rs),
-                message = GlobalStrings.SUCCESSFULLY,
-                statusCode = HttpStatusCode.OK,
-                ObjectLength = rs.Count,
-                TotalPage = rs.Count
-            };
+            var listJob = _mapper.Map<List<JobDTO>>(_jobService.getAll());
+            return _jobService.GetJobsPaging(page, listJob);
         }
 
         [HttpPost]
-        [Route("new-post")]
-        public async Task<BaseResponseBody<string>> createNewPost(JobDTO jobDTO)
+        [Route("new-post/{recuirterId}")]
+        public async Task<BaseResponseBody<string>> createNewJD(int recuirterId, JobDTO jobDTO)
         {
             try
             {
-                var data = _mapper.Map<JobDescription>(jobDTO);
-                data.CreatedAt = DateTime.Now;
-                data.ExpiredDate = DateTime.Now.AddDays(7);
-                data.IsDelete = false;
-                data.PositionTitles = null;
-                data.EmploymentTypeId = null;
-                context.JobDescriptions.Add(data);
+                var count = _jobService.createById(jobDTO, recuirterId);
                 return new BaseResponseBody<string>
                 {
-                    data = context.SaveChanges() + "",
-                    //data = data.ToString(),
+                    data = count.ToString(),
+                    statusCode = HttpStatusCode.Created,
+                    message = GlobalStrings.SUCCESSFULLY,
                 };
             }
             catch (Exception ex)
             {
                 return new BaseResponseBody<string>
                 {
-                    message = GlobalStrings.BAD_REQUEST,
+                    message = ex.Message,
                     statusCode = HttpStatusCode.BadRequest,
                 };
             }
@@ -106,23 +96,70 @@ namespace APIServer.Controllers.RecuirterModule
             //prompt += result + Environment.NewLine;
 
             return Ok(prompt);
-                
         }
 
-        [HttpGet("test-cv")]
-        public IActionResult test1()
+        [HttpGet]
+        [Route("by-recuirter/{id}/{page}")]
+        public PagingResponseBody<List<JobDTO>> getAllJDByRecuirterId(int id, int page)
         {
-            var cv = context.CurriculumVitaes
-                .Include(x => x.JobExperiences)
-                .Include(x => x.Skills)
-                .Include(x => x.Educations)
-                .Include(x => x.Projects)
-                .Include(x => x.Certificates)
-                .Include(x => x.Awards)
-                .FirstOrDefault();
-            return Ok(cv);
+            var listJD = _mapper.Map<List<JobDTO>>(_jobService.getAllByRecuirter(id));
+            return _jobService.GetJobsPaging(page, listJD);
         }
 
-        
+        [HttpGet]
+        [Route("by-company/{id}/{page}")]
+        public PagingResponseBody<List<JobDTO>> getAllJDByCompany(int id, int page)
+        {
+            var listJD = _mapper.Map<List<JobDTO>>(_jobService.getAllByCompany(id));
+            return _jobService.GetJobsPaging(page, listJD);
+        }
+
+        [HttpPost]
+        [Route("delete-jd/{recuirterId}/{jobId}")]
+        public BaseResponseBody<int> deleteJDByRecuirter(int recuirterId, int jobId)
+        {
+            try
+            {
+                return new BaseResponseBody<int>
+                {
+                    data = _jobService.deleteByRecuirterId(recuirterId, jobId),
+                    message = GlobalStrings.SUCCESSFULLY_SAVED,
+                    statusCode = HttpStatusCode.OK,
+                };
+            }
+            catch
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = GlobalStrings.BAD_REQUEST,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("update-jd/{recuirterId}")]
+        public BaseResponseBody<int> updateByRecuirter(int recuirterId,
+            [FromBody] JobDTO jobDTO)
+        {
+            try
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = GlobalStrings.SUCCESSFULLY,
+                    data = _jobService.updateByRecuirterId(recuirterId, jobDTO),
+                    statusCode = HttpStatusCode.OK,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = ex.Message,
+                    data = -1,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
     }
 }

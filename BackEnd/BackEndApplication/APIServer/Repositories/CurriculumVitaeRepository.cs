@@ -20,7 +20,7 @@ namespace APIServer.Repositories
             return _context.SaveChanges();
         }
 
-        public int CreateById(CurriculumVitae data, int id)
+        public int CreateById(CurriculumVitae data, int? id)
         {
             //Recuirter user = _context.users.FirstOrDefault(x => x.id == id);
             //data.User = user;

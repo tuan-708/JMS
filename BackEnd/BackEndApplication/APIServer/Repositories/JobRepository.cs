@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APIServer.Repositories
 {
-    public class JobRepository : IBaseRepository<JobDescription>
+    public class JobRepository : IJobRepository
     {
         private readonly JMSDBContext _context;
 
@@ -20,9 +20,11 @@ namespace APIServer.Repositories
             return _context.SaveChanges();
         }
 
-        public int CreateById(JobDescription data, int id)
+        public int CreateById(JobDescription data, int? recuirterId)
         {
-            throw new NotImplementedException();
+            data.RecuirterId = recuirterId;
+            _context.JobDescriptions.Add(data);
+            return _context.SaveChanges();
         }
 
         public int Delete(int id)
@@ -50,9 +52,46 @@ namespace APIServer.Repositories
             return rs;
         }
 
+        public List<JobDescription> getAllByCompanyId(int? companyId)
+        {
+            var rs = _context.JobDescriptions
+                .Include(x => x.Recuirter)
+                .Include(x => x.PositionTitles)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Company)
+                .Include(x => x.Category)
+                .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
+                x.CompanyId == companyId)
+                .ToList();
+            return rs;
+        }
+
         public List<JobDescription> GetAllById(int id)
         {
-            return _context.JobDescriptions.Where(x => x.JobId == id).ToList();
+            var rs = _context.JobDescriptions
+                .Include(x => x.Recuirter)
+                .Include(x => x.PositionTitles)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Company)
+                .Include(x => x.Category)
+                .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
+                x.RecuirterId == id)
+                .ToList();
+            return rs;
+        }
+
+        public List<JobDescription> getAllByRecuirterId(int? recuirterId)
+        {
+            var rs = _context.JobDescriptions
+                .Include(x => x.Recuirter)
+                .Include(x => x.PositionTitles)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Company)
+                .Include(x => x.Category)
+                .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
+                x.RecuirterId == recuirterId)
+                .ToList();
+            return rs;
         }
 
         public JobDescription GetById(int id)
