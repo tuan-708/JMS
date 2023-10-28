@@ -100,8 +100,11 @@ namespace APIServer.Controllers.RecuirterModule
                 .Include(x => x.Certificates)
                 .Include(x => x.Awards)
                 .FirstOrDefault(x => x.Id == CVId);
-            string prompt = GPT_PROMPT.PromptForRecruiter(job, cv) + Environment.NewLine
-                + await _jobService.GetResult(GPT_PROMPT.PromptForRecruiter(job, cv));
+            string prompt = GPT_PROMPT.PromptForCandidate(job, cv) + Environment.NewLine;
+            //string result = await _jobService.GetResult(prompt) + Environment.NewLine;
+            //float percent = Validation.checkPercentMatchingFromJSON(result);
+            //prompt += result + Environment.NewLine;
+
             return Ok(prompt);
                 
         }

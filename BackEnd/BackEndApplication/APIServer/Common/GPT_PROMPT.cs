@@ -59,6 +59,91 @@ namespace APIServer.Common
             return prompt;
         }
 
+        //public static string PromptForRecruiter(JobDescription jobDescription, CurriculumVitae curriculumVitae)
+        //{
+        //    string prompt = "";
+        //    string eduNumber = "";
+        //    string expNumber = "";
+        //    string skillNumber = "";
+        //    //Education prompt
+        //    if (!Validation.checkStringIsEmpty(jobDescription.EducationRequirement) &&
+        //        curriculumVitae.Educations.Any())
+        //    {
+        //        var eduRequire = processStr(jobDescription.EducationRequirement);
+
+        //        for (int i = 0; i < eduRequire.Length; i++)
+        //        {
+        //            if (i > 0)
+        //            {
+        //                prompt += $"\"education{i + 1}\" :  Các nội dung tương tự như các vế trái ở education1 có thoả mãn \"{eduRequire[i]}\"" + Environment.NewLine;
+        //            }
+        //            else
+        //            {
+        //                foreach (var e in curriculumVitae.Educations)
+        //                {
+        //                    prompt += $"\"education{i + 1}\" : \"{e.SchoolName} - {e.MajorName} - {e.Description}\" có đáp ứng \"{eduRequire[i]}\"" + Environment.NewLine;
+
+        //                }
+        //            }
+        //            eduNumber += $"\"education{i + 1}\":TrueOrFalse, ";
+
+        //        }
+        //    }
+
+        //    //Job experience prompt
+        //    if (!Validation.checkStringIsEmpty(jobDescription.ExperienceRequirement) &&
+        //        curriculumVitae.JobExperiences.Any())
+        //    {
+        //        var expRequire = processStr(jobDescription.ExperienceRequirement);
+        //        for (int i = 0; i < expRequire.Length; i++)
+        //        {
+        //            if (i > 0)
+        //            {
+        //                prompt += $"\"jobExperience{i + 1}\" : Các nội dung tương tự như các vế trái ở jobExperience1 có thoả mãn \"{expRequire[i]}\"" + Environment.NewLine;
+        //            }
+        //            else
+        //            {
+        //                foreach (var e in curriculumVitae.JobExperiences)
+        //                {
+        //                    var ExpDescriptionSplit = processStr(e.Description);
+        //                    for (int j = 0; j < ExpDescriptionSplit.Length; j++)
+        //                    {
+        //                        prompt += $"\"jobExperience{i + 1}\" : \"{ExpDescriptionSplit[j]}\" có đáp ứng \"{expRequire[i]}\"" + Environment.NewLine;
+        //                    }
+        //                }
+        //            }
+        //            expNumber += $"\"jobExperience{i + 1}\":TrueOrFalse, ";
+        //        }
+        //    }
+
+        //    //Skill prompt
+        //    if (!Validation.checkStringIsEmpty(jobDescription.SkillRequirement) &&
+        //        curriculumVitae.Skills.Any())
+        //    {
+        //        var skillRequire = processStr(jobDescription.SkillRequirement);
+
+        //        for (int i = 0; i < skillRequire.Length; i++)
+        //        {
+        //            if (i > 0)
+        //            {
+        //                prompt += $"\"skill{i + 1}\" : Các nội dung tương tự như các vế trái ở skill1 có thoả mãn \"{skillRequire[i]}\"" + Environment.NewLine;
+        //            }
+        //            else
+        //            {
+        //                foreach (var s in curriculumVitae.Skills)
+        //                {
+        //                    prompt += $"\"skill{i + 1}\" : \"{s.Title} - {s.SkillDescription}\" có đáp ứng \"{skillRequire[i]}\"" + Environment.NewLine;
+
+        //                }
+        //            }
+        //            skillNumber += $"\"skill{i + 1}\":TrueOrFalse, ";
+        //        }
+        //    }
+
+        //    prompt += $"Lưu ý: Nếu 1 trong tất cả các key cùng tên mà trả về true thì cả tiêu chí đó sẽ là true (ví dụ có \"education1\":true, \"education1\":false thì kết quả cuối cùng là \"education1\":true). Trả lời đúng theo các đầu mục theo form json sau và không giải thích gì thêm:{{ {eduNumber + expNumber + skillNumber} }}";
+        //    return prompt;
+        //}
+
         public static string PromptForRecruiter(JobDescription jobDescription, CurriculumVitae curriculumVitae)
         {
             string prompt = "";
@@ -70,21 +155,17 @@ namespace APIServer.Common
                 curriculumVitae.Educations.Any())
             {
                 var eduRequire = processStr(jobDescription.EducationRequirement);
-
+                prompt += "- educationRequirements:\"";
                 for (int i = 0; i < eduRequire.Length; i++)
                 {
-                    if (i > 0)
-                    {
-                        prompt += $"\"education{i + 1}\" :  Các nội dung tương tự như các vế trái ở education1 có thoả mãn \"{eduRequire[i]}\"" + Environment.NewLine;
-                    }
-                    else
-                    {
-                        foreach (var e in curriculumVitae.Educations)
-                        {
-                            prompt += $"\"education{i + 1}\" : \"{e.SchoolName} - {e.MajorName} - {e.Description}\" có đáp ứng \"{eduRequire[i]}\"" + Environment.NewLine;
+                    prompt += $"{eduRequire[i]}" + Environment.NewLine;
 
-                        }
-                    }
+                }
+                prompt += " \" " + Environment.NewLine;
+                var educationsList = curriculumVitae.Educations.ToList();
+                for (int i = 0; i < educationsList.Count; i++)
+                {
+                    prompt += $"+ \"education{i + 1}\" : \"{educationsList[i].SchoolName} - {educationsList[i].MajorName} - {educationsList[i].Description}\" có đáp ứng 1 trong các ý trong educationRequirements không?" + Environment.NewLine;
                     eduNumber += $"\"education{i + 1}\":TrueOrFalse, ";
 
                 }
@@ -95,24 +176,22 @@ namespace APIServer.Common
                 curriculumVitae.JobExperiences.Any())
             {
                 var expRequire = processStr(jobDescription.ExperienceRequirement);
+                prompt += "- experienceRequirements:\"";
                 for (int i = 0; i < expRequire.Length; i++)
                 {
-                    if (i > 0)
+                    prompt += $"{expRequire[i]}" + Environment.NewLine;
+                }
+                prompt += " \" " + Environment.NewLine;
+                int totalExperienceCount = 1;
+                foreach (var e in curriculumVitae.JobExperiences)
+                {
+                    var ExpDescriptionSplit = processStr(e.Description);
+                    for (int j = 0; j < ExpDescriptionSplit.Length; j++)
                     {
-                        prompt += $"\"jobExperience{i + 1}\" : Các nội dung tương tự như các vế trái ở jobExperience1 có thoả mãn \"{expRequire[i]}\"" + Environment.NewLine;
+                        prompt += $"+ \"jobExperience{totalExperienceCount}\" : \"{ExpDescriptionSplit[j]}\" có đáp ứng 1 trong các ý trong experienceRequirements không?" + Environment.NewLine;
+                        expNumber += $"\"jobExperience{totalExperienceCount}\":TrueOrFalse, ";
+                        totalExperienceCount++;
                     }
-                    else
-                    {
-                        foreach (var e in curriculumVitae.JobExperiences)
-                        {
-                            var ExpDescriptionSplit = processStr(e.Description);
-                            for (int j = 0; j < ExpDescriptionSplit.Length; j++)
-                            {
-                                prompt += $"\"jobExperience{i + 1}\" : \"{e.Title} : {ExpDescriptionSplit[j]}\" có đáp ứng \"{expRequire[i]}\"" + Environment.NewLine;
-                            }
-                        }
-                    }
-                    expNumber += $"\"jobExperience{i + 1}\":TrueOrFalse, ";
                 }
             }
 
@@ -121,26 +200,99 @@ namespace APIServer.Common
                 curriculumVitae.Skills.Any())
             {
                 var skillRequire = processStr(jobDescription.SkillRequirement);
+                prompt += "- skillRequirements:\"";
 
                 for (int i = 0; i < skillRequire.Length; i++)
                 {
-                    if (i > 0)
-                    {
-                        prompt += $"\"skill{i + 1}\" : Các nội dung tương tự như các vế trái ở skill1 có thoả mãn \"{skillRequire[i]}\"" + Environment.NewLine;
-                    }
-                    else
-                    {
-                        foreach (var s in curriculumVitae.Skills)
-                        {
-                            prompt += $"\"skill{i + 1}\" : \"{s.Title} - {s.SkillDescription}\" có đáp ứng \"{skillRequire[i]}\"" + Environment.NewLine;
+                    prompt += $"{skillRequire[i]}" + Environment.NewLine;
+                }
+                prompt += " \" " + Environment.NewLine;
+                var skillsList = curriculumVitae.Skills.ToList();
+                for (int i = 0; i < skillsList.Count; i++)
+                {
+                    prompt += $"+ \"skill{i + 1}\" : \"{skillsList[i].Title} - {skillsList[i].SkillDescription}\" có đáp ứng 1 trong các ý trong skillRequirements không?" + Environment.NewLine;
+                    skillNumber += $"\"skill{i + 1}\":TrueOrFalse, ";
 
-                        }
+                }
+            }
+
+            prompt += $"Yêu cầu chỉ trả lời đúng theo các đầu mục theo form json sau và không giải thích gì thêm:{{ {eduNumber + expNumber + skillNumber} }}";
+            return prompt;
+        }
+
+        public static string PromptForCandidate(JobDescription jobDescription, CurriculumVitae curriculumVitae)
+        {
+            string prompt = "";
+            string eduNumber = "";
+            string expNumber = "";
+            string skillNumber = "";
+            //Education prompt
+            if (!Validation.checkStringIsEmpty(jobDescription.EducationRequirement) &&
+                curriculumVitae.Educations.Any())
+            {
+                prompt += $"- educations:\"";
+                var educationsList = curriculumVitae.Educations.ToList();
+                for (int i = 0; i < educationsList.Count; i++)
+                {
+                    prompt += $"{educationsList[i].SchoolName} - {educationsList[i].MajorName} - {educationsList[i].Description}" + Environment.NewLine;
+                }
+                prompt += " \" " + Environment.NewLine;
+
+                var eduRequire = processStr(jobDescription.EducationRequirement);
+                for (int i = 0; i < eduRequire.Length; i++)
+                {
+                    prompt += $"+ \"education{i + 1}\" : 1 trong các ý ở educations có đáp ứng \"{eduRequire[i]}\" không?" + Environment.NewLine;
+                    
+                    eduNumber += $"\"education{i + 1}\":TrueOrFalse, ";
+                }
+            }
+
+            //Job experience prompt
+            if (!Validation.checkStringIsEmpty(jobDescription.ExperienceRequirement) &&
+                curriculumVitae.JobExperiences.Any())
+            {
+
+                prompt += $"- experiences:\"";
+                foreach (var e in curriculumVitae.JobExperiences)
+                {
+                    var ExpDescriptionSplit = processStr(e.Description);
+                    for (int j = 0; j < ExpDescriptionSplit.Length; j++)
+                    {
+                        prompt += $"{ExpDescriptionSplit[j]}" + Environment.NewLine;
                     }
+                }
+                prompt += " \" " + Environment.NewLine;
+
+                var expRequire = processStr(jobDescription.ExperienceRequirement);
+                for (int i = 0; i < expRequire.Length; i++)
+                {
+                    prompt += $"+ \"experience{i + 1}\" : 1 trong các ý ở experiences có đáp ứng \"{expRequire[i]}\" không?" + Environment.NewLine;
+                    expNumber += $"\"jobExperience{i + 1}\":TrueOrFalse, ";
+                }
+            }
+
+            //Skill prompt
+            if (!Validation.checkStringIsEmpty(jobDescription.SkillRequirement) &&
+                curriculumVitae.Skills.Any())
+            {
+                prompt += $"- skills:\"";
+                var skillsList = curriculumVitae.Skills.ToList();
+                for (int i = 0; i < skillsList.Count; i++)
+                {
+                    prompt += $"{skillsList[i].Title} - {skillsList[i].SkillDescription}" + Environment.NewLine;
+                }
+                prompt += " \" " + Environment.NewLine;
+
+                var skillRequire = processStr(jobDescription.SkillRequirement);
+
+                for (int i = 0; i < skillRequire.Length; i++)
+                {
+                    prompt += $"+ \"skill{i + 1}\" : 1 trong các ý ở skills có đáp ứng \"{skillRequire[i]}\" không?" + Environment.NewLine;
                     skillNumber += $"\"skill{i + 1}\":TrueOrFalse, ";
                 }
             }
 
-            prompt += $"Lưu ý:Nếu 1 trong các tiêu chí bên trái mà thỏa mãn được yêu cầu bên phải thì cả tiêu chí sẽ trả về true, không thì ngược lại (ví dụ có \"education1\":true, \"education1\":false => \"education1\":true). Trả lời đúng theo các đầu mục theo form json sau và không giải thích gì thêm:{{ {eduNumber + expNumber + skillNumber} }}";
+            prompt += $"Yêu cầu chỉ trả lời đúng theo các đầu mục theo form json sau và không giải thích gì thêm:{{ {eduNumber + expNumber + skillNumber} }}";
             return prompt;
         }
     }
