@@ -1,10 +1,18 @@
-﻿using APIServer.Models.Entity;
+﻿using APIServer.DTO.EntityDTO;
+using APIServer.DTO.ResponseBody;
+using APIServer.Models.Entity;
 
 namespace APIServer.IServices
 {
     public interface IJobService : IBaseService<JobDescription>
     {
-        public int CreateNewPost(JobDescription jobPost, int? userId);
         public Task<string> GetResult(string prompt);
+        public PagingResponseBody<List<JobDTO>> GetJobsPaging(int? page, List<JobDTO> listData);
+        public List<JobDescription> getAllByCompany(int companyId);
+        public List<JobDescription> getAllByRecuirter(int recuirterId);
+        public int deleteByRecuirterId(int? recuirterId, int JDid);
+        public int deleteByCompanyId(int? companyId, int JDid);
+        public int updateByRecuirterId(int? recuirterId, JobDTO jdDTO);
+        public int createById(JobDTO jobDTO, int recuirterId);
     }
 }

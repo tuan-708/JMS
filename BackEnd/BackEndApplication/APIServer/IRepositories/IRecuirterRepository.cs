@@ -7,5 +7,6 @@ namespace APIServer.IRepositories
         public Recuirter Login(string? username, string? password);
         public Recuirter findByUserName(string? username);
         public bool checkExistUserNameEmail(string username, string email);
+        public bool checkExistById(int? recuirterId);
     }
 }

@@ -17,19 +17,27 @@ namespace ConsoleTest
             //// 5 tokens => [21339, 352, 301, 11, 4751]
             //List<int> tokens = GPT3Tokenizer.Encode(text);
             //Console.WriteLine(tokens.Count);
-            var rs = Validation.checkPercentMatchingFromJSON(@"{
+            var str = @"{
 ""education1"": true,
 ""jobExperience1"": false,
 ""jobExperience2"": true,
 ""jobExperience3"": true,
 ""jobExperience4"": true,
 ""jobExperience5"": false,
+
+
+
+
 ""skill1"": true,
 ""skill2"": true,
 ""skill3"": false,
 ""skill4"": true
-}");
-            Console.WriteLine(rs);
+}";
+            //var rs = Validation.checkPercentMatchingFromJSON(a);
+            //Console.WriteLine(rs);
+
+            var rs = GPT_PROMPT.processStr(str);
+            Console.Write(rs);
         }
 
         static bool IsValidEmail(string email)

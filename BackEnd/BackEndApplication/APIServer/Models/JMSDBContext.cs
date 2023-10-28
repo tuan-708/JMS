@@ -23,6 +23,7 @@ namespace APIServer.Models
         public DbSet<Recuirter> Recuirters { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         
 
         public JMSDBContext(DbContextOptions options) : base(options)

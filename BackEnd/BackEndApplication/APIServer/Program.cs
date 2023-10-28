@@ -6,16 +6,18 @@ using APIServer.Repositories;
 using APIServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace APIServer
 {
     public class Program
     {
         public static void Main(string[] args)
-       {
+        {
             var builder = WebApplication.CreateBuilder(args);
 
             var allowFE = "_AllowFrontEndClient";
@@ -33,7 +35,8 @@ namespace APIServer
             });
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             //JWT
             builder.Services.AddAuthentication(
@@ -86,8 +89,11 @@ namespace APIServer
             });
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddDbContext<JMSDBContext>
-    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("JobConstr")));
+            builder.Services.AddDbContext<JMSDBContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("JobConstr"));
+                //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
 
             configurationInterfce(builder);
 
@@ -115,11 +121,11 @@ namespace APIServer
         {
             builder.Services.AddTransient<IRecuirterService, RecuirterService>();
             builder.Services.AddTransient<IRecuirterRepository, RecuirterRepository>();
-            builder.Services.AddTransient<IBaseRepository<JobDescription>, JobRepository>();
+            builder.Services.AddScoped<IJobRepository, JobRepository>();
             builder.Services.AddTransient<IJobService, JobService>();
             builder.Services.AddTransient<IBaseRepository<CurriculumVitae>, CurriculumVitaeRepository>();
             builder.Services.AddTransient<ICurriculumVitaeService, CurriculumVitaeService>();
-
+            builder.Services.AddTransient<IBaseRepository<PositionTitle>, PositionTitleRepository>();
         }
     }
 }
