@@ -16,6 +16,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SlidersComponent } from './components/sliders/sliders.component';
 import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
 import { CandidateListCompanysComponent } from './components/list-companys/list-companys.component';
+import { CandidateMyCvsComponent } from './components/my-cvs/my-cvs.component';
 
 
 
@@ -33,6 +34,7 @@ import { CandidateListCompanysComponent } from './components/list-companys/list-
     SlidersComponent,
     ListJobsComponent,
     CandidateListCompanysComponent,
+    CandidateMyCvsComponent,
   ],
   imports: [
     CommonModule,
