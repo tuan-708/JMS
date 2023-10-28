@@ -28,7 +28,7 @@ namespace APIServer.Repositories
             return context.SaveChanges();
         }
 
-        public int CreateById(Recuirter data, int id)
+        public int CreateById(Recuirter data, int? id)
         {
             throw new NotImplementedException();
         }
@@ -88,6 +88,11 @@ namespace APIServer.Repositories
         {
             context.Recuirters.Update(data);
             return context.SaveChanges();
+        }
+
+        public bool checkExistById(int? recuirterId)
+        {
+            return context.Recuirters.Where(x => x.Id == recuirterId).Any();
         }
     }
 }

@@ -34,7 +34,15 @@ namespace APIServer.Common
         public static string[] processStr(string input)
         {
             string[] cacDong = input.Split('\n');
-            return cacDong;
+            var result = new List<string>();
+            foreach (var c in cacDong)
+            {
+                if(!Validation.checkStringIsEmpty(c) )
+                {
+                    result.Add(c.Trim());
+                }
+            }
+            return result.ToArray();
         }
 
         // Prompt Education
