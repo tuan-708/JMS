@@ -16,8 +16,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RecruiterComponent } from './recruiter.component';
 import { CompanyRegisterComponent } from './components/company-register/company-register.component';
-import { JobPostComponent } from './components/jobpost-register/job-post.component';
 import { RegisterComponent } from './components/register/register.component';
+import { JdRegisterComponent } from './components/jd-register/jd-register.component';
 
 
 @NgModule({
@@ -28,8 +28,8 @@ import { RegisterComponent } from './components/register/register.component';
     FooterComponent,
     RecruiterComponent,
     CompanyRegisterComponent,
-    JobPostComponent,
-    RegisterComponent
+    RegisterComponent,
+    JdRegisterComponent
   ],
   imports: [
     CommonModule,

@@ -1,11 +1,26 @@
-<!-- link for mat-icon working -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
-
-<mat-toolbar color="primary">
-    <span><mat-icon>eco</mat-icon>JMS For Recruiter</span>
-
-    <div class="spacer"></div>
-    <a mat-button routerLink="">HOME</a>
-    <a mat-button routerLink="register-company">Register Company</a>
-    <a mat-button routerLink="register-jobpost">Post Job</a>
-</mat-toolbar>
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom shadow-sm">
+   <div class="container-fluid">
+       <a class="navbar-brand" [routerLink]="['/candidate/']">Bài đăng tuyển</a>
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               <li class="nav-item">
+                   <a class="nav-link" [routerLink]="['/candidate/your-cvs/']">Hồ sơ</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" [routerLink]="['/candidate/list-companys/']">Công ty</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/recruiter/jd-register']">Tạo bài viết</a>
+              </li>
+           </ul>
+           <form class="d-flex">
+               <button type="button" class="btn btn-outline-primary m-1"  [routerLink]="['/candidate/sign-in/']">Đăng nhập</button>
+               <button type="button" class="btn btn-success m-1 " [routerLink]="['/candidate/register/']">Đăng ký</button>
+           </form>
+       </div>
+   </div>
+</nav>
