@@ -1,7 +1,11 @@
-.spacer {
-   flex: 1 1 auto;
-}
-
-a {
-   font-family: Arial, Helvetica, sans-serif;
+.navbar-custom {
+   height: 80px;
+   padding-left: 50px;
+   padding-right: 50px;
+   position: fixed;
+   width: 100%;
+   top: 0;
+   left: 0;
+   z-index: 100;
+   background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }

@@ -19,8 +19,6 @@ export class CandidateCreateCvComponent {
    // public model = {
    //   editorData:
    //     `
-
-
    //   `
    // };
 

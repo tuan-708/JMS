@@ -1,4 +1,4 @@
-<section class="gradient-custom">
+<section class="formCompanyRegister">
    <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
          <div class="col-12 col-lg-9 col-xl-7">
@@ -10,7 +10,7 @@
                      <div class="row">
                         <div class="col-md-6 mb-2">
                            <label class="form-label" for="name">Tên Công Ty</label>
-                           <mat-form-field appearance="outline" class="col-12">
+                           <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="text" id="name" placeholder="Nhập tên công ty" required
                                  [formControl]="nameRq" />
                               <mat-error *ngIf="nameRq.invalid">{{getErrorMessageName()}}</mat-error>
@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-6 mb-2">
                            <label class="form-label" for="email">Email</label>
-                           <mat-form-field appearance="outline" class="col-12">
+                           <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="email" id="email" placeholder="Nhập email" required
                                  [formControl]="emailRq" />
                               <mat-error *ngIf="emailRq.invalid">{{getErrorMessageEmail()}}</mat-error>
@@ -29,7 +29,7 @@
                      <div class="row">
                         <div class="col-md-6 mb-2">
                            <label for="taxNum" class="form-label">Mã Số Thuế</label>
-                           <mat-form-field appearance="outline" class="col-12">
+                           <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="number" id="taxNum" placeholder="Nhập mã số thuế" required
                                  [formControl]="taxNumRq" />
                               <mat-error *ngIf="taxNumRq.invalid">{{getErrorMessageTaxNum()}}</mat-error>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-6 mb-2">
                            <label for="website" class="form-label">Website</label>
-                           <mat-form-field appearance="outline" class="col-12">
+                           <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="text" class="form-control" id="website" placeholder="https://" />
                            </mat-form-field>
                         </div>
@@ -46,7 +46,7 @@
                      <div class="row">
                         <div class="col-md-6 mb-2">
                            <label class="form-label select-label">Lĩnh Vực Hoạt Động</label>
-                           <mat-form-field appearance="outline" class="col-12">
+                           <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select required [formControl]="industryRq">
                                  <mat-option value='0' disabled selected>Chọn lĩnh vực</mat-option>
                                  <mat-option value="1">IT - Phần mềm</mat-option>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-md-6 mb-2">
                            <label class="form-label select-label">Quy Mô</label>
-                           <mat-form-field appearance="outline" class="col-12">
+                           <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select required [formControl]="sizeRq">
                                  <mat-option value="0" disabled selected>Chọn quy mô công ty</mat-option>
                                  <mat-option value="1">1 - 100 người</mat-option>
@@ -73,7 +73,7 @@
                      <div class="row">
                         <div class="col-md-6 mb-2 pb-2">
                            <label class="form-label" for="address">Địa Chỉ</label>
-                           <mat-form-field appearance="outline" class="col-12">
+                           <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="text" id="address" class="form-control"
                                  placeholder="Nhập địa chỉ công ty" required [formControl]="addressRq" />
                               <mat-error *ngIf="addressRq.invalid">{{getErrorMessageAddress()}}</mat-error>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-md-6 mb-2 pb-2">
                            <label class="form-label" for="phone">Số Điện Thoại</label>
-                           <mat-form-field appearance="outline" class="col-12">
+                           <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="tel" id="phone" class="form-control"
                                  placeholder="Nhập số điện thoại công ty" required [formControl]="phoneRq" />
                               <mat-error *ngIf="phoneRq.invalid">{{getErrorMessagePhone()}}</mat-error>
@@ -100,8 +100,21 @@
                      </div>
                      <!-- row 6 -->
                      <div class="row">
-                        <div class="col-12 pb-2">
+                        <div class="col-12 pb-4">
                            <label class="form-label pb-2">Hình Ảnh Công Ty</label>
+                           <img class="file-upload-image col-12 pb-2" [src]="fileSrc" alt="your image"
+                              [style.display]="displayImage" />
+                           <div class="image-upload-wrap" ng-hide="true">
+                              <input class="file-upload-input" type='file' multiple=false (change)="getFile($event);"
+                                 accept="image/*" />
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- row 6 -->
+                     <div class="row">
+                        <div class="col-12 pb-2">
+                           <label class="form-label pb-2">Hình nền Công Ty</label>
                            <img class="file-upload-image col-12 pb-2" [src]="fileSrc" alt="your image"
                               [style.display]="displayImage" />
                            <div class="image-upload-wrap" ng-hide="true">
@@ -113,7 +126,7 @@
                      <!-- button submit -->
                      <div class="mt-4 pt-2">
                         <button mat-stroked-button (click)="submitButtonClicked()"
-                           class="btn btn-primary btn-lg col-2">Lưu</button>
+                           class="btn btn-lg col-2 btnBlueLight">Lưu</button>
                      </div>
                   </form>
                </div>

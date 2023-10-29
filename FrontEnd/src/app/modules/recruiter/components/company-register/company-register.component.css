@@ -1,6 +1,5 @@
-.gradient-custom {
-   /* fallback for old browsers */
-   background: #03041c;
+.formCompanyRegister{
+   padding-top: 80px;
 }
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
