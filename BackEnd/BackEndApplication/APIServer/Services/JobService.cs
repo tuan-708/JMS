@@ -14,15 +14,6 @@ namespace APIServer.Services
 {
     public class JobService : IJobService
     {
-        private readonly IBaseRepository<JobDescription> _JDRepository;
-        private readonly IBaseRepository<CurriculumVitae> _CVRepository;
-
-        public JobService(IBaseRepository<JobDescription> JDRepository, IBaseRepository<CurriculumVitae> CVRepository)
-        {
-            _JDRepository = JDRepository;
-            _CVRepository = CVRepository;
-        }
-
         private readonly IJobRepository _jobRepo;
         private readonly IRecuirterRepository _recuirterRepo;
         private readonly IConfiguration _configuration;
