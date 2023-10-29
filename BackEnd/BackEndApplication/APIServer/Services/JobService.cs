@@ -1,33 +1,19 @@
 ﻿using APIServer.Common;
 using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
-using APIServer.DTO.EntityDTO;
-using APIServer.DTO.ResponseBody;
 using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
-using APIServer.Repositories;
-using Newtonsoft.Json.Linq;
 using AutoMapper;
 using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.Models;
-using X.PagedList;
 using X.PagedList;
 
 namespace APIServer.Services
 {
     public class JobService : IJobService
     {
-        private readonly IBaseRepository<JobDescription> _JDRepository;
-        private readonly IBaseRepository<CurriculumVitae> _CVRepository;
-
-        public JobService(IBaseRepository<JobDescription> JDRepository, IBaseRepository<CurriculumVitae> CVRepository)
-        {
-            _JDRepository = JDRepository;
-            _CVRepository = CVRepository;
-        }
-
         private readonly IJobRepository _jobRepo;
         private readonly IRecuirterRepository _recuirterRepo;
         private readonly IConfiguration _configuration;
@@ -77,36 +63,6 @@ namespace APIServer.Services
         public int Update(JobDescription data)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<string> GetResult(string prompt)
-        {
-            string apiKey = Validation.readKey();
-            var api = new OpenAIAPI(apiKey);
-            var result = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
-            {
-                Model = Model.GPT4,
-                //Temperature = 0f,
-                MaxTokens = 100,
-                Messages = new ChatMessage[] {
-            new ChatMessage(ChatMessageRole.User, prompt)
-        }
-            });
-
-            if (result != null)
-            {
-                var arr = result.Choices;
-                var rs = "";
-                foreach (var choice in arr)
-                {
-                    rs += choice.Message.Content;
-                }
-                return rs;
-            }
-            else
-            {
-                return "not found";
-            }
         }
 
         public PagingResponseBody<List<JobDTO>> GetJobsPaging(int? page, List<JobDTO> listData)

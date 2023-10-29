@@ -16,10 +16,12 @@ namespace APIServer.Services
     public class RecuirterService : IRecuirterService
     {
         private readonly IRecuirterRepository _userRepository;
+        private readonly IConfiguration _configuration;
 
-        public RecuirterService(IRecuirterRepository userRepository)
+        public RecuirterService(IRecuirterRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
+            _configuration = configuration;
         }
 
         public int Create(Recuirter data)
@@ -75,7 +77,7 @@ namespace APIServer.Services
             }
         }
 
-        public string generateToken(Recuirter? userInfo, IConfiguration _configuration)
+        public string generateToken(Recuirter? userInfo)
         {
             var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
@@ -85,7 +87,7 @@ namespace APIServer.Services
                         new Claim("DisplayName", userInfo.FullName),
                         new Claim("UserName", userInfo.UserName),
                         new Claim("Email", userInfo.Email),
-                        new Claim(ClaimTypes.Role, userInfo.Role.ToString()),
+                        new Claim(ClaimTypes.Role, GlobalStrings.ROLE_RECUIRTER),
                     };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -94,7 +96,7 @@ namespace APIServer.Services
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddSeconds(double.Parse(_configuration["Jwt:expiredMins"])),
+                expires: DateTime.Now.AddMinutes(double.Parse(_configuration["Jwt:expiredMins"])),
                 //expires: DateTime.Now.AddSeconds(20),
                 signingCredentials: signIn);
 
@@ -114,11 +116,6 @@ namespace APIServer.Services
             if (rs == null)
                 throw new NullReferenceException("error");
             return rs;
-        }
-
-        public string GetResult(string prompt, IConfiguration configuration)
-        {
-            throw new NotImplementedException();
         }
 
         public Recuirter Login(string? username, string? password)
@@ -144,7 +141,7 @@ namespace APIServer.Services
                 user.RefreshToken != expiredToken.refreshToken ||
                 user.RefreshTokenExpiryTime <= DateTime.Now)
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
-            var newToken = generateToken(user, _configuration);
+            var newToken = generateToken(user);
             var newRefresh = generateRefreshToken();
             user.RefreshToken = newRefresh;
             user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(
@@ -196,8 +193,6 @@ namespace APIServer.Services
             string pattern = @"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$";
             return Regex.IsMatch(email, pattern);
         }
-
-        
 
         public List<Recuirter> getAllById(int id)
         {

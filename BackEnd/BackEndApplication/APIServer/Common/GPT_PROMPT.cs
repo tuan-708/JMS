@@ -1,4 +1,7 @@
 using APIServer.Models.Entity;
+using OpenAI_API.Chat;
+using OpenAI_API;
+using OpenAI_API.Models;
 
 namespace APIServer.Common
 {
@@ -302,6 +305,36 @@ namespace APIServer.Common
 
             prompt += $"Yêu cầu chỉ trả lời đúng theo các đầu mục theo form json sau và không giải thích gì thêm:{{ {eduNumber + expNumber + skillNumber} }}";
             return prompt;
+        }
+
+        public static async Task<string> GetResult(string prompt)
+        {
+            string apiKey = Validation.readKey();
+            var api = new OpenAIAPI(apiKey);
+            var result = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
+            {
+                Model = Model.GPT4,
+                //Temperature = 0f,
+                MaxTokens = 100,
+                Messages = new ChatMessage[] {
+            new ChatMessage(ChatMessageRole.User, prompt)
+        }
+            });
+
+            if (result != null)
+            {
+                var arr = result.Choices;
+                var rs = "";
+                foreach (var choice in arr)
+                {
+                    rs += choice.Message.Content;
+                }
+                return rs;
+            }
+            else
+            {
+                return "not found";
+            }
         }
     }
 }
