@@ -15,6 +15,16 @@ export class CompanyRegisterComponent {
    title = 'angular';
    public Editor = ClassicEditor;
 
+   public onReady(editor: ClassicEditor): void {
+      const element = editor.ui.getEditableElement()!;
+      const parent = element.parentElement!;
+
+      parent.insertBefore(
+         editor.ui.view.toolbar.element!,
+         element
+      );
+   }
+
    nameRq = new FormControl('', [Validators.required]);
    emailRq = new FormControl('', [Validators.required, Validators.email]);
    taxNumRq = new FormControl('', [Validators.required]);

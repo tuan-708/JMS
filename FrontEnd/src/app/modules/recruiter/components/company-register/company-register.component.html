@@ -9,7 +9,8 @@
                      <!-- row 1 -->
                      <div class="row">
                         <div class="col-md-6 mb-2">
-                           <label class="form-label" for="name">Tên Công Ty</label>
+                           <label class="form-label" for="name">Tên Công Ty</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="text" id="name" placeholder="Nhập tên công ty" required
                                  [formControl]="nameRq" />
@@ -17,7 +18,8 @@
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2">
-                           <label class="form-label" for="email">Email</label>
+                           <label class="form-label" for="email">Email</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="email" id="email" placeholder="Nhập email" required
                                  [formControl]="emailRq" />
@@ -28,7 +30,8 @@
                      <!-- row 2 -->
                      <div class="row">
                         <div class="col-md-6 mb-2">
-                           <label for="taxNum" class="form-label">Mã Số Thuế</label>
+                           <label for="taxNum" class="form-label">Mã Số Thuế</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="number" id="taxNum" placeholder="Nhập mã số thuế" required
                                  [formControl]="taxNumRq" />
@@ -45,7 +48,8 @@
                      <!-- row 3 -->
                      <div class="row">
                         <div class="col-md-6 mb-2">
-                           <label class="form-label select-label">Lĩnh Vực Hoạt Động</label>
+                           <label class="form-label select-label">Lĩnh Vực Hoạt Động</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select required [formControl]="industryRq">
                                  <mat-option value='0' disabled selected>Chọn lĩnh vực</mat-option>
@@ -57,7 +61,8 @@
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2">
-                           <label class="form-label select-label">Quy Mô</label>
+                           <label class="form-label select-label">Quy Mô</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select required [formControl]="sizeRq">
                                  <mat-option value="0" disabled selected>Chọn quy mô công ty</mat-option>
@@ -72,7 +77,8 @@
                      <!-- row 4 -->
                      <div class="row">
                         <div class="col-md-6 mb-2 pb-2">
-                           <label class="form-label" for="address">Địa Chỉ</label>
+                           <label class="form-label" for="address">Địa Chỉ</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="text" id="address" class="form-control"
                                  placeholder="Nhập địa chỉ công ty" required [formControl]="addressRq" />
@@ -80,7 +86,8 @@
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2 pb-2">
-                           <label class="form-label" for="phone">Số Điện Thoại</label>
+                           <label class="form-label" for="phone">Số Điện Thoại</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="tel" id="phone" class="form-control"
                                  placeholder="Nhập số điện thoại công ty" required [formControl]="phoneRq" />
