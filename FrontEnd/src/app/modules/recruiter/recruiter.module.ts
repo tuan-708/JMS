@@ -16,33 +16,33 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RecruiterComponent } from './recruiter.component';
 import { CompanyRegisterComponent } from './components/company-register/company-register.component';
-import { JobPostComponent } from './components/jobpost-register/job-post.component';
 import { RegisterComponent } from './components/register/register.component';
+import { JdRegisterComponent } from './components/jd-register/jd-register.component';
 
 
 @NgModule({
-  declarations: [
-    RecruiterSignInComponent,
-    RecruiterSignUpComponent,
-    HeaderComponent,
-    FooterComponent,
-    RecruiterComponent,
-    CompanyRegisterComponent,
-    JobPostComponent,
-    RegisterComponent
-  ],
-  imports: [
-    CommonModule,
-    RecruiterRoutingModule,
-    CKEditorModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-  ]
+   declarations: [
+      RecruiterSignInComponent,
+      RecruiterSignUpComponent,
+      HeaderComponent,
+      FooterComponent,
+      RecruiterComponent,
+      CompanyRegisterComponent,
+      RegisterComponent,
+      JdRegisterComponent
+   ],
+   imports: [
+      CommonModule,
+      RecruiterRoutingModule,
+      CKEditorModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatInputModule,
+      MatFormFieldModule,
+      MatSelectModule,
+      MatToolbarModule,
+      MatButtonModule,
+      MatIconModule,
+   ]
 })
 export class RecruiterModule { }

@@ -6,91 +6,89 @@ import { themeList } from './constant';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-create-cv',
-  templateUrl: './create-cv.component.html',
-  styleUrls: ['./create-cv.component.css']
+   selector: 'app-create-cv',
+   templateUrl: './create-cv.component.html',
+   styleUrls: ['./create-cv.component.css']
 })
 
 export class CandidateCreateCvComponent {
-  // @ViewChild('editor') myEditor: any;
+   // @ViewChild('editor') myEditor: any;
 
-  // title = 'angular';
+   // title = 'angular';
 
-  // public model = {
-  //   editorData:
-  //     `
-      
-    
-  //   `
-  // };
+   // public model = {
+   //   editorData:
+   //     `
+   //   `
+   // };
 
-  // public Editor = DecoupledEditor;
+   // public Editor = DecoupledEditor;
 
-  // public onReady(editor: DecoupledEditor): void {
-  //   const element = editor.ui.getEditableElement()!;
-  //   const parent = element.parentElement!;
+   // public onReady(editor: DecoupledEditor): void {
+   //   const element = editor.ui.getEditableElement()!;
+   //   const parent = element.parentElement!;
 
-  //   parent.insertBefore(
-  //     editor.ui.view.toolbar.element!,
-  //     element
-  //   );
-  // }
+   //   parent.insertBefore(
+   //     editor.ui.view.toolbar.element!,
+   //     element
+   //   );
+   // }
 
-  // private getArticleContent() {
-  //   if (this.myEditor && this.myEditor.editorInstance) {
-  //     return this.myEditor.editorInstance.getData();
-  //   }
+   // private getArticleContent() {
+   //   if (this.myEditor && this.myEditor.editorInstance) {
+   //     return this.myEditor.editorInstance.getData();
+   //   }
 
-  //   return '';
-  // }
+   //   return '';
+   // }
 
-  // public handleSave(editor: any): void {
-  //   console.log(this.getArticleContent());
-  // }
+   // public handleSave(editor: any): void {
+   //   console.log(this.getArticleContent());
+   // }
 
-  hideImage = "block"
-  displayImage = "none"
-  displayChange = "none"
-  apiURL = environment.apiUrl;
-  fileSrc: any;
-  fontCV = "Sans-serif"
+   hideImage = "block"
+   displayImage = "none"
+   displayChange = "none"
+   apiURL = environment.apiUrl;
+   fileSrc: any;
+   fontCV = "Sans-serif"
 
-  colorLeftHeader = "#FFFFFF"
-  colorRightHeader = "#111111"
-  colorLeftInput = "#FFFFFF"
-  ThemStyle = "ThemeDefault"
-  backgroudSelectedLink = `${environment.apiUrl}/assets/images/themeDefault.jpg`
+   colorLeftHeader = "#FFFFFF"
+   colorRightHeader = "#111111"
+   colorLeftInput = "#FFFFFF"
+   ThemStyle = "ThemeDefault"
+   backgroudSelectedLink = `${environment.apiUrl}/assets/images/themeDefault.jpg`
 
 
 
-  getFile(event: any){
-    if (event.target.files && event.target.files[0]) {
-      this.hideImage = "none"
-      this.displayImage = "block"
-      this.displayChange = "block"
+   getFile(event: any) {
+      if (event.target.files && event.target.files[0]) {
+         this.hideImage = "none"
+         this.displayImage = "block"
+         this.displayChange = "block"
 
-      var reader = new FileReader();
+         var reader = new FileReader();
 
-      reader.readAsDataURL(event.target.files[0]);
+         reader.readAsDataURL(event.target.files[0]);
 
-      reader.onload = (event) => { 
-        this.fileSrc = event.target?.result;
+         reader.onload = (event) => {
+            this.fileSrc = event.target?.result;
+         }
       }
-    }
-  }
+   }
 
-  selectedFont(event: any){
-    this.fontCV = event.target.value
-    // console.log(event.target.value);
-  }
+   selectedFont(event: any) {
+      this.fontCV = event.target.value
+      // console.log(event.target.value);
+   }
 
-  SelectedBackGround(value : any){
-    this.colorLeftHeader = themeList[value].colorLeftHeader
-    this.colorRightHeader = themeList[value].colorRightHeader
-    this.colorLeftInput = themeList[value].colorLeftInput
-    this.ThemStyle = themeList[value].ThemStyle
-    this.backgroudSelectedLink = themeList[value].backgroudSelectedLink
-    
-  }
+   SelectedBackGround(value: any) {
+      this.colorLeftHeader = themeList[value].colorLeftHeader
+      this.colorRightHeader = themeList[value].colorRightHeader
+      this.colorLeftInput = themeList[value].colorLeftInput
+      this.ThemStyle = themeList[value].ThemStyle
+      this.backgroudSelectedLink = themeList[value].backgroudSelectedLink
+
+   }
 
 }
