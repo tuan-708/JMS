@@ -18,12 +18,15 @@ namespace APIServer.Models.Entity
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public int? TotalPost { get; set; }
         public int? TotalEmployee { get; set; }
-        public int? TotalFollower { get; set; }
         public string? WebURL { get; set; }
         public bool IsDelete { get; set; }
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
         public virtual ICollection<EmployeeInCompany>? EmployeeInCompanies { get; set; } 
         public virtual ICollection<JobDescription>? JobDescriptions { get; set; }
+        public string? BackGroundURL { get; set; }
+        public string? AvatarURL { get; set; }
+        public int? RecuirterId { get; set; }
+        public virtual Recuirter? Recuirter { get; set; }
     }
 }

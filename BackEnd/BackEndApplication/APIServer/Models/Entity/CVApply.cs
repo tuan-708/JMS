@@ -30,5 +30,9 @@ namespace APIServer.Models.Entity
         public string? Award { get; set; }
         public DateTime ApplyDate { get; set; }
         public string? PercentMatching { get; set; }
+        public int? PositionTitleId { get; set; }
+        public virtual PositionTitle? PositionTitle { get; set; }
+        [StringLength(200)]
+        public string? CategoryName { get; set; }
     }
 }
