@@ -18,7 +18,7 @@ const routes: Routes = [
    { path: "create-cv", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent },
    { path: "your-cvs", title: "Ứng viên - Danh sách hồ sơ", component: CandidateMyCvsComponent },
    { path: "forgot-password", title: "Ứng viên - Quên mật khẩu", component: CandidateForgotPasswordComponent },
-   { path: "list-companys", title: "Ứn viên - Danh sách công ty", component: CandidateListCompanysComponent },
+   { path: "list-companys", title: "Ứng viên - Danh sách công ty", component: CandidateListCompanysComponent },
    { path: "", component: CandidateHomeComponent }
 ];
 

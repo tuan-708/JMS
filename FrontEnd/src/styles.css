@@ -24,6 +24,8 @@
 
     --blueLight1: #c2e9fb;
     --blueLight2: #a1c4fd;
+
+    --boxShadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }
 
 * {

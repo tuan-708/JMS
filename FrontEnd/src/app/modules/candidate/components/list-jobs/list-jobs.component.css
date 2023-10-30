@@ -13,6 +13,7 @@
    width: 32%;
    margin-bottom: 20px;
    padding: 10px;
+   box-shadow: var(--boxShadow);
 }
 
 .itemJob:hover {
@@ -47,4 +48,23 @@
 
 .colorOrange {
    color: orange;
+}
+
+.customInput{
+   border: none;
+   font-size: 1.1em;
+   margin-right: 5px;
+}
+
+.formInputSearch{
+   border: 1px solid var(--blueLight1);
+   border-radius: 22px;
+   width: 100%;
+   overflow: hidden;
+   margin-top: 20px;
+   box-shadow: var(--boxShadow);
+}
+
+.customSelect{
+   border: none;
 }

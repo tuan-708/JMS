@@ -53,6 +53,21 @@
    overflow: hidden;
    -webkit-line-clamp: 2;
    margin-bottom: 10px;
+   font-weight: 600;
+}
+
+.customInput{
+   border: none;
+   font-size: 1.1em;
+   margin-right: 5px;
+}
+
+.formInputSearch{
+   border: 1px solid var(--blueLight1);
+   border-radius: 22px;
+   width: 35%;
+   overflow: hidden;
+   box-shadow: var(--boxShadow);
 }
 
 .contentCompany {
@@ -73,6 +88,7 @@
 
 .itemCompany:hover {
    cursor: pointer;
+   box-shadow: var(--boxShadow);
 }
 
 .imgJob {
@@ -89,20 +105,6 @@
 .detailJob {
    margin-left: 10px;
    padding: 0;
-}
-
-.textOver {
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
-}
-
-.fontBold {
-   font-weight: 700;
-}
-
-.colorOrange {
-   color: orange;
 }
 
 @media only screen and (min-width: 600px) {
