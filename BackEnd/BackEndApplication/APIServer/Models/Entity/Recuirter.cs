@@ -43,5 +43,6 @@ namespace APIServer.Models.Entity
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
         public virtual ICollection<EmployeeInCompany> EmployeeInCompanies { get; set; }
+        public string? AvatarURL { get; set; }
     }
 }

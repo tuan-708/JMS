@@ -35,5 +35,8 @@ namespace APIServer.Models.Entity
         public virtual ICollection<Project>? Projects { get; set; }
         public virtual ICollection<Certificate>? Certificates { get; set; }
         public virtual ICollection<Award>? Awards { get; set; }
+        public string? AvatarURL { get; set; }
+        public int? CategoryId { get; set; }
+        public virtual Category? Category { get; set; }
     }
 }

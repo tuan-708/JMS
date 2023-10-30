@@ -25,5 +25,7 @@ namespace APIServer.DTO.EntityDTO
         public List<ProjectDTO>? Projects { get; set; }
         public virtual List<CertificateDTO>? Certificates { get; set; }
         public List<AwardDTO>? Awards { get; set; }
+        public string? AvatarURL { get; set; }
+        public string? CategoryName { get; set; }
     }
 }
