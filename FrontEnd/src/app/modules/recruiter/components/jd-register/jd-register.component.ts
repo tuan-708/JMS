@@ -1,8 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import DecoupledEditor from 'ckeditor5-custom-build/build/ckeditor';
-import { getRequest } from 'src/app/service/api-requests';
 
 @Component({
    selector: 'app-jd-register',
@@ -15,8 +13,7 @@ export class JdRegisterComponent {
    public isBulletedListActive = true;
 
    constructor() {
-      const a = getRequest("/api/Recuirter/get-all")
-      console.log(a)
+
    }
 
    public configDescription = {
@@ -170,7 +167,6 @@ export class JdRegisterComponent {
    checkBen: any = false;
 
    submitButtonClicked() {
-
       if (this.descriptionRq.valid && this.requirementRq.valid && this.benefitRq.valid) {
          return
       }
@@ -191,8 +187,7 @@ export class JdRegisterComponent {
       this.requirementRq.markAllAsTouched()
       this.benefitRq.markAllAsTouched()
 
-      console.log(this.projectRq.value)
-
+      console.log('submit button clicked')
       return
    }
 }

@@ -26,6 +26,11 @@ namespace APIServer.Repositories
             return context.SaveChanges();
         }
 
+        public int DeleteList(List<JobExperience> data, int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<JobExperience> GetAll()
         {
             throw new NotImplementedException();

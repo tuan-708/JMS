@@ -22,7 +22,10 @@
     --border-medium: var(--gray-200);
     --border-heavy: var(--gray-300);
 
+    --blueLight1: #c2e9fb;
+    --blueLight2: #a1c4fd;
 
+    --boxShadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }
 
 * {
@@ -58,4 +61,27 @@
 /* corner */
 ::-webkit-scrollbar-corner {
     background: #eee;
+}
+
+/* Custome btn */
+.btnBlueLight{
+    background-color: var(--blueLight2) !important;
+    border: none;
+    font-weight: 600;
+}
+
+.btnBlueLight:hover{
+    opacity: 0.8;
+}
+
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
+
+
+body{
+    font-family: "Times New Roman", Times, serif;
+    color: #050509;
+    font-size: 1.1em;
 }

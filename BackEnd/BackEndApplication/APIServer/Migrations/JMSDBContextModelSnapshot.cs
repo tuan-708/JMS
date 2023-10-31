@@ -232,6 +232,12 @@ namespace APIServer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AvatarURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BackGroundURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
@@ -260,10 +266,10 @@ namespace APIServer.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("TotalEmployee")
+                    b.Property<int?>("RecuirterId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TotalFollower")
+                    b.Property<int?>("TotalEmployee")
                         .HasColumnType("int");
 
                     b.Property<int?>("TotalPost")
@@ -275,6 +281,8 @@ namespace APIServer.Migrations
                     b.HasKey("CompanyId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("RecuirterId");
 
                     b.ToTable("Companies");
                 });
@@ -290,6 +298,9 @@ namespace APIServer.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("AvatarURL")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CandidateId")
                         .HasColumnType("int");
@@ -373,6 +384,10 @@ namespace APIServer.Migrations
                     b.Property<string>("CareerGoal")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("CategoryName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Certificate")
                         .HasColumnType("nvarchar(max)");
@@ -478,7 +493,7 @@ namespace APIServer.Migrations
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsWorking")
@@ -734,6 +749,9 @@ namespace APIServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("AvatarURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
@@ -886,7 +904,13 @@ namespace APIServer.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("APIServer.Models.Entity.Recuirter", "Recuirter")
+                        .WithMany()
+                        .HasForeignKey("RecuirterId");
+
                     b.Navigation("Category");
+
+                    b.Navigation("Recuirter");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.CurriculumVitae", b =>
@@ -895,7 +919,7 @@ namespace APIServer.Migrations
                         .WithMany()
                         .HasForeignKey("CandidateId");
 
-                    b.HasOne("APIServer.Models.Entity.Category", null)
+                    b.HasOne("APIServer.Models.Entity.Category", "Category")
                         .WithMany("CurriculumVitaes")
                         .HasForeignKey("CategoryId");
 
@@ -908,6 +932,8 @@ namespace APIServer.Migrations
                         .HasForeignKey("PositionTitleId");
 
                     b.Navigation("Candidate");
+
+                    b.Navigation("Category");
 
                     b.Navigation("EmploymentType");
 
@@ -924,13 +950,15 @@ namespace APIServer.Migrations
                         .WithMany()
                         .HasForeignKey("JobDescriptionId");
 
-                    b.HasOne("APIServer.Models.Entity.PositionTitle", null)
+                    b.HasOne("APIServer.Models.Entity.PositionTitle", "PositionTitle")
                         .WithMany("CVApplies")
                         .HasForeignKey("PositionTitleId");
 
                     b.Navigation("Candidate");
 
                     b.Navigation("JobDescription");
+
+                    b.Navigation("PositionTitle");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Education", b =>

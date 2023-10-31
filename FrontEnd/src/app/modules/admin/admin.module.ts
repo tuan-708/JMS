@@ -6,15 +6,15 @@ import { AdminSignUpComponent } from './components/sign-up/sign-up.component';
 import { AdminSettingComponent } from './components/setting/setting.component';
 import { AdminComponent } from './admin.component';
 @NgModule({
-  declarations: [
-    AdminSettingComponent,
-    AdminSignInComponent,
-    AdminSignUpComponent,
-    AdminComponent
-  ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule
-  ]
+   declarations: [
+      AdminSettingComponent,
+      AdminSignInComponent,
+      AdminSignUpComponent,
+      AdminComponent
+   ],
+   imports: [
+      CommonModule,
+      AdminRoutingModule
+   ]
 })
 export class AdminModule { }

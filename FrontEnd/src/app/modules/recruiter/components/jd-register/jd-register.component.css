@@ -1,3 +1,7 @@
-.formJobPost{
-    margin-top: 70px;
+.formJdRegister{
+    margin-top: 80px;
+}
+
+#description{
+    height: 200px;
 }
