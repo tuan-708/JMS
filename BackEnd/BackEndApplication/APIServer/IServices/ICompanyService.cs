@@ -9,5 +9,8 @@ namespace APIServer.IServices
         public int UpdateByRecuirterId(CompanyDTO data, int recuirterId);
         public int DeleteByRecuirterId(int recuirterId, int companyId);
         public List<CompanyDTO> GetAllByName(string? search);
+        public int UpdateEmployeeInCompany(int recuirterId, int companyId, EmployeeDTO employee);
+        public int AddEmployeeInCompany(int recuirterId, int companyId, EmployeeDTO employee);
+        public int DeleteEmployeeInCompany(int recuirterId, int companyId, int employeeId);
     }
 }
