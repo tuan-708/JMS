@@ -15,13 +15,34 @@ namespace APIServer.Services
         private readonly IRecuirterRepository _recuirterRepository;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+        private readonly IBaseRepository<EmployeeInCompany> _empRepo;
 
-        public CompanyService(IBaseRepository<Company> companyRepository, IRecuirterRepository recuirterRepository, IMapper mapper, IConfiguration configuration)
+        public CompanyService(IBaseRepository<Company> companyRepository, IRecuirterRepository recuirterRepository, IMapper mapper, IConfiguration configuration, IBaseRepository<EmployeeInCompany> empRepo)
         {
             _companyRepository = companyRepository;
             _recuirterRepository = recuirterRepository;
             _mapper = mapper;
             _configuration = configuration;
+            _empRepo = empRepo;
+        }
+
+        public int AddEmployeeInCompany(int recuirterId, int companyId, EmployeeDTO employee)
+        {
+            if (companyId <= 0 || employee.RecuirterId == null)
+                throw new Exception("Not found");
+            var com = _companyRepository.GetById(companyId);
+            if (com == null)
+                throw new Exception("Not found");
+            if (com.RecuirterId != recuirterId)
+                throw new Exception("Permission denied");
+            var rec = _recuirterRepository.GetById((int)employee.RecuirterId);
+            if (rec == null)
+                throw new Exception("Not found");
+            var emp = _mapper.Map<EmployeeInCompany>(employee);
+            emp.CompanyId = companyId;
+            emp.RecuirterId = rec.Id;
+            com.TotalEmployee += 1;
+            return _empRepo.Create(emp) + _companyRepository.Update(com);
         }
 
         public int Create(CompanyDTO data)
@@ -96,6 +117,22 @@ namespace APIServer.Services
             return _companyRepository.Update(com);
         }
 
+        public int DeleteEmployeeInCompany(int recuirterId, int companyId, int employeeId)
+        {
+            if (companyId <= 0)
+                throw new Exception("Not found");
+            var com = _companyRepository.GetById(companyId);
+            if (com == null || !com.EmployeeInCompanies.Any())
+                throw new Exception("Not found");
+            if (recuirterId != com.RecuirterId)
+                throw new Exception("Permisson denied");
+            var rec = _empRepo.GetById(employeeId);
+            if (rec == null)
+                throw new Exception("Not found");
+            com.TotalEmployee -= 1;
+            return _empRepo.Delete(employeeId) + _companyRepository.Update(com);
+        }
+
         public List<CompanyDTO> getAll()
         {
             var data = _companyRepository.GetAll();
@@ -120,7 +157,7 @@ namespace APIServer.Services
             if (Validation.checkStringIsEmpty(search))
                 return getAll();
             var data = _companyRepository.GetAll()
-                .Where(x => x.CompanyName.ToLower().Contains(search.ToLower()) || 
+                .Where(x => x.CompanyName.ToLower().Contains(search.ToLower()) ||
                 x.Recuirter.FullName.ToLower().Contains(search.ToLower()) ||
                 x.Recuirter.PhoneNumber.ToLower().Contains(search.ToLower()))
                 .ToList();
@@ -215,6 +252,25 @@ namespace APIServer.Services
             com.AvatarURL = input.AvatarURL;
 
             return _companyRepository.Update(com);
+        }
+
+        public int UpdateEmployeeInCompany(int recuirterId, int companyId, EmployeeDTO employee)
+        {
+            if (companyId <= 0 || employee.RecuirterId == null)
+                throw new Exception("Not found");
+            var com = _companyRepository.GetById(companyId);
+            if (com == null)
+                throw new Exception("Not found");
+            if (com.RecuirterId != recuirterId && !com.EmployeeInCompanies
+                .Any(x => x.RecuirterId == recuirterId))
+                throw new Exception("Permission denied");
+            var rec = _recuirterRepository.GetById((int)employee.RecuirterId);
+            if (rec == null)
+                throw new Exception("Not found");
+            var emp = _mapper.Map<EmployeeInCompany>(employee);
+            emp.CompanyId = companyId;
+            emp.RecuirterId = rec.Id;
+            return _empRepo.Update(emp);
         }
     }
 }

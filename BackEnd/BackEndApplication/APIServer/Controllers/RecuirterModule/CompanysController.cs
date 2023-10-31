@@ -152,5 +152,77 @@ namespace APIServer.Controllers.RecuirterModule
                 };
             }
         }
+
+        [HttpPost]
+        [Route("add-employee/{recuirterId}/{companyId}")]
+        public BaseResponseBody<int> addRecuirterInCompany(int recuirterId, int companyId, EmployeeDTO emp)
+        {
+            try
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = GlobalStrings.SUCCESSFULLY_SAVED,
+                    data = _companyService.AddEmployeeInCompany(recuirterId,companyId, emp),
+                    statusCode = HttpStatusCode.OK,
+                };
+            }
+            catch (Exception e)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = e.Message,
+                    data = -1,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("update-employee/{recuirterId}/{companyId}")]
+        public BaseResponseBody<int> updateRecuirterInCompany(int recuirterId, int companyId, EmployeeDTO emp)
+        {
+            try
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = GlobalStrings.SUCCESSFULLY_SAVED,
+                    data = _companyService.UpdateEmployeeInCompany(recuirterId, companyId, emp),
+                    statusCode = HttpStatusCode.OK,
+                };
+            }
+            catch (Exception e)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = e.Message,
+                    data = -1,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("delete-employee/{recuirterId}/{companyId}/{employeeId}")]
+        public BaseResponseBody<int> deleteRecuirterInCompany(int recuirterId, int companyId, int employeeId)
+        {
+            try
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = GlobalStrings.SUCCESSFULLY_SAVED,
+                    data = _companyService.DeleteEmployeeInCompany(recuirterId, companyId, employeeId),
+                    statusCode = HttpStatusCode.OK,
+                };
+            }
+            catch (Exception e)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = e.Message,
+                    data = -1,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
     }
 }
