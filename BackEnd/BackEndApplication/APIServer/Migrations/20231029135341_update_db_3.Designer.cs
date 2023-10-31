@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231029135341_update_db_3")]
+    partial class update_db_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,10 +268,10 @@ namespace APIServer.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("RecuirterId")
+                    b.Property<int?>("TotalEmployee")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TotalEmployee")
+                    b.Property<int?>("TotalFollower")
                         .HasColumnType("int");
 
                     b.Property<int?>("TotalPost")
@@ -281,8 +283,6 @@ namespace APIServer.Migrations
                     b.HasKey("CompanyId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("RecuirterId");
 
                     b.ToTable("Companies");
                 });
@@ -384,10 +384,6 @@ namespace APIServer.Migrations
                     b.Property<string>("CareerGoal")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("CategoryName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Certificate")
                         .HasColumnType("nvarchar(max)");
@@ -493,7 +489,7 @@ namespace APIServer.Migrations
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsWorking")
@@ -904,13 +900,7 @@ namespace APIServer.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("APIServer.Models.Entity.Recuirter", "Recuirter")
-                        .WithMany()
-                        .HasForeignKey("RecuirterId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("Recuirter");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.CurriculumVitae", b =>
@@ -919,7 +909,7 @@ namespace APIServer.Migrations
                         .WithMany()
                         .HasForeignKey("CandidateId");
 
-                    b.HasOne("APIServer.Models.Entity.Category", "Category")
+                    b.HasOne("APIServer.Models.Entity.Category", null)
                         .WithMany("CurriculumVitaes")
                         .HasForeignKey("CategoryId");
 
@@ -932,8 +922,6 @@ namespace APIServer.Migrations
                         .HasForeignKey("PositionTitleId");
 
                     b.Navigation("Candidate");
-
-                    b.Navigation("Category");
 
                     b.Navigation("EmploymentType");
 

@@ -31,7 +31,7 @@ namespace APIServer.Repositories
 
         public List<PositionTitle> GetAll()
         {
-            throw new NotImplementedException();
+            return context.PositionTitles.ToList();
         }
 
         public List<PositionTitle> GetAllById(int id)

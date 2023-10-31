@@ -1,3 +1,4 @@
+using APIServer.DTO.EntityDTO;
 using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models;
@@ -121,11 +122,19 @@ namespace APIServer
         {
             builder.Services.AddTransient<IRecuirterService, RecuirterService>();
             builder.Services.AddTransient<IRecuirterRepository, RecuirterRepository>();
-            builder.Services.AddScoped<IJobRepository, JobRepository>();
+            builder.Services.AddTransient<IJobRepository, JobRepository>();
             builder.Services.AddTransient<IJobService, JobService>();
             builder.Services.AddTransient<IBaseRepository<CurriculumVitae>, CurriculumVitaeRepository>();
             builder.Services.AddTransient<ICurriculumVitaeService, CurriculumVitaeService>();
             builder.Services.AddTransient<IBaseRepository<PositionTitle>, PositionTitleRepository>();
+            builder.Services.AddTransient<IBaseRepository<Company>, CompanyRepository>();
+            builder.Services.AddTransient<ICompanyService, CompanyService>();
+            builder.Services.AddTransient<IBaseRepository<Category>, CategoryRepository>();
+            builder.Services.AddTransient<IBaseRepository<EmploymentType>, EmploymentTypeRepository>();
+            builder.Services.AddTransient<IBaseService<EmploymentTypeDTO>, EmploymentTypeService>();
+            builder.Services.AddTransient<IBaseService<PositionTitleDTO>, PositionTitleService>();
+            builder.Services.AddTransient<IBaseService<CategoryDTO>, CategoryService>();
+            builder.Services.AddTransient<IBaseRepository<EmployeeInCompany>, EmployeeInCompanyRepository>();
         }
     }
 }
