@@ -1,6 +1,7 @@
 ﻿using APIServer.Common;
 using APIServer.DTO;
 using APIServer.DTO.EntityDTO;
+using APIServer.DTO.ResponseBody;
 using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
@@ -10,6 +11,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using X.PagedList;
 
 namespace APIServer.Services
 {
@@ -17,11 +19,13 @@ namespace APIServer.Services
     {
         private readonly IRecuirterRepository _userRepository;
         private readonly IConfiguration _configuration;
+        private readonly ICVApplyRepository _cVApplyRepository;
 
-        public RecuirterService(IRecuirterRepository userRepository, IConfiguration configuration)
+        public RecuirterService(IRecuirterRepository userRepository, IConfiguration configuration, ICVApplyRepository cVApplyRepository)
         {
             _userRepository = userRepository;
             _configuration = configuration;
+            _cVApplyRepository = cVApplyRepository;
         }
 
         public int Create(Recuirter data)
@@ -212,6 +216,42 @@ namespace APIServer.Services
         public string GetResult(string prompt)
         {
             throw new NotImplementedException();
+        }
+
+        public List<CVApply> GetCVAppliedHistory(int recruiterId, int? jobDescription, DateTime? fromDate, DateTime? toDate)
+        {
+            List<CVApply> cVApplies = _cVApplyRepository.GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(recruiterId, jobDescription, fromDate, toDate);
+            return cVApplies;
+        }
+
+        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData)
+        {
+            if (!listData.Any())
+            {
+                return new PagingResponseBody<List<CVApplyDTO>>
+                {
+                    currentPage = 0,
+                    message = GlobalStrings.SUCCESSFULLY,
+                    ObjectLength = 0,
+                    statusCode = System.Net.HttpStatusCode.OK,
+                    TotalPage = 0,
+                };
+            }
+            var numberInOnePage = int.Parse(_configuration["PageSize"]);
+            var k = listData.Count;
+            var totalPage = (int)Math.Ceiling((decimal)k / numberInOnePage);
+            page = page <= 0 || page == null ? 1 : page;
+            page = page > totalPage ? totalPage : page;
+            var data = listData.ToPagedList((int)page, numberInOnePage).ToList();
+            return new PagingResponseBody<List<CVApplyDTO>>
+            {
+                currentPage = (int)page,
+                message = GlobalStrings.SUCCESSFULLY,
+                data = data,
+                ObjectLength = k,
+                statusCode = System.Net.HttpStatusCode.OK,
+                TotalPage = totalPage,
+            };
         }
     }
 }

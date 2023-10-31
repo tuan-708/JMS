@@ -42,6 +42,13 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.PositionTitleName, src => src.MapFrom(src => src.PositionTitle.Title))
                 .ForMember(x => x.CategoryName, src => src.MapFrom(src => src.Category.CategoryName))
                 ;
+            CreateMap<CVApply, CVApplyDTO>()
+                .ForMember(x => x.Candidate, src => src.MapFrom(src => src.Candidate))
+                .ForMember(x => x.JobDescription, src => src.MapFrom(src => src.JobDescription))
+                .ForMember(x => x.PositionTitle, src => src.MapFrom(src => src.PositionTitle));
+
+
+            CreateMap<Candidate, CandidateDTO>();
 
             CreateMap<Award, AwardDTO>();
             CreateMap<Skill, SkillDTO>();

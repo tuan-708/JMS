@@ -1,5 +1,6 @@
 ﻿using APIServer.DTO;
 using APIServer.DTO.EntityDTO;
+using APIServer.DTO.ResponseBody;
 using APIServer.Models.Entity;
 
 namespace APIServer.IServices
@@ -13,5 +14,8 @@ namespace APIServer.IServices
         public TokenModel regenerateToken(TokenModel? expiredToken, IConfiguration _configuration);
         public void revokeToken(TokenModel? token);
         public int CreateRecuirterAccount(Recuirter? account);
+        public List<CVApply> GetCVAppliedHistory(int recruiterId, int? jobDescriptionId, DateTime? fromDate, DateTime? toDate);
+        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData);
+
     }
 }

@@ -25,17 +25,19 @@ namespace APIServer.Controllers.RecuirterModule
     {
         private readonly IJobService _jobService;
         private readonly ICurriculumVitaeService _curriculumVitaeService;
+        private readonly IRecuirterService _recuirterService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
         private readonly JMSDBContext context;
 
-        public RecuirterController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration, JMSDBContext jMSDBContext)
+        public RecuirterController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration, JMSDBContext jMSDBContext, IRecuirterService recuirterService)
         {
             _jobService = jobService;
             _mapper = mapper;
             _config = configuration;
             _curriculumVitaeService = curriculumVitaeService;
             this.context = jMSDBContext;
+            _recuirterService = recuirterService;
         }
 
         [HttpGet]
@@ -91,9 +93,9 @@ namespace APIServer.Controllers.RecuirterModule
                 .Include(x => x.Awards)
                 .FirstOrDefault(x => x.Id == CVId);
             string prompt = GPT_PROMPT.PromptForCandidate(job, cv) + Environment.NewLine;
-            //string result = await _jobService.GetResult(prompt) + Environment.NewLine;
+            string result = await GPT_PROMPT.GetResult(prompt) + Environment.NewLine;
             //float percent = Validation.checkPercentMatchingFromJSON(result);
-            //prompt += result + Environment.NewLine;
+            prompt += result + Environment.NewLine;
 
             return Ok(prompt);
         }
@@ -160,6 +162,18 @@ namespace APIServer.Controllers.RecuirterModule
                     statusCode = HttpStatusCode.BadRequest,
                 };
             }
+        }
+
+        [HttpPost]
+        [Route("cv-applied-history")]
+        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistory(int recuirterId, int? jobDescriptionId, string? fromDate, string? toDate, int? pageIndex)
+        {
+                DateTime from = DateTime.MinValue;
+                DateTime to = DateTime.Now;
+                if (!String.IsNullOrEmpty(fromDate)) from = Validation.convertDateTime(fromDate);
+                if (!String.IsNullOrEmpty(toDate)) to = Validation.convertDateTime(toDate);
+                List<CVApplyDTO> cVApplies = _mapper.Map<List<CVApplyDTO>>(_recuirterService.GetCVAppliedHistory(recuirterId, jobDescriptionId, from, to));
+                return _recuirterService.GetCVAppliedHistoryPaging(pageIndex, cVApplies);  
         }
     }
 }
