@@ -20,31 +20,6 @@ import { JdRegisterComponent } from './components/jd-register/jd-register.compon
 
 
 @NgModule({
-<<<<<<< HEAD
-  declarations: [
-    RecruiterSignInComponent,
-    RecruiterSignUpComponent,
-    HeaderComponent,
-    FooterComponent,
-    RecruiterComponent,
-    CompanyRegisterComponent,
-    RegisterComponent,
-    JdRegisterComponent
-  ],
-  imports: [
-    CommonModule,
-    RecruiterRoutingModule,
-    CKEditorModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-  ]
-=======
    declarations: [
       RecruiterSignInComponent,
       RecruiterSignUpComponent,
@@ -68,6 +43,5 @@ import { JdRegisterComponent } from './components/jd-register/jd-register.compon
       MatButtonModule,
       MatIconModule,
    ]
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
 })
 export class RecruiterModule { }

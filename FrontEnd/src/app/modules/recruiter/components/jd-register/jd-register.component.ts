@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { getRequest, postRequest, putRequest, deleteRequest } from 'src/app/service/api-requests';
+import { AuthorizationMode } from 'src/app/service/constant';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ProductService } from './product.service';
 
 @Component({
    selector: 'app-jd-register',
@@ -11,9 +15,21 @@ export class JdRegisterComponent {
    public Editor = ClassicEditor;
    public editorData = '';
    public isBulletedListActive = true;
+   datas: any[] = [];
 
-   constructor() {
+   constructor(private productService: ProductService) {
+      let a = 1 + 2;
+      console.log(a);
+   }
 
+   ngOnInit(): void {  
+        this.getAll();
+    }
+
+   getAll() {
+      this.productService.getAll().subscribe((res: any) => {
+         this.datas = res.data
+      })
    }
 
    public configDescription = {
@@ -22,23 +38,16 @@ export class JdRegisterComponent {
             'undo',
             'redo',
             '|',
-            'heading',
-            '|',
-            'bold',
-            'italic',
-            'link',
             'bulletedList', // Add 'bulletedList' here
-            'numberedList',
          ],
       },
-      placeholder:'Nhập yêu cầu công việc'
-   };
+   }
 
-   public configRequirement = {...this.configDescription,placeholder:'Nhập yêu cầu kỹ năng'}
-   public configCertificate = {...this.configDescription,placeholder:'Nhập yêu cầu chứng chỉ'}
-   public configProject = {...this.configDescription,placeholder:'Nhập yêu cầu dự án'}
-   public configBenefit = {...this.configDescription,placeholder:'Nhập yêu cầu quyền lợi'}
-   public configrequirementAthor = {...this.configDescription,placeholder:'Nhập yêu cầu khác'}
+   public configRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu kỹ năng' }
+   public configCertificate = { ...this.configDescription, placeholder: 'Nhập yêu cầu chứng chỉ' }
+   public configProject = { ...this.configDescription, placeholder: 'Nhập yêu cầu dự án' }
+   public configBenefit = { ...this.configDescription, placeholder: 'Nhập yêu cầu quyền lợi' }
+   public configrequirementAthor = { ...this.configDescription, placeholder: 'Nhập yêu cầu khác' }
 
    levelData = ['Thực tập sinh/ Sinh viên', 'Mới tốt nghiệp', 'Nhân viên', 'Trưởng phòng', 'Giám đốc và cấp cao hơn'];
    typeData = ['Toàn thời gian', 'Bán thời gian', 'Thực tập', 'Việc làm online', 'Nghề tự do', 'Hợp đồng thời vụ', 'Khác'];
@@ -148,7 +157,7 @@ export class JdRegisterComponent {
       return
    }
 
-   getErrorMessageCertificate(){
+   getErrorMessageCertificate() {
       if (this.certificateRq.hasError('required')) {
          return 'Yêu cầu chứng chỉ không được để trống!'
       }
@@ -187,7 +196,7 @@ export class JdRegisterComponent {
       this.requirementRq.markAllAsTouched()
       this.benefitRq.markAllAsTouched()
 
-      console.log('submit button clicked')
+      console.log(this.descriptionRq.value)
       return
    }
 }
