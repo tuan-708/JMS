@@ -164,16 +164,48 @@ namespace APIServer.Controllers.RecuirterModule
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("cv-applied-history")]
         public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistory(int recuirterId, int? jobDescriptionId, string? fromDate, string? toDate, int? pageIndex)
         {
-                DateTime from = DateTime.MinValue;
-                DateTime to = DateTime.Now;
-                if (!String.IsNullOrEmpty(fromDate)) from = Validation.convertDateTime(fromDate);
-                if (!String.IsNullOrEmpty(toDate)) to = Validation.convertDateTime(toDate);
-                List<CVApplyDTO> cVApplies = _mapper.Map<List<CVApplyDTO>>(_recuirterService.GetCVAppliedHistory(recuirterId, jobDescriptionId, from, to));
-                return _recuirterService.GetCVAppliedHistoryPaging(pageIndex, cVApplies);  
+            DateTime from = DateTime.MinValue;
+            DateTime to = DateTime.Now;
+            if (!String.IsNullOrEmpty(fromDate)) from = Validation.convertDateTime(fromDate);
+            if (!String.IsNullOrEmpty(toDate)) to = Validation.convertDateTime(toDate);
+            List<CVApplyDTO> cVApplies = _mapper.Map<List<CVApplyDTO>>(_recuirterService.GetCVAppliedHistory(recuirterId, jobDescriptionId, from, to));
+            return _recuirterService.GetCVAppliedHistoryPaging(pageIndex, cVApplies);
+        }
+
+        [HttpGet]
+        [Route("get-cv-by-recruiter-id-and-cvapplied-id/{recuirterId}/{CvAppliedId}")]
+        public BaseResponseBody<CVApplyDTO> GetCVAppliedDetail(int recuirterId, int CvAppliedId)
+        {
+            try
+            {
+                CVApplyDTO cVApply = _mapper.Map<CVApplyDTO>(_recuirterService.GetCVAppliedDetail(recuirterId, CvAppliedId));
+                if (cVApply != null)
+                    return new BaseResponseBody<CVApplyDTO>
+                    {
+                        data = cVApply,
+                        message = GlobalStrings.SUCCESSFULLY,
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else
+                    return new BaseResponseBody<CVApplyDTO>
+                    {
+                        data = cVApply,
+                        message = GlobalStrings.NOT_FOUND,
+                        statusCode = HttpStatusCode.NotFound,
+                    };
+            } catch (Exception ex)
+            {
+                return new BaseResponseBody<CVApplyDTO>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+            
         }
     }
 }

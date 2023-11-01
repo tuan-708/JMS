@@ -61,16 +61,35 @@ namespace APIServer.Repositories
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
-                .Where(x => x.JobDescription.Recuirter.Id == recruiterId).ToList();
+                .Where(x => x.JobDescription.RecuirterId == recruiterId).ToList();
             if(jobDescriptionId != null) cVApplies = cVApplies.Where(x => x.JobDescriptionId == jobDescriptionId).ToList();
             if(fromDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate >= fromDate).ToList();
             if(toDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate <= toDate).ToList();
             return cVApplies;
         }
 
+        public CVApply GetByCandidateIdAndCVAppliedId(int candidateId, int CVAppliedId)
+        {
+            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.PositionTitle)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVAppliedId);
+            return cVApply;
+        }
+
         public CVApply GetById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public CVApply GetByRecruiterIdAndCVAppliedId(int recuiterId, int CVAppliedId)
+        {
+            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.PositionTitle)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.JobDescription.RecuirterId == recuiterId && x.Id == CVAppliedId);
+            return cVApply;
         }
 
         public int Update(CVApply data)

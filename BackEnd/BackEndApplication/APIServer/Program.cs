@@ -136,6 +136,7 @@ namespace APIServer
             builder.Services.AddTransient<IBaseService<CategoryDTO>, CategoryService>();
             builder.Services.AddTransient<ICVApplyRepository, CVAppliedRepository>();
             builder.Services.AddTransient<IBaseRepository<EmployeeInCompany>, EmployeeInCompanyRepository>();
+            builder.Services.AddTransient<ICandidateService, CandidateService>();
         }
     }
 }

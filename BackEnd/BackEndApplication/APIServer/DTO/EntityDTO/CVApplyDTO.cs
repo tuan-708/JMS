@@ -2,6 +2,7 @@
 {
     public class CVApplyDTO
     {
+        public int Id { get; set; }
         public int? CandidateId { get; set; }
         public CandidateDTO? Candidate { get; set; }
         public int? JobDescriptionId { get; set; }

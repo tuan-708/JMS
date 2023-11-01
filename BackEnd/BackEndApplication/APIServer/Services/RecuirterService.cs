@@ -253,5 +253,11 @@ namespace APIServer.Services
                 TotalPage = totalPage,
             };
         }
+
+        public CVApply GetCVAppliedDetail(int recuiterId, int CVAppliedId)
+        {
+            CVApply cVApply = _cVApplyRepository.GetByRecruiterIdAndCVAppliedId(recuiterId, CVAppliedId);
+            return cVApply;
+        }
     }
 }
