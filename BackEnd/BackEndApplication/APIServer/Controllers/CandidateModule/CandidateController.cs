@@ -15,16 +15,18 @@ namespace APIServer.Controllers.CandidateModule
     {
         private readonly ICurriculumVitaeService _curriculumVitaeService;
         private readonly IJobService _jobService;
+        private readonly ICandidateService _candidateService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
 
 
-        public CandidateController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration)
+        public CandidateController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration, ICandidateService candidateService)
         {
             _jobService = jobService;
             _curriculumVitaeService = curriculumVitaeService;
             _mapper = mapper;
             _config = configuration;
+            _candidateService = candidateService;
         }
 
         [HttpGet("get-cv-by-id")]
@@ -46,7 +48,7 @@ namespace APIServer.Controllers.CandidateModule
         {
             try
             {
-                int n = _curriculumVitaeService.ApplyJob(candaidateId, CVid, jobDescriptionId);
+                int n = _candidateService.ApplyJob(candaidateId, CVid, jobDescriptionId);
                 if(n > 0)
                 {
                     return new BaseResponseBody<string>
@@ -84,8 +86,40 @@ namespace APIServer.Controllers.CandidateModule
             DateTime to = DateTime.Now;
             if (!String.IsNullOrEmpty(fromDate)) from = Validation.convertDateTime(fromDate);
             if (!String.IsNullOrEmpty(toDate)) to = Validation.convertDateTime(toDate);
-            List<CVApplyDTO> rs = _mapper.Map<List<CVApplyDTO>>(_curriculumVitaeService.GetCVAppliedHistory(candidateId, from, to));
-            return _curriculumVitaeService.GetCVAppliedHistoryPaging(pageIndex, rs);
+            List<CVApplyDTO> rs = _mapper.Map<List<CVApplyDTO>>(_candidateService.GetCVAppliedHistory(candidateId, from, to));
+            return _candidateService.GetCVAppliedHistoryPaging(pageIndex, rs);
+        }
+
+        [HttpGet("get-cv-by-candidate-id-and-cvapplied-id/{candidateId}/{CVAppliedId}")]
+        public BaseResponseBody<CVApplyDTO> GetCVAppliedDetail(int candidateId, int CVAppliedId)
+        {
+            try
+            {
+                CVApplyDTO cVApply = _mapper.Map<CVApplyDTO>(_candidateService.GetCVAppliedDetail(candidateId, CVAppliedId));
+                if (cVApply != null)
+                    return new BaseResponseBody<CVApplyDTO>
+                    {
+                        data = cVApply,
+                        message = GlobalStrings.SUCCESSFULLY,
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else
+                    return new BaseResponseBody<CVApplyDTO>
+                    {
+                        data = null,
+                        message = GlobalStrings.NOT_FOUND,
+                        statusCode = HttpStatusCode.NotFound,
+                    };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<CVApplyDTO>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+            
         }
     }
 }
