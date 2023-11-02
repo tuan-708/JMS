@@ -28,13 +28,15 @@
                               <mat-form-field appearance="outline" class="col-12 p-0">
                                  <input matInput type="text" id="numberRequired" placeholder="100" required
                                     [formControl]="numberRequiredRq" />
-                                 <mat-error *ngIf="numberRequiredRq.invalid">{{getErrorMessageNumberRequired()}}</mat-error>
+                                 <mat-error
+                                    *ngIf="numberRequiredRq.invalid">{{getErrorMessageNumberRequired()}}</mat-error>
                               </mat-form-field>
                            </div>
                            <div class="col-md-6 mb-2">
                               <label class="form-label" for="email">Email</label>
                               <mat-form-field appearance="outline" class="col-12 p-0">
-                                 <input matInput type="email" id="email" placeholder="abc@gmail.com" [formControl]="emailRq" />
+                                 <input matInput type="email" id="email" placeholder="abc@gmail.com"
+                                    [formControl]="emailRq" />
                               </mat-form-field>
                            </div>
                         </div>
@@ -54,7 +56,7 @@
                               <mat-form-field appearance="outline" class="col-12 p-0">
                                  <mat-select required [formControl]="levelRq">
                                     <mat-option value="0" disabled selected>Chọn chức danh</mat-option>
-                                    <mat-option *ngFor="let elm of positions; index as i"
+                                    <mat-option *ngFor="let elm of levels; index as i"
                                        value={{elm.id}}>{{elm.title}}</mat-option>
                                  </mat-select>
                                  <mat-error *ngIf="levelRq.invalid">{{getErrorMessageLevel()}}</mat-error>
@@ -72,7 +74,8 @@
                               </mat-form-field>
                            </div>
                            <div class="col-md-6 mb-2">
-                              <label class="form-label select-label" for="genderRq">Giới tính</label><span class="link-danger">
+                              <label class="form-label select-label" for="genderRq">Giới tính</label><span
+                                 class="link-danger">
                                  *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
                                  <mat-select required [formControl]="genderRq">
@@ -88,7 +91,8 @@
                         <!-- row 5 -->
                         <div class="row">
                            <div class="col-md-6 mb-2">
-                              <label class="form-label select-label" for="typeRq">Loại Việc Làm</label><span class="link-danger">
+                              <label class="form-label select-label" for="typeRq">Loại Việc Làm</label><span
+                                 class="link-danger">
                                  *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
                                  <mat-select required [formControl]="typeRq">
@@ -100,7 +104,8 @@
                               </mat-form-field>
                            </div>
                            <div class="col-md-6 mb-2">
-                              <label class="form-label select-label" for="categoryRq">Lĩnh Vực</label><span class="link-danger"> *</span>
+                              <label class="form-label select-label" for="categoryRq">Lĩnh Vực</label><span
+                                 class="link-danger"> *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
                                  <mat-select required [formControl]="categoryRq">
                                     <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>
@@ -119,7 +124,7 @@
                               <mat-form-field appearance="outline" class="col-12 p-0">
                                  <input matInput type="date" id="expiredDate" [formControl]="expiredDateRq"
                                     placeholder="Nhập địa chỉ làm việc" />
-                                    <mat-error *ngIf="expiredDateRq.invalid">{{getErrorMessageExpiredDateRq()}}</mat-error>
+                                 <mat-error *ngIf="expiredDateRq.invalid">{{getErrorMessageExpiredDateRq()}}</mat-error>
                               </mat-form-field>
                            </div>
                         </div>
@@ -136,22 +141,22 @@
                         </div>
                         <!-- row 8 -->
                         <div class="row">
-                           <label for="salary" class="form-label" for="salaryMin">Mức Lương<span class="link-danger">
+                           <label for="salary" class="form-label" for="salary">Mức Lương<span class="link-danger">
                                  *</span></label>
-                           <div class="col-md-6 mb-2">
+                           <div class="col-md-12 mb-2">
                               <mat-form-field appearance="outline" class="col-12 p-0">
-                                 <input matInput type="number" id="salaryMin" placeholder="Lương tối thiểu" required
-                                    [formControl]="salaryMinRq" />
-                                 <mat-error *ngIf="salaryMinRq.invalid">{{getErrorMessageMinSalary()}}</mat-error>
+                                 <input matInput type="text" id="salary" placeholder="Từ 10 - 15 triệu" required
+                                    [formControl]="salaryRq" />
+                                 <mat-error *ngIf="salaryRq.invalid">{{getErrorMessageMinSalary()}}</mat-error>
                               </mat-form-field>
                            </div>
-                           <div class="col-md-6 mb-2">
+                           <!-- <div class="col-md-6 mb-2">
                               <mat-form-field appearance="outline" class="col-12 p-0">
-                                 <input matInput type="number" id="salaryMax"
-                                    placeholder="Lương tối đa" required [formControl]="salaryMaxRq" />
+                                 <input matInput type="number" id="salaryMax" placeholder="Lương tối đa" required
+                                    [formControl]="salaryMaxRq" />
                                  <mat-error *ngIf="salaryMaxRq.invalid">{{getErrorMessageMaxSalary()}}</mat-error>
                               </mat-form-field>
-                           </div>
+                           </div> -->
                         </div>
                         <!-- row 9 -->
                         <div class="row">
@@ -161,17 +166,27 @@
                                  *</span>
                               <ckeditor id="description" [config]="configDescription" [editor]="Editor" data="" required
                                  [formControl]="descriptionRq"></ckeditor>
-                              <mat-error *ngIf="descriptionRq.invalid && checkDes">{{getErrorMessageDescription()}}</mat-error>
+                              <mat-error
+                                 *ngIf="descriptionRq.invalid && checkDes">{{getErrorMessageDescription()}}</mat-error>
                            </div>
                         </div>
                         <!-- row 10 -->
                         <div class="row">
                            <div class="col-md-12 mb-4">
-                              <label for="experience" class="form-label" >Yêu Cầu Kinh nghiệm</label><span
+                              <label for="education" class="form-label">Yêu Cầu Học Vấn</label>
+                              <ckeditor id="education" [config]="configEducationRequirement" [editor]="Editor" data=""
+                                 required [formControl]="educationRq">
+                              </ckeditor>
+                           </div>
+                        </div>
+                        <!-- row 10 -->
+                        <div class="row">
+                           <div class="col-md-12 mb-4">
+                              <label for="experience" class="form-label">Yêu Cầu Kinh nghiệm</label><span
                                  class="link-danger">
                                  *</span>
-                              <ckeditor id="experience" [config]="configExperienceRequirement" [editor]="Editor" data="" required
-                                 [formControl]="experienceRq">
+                              <ckeditor id="experience" [config]="configExperienceRequirement" [editor]="Editor" data=""
+                                 required [formControl]="experienceRq">
                               </ckeditor>
                               <mat-error
                                  *ngIf="experienceRq.invalid && checkReq">{{getErrorMessageExperienceRequirement()}}</mat-error>
@@ -181,8 +196,7 @@
                         <!-- row 11 -->
                         <div class="row">
                            <div class="col-md-12 mb-4">
-                              <label for="skill" class="form-label">Yêu Cầu Kỹ năng</label><span
-                                 class="link-danger">
+                              <label for="skill" class="form-label">Yêu Cầu Kỹ năng</label><span class="link-danger">
                                  *</span>
                               <ckeditor id="skill" [config]="configSkillRequirement" [editor]="Editor" data="" required
                                  [formControl]="skillRq">
@@ -196,8 +210,8 @@
                         <div class="row">
                            <div class="col-md-12 mb-4">
                               <label for="certificate" class="form-label">Yêu Cầu Chứng Chỉ</label>
-                              <ckeditor id="certificate" [config]="configCertificateRequirement" [editor]="Editor" data="" required
-                                 [formControl]="certificateRq">
+                              <ckeditor id="certificate" [config]="configCertificateRequirement" [editor]="Editor"
+                                 data="" required [formControl]="certificateRq">
                               </ckeditor>
                            </div>
                         </div>
@@ -206,22 +220,21 @@
                         <div class="row">
                            <div class="col-md-12 mb-4">
                               <label for="project" class="form-label">Yêu Cầu Dự Án</label>
-                              <ckeditor id="project" [config]="configProjectRequirement" [editor]="Editor" data="" required
-                                 [formControl]="projectRq">
+                              <ckeditor id="project" [config]="configProjectRequirement" [editor]="Editor" data=""
+                                 required [formControl]="projectRq">
                               </ckeditor>
                            </div>
                         </div>
                         <!-- row 14 -->
                         <div class="row">
                            <div class="col-md-12 mb-2">
-                              <label for="benefit" class="form-label">Quyền Lợi</label><span
-                              class="link-danger">
-                              *</span>
-                              <ckeditor id="benefit" [config]="configBenefitRequirement" [editor]="Editor" data="" required
-                                 [formControl]="benefitRq">
+                              <label for="benefit" class="form-label">Quyền Lợi</label><span class="link-danger">
+                                 *</span>
+                              <ckeditor id="benefit" [config]="configBenefitRequirement" [editor]="Editor" data=""
+                                 required [formControl]="benefitRq">
                               </ckeditor>
                               <mat-error
-                              *ngIf="benefitRq.invalid && checkReq">{{getErrorMessageBenefitRequirement()}}</mat-error>
+                                 *ngIf="benefitRq.invalid && checkReq">{{getErrorMessageBenefitRequirement()}}</mat-error>
                            </div>
                         </div>
 
@@ -229,8 +242,8 @@
                         <div class="row">
                            <div class="col-md-12 mb-2">
                               <label for="otherRequired" class="form-label">Yêu Cầu Khác</label>
-                              <ckeditor id="otherRequired" [config]="configOtherRequirement" [editor]="Editor" data="" required
-                                 [formControl]="otherRequired">
+                              <ckeditor id="otherRequired" [config]="configOtherRequirement" [editor]="Editor" data=""
+                                 required [formControl]="otherRequired">
                               </ckeditor>
                            </div>
                         </div>

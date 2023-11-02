@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { getRequest, postRequest, putRequest, deleteRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { jd } from 'src/app/service/interfaces';
 
 @Component({
    selector: 'app-jd-register',
@@ -14,7 +13,7 @@ export class JdRegisterComponent {
    public Editor = ClassicEditor;
    datas: any[] = [];
    categories: any;
-   positions: any;
+   levels: any;
    employmentTypes: any;
    sexData = ['Nam', 'Nữ', 'Không yêu cầu']
 
@@ -28,12 +27,12 @@ export class JdRegisterComponent {
             console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
          })
 
-      getRequest(apiRecruiter.GET_ALL_POSITION_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
+      getRequest(apiRecruiter.GET_ALL_LEVEL_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
-            this.positions = res.data
+            this.levels = res.data
          })
          .catch(data => {
-            console.warn(apiRecruiter.GET_ALL_POSITION_TITLE, data);
+            console.warn(apiRecruiter.GET_ALL_LEVEL_TITLE, data);
          })
 
       getRequest(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, AuthorizationMode.PUBLIC, { page: 10 })
@@ -56,7 +55,7 @@ export class JdRegisterComponent {
       },
       placeholder: 'Nhập mô tả công việc'
    }
-
+   public configEducationRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu học vấn' }
    public configExperienceRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu kinh nghiệm' }
    public configSkillRequirement = { ...this.configDescription, placeholder: 'Nhập yêu kỹ năng' }
    public configCertificateRequirement = { ...this.configDescription, placeholder: 'Nhập yêu chứng chỉ' }
@@ -76,9 +75,9 @@ export class JdRegisterComponent {
    categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    expiredDateRq = new FormControl('', [Validators.required]);
    addressRq = new FormControl('', [Validators.required]);
-   salaryMinRq = new FormControl('', [Validators.required, Validators.min(0)]);
-   salaryMaxRq = new FormControl('', [Validators.required, Validators.min(0)]);
+   salaryRq = new FormControl('', [Validators.required, Validators.min(0)]);
    descriptionRq = new FormControl('', [Validators.required]);
+   educationRq = new FormControl('', [Validators.required]);
    experienceRq = new FormControl('', [Validators.required]);
    skillRq = new FormControl('', [Validators.required]);
    certificateRq = new FormControl('', [Validators.required]);
@@ -163,24 +162,15 @@ export class JdRegisterComponent {
    }
 
    getErrorMessageMinSalary() {
-      if (this.salaryMinRq.hasError('required')) {
+      if (this.salaryRq.hasError('required')) {
          return 'Mức lương không được để trống!'
       }
-      if (this.salaryMinRq.hasError('min')) {
+      if (this.salaryRq.hasError('min')) {
          return 'Mức lương phải lớn hơn 0!'
       }
       return
    }
 
-   getErrorMessageMaxSalary() {
-      if (this.salaryMaxRq.hasError('required')) {
-         return 'Mức lương không được để trống!'
-      }
-      if (this.salaryMaxRq.hasError('min')) {
-         return 'Mức lương phải lớn hơn 0!'
-      }
-      return
-   }
 
    getErrorMessageDescription() {
       if (this.descriptionRq.hasError('required')) {
@@ -219,51 +209,61 @@ export class JdRegisterComponent {
          this.positionRq.value && this.levelRq.value &&
          this.genderRq.value && this.typeRq.value &&
          this.categoryRq.value && this.expiredDateRq.value &&
-         this.addressRq.value && this.salaryMinRq.value &&
-         this.salaryMaxRq.value && this.descriptionRq.valid && this.experienceRq.valid && this.benefitRq.valid) {
+         this.addressRq.value && this.salaryRq.value && this.descriptionRq.valid && this.experienceRq.valid && this.benefitRq.valid) {
 
          const title = this.titleRq.value;
          const numberRequirement = this.numberRequiredRq.value;
-         const email = this.emailRq.value;
-         const position = this.positionRq.value;
-         const level = this.levelRq.value;
-         const age = this.ageRequiredRq.value;
-         const gender = this.genderRq.value;
-         const type = this.typeRq.value;
-         const category = this.categoryRq.value;
+         const contactEmail = this.emailRq.value;
+         const positionTitle = this.positionRq.value;
+         const levelTitle = this.levelRq.value;
+         const ageRequirement = this.ageRequiredRq.value;
+         const genderRequirement = this.genderRq.value;
+         const employmentTypeName = this.typeRq.value;
+         const categoryName = this.categoryRq.value;
          const expiredDate = this.expiredDateRq.value;
          const address = this.addressRq.value;
-         const salaryMin = this.salaryMinRq.value;
-         const salaryMax = this.salaryMaxRq.value;
-         const description = this.descriptionRq.value;
-         const experience = this.experienceRq.value;
-         const skill = this.skillRq.value;
-         const certificate = this.certificateRq.value;
-         const project = this.projectRq.value;
-         const benefit = this.benefitRq.value;
-         const requirementOthor = this.otherRequired.value;
+         const salary = this.salaryRq.value;
+         const jobDetail = this.descriptionRq.value;
+         const educationRequirement = this.educationRq.value;
+         const experienceRequirement = this.experienceRq.value;
+         const skillRequirement = this.skillRq.value;
+         const certificateRequirement = this.certificateRq.value;
+         const projectRequirement = this.projectRq.value;
+         const candidateBenefit = this.benefitRq.value;
+         const otherInformation = this.otherRequired.value;
 
+         const data = {
+            title: title,
+            employmentTypeName: employmentTypeName,
+            genderRequirement: genderRequirement,
+            ageRequirement: ageRequirement,
+            educationRequirement: educationRequirement,
+            jobDetail: jobDetail,
+            experienceRequirement: experienceRequirement,
+            projectRequirement: projectRequirement,
+            skillRequirement: skillRequirement,
+            certificateRequirement: certificateRequirement,
+            otherInformation: otherInformation,
+            candidateBenefit: candidateBenefit,
+            salary: salary,
+            contactEmail: contactEmail,
+            address: address,
+            numberRequirement: numberRequirement,
+            companyName: "",
+            categoryName: categoryName,
+            expiredDate: expiredDate,
+            levelTitle: levelTitle,
+            positionTitle: positionTitle
+         }
 
-         console.log(title);
-         console.log(numberRequirement);
-         console.log(email);
-         console.log(position);
-         console.log(level);
-         console.log(age);
-         console.log(gender);
-         console.log(type);
-         console.log(category);
-         console.log(expiredDate);
-         console.log(address);
-         console.log(salaryMin);
-         console.log(salaryMax);
-         console.log(description);
-         console.log(experience);
-         console.log(skill);
-         console.log(certificate);
-         console.log(project);
-         console.log(benefit);
-         console.log(requirementOthor);
+         postRequest(apiRecruiter.POST_CREATE_JD + "/2", AuthorizationMode.PUBLIC, data)
+            .then(res => {
+               console.log(res);
+            })
+            .catch(data => {
+               console.log(data);
+            })
+
 
          return
       }
@@ -280,8 +280,7 @@ export class JdRegisterComponent {
       this.categoryRq.markAllAsTouched();
       this.expiredDateRq.markAllAsTouched();
       this.addressRq.markAllAsTouched();
-      this.salaryMinRq.markAllAsTouched();
-      this.salaryMaxRq.markAllAsTouched();
+      this.salaryRq.markAllAsTouched();
       this.descriptionRq.markAllAsTouched();
       this.experienceRq.markAllAsTouched();
       this.skillRq.markAllAsTouched();

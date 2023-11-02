@@ -7,8 +7,8 @@ export enum AuthorizationMode {
 }
 
 export enum apiRecruiter{
-    GET_ALL_CATEGORY = "/api/recuirterCommon/all-category",
-    GET_ALL_POSITION_TITLE = "/api/RecuirterCommon/all-position-title",
+    GET_ALL_CATEGORY = "/api/RecuirterCommon/all-category",
+    GET_ALL_LEVEL_TITLE = "/api/RecuirterCommon/all-level-title",
     GET_ALL_EMPLOYMENT_TYPE = "/api/RecuirterCommon/all-employment-type",
-    POST_CREATE_JD = "/api/Recuirter/new-post"
+    POST_CREATE_JD = "/api/JobDesc/new-post"
 }

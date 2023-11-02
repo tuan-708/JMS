@@ -28,7 +28,7 @@ export async function getRequest(url: string, authorizationMode: AuthorizationMo
     let data: object = { ...params };
     const query = convertPayloadToQueryString(data);
 
-    const fullUrl = query ? `${apiURL}${url}?${query}` : `${apiURL}/${url}`;
+    const fullUrl = query ? `${apiURL}${url}?${query}` : `${apiURL}${url}`;
     const response = await fetch(fullUrl, {
         method: "GET",
         cache: "no-cache",
@@ -42,7 +42,7 @@ export async function getRequest(url: string, authorizationMode: AuthorizationMo
 }
 
 export async function postRequest(url: string, authorizationMode: AuthorizationMode, data: any) {
-    const response = await fetch(url, {
+    const response = await fetch(`${apiURL}${url}`, {
         method: "POST",
         cache: "no-cache",
         headers: {
