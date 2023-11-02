@@ -6,13 +6,13 @@ using AutoMapper;
 
 namespace APIServer.Services
 {
-    public class PositionTitleService : IBaseService<LevelDTO>
+    public class LevelService : IBaseService<LevelDTO>
     {
         private readonly IBaseRepository<Level> _levelRepo;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public PositionTitleService(IBaseRepository<Level> posRepo, IMapper mapper, IConfiguration configuration)
+        public LevelService(IBaseRepository<Level> posRepo, IMapper mapper, IConfiguration configuration)
         {
             _levelRepo = posRepo;
             _mapper = mapper;
