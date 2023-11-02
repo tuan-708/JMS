@@ -11,11 +11,15 @@ namespace APIServer.MappingObj
         {
             CreateMap<UserCreatingDTO, Recuirter>()
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.dobStr)));
-            CreateMap<Recuirter, UserDTO>()
-                .ForMember(x => x.dobStr, src => src.MapFrom(src => src.DOB.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.createdDate, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.lastUpdate, src => src.MapFrom(src => src.LastUpdate.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.roleName, src => src.MapFrom(src => src.Role.ToString()));
+            CreateMap<Recuirter, RecuirterDTO>()
+                .ForMember(x => x.DOB_Display, src => src.MapFrom(src => src.DOB.ToString(GlobalStrings.FORMAT_DATE)))
+                .ForMember(x => x.CreatedDateDisplay, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE)))
+                .ForMember(x => x.LastUpdateDisplay, src => src.MapFrom(src => src.LastUpdate.ToString(GlobalStrings.FORMAT_DATE)))
+                .ForMember(x => x.RoleTitle, src => src.MapFrom(src => src.Role.Name))
+                .ForMember(x => x.AvatarURL, src => src.MapFrom(src =>  Validation.checkStringIsEmpty(src.AvatarURL) ?
+                Directory.GetCurrentDirectory() + "\\wwwroot\\defaults\\default_avt.jpg" :
+                Directory.GetCurrentDirectory() + src.AvatarURL))
+                ;
             CreateMap<JobDTO, JobDescription>()
                 .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName) ))
                 .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName) ))
