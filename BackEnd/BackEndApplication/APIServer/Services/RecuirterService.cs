@@ -56,7 +56,6 @@ namespace APIServer.Services
             account.IsActive = true;
             account.CreatedBy = null;
             //account.role = Role.User;
-            account.IsMale = account.IsMale == null ? true : account.IsMale;
             return _userRepository.Create(account);
         }
 

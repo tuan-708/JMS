@@ -1,19 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace APIServer.Models.Entity
 {
-    public class PositionTitle
+    public class Gender
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        [Required, StringLength(100)]
+        public int GenderId { get; set; }
         public string Title { get; set; }
-        [StringLength(1000)]
-        public string? Description { get; set; }
-        public bool IsDelete { get; set; }
         public virtual ICollection<JobDescription>? JobDescriptions { get; set; }
+        public virtual ICollection<Candidate>? Candidates { get; set; }
+        public virtual ICollection<Recuirter>? Recuirters { get; set; }
         public virtual ICollection<CurriculumVitae>? CurriculumVitaes { get; set; }
         public virtual ICollection<CVApply>? CVApplies { get; set; }
     }

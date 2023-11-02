@@ -1,4 +1,5 @@
-﻿using APIServer.DTO.EntityDTO;
+﻿using APIServer.Common;
+using APIServer.DTO.EntityDTO;
 using APIServer.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,14 +19,14 @@ namespace APIServer.Models
         public DbSet<EmploymentType> EmploymentTypes { get; set; }
         public DbSet<JobDescription> JobDescriptions { get; set; }
         public DbSet<JobExperience> JobExperiences { get; set; }
-        public DbSet<PositionTitle> PositionTitles { get; set; }
+        public DbSet<Level> Levels { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Recuirter> Recuirters { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<Gender> Genders { get; set; }
         
-
         public JMSDBContext(DbContextOptions options) : base(options)
         {
         }
@@ -48,6 +49,7 @@ namespace APIServer.Models
             //    isDelete = false,
             //    Description = null,
             //});
+            modelBuilder.Entity<Gender>().HasData(DataStatic.allGender());
         }
     }
 }

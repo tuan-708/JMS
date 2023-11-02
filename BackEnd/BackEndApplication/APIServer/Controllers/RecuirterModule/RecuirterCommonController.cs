@@ -13,13 +13,13 @@ namespace APIServer.Controllers.RecuirterModule
     public class RecuirterCommonController : ControllerBase
     {
         private readonly IBaseService<CategoryDTO> _catService;
-        private readonly IBaseService<PositionTitleDTO> _posService;
+        private readonly IBaseService<LevelDTO> _levelService;
         private readonly IBaseService<EmploymentTypeDTO> _empService;
 
-        public RecuirterCommonController(IBaseService<CategoryDTO> catService, IBaseService<PositionTitleDTO> posService, IBaseService<EmploymentTypeDTO> empService)
+        public RecuirterCommonController(IBaseService<CategoryDTO> catService, IBaseService<LevelDTO> posService, IBaseService<EmploymentTypeDTO> empService)
         {
             _catService = catService;
-            _posService = posService;
+            _levelService = posService;
             _empService = empService;
         }
 
@@ -36,14 +36,14 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet]
-        [Route("all-position-title")]
-        public BaseResponseBody<List<PositionTitleDTO>> getAllPositionTitle()
+        [Route("all-level-title")]
+        public BaseResponseBody<List<LevelDTO>> getAllPositionTitle()
         {
-            return new BaseResponseBody<List<PositionTitleDTO>>
+            return new BaseResponseBody<List<LevelDTO>>
             {
                 message = GlobalStrings.SUCCESSFULLY,
                 statusCode = HttpStatusCode.OK,
-                data = _posService.getAll(),
+                data = _levelService.getAll(),
             };
         }
 

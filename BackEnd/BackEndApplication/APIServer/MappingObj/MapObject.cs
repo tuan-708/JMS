@@ -21,26 +21,31 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName) ))
                 .ForMember(x => x.CompanyId, src => src.MapFrom(src => Validation.ConvertInt(src.CompanyName) ))
                 .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName) ))
+                .ForMember(x => x.GenderId, src => src.MapFrom(src => Validation.ConvertInt(src.GenderRequirement) ))
+                .ForMember(x => x.LevelId, src => src.MapFrom(src => Validation.ConvertInt(src.LevelTitle) ))
                 ;
             CreateMap<JobDescription, JobDTO>()
-                .ForMember(x => x.PositionTitlesName, src => src.MapFrom(src => src.PositionTitles.Select(x => x.Title).ToList()))
+                .ForMember(x => x.LevelTitle, src => src.MapFrom(src => src.Level.Title))
                 .ForMember(x => x.EmploymentTypeName, src => src.MapFrom(src => src.EmploymentType.Title))
                 .ForMember(x => x.CompanyName, src => src.MapFrom(src => src.Company.CompanyName))
                 .ForMember(x => x.CategoryName, src => src.MapFrom(src => src.Category.CategoryName))
+                .ForMember(x => x.GenderRequirement, src => src.MapFrom(src => src.Gender.Title))
                 ;
             CreateMap<CurriculumVitaeDTO, CurriculumVitae>()
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
                 .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName)))
-                .ForMember(x => x.PositionTitleId, src => src.MapFrom(src => Validation.ConvertInt(src.PositionTitleName)))
+                .ForMember(x => x.LevelId, src => src.MapFrom(src => Validation.ConvertInt(src.LevelTitle)))
                 .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName)))
+                .ForMember(x => x.GenderId, src => src.MapFrom(src => Validation.ConvertInt(src.GenderDisplay)))
                 ;
             CreateMap<CurriculumVitae, CurriculumVitaeDTO>()
                 .ForMember(x => x.EmploymentTypeName, src => src.MapFrom(src => src.EmploymentType.Title))
                 .ForMember(x => x.DOB, src => src.MapFrom(src => src.DOB.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.CreatedDateDisplay, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.LastUpdateDateDisplay, src => src.MapFrom(src => src.LastUpdateDate.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.PositionTitleName, src => src.MapFrom(src => src.PositionTitle.Title))
+                .ForMember(x => x.LevelTitle, src => src.MapFrom(src => src.Level.Title))
                 .ForMember(x => x.CategoryName, src => src.MapFrom(src => src.Category.CategoryName))
+                .ForMember(x => x.GenderDisplay, src => src.MapFrom(src => src.Gender.Title))
                 ;
 
             CreateMap<Award, AwardDTO>();
@@ -78,13 +83,13 @@ namespace APIServer.MappingObj
             CreateMap<Category, CategoryDTO>()
                 .ForMember(x => x.CreatedAt, src => src.MapFrom(y => y.CreatedAt.ToString(GlobalStrings.FORMAT_DATE) ))
                 ;
-            CreateMap<PositionTitle, PositionTitleDTO>();
+            CreateMap<Level, LevelDTO>();
             CreateMap<EmploymentType, EmploymentTypeDTO>();
 
             CreateMap<CategoryDTO, Category>()
                 .ForMember(x => x.CreatedAt, src => src.MapFrom(y => Validation.convertDateTime(y.CreatedAt) ))
                 ;
-            CreateMap<PositionTitleDTO, PositionTitle>();
+            CreateMap<LevelDTO, Level>();
             CreateMap<EmploymentTypeDTO, EmploymentType>();
         }
 

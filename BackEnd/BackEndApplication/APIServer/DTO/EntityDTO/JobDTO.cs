@@ -9,7 +9,7 @@ namespace APIServer.DTO.EntityDTO
         public int JobId { get; set; }
         public int? RecuirterId { get; set; }
         public string Title { get; set; }
-        public List<string>? PositionTitlesName {  get; set; }
+        public string? PositionTitlesName {  get; set; }
         public string? EmploymentTypeName { get; set; }
         public string? GenderRequirement { get; set; }
         public string? AgeRequirement { get; set; }
@@ -27,5 +27,7 @@ namespace APIServer.DTO.EntityDTO
         public int? NumberRequirement { get; set; }
         public string? CompanyName { get; set; } = null;
         public string? CategoryName { get; set; } = null;
+        public string? LevelTitle { get; set; }
+        public string? PositionTitle { get; set; }
     }
 }
