@@ -6,6 +6,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
       CKEditorModule,
       BrowserAnimationsModule,
       FormsModule,
+
    ],
    providers: [],
    bootstrap: [AppComponent],

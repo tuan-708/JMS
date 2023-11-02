@@ -1,9 +1,5 @@
 <div>
-<<<<<<< HEAD
-   <section class="formJobPost">
-=======
    <section class="formJdRegister">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
       <div class="container py-5 h-100">
          <div class="row justify-content-center align-items-center h-100">
             <div class="col-12 col-lg-8">
@@ -12,19 +8,11 @@
                      <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Tạo Thông Tin Tuyển Dụng</h3>
                      <form>
                         <!-- row 1 -->
-<<<<<<< HEAD
-                        <div class="row">
-                           <div class="col-md-12 mb-2">
-                              <label class="form-label" for="title">Tiêu Đề Tuyển Dụng</label><span class="link-danger">
-                                *</span>
-                              <mat-form-field appearance="outline" class="col-12">
-=======
                         <div class="row ">
                            <div class="col-md-12 mb-2">
                               <label class="form-label" for="title">Tiêu Đề Tuyển Dụng</label><span class="link-danger">
                                  *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
                                  <input matInput type="text" id="title"
                                     placeholder="VD: Tuyển dụng nhân viên Marketing, tuyển dụng designer, ..." required
                                     [formControl]="titleRq" />
@@ -32,264 +20,231 @@
                               </mat-form-field>
                            </div>
                         </div>
-<<<<<<< HEAD
-
                         <!-- row 2 -->
                         <div class="row">
                            <div class="col-md-6 mb-2">
-                              <label class="form-label" for="position">Vị Trí</label><span class="link-danger">
-                                *</span>
-                              <mat-form-field appearance="outline" class="col-12">
-=======
-                        <!-- row 2 -->
-                        <div class="row">
-                           <div class="col-md-6 mb-2">
-                              <label class="form-label" for="position">Vị Trí</label><span class="link-danger"> *</span>
+                              <label class="form-label" for="numberRequired">Số lượng tuyển dụng</label><span
+                                 class="link-danger"> *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
-                                 <input matInput type="text" id="position" placeholder="VD: Senior UX Designer" required
-                                    [formControl]="positionRq" />
-                                 <mat-error *ngIf="positionRq.invalid">{{getErrorMessagePosition()}}</mat-error>
+                                 <input matInput type="text" id="numberRequired" placeholder="100" required
+                                    [formControl]="numberRequiredRq" />
+                                 <mat-error
+                                    *ngIf="numberRequiredRq.invalid">{{getErrorMessageNumberRequired()}}</mat-error>
                               </mat-form-field>
                            </div>
                            <div class="col-md-6 mb-2">
-<<<<<<< HEAD
-                              <label class="form-label select-label">Cấp Bậc</label><span class="link-danger">
-                                *</span>
-                              <mat-form-field appearance="outline" class="col-12">
-=======
-                              <label class="form-label select-label">Cấp Bậc</label><span class="link-danger"> *</span>
+                              <label class="form-label" for="email">Email</label>
                               <mat-form-field appearance="outline" class="col-12 p-0">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
-                                 <mat-select required [formControl]="levelRq">
-                                    <mat-option value="0" disabled selected>Chọn cấp bậc</mat-option>
-                                    <mat-option *ngFor="let elm of levelData; index as i"
-                                       value={{i+1}}>{{elm}}</mat-option>
-                                 </mat-select>
-                                 <mat-error *ngIf="levelRq.invalid">{{getErrorMessageLevel()}}</mat-error>
+                                 <input matInput type="email" id="email" placeholder="abc@gmail.com"
+                                    [formControl]="emailRq" />
                               </mat-form-field>
                            </div>
                         </div>
-<<<<<<< HEAD
-=======
-
-                        <!-- row 2 -->
-                        <div class="row">
-                           <div class="col-md-6 mb-2">
-                              <label class="form-label" for="position">Yêu cầu tuổi</label><span class="link-danger">
-                                 *</span>
-                              <mat-form-field appearance="outline" class="col-12 p-0">
-                                 <input matInput type="text" id="position" placeholder="VD: 20 - 35 tuổi" required
-                                    [formControl]="positionRq" />
-                                 <mat-error *ngIf="positionRq.invalid">{{getErrorMessagePosition()}}</mat-error>
-                              </mat-form-field>
-                           </div>
-                           <div class="col-md-6 mb-2">
-                              <label class="form-label select-label">Giới tính</label><span class="link-danger">
-                                 *</span>
-                              <mat-form-field appearance="outline" class="col-12 p-0">
-                                 <mat-select required [formControl]="levelRq">
-                                    <mat-option value="0" disabled selected>Yêu cầu giới tính</mat-option>
-                                    <mat-option *ngFor="let elm of levelData; index as i"
-                                       value={{i+1}}>{{elm}}</mat-option>
-                                 </mat-select>
-                                 <mat-error *ngIf="levelRq.invalid">{{getErrorMessageLevel()}}</mat-error>
-                              </mat-form-field>
-                           </div>
-                        </div>
-
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
                         <!-- row 3 -->
                         <div class="row">
                            <div class="col-md-6 mb-2">
-                              <label class="form-label select-label">Loại Việc Làm</label><span class="link-danger">
-<<<<<<< HEAD
-                                *</span>
-                              <mat-form-field appearance="outline" class="col-12">
-=======
+                              <label class="form-label" for="position">Chức danh</label><span class="link-danger">
                                  *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
+                                 <input matInput type="text" id="position" placeholder="VD: Senior .NET core" required
+                                    [formControl]="positionRq" />
+                                 <mat-error *ngIf="positionRq.invalid">{{getErrorMessagePosition()}}</mat-error>
+                              </mat-form-field>
+                           </div>
+                           <div class="col-md-6 mb-2">
+                              <label class="form-label select-label">Cấp bậc</label><span class="link-danger"> *</span>
+                              <mat-form-field appearance="outline" class="col-12 p-0">
+                                 <mat-select required [formControl]="levelRq">
+                                    <mat-option value="0" disabled selected>Chọn chức danh</mat-option>
+                                    <mat-option *ngFor="let elm of levels; index as i"
+                                       value={{elm.id}}>{{elm.title}}</mat-option>
+                                 </mat-select>
+                                 <mat-error *ngIf="levelRq.invalid">{{getErrorMessageLevel()}}</mat-error>
+                              </mat-form-field>
+                           </div>
+                        </div>
+
+                        <!-- row 4 -->
+                        <div class="row">
+                           <div class="col-md-6 mb-2">
+                              <label class="form-label" for="ageRequired">Yêu cầu tuổi</label>
+                              <mat-form-field appearance="outline" class="col-12 p-0">
+                                 <input matInput type="text" id="ageRequired" placeholder="VD: 20 - 35 tuổi"
+                                    [formControl]="ageRequiredRq" />
+                              </mat-form-field>
+                           </div>
+                           <div class="col-md-6 mb-2">
+                              <label class="form-label select-label" for="genderRq">Giới tính</label><span
+                                 class="link-danger">
+                                 *</span>
+                              <mat-form-field appearance="outline" class="col-12 p-0">
+                                 <mat-select required [formControl]="genderRq">
+                                    <mat-option value="0" disabled selected>Yêu cầu giới tính</mat-option>
+                                    <mat-option *ngFor="let elm of sexData; index as i"
+                                       value={{i+1}}>{{elm}}</mat-option>
+                                 </mat-select>
+                                 <mat-error *ngIf="genderRq.invalid">{{getErrorMessageGender()}}</mat-error>
+                              </mat-form-field>
+                           </div>
+                        </div>
+
+                        <!-- row 5 -->
+                        <div class="row">
+                           <div class="col-md-6 mb-2">
+                              <label class="form-label select-label" for="typeRq">Loại Việc Làm</label><span
+                                 class="link-danger">
+                                 *</span>
+                              <mat-form-field appearance="outline" class="col-12 p-0">
                                  <mat-select required [formControl]="typeRq">
                                     <mat-option value="0" disabled selected>Chọn loại việc làm</mat-option>
-                                    <mat-option *ngFor="let elm of typeData; index as i"
-                                       value={{i+1}}>{{elm}}</mat-option>
+                                    <mat-option *ngFor="let elm of employmentTypes; index as i"
+                                       value={{elm.id}}>{{elm.title}}</mat-option>
                                  </mat-select>
                                  <mat-error *ngIf="typeRq.invalid">{{getErrorMessageType()}}</mat-error>
                               </mat-form-field>
                            </div>
                            <div class="col-md-6 mb-2">
-<<<<<<< HEAD
-                              <label class="form-label select-label">Lĩnh Vực</label><span class="link-danger">
-                                *</span>
-                              <mat-form-field appearance="outline" class="col-12">
-=======
-                              <label class="form-label select-label">Lĩnh Vực</label><span class="link-danger"> *</span>
+                              <label class="form-label select-label" for="categoryRq">Lĩnh Vực</label><span
+                                 class="link-danger"> *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
-                                 <mat-select required [formControl]="industryRq">
+                                 <mat-select required [formControl]="categoryRq">
                                     <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>
-                                    <mat-option *ngFor="let elm of industryData; index as i"
-                                       value={{i+1}}>{{elm}}</mat-option>
+                                    <mat-option *ngFor="let elm of categories; index as i"
+                                       value={{elm.id}}>{{elm.categoryName}}</mat-option>
                                  </mat-select>
-                                 <mat-error *ngIf="industryRq.invalid">{{getErrorMessageIndustry()}}</mat-error>
+                                 <mat-error *ngIf="categoryRq.invalid">{{getErrorMessageCategory()}}</mat-error>
                               </mat-form-field>
                            </div>
                         </div>
-                        <!-- row 4 -->
+                        <!-- row 6 -->
                         <div class="row">
                            <div class="col-md-12 mb-2">
-<<<<<<< HEAD
-                              <label for="address" class="form-label">Địa Chỉ</label><span class="link-danger">
-                                *</span>
-                              <mat-form-field appearance="outline" class="col-12">
-=======
-                              <label for="address" class="form-label">Ngày Hết Hạn</label><span class="link-danger"> *</span>
+                              <label for="expiredDate" class="form-label">Ngày Hết Hạn</label><span class="link-danger">
+                                 *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
-                                 <input matInput type="date" id="ExpiredDate" placeholder="Nhập địa chỉ làm việc" />
+                                 <input matInput type="date" id="expiredDate" [formControl]="expiredDateRq"
+                                    placeholder="Nhập địa chỉ làm việc" />
+                                 <mat-error *ngIf="expiredDateRq.invalid">{{getErrorMessageExpiredDateRq()}}</mat-error>
                               </mat-form-field>
                            </div>
                         </div>
-                        <!-- row 4 -->
+                        <!-- row 7 -->
                         <div class="row">
                            <div class="col-md-12 mb-2">
                               <label for="address" class="form-label">Địa Chỉ</label><span class="link-danger"> *</span>
                               <mat-form-field appearance="outline" class="col-12 p-0">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
                                  <input matInput type="text" id="address" placeholder="Nhập địa chỉ làm việc" required
                                     [formControl]="addressRq" />
                                  <mat-error *ngIf="addressRq.invalid">{{getErrorMessageAddress()}}</mat-error>
                               </mat-form-field>
                            </div>
                         </div>
-                        <!-- row 5 -->
+                        <!-- row 8 -->
                         <div class="row">
-<<<<<<< HEAD
-                           <label for="salary" class="form-label">Mức Lương ($USD)</label>
-                           <div class="col-md-6 mb-2">
-                              <mat-form-field appearance="outline" class="col-12">
-=======
-                           <label for="salary" class="form-label">Mức Lương ($USD) <span class="link-danger">
+                           <label for="salary" class="form-label" for="salary">Mức Lương<span class="link-danger">
                                  *</span></label>
-                           <div class="col-md-6 mb-2">
+                           <div class="col-md-12 mb-2">
                               <mat-form-field appearance="outline" class="col-12 p-0">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
-                                 <input matInput type="number" id="salaryMin" placeholder="Lương tối thiểu" required
-                                    [formControl]="salaryMinRq" />
-                                 <mat-error *ngIf="salaryMinRq.invalid">{{getErrorMessageMinSalary()}}</mat-error>
-                              </mat-form-field>
-                           </div>
-                           <div class="col-md-6 mb-2">
-<<<<<<< HEAD
-                              <mat-form-field appearance="outline" class="col-12">
-=======
-                              <mat-form-field appearance="outline" class="col-12 p-0">
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
-                                 <input matInput type="number" class="form-control" id="salaryMax"
-                                    placeholder="Lương tối đa" required [formControl]="salaryMaxRq" />
-                                 <mat-error *ngIf="salaryMaxRq.invalid">{{getErrorMessageMaxSalary()}}</mat-error>
+                                 <input matInput type="text" id="salary" placeholder="Từ 10 - 15 triệu" required
+                                    [formControl]="salaryRq" />
+                                 <mat-error *ngIf="salaryRq.invalid">{{getErrorMessageMinSalary()}}</mat-error>
                               </mat-form-field>
                            </div>
                         </div>
-                        <!-- row 6 -->
+                        <!-- row 9 -->
                         <div class="row">
                            <div class="col-md-12 mb-4">
-<<<<<<< HEAD
-                              <label for="description" class="form-label">Mô Tả</label><span class="link-danger">
-                                *</span>
-=======
                               <label for="description" class="form-label">Mô Tả Công Việc</label><span
                                  class="link-danger">
                                  *</span>
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
-                              <ckeditor id="description" [config]="{placeholder: 'Nhập mô tả công việc'}"
-                                 [editor]="Editor" data="" required [formControl]="descriptionRq"></ckeditor>
+                              <ckeditor id="description" [config]="configDescription" [editor]="Editor" data="" required
+                                 [formControl]="descriptionRq"></ckeditor>
                               <mat-error
                                  *ngIf="descriptionRq.invalid && checkDes">{{getErrorMessageDescription()}}</mat-error>
                            </div>
                         </div>
-                        <!-- row 7 -->
+                        <!-- row 10 -->
                         <div class="row">
                            <div class="col-md-12 mb-4">
-<<<<<<< HEAD
-                              <label for="requirement" class="form-label">Yêu Cầu</label><span class="link-danger">
-                                *</span>
-=======
-                              <label for="requirement" class="form-label">Yêu Cầu Kỹ Năng</label><span
+                              <label for="education" class="form-label">Yêu Cầu Học Vấn</label>
+                              <ckeditor id="education" [config]="configEducationRequirement" [editor]="Editor" data=""
+                                 required [formControl]="educationRq">
+                              </ckeditor>
+                           </div>
+                        </div>
+                        <!-- row 10 -->
+                        <div class="row">
+                           <div class="col-md-12 mb-4">
+                              <label for="experience" class="form-label">Yêu Cầu Kinh nghiệm</label><span
                                  class="link-danger">
                                  *</span>
-                              <ckeditor id="requirement" [config]="{placeholder: 'Nhập yêu cầu công việc'}"
-                                 [editor]="Editor" data="" required [formControl]="requirementRq">
+                              <ckeditor id="experience" [config]="configExperienceRequirement" [editor]="Editor" data=""
+                                 required [formControl]="experienceRq">
                               </ckeditor>
                               <mat-error
-                                 *ngIf="requirementRq.invalid && checkReq">{{getErrorMessageRequirement()}}</mat-error>
+                                 *ngIf="experienceRq.invalid && checkReq">{{getErrorMessageExperienceRequirement()}}</mat-error>
                            </div>
                         </div>
 
-                        <!-- row 7 -->
+                        <!-- row 11 -->
                         <div class="row">
                            <div class="col-md-12 mb-4">
-                              <label for="requirement" class="form-label">Yêu Cầu Chứng Chỉ</label><span
-                                 class="link-danger">
+                              <label for="skill" class="form-label">Yêu Cầu Kỹ năng</label><span class="link-danger">
                                  *</span>
-                              <ckeditor id="requirement" [config]="{placeholder: 'Nhập yêu cầu công việc'}"
-                                 [editor]="Editor" data="" required [formControl]="requirementRq">
+                              <ckeditor id="skill" [config]="configSkillRequirement" [editor]="Editor" data="" required
+                                 [formControl]="skillRq">
                               </ckeditor>
                               <mat-error
-                                 *ngIf="requirementRq.invalid && checkReq">{{getErrorMessageRequirement()}}</mat-error>
+                                 *ngIf="skillRq.invalid && checkReq">{{getErrorMessageSkillRequirement()}}</mat-error>
                            </div>
                         </div>
 
-                        <!-- row 7 -->
+                        <!-- row 12 -->
                         <div class="row">
                            <div class="col-md-12 mb-4">
-                              <label for="requirement" class="form-label">Yêu Cầu Dự Án</label><span
-                                 class="link-danger">
-                                 *</span>
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
-                              <ckeditor id="requirement" [config]="{placeholder: 'Nhập yêu cầu công việc'}"
-                                 [editor]="Editor" data="" required [formControl]="requirementRq">
+                              <label for="certificate" class="form-label">Yêu Cầu Chứng Chỉ</label>
+                              <ckeditor id="certificate" [config]="configCertificateRequirement" [editor]="Editor"
+                                 data="" required [formControl]="certificateRq">
                               </ckeditor>
-                              <mat-error
-                                 *ngIf="requirementRq.invalid && checkReq">{{getErrorMessageRequirement()}}</mat-error>
                            </div>
                         </div>
-                        <!-- row 8 -->
+
+                        <!-- row 13 -->
+                        <div class="row">
+                           <div class="col-md-12 mb-4">
+                              <label for="project" class="form-label">Yêu Cầu Dự Án</label>
+                              <ckeditor id="project" [config]="configProjectRequirement" [editor]="Editor" data=""
+                                 required [formControl]="projectRq">
+                              </ckeditor>
+                           </div>
+                        </div>
+                        <!-- row 14 -->
                         <div class="row">
                            <div class="col-md-12 mb-2">
-                              <label for="requirement" class="form-label">Quyền Lợi</label><span class="link-danger">
-<<<<<<< HEAD
-                                *</span>
-=======
+                              <label for="benefit" class="form-label">Quyền Lợi</label><span class="link-danger">
                                  *</span>
-                              <ckeditor id="benefit" [config]="{placeholder: 'Nhập phúc lợi công việc'}"
-                                 [editor]="Editor" data="" required [formControl]="benefitRq">
+                              <ckeditor id="benefit" [config]="configBenefitRequirement" [editor]="Editor" data=""
+                                 required [formControl]="benefitRq">
                               </ckeditor>
-                              <mat-error *ngIf="benefitRq.invalid && checkBen">{{getErrorMessageBenefit()}}</mat-error>
+                              <mat-error
+                                 *ngIf="benefitRq.invalid && checkReq">{{getErrorMessageBenefitRequirement()}}</mat-error>
                            </div>
                         </div>
 
-                        <!-- row 8 -->
+                        <!-- row 15 -->
                         <div class="row">
                            <div class="col-md-12 mb-2">
-                              <label for="requirement" class="form-label">Yêu Cầu Khác</label><span class="link-danger">
-                                 *</span>
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
-                              <ckeditor id="benefit" [config]="{placeholder: 'Nhập phúc lợi công việc'}"
-                                 [editor]="Editor" data="" required [formControl]="benefitRq">
+                              <label for="otherRequired" class="form-label">Yêu Cầu Khác</label>
+                              <ckeditor id="otherRequired" [config]="configOtherRequirement" [editor]="Editor" data=""
+                                 required [formControl]="otherRequired">
                               </ckeditor>
-                              <mat-error *ngIf="benefitRq.invalid && checkBen">{{getErrorMessageBenefit()}}</mat-error>
                            </div>
                         </div>
 
                         <!-- button submit -->
                         <div class="mt-4 pt-2">
                            <button mat-stroked-button (click)="submitButtonClicked()"
-<<<<<<< HEAD
-                              class="btn btn-lg col-2">Lưu</button>
-=======
                               class="btn btn-xl col-2 btnBlueLight">Lưu</button>
->>>>>>> 7b39c7e84f02844c96894cdfac96d7f8cfb2d564
                         </div>
                      </form>
                   </div>
