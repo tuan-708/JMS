@@ -126,16 +126,17 @@ namespace APIServer
             builder.Services.AddTransient<IJobService, JobService>();
             builder.Services.AddTransient<IBaseRepository<CurriculumVitae>, CurriculumVitaeRepository>();
             builder.Services.AddTransient<ICurriculumVitaeService, CurriculumVitaeService>();
-            builder.Services.AddTransient<IBaseRepository<PositionTitle>, PositionTitleRepository>();
+            builder.Services.AddTransient<IBaseRepository<Level>, LevelRepository>();
             builder.Services.AddTransient<IBaseRepository<Company>, CompanyRepository>();
             builder.Services.AddTransient<ICompanyService, CompanyService>();
             builder.Services.AddTransient<IBaseRepository<Category>, CategoryRepository>();
             builder.Services.AddTransient<IBaseRepository<EmploymentType>, EmploymentTypeRepository>();
             builder.Services.AddTransient<IBaseService<EmploymentTypeDTO>, EmploymentTypeService>();
-            builder.Services.AddTransient<IBaseService<PositionTitleDTO>, PositionTitleService>();
+            builder.Services.AddTransient<IBaseService<LevelDTO>, PositionTitleService>();
             builder.Services.AddTransient<IBaseService<CategoryDTO>, CategoryService>();
             builder.Services.AddTransient<ICVApplyRepository, CVAppliedRepository>();
             builder.Services.AddTransient<IBaseRepository<EmployeeInCompany>, EmployeeInCompanyRepository>();
+            builder.Services.AddTransient<IImageService, ImageService>();
             builder.Services.AddTransient<ICandidateService, CandidateService>();
         }
     }

@@ -46,7 +46,7 @@ namespace APIServer.Repositories
 
         public List<CVApply> GetAllById(int id)
         {
-            List<CVApply> cVApplies = _context.CVApplies.Include(c => c.Candidate).Include(p => p.PositionTitle)
+            List<CVApply> cVApplies = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
@@ -56,7 +56,7 @@ namespace APIServer.Repositories
 
         public List<CVApply> GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(int recruiterId, int? jobDescriptionId, DateTime? fromDate, DateTime? toDate)
         {
-            List<CVApply> cVApplies = _context.CVApplies.Include(c => c.Candidate).Include(p => p.PositionTitle)
+            List<CVApply> cVApplies = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
@@ -70,7 +70,7 @@ namespace APIServer.Repositories
 
         public CVApply GetByCandidateIdAndCVAppliedId(int candidateId, int CVAppliedId)
         {
-            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.PositionTitle)
+            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVAppliedId);
@@ -84,7 +84,7 @@ namespace APIServer.Repositories
 
         public CVApply GetByRecruiterIdAndCVAppliedId(int recuiterId, int CVAppliedId)
         {
-            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.PositionTitle)
+            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)

@@ -43,7 +43,7 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
@@ -56,7 +56,7 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
@@ -70,7 +70,7 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
@@ -84,7 +84,7 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
@@ -98,7 +98,7 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)

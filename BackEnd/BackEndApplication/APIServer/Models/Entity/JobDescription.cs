@@ -12,11 +12,12 @@ namespace APIServer.Models.Entity
         [StringLength(500)]
         [Required]
         public string Title { get; set; }
-        public virtual ICollection<PositionTitle>? PositionTitles { get; set; }
+        public int? LevelId { get; set; }
+        public virtual Level? Level { get; set; }
         public int? EmploymentTypeId { get; set; }
         public EmploymentType? EmploymentType { get; set; }
-        [StringLength(100)]
-        public string? GenderRequirement { get; set; }
+        public int? GenderId { get; set; }
+        public virtual Gender? Gender { get; set; }
         [StringLength(500)]
         public string? AgeRequirement { get; set; }
         public string? EducationRequirement { get; set; }
@@ -40,5 +41,6 @@ namespace APIServer.Models.Entity
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
         public int? NumberRequirement { get; set; }
+        public string? PositionTitle { get; set; }
     }
 }

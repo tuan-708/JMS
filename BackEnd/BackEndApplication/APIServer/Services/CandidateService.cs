@@ -86,7 +86,7 @@ namespace APIServer.Services
                 CVApplied.CareerGoal = curriculumVitae.CareerGoal;
                 CVApplied.Phone = curriculumVitae.Phone;
                 CVApplied.DisplayName = curriculumVitae.DisplayName;
-                CVApplied.IsMale = curriculumVitae.IsMale;
+                CVApplied.GenderId = Validation.ConvertInt(curriculumVitae.GenderDisplay);
                 CVApplied.DisplayEmail = curriculumVitae.DisplayEmail;
                 CVApplied.DOB = Convert.ToDateTime(curriculumVitae.DOB);
                 CVApplied.Address = curriculumVitae.Address;

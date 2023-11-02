@@ -12,7 +12,7 @@ namespace APIServer.DTO.EntityDTO
         public string? EmploymentTypeName { get; set; }
         public string? Phone { get; set; }
         public string? DisplayName { get; set; }
-        public bool IsMale { get; set; }
+        public string? GenderDisplay { get; set; }
         public string? DisplayEmail { get; set; }
         public string? Address { get; set; }
         public string DOB { get; set; }
@@ -27,5 +27,7 @@ namespace APIServer.DTO.EntityDTO
         public List<AwardDTO>? Awards { get; set; }
         public string? AvatarURL { get; set; }
         public string? CategoryName { get; set; }
+        public bool? IsFindingJob { get; set; }
+        public string? LevelTitle { get; set; }
     }
 }
