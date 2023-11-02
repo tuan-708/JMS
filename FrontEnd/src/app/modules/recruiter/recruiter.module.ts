@@ -18,7 +18,6 @@ import { CompanyRegisterComponent } from './components/company-register/company-
 import { RegisterComponent } from './components/register/register.component';
 import { JdRegisterComponent } from './components/jd-register/jd-register.component';
 
-
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -28,7 +27,7 @@ import { JdRegisterComponent } from './components/jd-register/jd-register.compon
       RecruiterComponent,
       CompanyRegisterComponent,
       RegisterComponent,
-      JdRegisterComponent
+      JdRegisterComponent,
    ],
    imports: [
       CommonModule,

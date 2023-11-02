@@ -9,6 +9,7 @@ import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
    templateUrl: './jd-register.component.html',
    styleUrls: ['./jd-register.component.css']
 })
+
 export class JdRegisterComponent {
    public Editor = ClassicEditor;
    datas: any[] = [];
@@ -16,7 +17,6 @@ export class JdRegisterComponent {
    levels: any;
    employmentTypes: any;
    sexData = ['Nam', 'Nữ', 'Không yêu cầu']
-
 
    constructor() {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
