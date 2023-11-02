@@ -30,13 +30,38 @@ namespace APIServer.Controllers.RecuirterModule
         private readonly IConfiguration _config;
         private readonly JMSDBContext context;
 
-        public RecuirterController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration, JMSDBContext jMSDBContext, IRecuirterService recuirterService)
+        public RecuirterController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IRecuirterService recuirterService, IMapper mapper, IConfiguration config, JMSDBContext context)
         {
             _jobService = jobService;
-            _mapper = mapper;
-            _config = configuration;
             _curriculumVitaeService = curriculumVitaeService;
-            this.context = jMSDBContext;
+            _recuirterService = recuirterService;
+            _mapper = mapper;
+            _config = config;
+            this.context = context;
+        }
+
+        [HttpGet]
+        [Route("get-all")]
+        public BaseResponseBody<List<RecuirterDTO>> getAllRec()
+        {
+            try
+            {
+                var rs = _recuirterService.getAll();
+                return new BaseResponseBody<List<RecuirterDTO>>
+                {
+                    statusCode = HttpStatusCode.OK,
+                    message = GlobalStrings.SUCCESSFULLY,
+                    data = _mapper.Map<List<RecuirterDTO>>(rs),
+                };
+            }
+            catch (Exception e)
+            {
+                return new BaseResponseBody<List<RecuirterDTO>>
+                {
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = GlobalStrings.BAD_REQUEST,
+                };
+            }
         }
 
         [HttpGet]

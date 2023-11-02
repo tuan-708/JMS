@@ -37,6 +37,10 @@ namespace APIServer.Models.Entity
         public string? CategoryName { get; set; }
         public int? CurriculumVitaeId { get; set; }
         public virtual CurriculumVitae? CurriculumVitae { get; set; }
-        public bool? IsAccepted { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastUpdateDate { get; set; }
+        public bool IsAutoMatched { get; set; }
+        public bool IsApplied { get; set; }
+        public bool? IsReject { get; set; }
     }
 }

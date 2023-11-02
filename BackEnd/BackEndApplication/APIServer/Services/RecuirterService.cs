@@ -17,13 +17,13 @@ namespace APIServer.Services
 {
     public class RecuirterService : IRecuirterService
     {
-        private readonly IRecuirterRepository _userRepository;
+        private readonly IRecuirterRepository _recRepository;
         private readonly IConfiguration _configuration;
         private readonly ICVApplyRepository _cVApplyRepository;
 
         public RecuirterService(IRecuirterRepository userRepository, IConfiguration configuration, ICVApplyRepository cVApplyRepository)
         {
-            _userRepository = userRepository;
+            _recRepository = userRepository;
             _configuration = configuration;
             _cVApplyRepository = cVApplyRepository;
         }
@@ -47,7 +47,7 @@ namespace APIServer.Services
             {
                 throw new ArgumentNullException("Email not accepted");
             }
-            if (_userRepository.checkExistUserNameEmail(account.UserName, account.Email))
+            if (_recRepository.checkExistUserNameEmail(account.UserName, account.Email))
             {
                 throw new Exception("Username or email already in use");
             }
@@ -62,7 +62,7 @@ namespace APIServer.Services
             account.IsActive = true;
             account.CreatedBy = null;
             //account.role = Role.User;
-            return _userRepository.Create(account);
+            return _recRepository.Create(account);
         }
 
         public int Delete(Recuirter data)
@@ -109,13 +109,13 @@ namespace APIServer.Services
 
         public List<Recuirter> getAll()
         {
-            throw new NotImplementedException();
+            return _recRepository.GetAll();
         }
 
         public Recuirter getById(int? id)
         {
             if (id == null) throw new ArgumentNullException("error");
-            var rs = _userRepository.GetById((int)id);
+            var rs = _recRepository.GetById((int)id);
             if (rs == null)
                 throw new NullReferenceException("error");
             return rs;
@@ -127,7 +127,7 @@ namespace APIServer.Services
             {
                 throw new ArgumentNullException("username or password empty");
             }
-            var user = _userRepository.Login(username, password);
+            var user = _recRepository.Login(username, password);
             if (user == null)
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
             return user;
@@ -139,7 +139,7 @@ namespace APIServer.Services
                 Validation.checkStringIsEmpty(expiredToken.accessToken, expiredToken.refreshToken))
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
             var username = GetUserFromExpiredToken(expiredToken.accessToken);
-            var user = _userRepository.findByUserName(username);
+            var user = _recRepository.findByUserName(username);
             if (user == null ||
                 user.RefreshToken != expiredToken.refreshToken ||
                 user.RefreshTokenExpiryTime <= DateTime.Now)
@@ -162,16 +162,16 @@ namespace APIServer.Services
                 Validation.checkStringIsEmpty(token.accessToken, token.refreshToken))
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
             var username = GetUserFromExpiredToken(token.accessToken);
-            var user = _userRepository.findByUserName(username);
+            var user = _recRepository.findByUserName(username);
             if (user == null)
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
             user.RefreshToken = null;
-            _userRepository.Update(user);
+            _recRepository.Update(user);
         }
 
         public int Update(Recuirter data)
         {
-            return _userRepository.Update(data);
+            return _recRepository.Update(data);
         }
 
         private string GetUserFromExpiredToken(string token)
