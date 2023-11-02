@@ -96,6 +96,8 @@ namespace APIServer.Services
             com.TotalPost = 0;
             com.IsDelete = false;
             com.DateCreated = DateTime.Now;
+            com.AvatarURL = null;
+            com.BackGroundURL = null;
             return _companyRepository.CreateById(com, id);
         }
 

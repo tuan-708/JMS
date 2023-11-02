@@ -18,7 +18,8 @@ namespace APIServer.Models.Entity
         [StringLength(50)]
         [Required]
         public string Password { get; set; }
-        public bool IsMale { get; set; } = true;
+        public int? GenderId { get; set; }
+        public virtual Gender? Gender { get; set; }
         [StringLength(10)]
         public string? PhoneNumber { get; set; }
         public DateTime DOB { get; set; }

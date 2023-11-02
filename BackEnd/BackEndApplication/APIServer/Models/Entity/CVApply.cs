@@ -17,7 +17,8 @@ namespace APIServer.Models.Entity
         public string? Phone { get; set; }
         [StringLength(200)]
         public string? DisplayName { get; set; }
-        public bool IsMale { get; set; }
+        public int? GenderId { get; set; }
+        public virtual Gender? Gender { get; set; }
         [StringLength(100)]
         public string? DisplayEmail { get; set; }
         public DateTime DOB { get; set; }
@@ -30,9 +31,12 @@ namespace APIServer.Models.Entity
         public string? Award { get; set; }
         public DateTime ApplyDate { get; set; }
         public string? PercentMatching { get; set; }
-        public int? PositionTitleId { get; set; }
-        public virtual PositionTitle? PositionTitle { get; set; }
+        public int? LevelId { get; set; }
+        public virtual Level? Level { get; set; }
         [StringLength(200)]
         public string? CategoryName { get; set; }
+        public int? CurriculumVitaeId { get; set; }
+        public virtual CurriculumVitae? CurriculumVitae { get; set; }
+        public bool? IsAccepted { get; set; }
     }
 }

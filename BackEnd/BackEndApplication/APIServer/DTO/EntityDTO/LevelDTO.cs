@@ -2,7 +2,7 @@
 
 namespace APIServer.DTO.EntityDTO
 {
-    public class PositionTitleDTO
+    public class LevelDTO
     {
         public int Id { get; set; }
         [Required, StringLength(100)]

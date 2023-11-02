@@ -22,7 +22,7 @@
         public string? Award { get; set; }
         public DateTime ApplyDate { get; set; }
         public string? PercentMatching { get; set; }
-        public virtual PositionTitleDTO? PositionTitle { get; set; }
+        public virtual LevelDTO? Level { get; set; }
         public string? CategoryName { get; set; }
     }
 }
