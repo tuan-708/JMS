@@ -27,13 +27,13 @@ namespace APIServer.Controllers.UserModule
         [HttpGet]
         [Route("View/{id}")]
         //[Authorize(Roles = $"{GlobalStrings.ROLE_ADMIN}")]
-        public BaseResponseBody<UserDTO> getById(int id)
+        public BaseResponseBody<RecuirterDTO> getById(int id)
         {
             try
             {
                 var a = _userService.getById(id);
-                var rs = _mapper.Map<UserDTO>(_userService.getById(id));
-                return new BaseResponseBody<UserDTO>
+                var rs = _mapper.Map<RecuirterDTO>(_userService.getById(id));
+                return new BaseResponseBody<RecuirterDTO>
                 {
                     statusCode = HttpStatusCode.OK,
                     data = rs,
@@ -42,7 +42,7 @@ namespace APIServer.Controllers.UserModule
             }
             catch
             {
-                return new BaseResponseBody<UserDTO>
+                return new BaseResponseBody<RecuirterDTO>
                 {
                     statusCode = HttpStatusCode.OK,
                     data = null,

@@ -32,7 +32,10 @@ namespace APIServer.Services
 
         public int updateImageCandidate(int candidatId, IFormFile file)
         {
-            throw new NotImplementedException();
+            if (candidatId <= 0)
+                throw new Exception("Data not valid");
+
+            return -1;
         }
 
         public int updateImageCV(int cvId, IFormFile file)
@@ -42,10 +45,31 @@ namespace APIServer.Services
 
         public int updateImageRecuirter(int recuirterId, IFormFile file)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (recuirterId <= 0)
+                    throw new Exception("Data not valid");
+                var rec = recuirterRepository.GetById(recuirterId);
+                if (rec == null)
+                    throw new Exception("Not found");
+                if (rec.AvatarURL != null)
+                {
+                    deleteOldImg(rec.AvatarURL);
+                }
+                string FileName = file.FileName;
+                string uniqueFileName = Guid.NewGuid().ToString() + "_Recuirter_" + FileName;
+                uploadImg(file, uniqueFileName);
+                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                rec.AvatarURL = imagePath;
+                return recuirterRepository.Update(rec);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        private void uploadImg(IFormFile file)
+        private void uploadImg(IFormFile file, string fileName)
         {
             try
             {
@@ -58,10 +82,11 @@ namespace APIServer.Services
                 {
                     throw new Exception("Only allow img size under 25mb");
                 }
-                string FileName = file.FileName;
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + FileName;
-                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", uniqueFileName);
-                file.CopyTo(new FileStream(imagePath, FileMode.Create));
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", fileName);
+                using(var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
             }
             catch (Exception ex)
             {
@@ -86,6 +111,14 @@ namespace APIServer.Services
             long fileSizeInMB = fileSizeInBytes / 1024 / 1024;
 
             return fileSizeInMB <= maxSizeInMB;
+        }
+
+        private void deleteOldImg(string? url)
+        {
+            var dir = Directory.GetCurrentDirectory();
+            var path = dir + url;
+            if (File.Exists(path))
+                File.Delete(path);
         }
     }
 }
