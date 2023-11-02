@@ -47,6 +47,7 @@ namespace APIServer.Repositories
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now)
                 .ToList();
             return rs;
@@ -60,6 +61,7 @@ namespace APIServer.Repositories
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
                 x.CompanyId == companyId)
                 .ToList();
@@ -74,6 +76,7 @@ namespace APIServer.Repositories
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
                 x.RecuirterId == id)
                 .ToList();
@@ -88,6 +91,7 @@ namespace APIServer.Repositories
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
                 x.RecuirterId == recuirterId)
                 .ToList();
@@ -102,6 +106,7 @@ namespace APIServer.Repositories
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .FirstOrDefault(x => !x.IsDelete && x.ExpiredDate > DateTime.Now && x.JobId == id);
             return rs;
         }
