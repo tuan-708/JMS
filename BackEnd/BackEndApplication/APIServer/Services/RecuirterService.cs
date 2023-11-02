@@ -1,6 +1,7 @@
 ﻿using APIServer.Common;
 using APIServer.DTO;
 using APIServer.DTO.EntityDTO;
+using APIServer.DTO.ResponseBody;
 using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
@@ -10,16 +11,21 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using X.PagedList;
 
 namespace APIServer.Services
 {
     public class RecuirterService : IRecuirterService
     {
         private readonly IRecuirterRepository _userRepository;
+        private readonly IConfiguration _configuration;
+        private readonly ICVApplyRepository _cVApplyRepository;
 
-        public RecuirterService(IRecuirterRepository userRepository)
+        public RecuirterService(IRecuirterRepository userRepository, IConfiguration configuration, ICVApplyRepository cVApplyRepository)
         {
             _userRepository = userRepository;
+            _configuration = configuration;
+            _cVApplyRepository = cVApplyRepository;
         }
 
         public int Create(Recuirter data)
@@ -56,7 +62,6 @@ namespace APIServer.Services
             account.IsActive = true;
             account.CreatedBy = null;
             //account.role = Role.User;
-            account.IsMale = account.IsMale == null ? true : account.IsMale;
             return _userRepository.Create(account);
         }
 
@@ -75,7 +80,7 @@ namespace APIServer.Services
             }
         }
 
-        public string generateToken(Recuirter? userInfo, IConfiguration _configuration)
+        public string generateToken(Recuirter? userInfo)
         {
             var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
@@ -85,7 +90,7 @@ namespace APIServer.Services
                         new Claim("DisplayName", userInfo.FullName),
                         new Claim("UserName", userInfo.UserName),
                         new Claim("Email", userInfo.Email),
-                        new Claim(ClaimTypes.Role, userInfo.Role.ToString()),
+                        new Claim(ClaimTypes.Role, GlobalStrings.ROLE_RECUIRTER),
                     };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -94,7 +99,7 @@ namespace APIServer.Services
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddSeconds(double.Parse(_configuration["Jwt:expiredMins"])),
+                expires: DateTime.Now.AddMinutes(double.Parse(_configuration["Jwt:expiredMins"])),
                 //expires: DateTime.Now.AddSeconds(20),
                 signingCredentials: signIn);
 
@@ -114,11 +119,6 @@ namespace APIServer.Services
             if (rs == null)
                 throw new NullReferenceException("error");
             return rs;
-        }
-
-        public string GetResult(string prompt, IConfiguration configuration)
-        {
-            throw new NotImplementedException();
         }
 
         public Recuirter Login(string? username, string? password)
@@ -144,7 +144,7 @@ namespace APIServer.Services
                 user.RefreshToken != expiredToken.refreshToken ||
                 user.RefreshTokenExpiryTime <= DateTime.Now)
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
-            var newToken = generateToken(user, _configuration);
+            var newToken = generateToken(user);
             var newRefresh = generateRefreshToken();
             user.RefreshToken = newRefresh;
             user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(
@@ -197,8 +197,6 @@ namespace APIServer.Services
             return Regex.IsMatch(email, pattern);
         }
 
-        
-
         public List<Recuirter> getAllById(int id)
         {
             throw new NotImplementedException();
@@ -217,6 +215,48 @@ namespace APIServer.Services
         public string GetResult(string prompt)
         {
             throw new NotImplementedException();
+        }
+
+        public List<CVApply> GetCVAppliedHistory(int recruiterId, int? jobDescription, DateTime? fromDate, DateTime? toDate)
+        {
+            List<CVApply> cVApplies = _cVApplyRepository.GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(recruiterId, jobDescription, fromDate, toDate);
+            return cVApplies;
+        }
+
+        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData)
+        {
+            if (!listData.Any())
+            {
+                return new PagingResponseBody<List<CVApplyDTO>>
+                {
+                    currentPage = 0,
+                    message = GlobalStrings.SUCCESSFULLY,
+                    ObjectLength = 0,
+                    statusCode = System.Net.HttpStatusCode.OK,
+                    TotalPage = 0,
+                };
+            }
+            var numberInOnePage = int.Parse(_configuration["PageSize"]);
+            var k = listData.Count;
+            var totalPage = (int)Math.Ceiling((decimal)k / numberInOnePage);
+            page = page <= 0 || page == null ? 1 : page;
+            page = page > totalPage ? totalPage : page;
+            var data = listData.ToPagedList((int)page, numberInOnePage).ToList();
+            return new PagingResponseBody<List<CVApplyDTO>>
+            {
+                currentPage = (int)page,
+                message = GlobalStrings.SUCCESSFULLY,
+                data = data,
+                ObjectLength = k,
+                statusCode = System.Net.HttpStatusCode.OK,
+                TotalPage = totalPage,
+            };
+        }
+
+        public CVApply GetCVAppliedDetail(int recuiterId, int CVAppliedId)
+        {
+            CVApply cVApply = _cVApplyRepository.GetByRecruiterIdAndCVAppliedId(recuiterId, CVAppliedId);
+            return cVApply;
         }
     }
 }

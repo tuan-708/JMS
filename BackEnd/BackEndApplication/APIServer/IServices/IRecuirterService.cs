@@ -1,5 +1,6 @@
 ﻿using APIServer.DTO;
 using APIServer.DTO.EntityDTO;
+using APIServer.DTO.ResponseBody;
 using APIServer.Models.Entity;
 
 namespace APIServer.IServices
@@ -7,12 +8,15 @@ namespace APIServer.IServices
     public interface IRecuirterService : IBaseService<Recuirter>
     {
         public Recuirter Login(string? username, string? password);
-        public string generateToken(Recuirter? userInfo, IConfiguration _configuration);
+        public string generateToken(Recuirter? userInfo);
         public string generateRefreshToken();
         public Recuirter getById(int? id);
         public TokenModel regenerateToken(TokenModel? expiredToken, IConfiguration _configuration);
         public void revokeToken(TokenModel? token);
         public int CreateRecuirterAccount(Recuirter? account);
-        public string GetResult(string prompt);
+        public List<CVApply> GetCVAppliedHistory(int recruiterId, int? jobDescriptionId, DateTime? fromDate, DateTime? toDate);
+        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData);
+        public CVApply GetCVAppliedDetail(int recuiterId, int CVAppliedId);
+
     }
 }

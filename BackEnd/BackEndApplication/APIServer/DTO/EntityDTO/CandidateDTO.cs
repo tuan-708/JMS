@@ -1,26 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace APIServer.Models.Entity
+﻿namespace APIServer.DTO.EntityDTO
 {
-    public class Candidate
+    public class CandidateDTO
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [StringLength(50)]
-        [Required]
         public string UserName { get; set; }
-        [StringLength(200)]
         public string FullName { get; set; }
-        [StringLength(50)]
-        [Required]
         public string Email { get; set; }
-        [StringLength(50)]
-        [Required]
         public string Password { get; set; }
-        public int? GenderId { get; set; }
-        public virtual Gender? Gender { get; set; }
-        [StringLength(10)]
+        public bool IsMale { get; set; } = true;
         public string? PhoneNumber { get; set; }
         public DateTime DOB { get; set; }
         public DateTime CreatedDate { get; set; }

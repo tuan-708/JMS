@@ -17,34 +17,34 @@ namespace APIServer.Controllers.UserModule
     {
         private readonly IMapper mapper;
         public IConfiguration _configuration;
-        private readonly IRecuirterService userService;
+        private readonly IRecuirterService recuirterService;
 
         public TokenController(IMapper mapper, IRecuirterService userService, IConfiguration configuration)
         {
             this.mapper = mapper;
-            this.userService = userService;
+            this.recuirterService = userService;
             _configuration = configuration;
         }
 
         [HttpPost]
-        [Route("login")]
-        public BaseResponseBody<TokenModel> login(LoginModel loginModel)
+        [Route("login-recuirter")]
+        public BaseResponseBody<TokenModel> loginForRecuirter(LoginModel loginModel)
         {
             try
             {
-                var user = userService.Login(loginModel.username, loginModel.password);
-                var refreshTok = userService.generateRefreshToken();
-                user.RefreshToken = refreshTok;
-                user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(
-                    double.Parse(_configuration["Jwt:expireRefresh"]));
-                userService.Update(user);
+                var user = recuirterService.Login(loginModel.username, loginModel.password);
+                //var refreshTok = recuirterService.generateRefreshToken();
+                //user.RefreshToken = refreshTok;
+                //user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(
+                //    double.Parse(_configuration["Jwt:expireRefresh"]));
+                //recuirterService.Update(user);
                 return new BaseResponseBody<TokenModel>
                 {
                     statusCode = HttpStatusCode.OK,
                     data = new TokenModel
                     {
-                        accessToken = userService.generateToken(user, _configuration),
-                        refreshToken = refreshTok,
+                        accessToken = recuirterService.generateToken(user),
+                        //refreshToken = refreshTok,
                     },
                     message = GlobalStrings.SUCCESSFULLY,
                 };
@@ -69,7 +69,7 @@ namespace APIServer.Controllers.UserModule
                 return new BaseResponseBody<TokenModel>
                 {
                     statusCode = HttpStatusCode.OK,
-                    data = userService.regenerateToken(tokenApiModel, _configuration),
+                    data = recuirterService.regenerateToken(tokenApiModel, _configuration),
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
@@ -90,7 +90,7 @@ namespace APIServer.Controllers.UserModule
         {
             try
             {
-                userService.revokeToken(token);
+                recuirterService.revokeToken(token);
                 return new BaseResponseBody<string>
                 {
                     statusCode = HttpStatusCode.OK,

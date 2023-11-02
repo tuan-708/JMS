@@ -14,28 +14,19 @@ namespace APIServer.Services
 {
     public class JobService : IJobService
     {
-        private readonly IBaseRepository<JobDescription> _JDRepository;
-        private readonly IBaseRepository<CurriculumVitae> _CVRepository;
-
-        public JobService(IBaseRepository<JobDescription> JDRepository, IBaseRepository<CurriculumVitae> CVRepository)
-        {
-            _JDRepository = JDRepository;
-            _CVRepository = CVRepository;
-        }
-
         private readonly IJobRepository _jobRepo;
         private readonly IRecuirterRepository _recuirterRepo;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
-        private readonly IBaseRepository<PositionTitle> _positionTitleRepo;
+        private readonly IBaseRepository<Level> _levelRepo;
 
-        public JobService(IJobRepository jobRepo, IRecuirterRepository recuirterRepo, IConfiguration configuration, IMapper mapper, IBaseRepository<PositionTitle> positionTitleRepo)
+        public JobService(IJobRepository jobRepo, IRecuirterRepository recuirterRepo, IConfiguration configuration, IMapper mapper, IBaseRepository<Level> positionTitleRepo)
         {
             _jobRepo = jobRepo;
             _recuirterRepo = recuirterRepo;
             _configuration = configuration;
             _mapper = mapper;
-            _positionTitleRepo = positionTitleRepo;
+            _levelRepo = positionTitleRepo;
         }
 
         public int Create(JobDescription data)
@@ -148,21 +139,9 @@ namespace APIServer.Services
                 throw new Exception("job not completed yet");
             }
 
-            var newPosTitle = new List<PositionTitle>();
-            if (jobDTO.PositionTitlesName.Any())
-            {
-                foreach (var item in jobDTO.PositionTitlesName)
-                {
-                    var pos = _positionTitleRepo.GetById((int)Validation.ConvertInt(item));
-                    if (pos == null)
-                        throw new Exception("Position title not exist");
-                    newPosTitle.Add(pos);
-                }
-            }
-
             jd.Title = data.Title;
             jd.EmploymentTypeId = data.EmploymentTypeId;
-            jd.GenderRequirement = data.GenderRequirement;
+            jd.GenderId = data.GenderId;
             jd.AgeRequirement = data.AgeRequirement;
             jd.EducationRequirement = data.EducationRequirement;
             jd.JobDetail = data.JobDetail;
@@ -176,44 +155,11 @@ namespace APIServer.Services
             jd.ContactEmail = data.ContactEmail;
             jd.Address = data.Address;
             jd.NumberRequirement = data.NumberRequirement;
-            jd.PositionTitles = newPosTitle;
+            jd.LevelId = data.LevelId;
             jd.CategoryId = data.CategoryId;
             jd.CompanyId = data.CompanyId;
 
             return _jobRepo.Update(jd);
-        }
-
-        public int createById(JobDTO jobDTO, int? recuirterId)
-        {
-            var data = _mapper.Map<JobDescription>(jobDTO);
-            if (recuirterId <= 0) throw new Exception("recuirter not exist");
-            if (data == null) throw new Exception("JD not accepted");
-            if (!_recuirterRepo.checkExistById(recuirterId))
-            {
-                throw new Exception("recuirter not exist");
-            }
-            if (Validation.checkStringIsEmpty(data.Title, data.EducationRequirement,
-                data.ExperienceRequirement, data.SkillRequirement, data.CandidateBenefit,
-                data.Salary, data.ContactEmail, data.Address, data.JobDetail
-                ))
-            {
-                throw new Exception("job not completed yet");
-            }
-
-            var newPosTitle = new List<PositionTitle>();
-            foreach (var item in jobDTO.PositionTitlesName)
-            {
-                var pos = _positionTitleRepo.GetById((int)Validation.ConvertInt(item));
-                if (pos == null)
-                    throw new Exception("Position title not exist");
-                newPosTitle.Add(pos);
-            }
-
-            data.PositionTitles = newPosTitle;
-            data.IsDelete = false;
-            data.CreatedAt = DateTime.Now;
-            data.ExpiredDate = DateTime.Now.AddDays(7);
-            return _jobRepo.CreateById(data, recuirterId);
         }
 
         public List<int> GetVitaeListByMatching(int jobDesciptionId)
@@ -238,16 +184,6 @@ namespace APIServer.Services
                 throw new Exception("job not completed yet");
             }
 
-            var newPosTitle = new List<PositionTitle>();
-            foreach (var item in jobDTO.PositionTitlesName)
-            {
-                var pos = _positionTitleRepo.GetById((int)Validation.ConvertInt(item));
-                if (pos == null)
-                    throw new Exception("Position title not exist");
-                newPosTitle.Add(pos);
-            }
-
-            data.PositionTitles = newPosTitle;
             data.IsDelete = false;
             data.CreatedAt = DateTime.Now;
             data.ExpiredDate = DateTime.Now.AddDays(7);

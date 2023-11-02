@@ -1,18 +1,29 @@
 ﻿using APIServer.Common;
+using APIServer.DTO.EntityDTO;
+using APIServer.DTO.ResponseBody;
 using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models;
 using APIServer.Models.Entity;
+using AutoMapper;
+using Newtonsoft.Json;
+using X.PagedList;
 
 namespace APIServer.Services
 {
     public class CurriculumVitaeService : ICurriculumVitaeService
     {
         private readonly IBaseRepository<CurriculumVitae> _context;
+        private readonly ICVApplyRepository _CVApplyContext;
+        private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public CurriculumVitaeService(IBaseRepository<CurriculumVitae> context)
+        public CurriculumVitaeService(IBaseRepository<CurriculumVitae> context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
+            _CVApplyContext = CVApplyContext;
+            _mapper = mapper;
+            _configuration = configuration;
         }
 
         public int Create(CurriculumVitae data)
@@ -73,9 +84,12 @@ namespace APIServer.Services
             return rs;
         }
 
+        
+
         public int Update(CurriculumVitae data)
         {
             throw new NotImplementedException();
         }
+
     }
 }

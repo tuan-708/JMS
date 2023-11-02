@@ -16,7 +16,7 @@
 
         //role
         public const string ROLE_ADMIN = "Admin";
-        public const string ROLE_USER = "User";
-        public const string Manager = "Manager";
+        public const string ROLE_RECUIRTER = "Recuirter";
+        public const string ROLE_CANDIDATE = "Candidate";
     }
 }

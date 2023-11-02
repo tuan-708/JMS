@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231102080857_update_db_7")]
+    partial class update_db_7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -346,12 +348,12 @@ namespace APIServer.Migrations
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LevelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Phone")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<int?>("PositionTitleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -363,7 +365,7 @@ namespace APIServer.Migrations
 
                     b.HasIndex("GenderId");
 
-                    b.HasIndex("LevelId");
+                    b.HasIndex("PositionTitleId");
 
                     b.ToTable("CurriculumVitaes");
                 });
@@ -428,15 +430,15 @@ namespace APIServer.Migrations
                     b.Property<string>("JobExperience")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LevelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PercentMatching")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<int?>("PositionTitleId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Project")
                         .HasColumnType("nvarchar(max)");
@@ -454,7 +456,7 @@ namespace APIServer.Migrations
 
                     b.HasIndex("JobDescriptionId");
 
-                    b.HasIndex("LevelId");
+                    b.HasIndex("PositionTitleId");
 
                     b.ToTable("CVApplies");
                 });
@@ -641,17 +643,14 @@ namespace APIServer.Migrations
                     b.Property<string>("JobDetail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LevelId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("NumberRequirement")
                         .HasColumnType("int");
 
                     b.Property<string>("OtherInformation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PositionTitle")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PositionTitlesId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProjectRequirement")
                         .HasColumnType("nvarchar(max)");
@@ -681,7 +680,7 @@ namespace APIServer.Migrations
 
                     b.HasIndex("GenderId");
 
-                    b.HasIndex("LevelId");
+                    b.HasIndex("PositionTitlesId");
 
                     b.HasIndex("RecuirterId");
 
@@ -739,7 +738,7 @@ namespace APIServer.Migrations
                     b.ToTable("JobExperiences");
                 });
 
-            modelBuilder.Entity("APIServer.Models.Entity.Level", b =>
+            modelBuilder.Entity("APIServer.Models.Entity.PositionTitle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -761,7 +760,7 @@ namespace APIServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Levels");
+                    b.ToTable("PositionTitles");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Project", b =>
@@ -987,9 +986,9 @@ namespace APIServer.Migrations
                         .WithMany("CurriculumVitaes")
                         .HasForeignKey("GenderId");
 
-                    b.HasOne("APIServer.Models.Entity.Level", "Level")
+                    b.HasOne("APIServer.Models.Entity.PositionTitle", "PositionTitle")
                         .WithMany("CurriculumVitaes")
-                        .HasForeignKey("LevelId");
+                        .HasForeignKey("PositionTitleId");
 
                     b.Navigation("Candidate");
 
@@ -999,7 +998,7 @@ namespace APIServer.Migrations
 
                     b.Navigation("Gender");
 
-                    b.Navigation("Level");
+                    b.Navigation("PositionTitle");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.CVApply", b =>
@@ -1020,9 +1019,9 @@ namespace APIServer.Migrations
                         .WithMany()
                         .HasForeignKey("JobDescriptionId");
 
-                    b.HasOne("APIServer.Models.Entity.Level", "Level")
+                    b.HasOne("APIServer.Models.Entity.PositionTitle", "PositionTitle")
                         .WithMany("CVApplies")
-                        .HasForeignKey("LevelId");
+                        .HasForeignKey("PositionTitleId");
 
                     b.Navigation("Candidate");
 
@@ -1032,7 +1031,7 @@ namespace APIServer.Migrations
 
                     b.Navigation("JobDescription");
 
-                    b.Navigation("Level");
+                    b.Navigation("PositionTitle");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Education", b =>
@@ -1077,9 +1076,9 @@ namespace APIServer.Migrations
                         .WithMany("JobDescriptions")
                         .HasForeignKey("GenderId");
 
-                    b.HasOne("APIServer.Models.Entity.Level", "Level")
+                    b.HasOne("APIServer.Models.Entity.PositionTitle", "PositionTitles")
                         .WithMany("JobDescriptions")
-                        .HasForeignKey("LevelId");
+                        .HasForeignKey("PositionTitlesId");
 
                     b.HasOne("APIServer.Models.Entity.Recuirter", "Recuirter")
                         .WithMany()
@@ -1093,7 +1092,7 @@ namespace APIServer.Migrations
 
                     b.Navigation("Gender");
 
-                    b.Navigation("Level");
+                    b.Navigation("PositionTitles");
 
                     b.Navigation("Recuirter");
                 });
@@ -1188,7 +1187,7 @@ namespace APIServer.Migrations
                     b.Navigation("Recuirters");
                 });
 
-            modelBuilder.Entity("APIServer.Models.Entity.Level", b =>
+            modelBuilder.Entity("APIServer.Models.Entity.PositionTitle", b =>
                 {
                     b.Navigation("CVApplies");
 

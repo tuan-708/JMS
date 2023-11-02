@@ -4,22 +4,22 @@ using APIServer.Models.Entity;
 
 namespace APIServer.Repositories
 {
-    public class PositionTitleRepository : IBaseRepository<PositionTitle>
+    public class LevelRepository : IBaseRepository<Level>
     {
         private readonly JMSDBContext context;
 
-        public PositionTitleRepository(JMSDBContext context)
+        public LevelRepository(JMSDBContext context)
         {
             this.context = context;
         }
 
-        public int Create(PositionTitle data)
+        public int Create(Level data)
         {
-            context.PositionTitles.Add(data);
+            context.Levels.Add(data);
             return context.SaveChanges();
         }
 
-        public int CreateById(PositionTitle data, int? id)
+        public int CreateById(Level data, int? id)
         {
             throw new NotImplementedException();
         }
@@ -29,22 +29,22 @@ namespace APIServer.Repositories
             throw new NotImplementedException();
         }
 
-        public List<PositionTitle> GetAll()
+        public List<Level> GetAll()
         {
-            return context.PositionTitles.ToList();
+            return context.Levels.ToList();
         }
 
-        public List<PositionTitle> GetAllById(int id)
+        public List<Level> GetAllById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public PositionTitle GetById(int id)
+        public Level GetById(int id)
         {
-            return context.PositionTitles.FirstOrDefault(x => x.Id == id && !x.IsDelete);
+            return context.Levels.FirstOrDefault(x => x.Id == id && !x.IsDelete);
         }
 
-        public int Update(PositionTitle data)
+        public int Update(Level data)
         {
             throw new NotImplementedException();
         }

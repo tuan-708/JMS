@@ -17,7 +17,8 @@ namespace APIServer.Models.Entity
         public string? Phone { get; set; }
         [StringLength(200)]
         public string? DisplayName { get; set; }
-        public bool IsMale { get; set; }
+        public int? GenderId { get; set; }
+        public virtual Gender? Gender { get; set; }
         [StringLength(200)]
         public string? DisplayEmail { get; set; }
         [StringLength(500)]
@@ -25,8 +26,8 @@ namespace APIServer.Models.Entity
         public DateTime DOB { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
-        public int? PositionTitleId { get; set; }
-        public virtual PositionTitle? PositionTitle { get; set; }
+        public int? LevelId { get; set; }
+        public virtual Level? Level { get; set; }
         public bool IsActive { get; set;}
         public bool IsDelete { get; set;}
         public virtual ICollection<JobExperience>? JobExperiences { get; set; }
@@ -38,5 +39,6 @@ namespace APIServer.Models.Entity
         public string? AvatarURL { get; set; }
         public int? CategoryId { get; set; }
         public virtual Category? Category { get; set; }
+        public bool? IsFindingJob { get; set; }
     }
 }

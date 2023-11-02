@@ -25,11 +25,12 @@ namespace APIServer.Controllers.RecuirterModule
     {
         private readonly IJobService _jobService;
         private readonly ICurriculumVitaeService _curriculumVitaeService;
+        private readonly IRecuirterService _recuirterService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
         private readonly JMSDBContext context;
 
-        public RecuirterController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration, JMSDBContext jMSDBContext)
+        public RecuirterController(IJobService jobService, ICurriculumVitaeService curriculumVitaeService, IMapper mapper, IConfiguration configuration, JMSDBContext jMSDBContext, IRecuirterService recuirterService)
         {
             _jobService = jobService;
             _mapper = mapper;
@@ -39,45 +40,13 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet]
-        [Route("get-all")]
-        public PagingResponseBody<List<JobDTO>> getAllPostJob(int? page)
-        {
-            var listJob = _mapper.Map<List<JobDTO>>(_jobService.getAll());
-            return _jobService.GetJobsPaging(page, listJob);
-        }
-
-        [HttpPost]
-        [Route("new-post/{recuirterId}")]
-        public async Task<BaseResponseBody<string>> createNewJD(int recuirterId, JobDTO jobDTO)
-        {
-            try
-            {
-                var count = _jobService.createById(jobDTO, recuirterId);
-                return new BaseResponseBody<string>
-                {
-                    data = count.ToString(),
-                    statusCode = HttpStatusCode.Created,
-                    message = GlobalStrings.SUCCESSFULLY,
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponseBody<string>
-                {
-                    message = ex.Message,
-                    statusCode = HttpStatusCode.BadRequest,
-                };
-            }
-        }
-
-        [HttpGet]
         [Route("test-prompt")]
         public async Task<IActionResult> getTest(int jobDescriptionId, int CVId)
         {
 
             var job = context.JobDescriptions
                .Include(x => x.Recuirter)
-               .Include(x => x.PositionTitles)
+               .Include(x => x.Level)
                .Include(x => x.EmploymentType)
                .Include(x => x.Company)
                .Include(x => x.Category)
@@ -91,75 +60,12 @@ namespace APIServer.Controllers.RecuirterModule
                 .Include(x => x.Awards)
                 .FirstOrDefault(x => x.Id == CVId);
             string prompt = GPT_PROMPT.PromptForCandidate(job, cv) + Environment.NewLine;
-            //string result = await _jobService.GetResult(prompt) + Environment.NewLine;
+            string result = await GPT_PROMPT.GetResult(prompt) + Environment.NewLine;
             //float percent = Validation.checkPercentMatchingFromJSON(result);
-            //prompt += result + Environment.NewLine;
+            prompt += result + Environment.NewLine;
 
             return Ok(prompt);
         }
 
-        [HttpGet]
-        [Route("by-recuirter/{id}/{page}")]
-        public PagingResponseBody<List<JobDTO>> getAllJDByRecuirterId(int id, int page)
-        {
-            var listJD = _mapper.Map<List<JobDTO>>(_jobService.getAllByRecuirter(id));
-            return _jobService.GetJobsPaging(page, listJD);
-        }
-
-        [HttpGet]
-        [Route("by-company/{id}/{page}")]
-        public PagingResponseBody<List<JobDTO>> getAllJDByCompany(int id, int page)
-        {
-            var listJD = _mapper.Map<List<JobDTO>>(_jobService.getAllByCompany(id));
-            return _jobService.GetJobsPaging(page, listJD);
-        }
-
-        [HttpPost]
-        [Route("delete-jd/{recuirterId}/{jobId}")]
-        public BaseResponseBody<int> deleteJDByRecuirter(int recuirterId, int jobId)
-        {
-            try
-            {
-                return new BaseResponseBody<int>
-                {
-                    data = _jobService.deleteByRecuirterId(recuirterId, jobId),
-                    message = GlobalStrings.SUCCESSFULLY_SAVED,
-                    statusCode = HttpStatusCode.OK,
-                };
-            }
-            catch
-            {
-                return new BaseResponseBody<int>
-                {
-                    message = GlobalStrings.BAD_REQUEST,
-                    statusCode = HttpStatusCode.BadRequest,
-                };
-            }
-        }
-
-        [HttpPost]
-        [Route("update-jd/{recuirterId}")]
-        public BaseResponseBody<int> updateByRecuirter(int recuirterId,
-            [FromBody] JobDTO jobDTO)
-        {
-            try
-            {
-                return new BaseResponseBody<int>
-                {
-                    message = GlobalStrings.SUCCESSFULLY,
-                    data = _jobService.updateByRecuirterId(recuirterId, jobDTO),
-                    statusCode = HttpStatusCode.OK,
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponseBody<int>
-                {
-                    message = ex.Message,
-                    data = -1,
-                    statusCode = HttpStatusCode.BadRequest,
-                };
-            }
-        }
     }
 }

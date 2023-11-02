@@ -43,10 +43,11 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now)
                 .ToList();
             return rs;
@@ -56,10 +57,11 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
                 x.CompanyId == companyId)
                 .ToList();
@@ -70,10 +72,11 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
                 x.RecuirterId == id)
                 .ToList();
@@ -84,10 +87,11 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
                 x.RecuirterId == recuirterId)
                 .ToList();
@@ -98,10 +102,11 @@ namespace APIServer.Repositories
         {
             var rs = _context.JobDescriptions
                 .Include(x => x.Recuirter)
-                .Include(x => x.PositionTitles)
+                .Include(x => x.Level)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Company)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .FirstOrDefault(x => !x.IsDelete && x.ExpiredDate > DateTime.Now && x.JobId == id);
             return rs;
         }
