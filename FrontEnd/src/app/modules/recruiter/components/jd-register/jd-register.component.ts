@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { getRequest, postRequest, putRequest, deleteRequest } from 'src/app/service/api-requests';
-import { AuthorizationMode } from 'src/app/service/constant';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ProductService } from './product.service';
+import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { jd } from 'src/app/service/interfaces';
 
 @Component({
    selector: 'app-jd-register',
@@ -13,23 +12,37 @@ import { ProductService } from './product.service';
 })
 export class JdRegisterComponent {
    public Editor = ClassicEditor;
-   public editorData = '';
-   public isBulletedListActive = true;
    datas: any[] = [];
+   categories: any;
+   positions: any;
+   employmentTypes: any;
+   sexData = ['Nam', 'Nữ', 'Không yêu cầu']
 
-   constructor(private productService: ProductService) {
-      let a = 1 + 2;
-      console.log(a);
-   }
 
-   ngOnInit(): void {  
-        this.getAll();
-    }
+   constructor() {
+      getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.categories = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+         })
 
-   getAll() {
-      this.productService.getAll().subscribe((res: any) => {
-         this.datas = res.data
-      })
+      getRequest(apiRecruiter.GET_ALL_POSITION_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.positions = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_POSITION_TITLE, data);
+         })
+
+      getRequest(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.employmentTypes = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
+         })
    }
 
    public configDescription = {
@@ -41,34 +54,37 @@ export class JdRegisterComponent {
             'bulletedList', // Add 'bulletedList' here
          ],
       },
+      placeholder: 'Nhập mô tả công việc'
    }
 
-   public configRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu kỹ năng' }
-   public configCertificate = { ...this.configDescription, placeholder: 'Nhập yêu cầu chứng chỉ' }
-   public configProject = { ...this.configDescription, placeholder: 'Nhập yêu cầu dự án' }
-   public configBenefit = { ...this.configDescription, placeholder: 'Nhập yêu cầu quyền lợi' }
-   public configrequirementAthor = { ...this.configDescription, placeholder: 'Nhập yêu cầu khác' }
+   public configExperienceRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu kinh nghiệm' }
+   public configSkillRequirement = { ...this.configDescription, placeholder: 'Nhập yêu kỹ năng' }
+   public configCertificateRequirement = { ...this.configDescription, placeholder: 'Nhập yêu chứng chỉ' }
+   public configProjectRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu dự án' }
+   public configBenefitRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu quyền lợi' }
+   public configOtherRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu khác' }
 
-   levelData = ['Thực tập sinh/ Sinh viên', 'Mới tốt nghiệp', 'Nhân viên', 'Trưởng phòng', 'Giám đốc và cấp cao hơn'];
-   typeData = ['Toàn thời gian', 'Bán thời gian', 'Thực tập', 'Việc làm online', 'Nghề tự do', 'Hợp đồng thời vụ', 'Khác'];
-   industryData = ['Giáo dục', 'Thời trang', 'Tài chính', 'Bảo hiểm', 'CNTT Phần mềm', 'Truyền thông', 'Khác']
-   sexData = ['Nam', 'Nữ', 'Không yêu cầu']
 
    titleRq = new FormControl('', [Validators.required]);
+   numberRequiredRq = new FormControl('', [Validators.required]);
+   emailRq = new FormControl('');
    positionRq = new FormControl('', [Validators.required]);
    levelRq = new FormControl('0', [Validators.required, Validators.min(1)]);
+   ageRequiredRq = new FormControl('',);
+   genderRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    typeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   sexRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   industryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
+   categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
+   expiredDateRq = new FormControl('', [Validators.required]);
    addressRq = new FormControl('', [Validators.required]);
    salaryMinRq = new FormControl('', [Validators.required, Validators.min(0)]);
    salaryMaxRq = new FormControl('', [Validators.required, Validators.min(0)]);
    descriptionRq = new FormControl('', [Validators.required]);
-   requirementRq = new FormControl('', [Validators.required]);
+   experienceRq = new FormControl('', [Validators.required]);
+   skillRq = new FormControl('', [Validators.required]);
    certificateRq = new FormControl('', [Validators.required]);
    projectRq = new FormControl('', [Validators.required]);
-   requirementAthorRq = new FormControl('', [Validators.required]);
    benefitRq = new FormControl('', [Validators.required]);
+   otherRequired = new FormControl('', [Validators.required]);
 
    getErrorMessageTitle() {
       if (this.titleRq.hasError('required')) {
@@ -76,12 +92,21 @@ export class JdRegisterComponent {
       }
       return
    }
-   getErrorMessagePosition() {
-      if (this.positionRq.hasError('required')) {
-         return 'Vị trí công việc không được để trống!'
+
+   getErrorMessageNumberRequired() {
+      if (this.numberRequiredRq.hasError('required')) {
+         return 'Số lượng tuyển dụng không được để trống!'
       }
       return
    }
+
+   getErrorMessagePosition() {
+      if (this.positionRq.hasError('required')) {
+         return 'Chức danh công việc không được để trống!'
+      }
+      return
+   }
+
    getErrorMessageLevel() {
       if (this.levelRq.hasError('required')) {
          return 'Cấp bậc không được để trống!'
@@ -92,11 +117,12 @@ export class JdRegisterComponent {
       return
    }
 
-   getErrorMessageSex() {
-      if (this.levelRq.hasError('required')) {
+
+   getErrorMessageGender() {
+      if (this.genderRq.hasError('required')) {
          return 'Giới tính không được để trống!'
       }
-      if (this.levelRq.hasError('min')) {
+      if (this.genderRq.hasError('min')) {
          return 'Giới tính không được để trống!'
       }
       return
@@ -111,21 +137,31 @@ export class JdRegisterComponent {
       }
       return
    }
-   getErrorMessageIndustry() {
-      if (this.industryRq.hasError('required')) {
+
+   getErrorMessageCategory() {
+      if (this.categoryRq.hasError('required')) {
          return 'Lĩnh vực không được để trống!'
       }
-      if (this.industryRq.hasError('min')) {
+      if (this.categoryRq.hasError('min')) {
          return 'Lĩnh vực không được để trống!'
       }
       return
    }
+
+   getErrorMessageExpiredDateRq() {
+      if (this.expiredDateRq.hasError('required')) {
+         return 'Ngày hết hạn không được để trống!'
+      }
+      return
+   }
+
    getErrorMessageAddress() {
       if (this.addressRq.hasError('required')) {
          return 'Địa chỉ không được để trống!'
       }
       return
    }
+
    getErrorMessageMinSalary() {
       if (this.salaryMinRq.hasError('required')) {
          return 'Mức lương không được để trống!'
@@ -135,6 +171,7 @@ export class JdRegisterComponent {
       }
       return
    }
+
    getErrorMessageMaxSalary() {
       if (this.salaryMaxRq.hasError('required')) {
          return 'Mức lương không được để trống!'
@@ -144,29 +181,31 @@ export class JdRegisterComponent {
       }
       return
    }
+
    getErrorMessageDescription() {
       if (this.descriptionRq.hasError('required')) {
          return 'Mô tả công việc không được để trống!'
       }
       return
    }
-   getErrorMessageRequirement() {
-      if (this.requirementRq.hasError('required')) {
-         return 'Yêu cầu công việc không được để trống!'
+
+   getErrorMessageExperienceRequirement() {
+      if (this.experienceRq.hasError('required')) {
+         return 'Yêu cầu kinh nghiệm không được để trống!'
       }
       return
    }
 
-   getErrorMessageCertificate() {
-      if (this.certificateRq.hasError('required')) {
-         return 'Yêu cầu chứng chỉ không được để trống!'
+   getErrorMessageSkillRequirement() {
+      if (this.skillRq.hasError('required')) {
+         return 'Yêu cầu kỹ năng không được để trống!'
       }
       return
    }
 
-   getErrorMessageBenefit() {
+   getErrorMessageBenefitRequirement() {
       if (this.benefitRq.hasError('required')) {
-         return 'Phúc lợi công việc không được để trống!'
+         return 'Yêu cầu quyền lợi không được để trống!'
       }
       return
    }
@@ -176,27 +215,78 @@ export class JdRegisterComponent {
    checkBen: any = false;
 
    submitButtonClicked() {
-      if (this.descriptionRq.valid && this.requirementRq.valid && this.benefitRq.valid) {
+      if (this.titleRq.value && this.numberRequiredRq.value &&
+         this.positionRq.value && this.levelRq.value &&
+         this.genderRq.value && this.typeRq.value &&
+         this.categoryRq.value && this.expiredDateRq.value &&
+         this.addressRq.value && this.salaryMinRq.value &&
+         this.salaryMaxRq.value && this.descriptionRq.valid && this.experienceRq.valid && this.benefitRq.valid) {
+
+         const title = this.titleRq.value;
+         const numberRequirement = this.numberRequiredRq.value;
+         const email = this.emailRq.value;
+         const position = this.positionRq.value;
+         const level = this.levelRq.value;
+         const age = this.ageRequiredRq.value;
+         const gender = this.genderRq.value;
+         const type = this.typeRq.value;
+         const category = this.categoryRq.value;
+         const expiredDate = this.expiredDateRq.value;
+         const address = this.addressRq.value;
+         const salaryMin = this.salaryMinRq.value;
+         const salaryMax = this.salaryMaxRq.value;
+         const description = this.descriptionRq.value;
+         const experience = this.experienceRq.value;
+         const skill = this.skillRq.value;
+         const certificate = this.certificateRq.value;
+         const project = this.projectRq.value;
+         const benefit = this.benefitRq.value;
+         const requirementOthor = this.otherRequired.value;
+
+
+         console.log(title);
+         console.log(numberRequirement);
+         console.log(email);
+         console.log(position);
+         console.log(level);
+         console.log(age);
+         console.log(gender);
+         console.log(type);
+         console.log(category);
+         console.log(expiredDate);
+         console.log(address);
+         console.log(salaryMin);
+         console.log(salaryMax);
+         console.log(description);
+         console.log(experience);
+         console.log(skill);
+         console.log(certificate);
+         console.log(project);
+         console.log(benefit);
+         console.log(requirementOthor);
+
          return
       }
 
       this.checkReq = true;
       this.checkDes = true;
       this.checkBen = true;
-      this.titleRq.markAllAsTouched()
-      this.positionRq.markAllAsTouched()
-      this.levelRq.markAllAsTouched()
-      this.industryRq.markAllAsTouched()
-      this.typeRq.markAllAsTouched()
-      this.industryRq.markAllAsTouched()
-      this.addressRq.markAllAsTouched()
-      this.salaryMinRq.markAllAsTouched()
-      this.salaryMaxRq.markAllAsTouched()
-      this.descriptionRq.markAllAsTouched()
-      this.requirementRq.markAllAsTouched()
-      this.benefitRq.markAllAsTouched()
+      this.titleRq.markAllAsTouched();
+      this.numberRequiredRq.markAllAsTouched();
+      this.positionRq.markAllAsTouched();
+      this.levelRq.markAllAsTouched();
+      this.genderRq.markAllAsTouched();
+      this.typeRq.markAllAsTouched();
+      this.categoryRq.markAllAsTouched();
+      this.expiredDateRq.markAllAsTouched();
+      this.addressRq.markAllAsTouched();
+      this.salaryMinRq.markAllAsTouched();
+      this.salaryMaxRq.markAllAsTouched();
+      this.descriptionRq.markAllAsTouched();
+      this.experienceRq.markAllAsTouched();
+      this.skillRq.markAllAsTouched();
+      this.benefitRq.markAllAsTouched();
 
-      console.log(this.descriptionRq.value)
       return
    }
 }

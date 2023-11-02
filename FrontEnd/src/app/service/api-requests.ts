@@ -24,45 +24,35 @@ async function getHeader(authorizationMode: AuthorizationMode) {
     };
 }
 
-export function getRequest(url: string, authorizationMode: AuthorizationMode, params = {}) {
+export async function getRequest(url: string, authorizationMode: AuthorizationMode, params = {}) {
     let data: object = { ...params };
     const query = convertPayloadToQueryString(data);
 
     const fullUrl = query ? `${apiURL}${url}?${query}` : `${apiURL}/${url}`;
-    fetch(fullUrl, {
+    const response = await fetch(fullUrl, {
         method: "GET",
         cache: "no-cache",
         headers: {
             'Accept': 'text/plain',
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:8080'
         }
     })
-        .then(response => response.json())
-        .then(json => console.log(json))
-
-    // fetch('http://localhost:8080/api/Recuirter/get-all?page=10')
-    //   .then(response => response.json())
-    //   .then(json => console.log(json))
+    const datas = await response.json();
+    return datas
 }
 
-export function postRequest(url: string, data: any) {
-    fetch(url, {
+export async function postRequest(url: string, authorizationMode: AuthorizationMode, data: any) {
+    const response = await fetch(url, {
         method: "POST",
-        mode: "cors",
         cache: "no-cache",
-        credentials: "same-origin",
         headers: {
-            "Content-Type": "application/json",
+            'Accept': 'text/plain',
+            'Content-Type': 'application/json',
         },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
         body: JSON.stringify(data),
     })
-        .then(response => {
-            return response.json()
-        })
-
+    const datas = await response.json();
+    return datas
 }
 
 export function putRequest(url: string, data: any) {
