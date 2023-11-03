@@ -33,7 +33,7 @@ const routes: Routes = [
       loadChildren: () => import('./modules/recruiter/recruiter.module').then(x => x.RecruiterModule)
    },
 
-   { path: "**", component: NotFoundComponent },
+   { path: '', redirectTo: '/candidate', pathMatch: 'full' },
 
 ];
 

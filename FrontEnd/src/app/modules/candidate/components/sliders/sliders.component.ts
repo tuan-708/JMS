@@ -8,7 +8,7 @@ declare var $: any; // Declare $ as a global variable
    styleUrls: ['./sliders.component.css']
 })
 export class SlidersComponent {
-   apiURL = environment.apiUrl;
+   Url = environment.Url;
 
    ngAfterViewInit() {
 
