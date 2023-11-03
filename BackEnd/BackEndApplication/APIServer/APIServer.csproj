@@ -31,8 +31,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\images\" />
 	  <Folder Include="wwwroot\defaults\" />
+	  <Folder Include="wwwroot\images\" />
 	</ItemGroup>
 
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">

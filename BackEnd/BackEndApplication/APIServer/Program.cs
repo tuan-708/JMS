@@ -131,13 +131,13 @@ namespace APIServer
             builder.Services.AddTransient<ICompanyService, CompanyService>();
             builder.Services.AddTransient<IBaseRepository<Category>, CategoryRepository>();
             builder.Services.AddTransient<IBaseRepository<EmploymentType>, EmploymentTypeRepository>();
-            builder.Services.AddTransient<IBaseService<EmploymentTypeDTO>, EmploymentTypeService>();
-            builder.Services.AddTransient<IBaseService<LevelDTO>, LevelService>();
-            builder.Services.AddTransient<IBaseService<CategoryDTO>, CategoryService>();
             builder.Services.AddTransient<ICVApplyRepository, CVAppliedRepository>();
             builder.Services.AddTransient<IBaseRepository<EmployeeInCompany>, EmployeeInCompanyRepository>();
             builder.Services.AddTransient<IImageService, ImageService>();
             builder.Services.AddTransient<ICandidateService, CandidateService>();
+            builder.Services.AddTransient<IBaseRepository<Gender>, GenderRepository>();
+            builder.Services.AddTransient<IRecurterCommon, RecuirterCommonService>();
+            builder.Services.AddTransient<ICandidateRepository, CandidateRepository>();
         }
     }
 }
