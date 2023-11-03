@@ -2,7 +2,7 @@
 using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IServices;
-using Microsoft.AspNetCore.Http;
+using APIServer.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -12,15 +12,11 @@ namespace APIServer.Controllers.RecuirterModule
     [ApiController]
     public class RecuirterCommonController : ControllerBase
     {
-        private readonly IBaseService<CategoryDTO> _catService;
-        private readonly IBaseService<LevelDTO> _levelService;
-        private readonly IBaseService<EmploymentTypeDTO> _empService;
+        private readonly IRecurterCommon recCommon;
 
-        public RecuirterCommonController(IBaseService<CategoryDTO> catService, IBaseService<LevelDTO> posService, IBaseService<EmploymentTypeDTO> empService)
+        public RecuirterCommonController(IRecurterCommon recCommon)
         {
-            _catService = catService;
-            _levelService = posService;
-            _empService = empService;
+            this.recCommon = recCommon;
         }
 
         [HttpGet]
@@ -31,7 +27,7 @@ namespace APIServer.Controllers.RecuirterModule
             {
                 message = GlobalStrings.SUCCESSFULLY,
                 statusCode = HttpStatusCode.OK,
-                data = _catService.getAll(),
+                data = recCommon.getAllCategory(),
             };
         }
 
@@ -43,7 +39,7 @@ namespace APIServer.Controllers.RecuirterModule
             {
                 message = GlobalStrings.SUCCESSFULLY,
                 statusCode = HttpStatusCode.OK,
-                data = _levelService.getAll(),
+                data = recCommon.getAllLevel(),
             };
         }
 
@@ -55,7 +51,19 @@ namespace APIServer.Controllers.RecuirterModule
             {
                 message = GlobalStrings.SUCCESSFULLY,
                 statusCode = HttpStatusCode.OK,
-                data = _empService.getAll(),
+                data = recCommon.allEmploymentType(),
+            };
+        }
+
+        [HttpGet]
+        [Route("all-gender")]
+        public BaseResponseBody<List<Gender>> getAllGender()
+        {
+            return new BaseResponseBody<List<Gender>>
+            {
+                message = GlobalStrings.SUCCESSFULLY,
+                statusCode = HttpStatusCode.OK,
+                data = recCommon.getAllGender(),
             };
         }
     }

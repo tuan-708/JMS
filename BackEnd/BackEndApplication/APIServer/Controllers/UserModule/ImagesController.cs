@@ -67,14 +67,14 @@ namespace APIServer.Controllers.UserModule
         }
 
         [HttpPost]
-        [Route("update-img-cv/{id}")]
-        public BaseResponseBody<int> UpdateImgCV(int id, [FromForm] IFormFile file)
+        [Route("update-img-cv/{candidateId}/{cvId}")]
+        public BaseResponseBody<int> UpdateImgCV(int candidateId, int cvId, [FromForm] IFormFile file)
         {
             try
             {
                 return new BaseResponseBody<int>
                 {
-                    data = imageService.updateImageCV(id, file),
+                    data = imageService.updateImageCV(candidateId, cvId, file),
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
                     statusCode = HttpStatusCode.BadRequest
                 };
