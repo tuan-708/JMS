@@ -11,36 +11,134 @@ namespace APIServer.Services
         private readonly IConfiguration configuration;
         private readonly IRecuirterRepository recuirterRepository;
         private readonly IBaseRepository<Company> companyRepo;
+        private readonly ICandidateRepository candidateRepo;
+        private readonly IBaseRepository<CurriculumVitae> cvRepo;
 
-        public ImageService(IMapper mapper, IConfiguration configuration, IRecuirterRepository recuirterRepository, IBaseRepository<Company> companyRepo)
+        public ImageService(IMapper mapper, IConfiguration configuration, IRecuirterRepository recuirterRepository, IBaseRepository<Company> companyRepo, ICandidateRepository candidateRepo, IBaseRepository<CurriculumVitae> cvRepo)
         {
             this.mapper = mapper;
             this.configuration = configuration;
             this.recuirterRepository = recuirterRepository;
             this.companyRepo = companyRepo;
+            this.candidateRepo = candidateRepo;
+            this.cvRepo = cvRepo;
         }
 
         public int updateImageAvtCompany(int companyId, int recuirterId, IFormFile file)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (recuirterId <= 0 || companyId <= 0)
+                    throw new Exception("Data not valid");
+                var rec = recuirterRepository.GetById(recuirterId);
+                var com = companyRepo.GetById(companyId);
+                if (rec == null || com == null)
+                    throw new Exception("Not found");
+                if(!com.EmployeeInCompanies.Any(x => x.RecuirterId == recuirterId))
+                {
+                    throw new Exception("Permission denied");
+                }
+                if (com.AvatarURL != null)
+                {
+                    deleteOldImg(com.AvatarURL);
+                }
+                string FileName = file.FileName;
+                string uniqueFileName = Guid.NewGuid().ToString() + "_Company_avt_" + FileName;
+                uploadImg(file, uniqueFileName);
+                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                com.AvatarURL = imagePath;
+                return companyRepo.Update(com);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int updateImageBgrCompany(int companyId, int recuirterId, IFormFile file)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (recuirterId <= 0 || companyId <= 0)
+                    throw new Exception("Data not valid");
+                var rec = recuirterRepository.GetById(recuirterId);
+                var com = companyRepo.GetById(companyId);
+                if (rec == null || com == null)
+                    throw new Exception("Not found");
+                if (!com.EmployeeInCompanies.Any(x => x.RecuirterId == recuirterId) || com.RecuirterId != recuirterId)
+                {
+                    throw new Exception("Permission denied");
+                }
+                if (com.BackGroundURL != null)
+                {
+                    deleteOldImg(com.BackGroundURL);
+                }
+                string FileName = file.FileName;
+                string uniqueFileName = Guid.NewGuid().ToString() + "_Company_bgr_" + FileName;
+                uploadImg(file, uniqueFileName);
+                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                com.BackGroundURL = imagePath;
+                return companyRepo.Update(com);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int updateImageCandidate(int candidatId, IFormFile file)
         {
-            if (candidatId <= 0)
-                throw new Exception("Data not valid");
-
-            return -1;
+            try
+            {
+                //if (candidatId <= 0)
+                //    throw new Exception("Data not valid");
+                //var can = candidateRepo.GetById(candidatId);
+                //if (can == null)
+                //    throw new Exception("Not found");
+                //if (can.AvatarURL != null)
+                //{
+                //    deleteOldImg(can.AvatarURL);
+                //}
+                //string FileName = file.FileName;
+                //string uniqueFileName = Guid.NewGuid().ToString() + "_CV_" + FileName;
+                //uploadImg(file, uniqueFileName);
+                //var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                //can.AvatarURL = imagePath;
+                //return cvRepo.Update(can);
+                return -1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public int updateImageCV(int cvId, IFormFile file)
+        public int updateImageCV(int candidateId, int cvId, IFormFile file)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (cvId <= 0)
+                    throw new Exception("Data not valid");
+                var cv = cvRepo.GetById(cvId);
+                if (cv == null)
+                    throw new Exception("Not found");
+                if (cv.CandidateId != candidateId)
+                    throw new Exception("Permission denied");
+                if (cv.AvatarURL != null)
+                {
+                    deleteOldImg(cv.AvatarURL);
+                }
+                string FileName = file.FileName;
+                string uniqueFileName = Guid.NewGuid().ToString() + "_CV_" + FileName;
+                uploadImg(file, uniqueFileName);
+                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                cv.AvatarURL = imagePath;
+                return cvRepo.Update(cv);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int updateImageRecuirter(int recuirterId, IFormFile file)
