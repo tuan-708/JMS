@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormControl, Validators } from '@angular/forms';
+import { getRequest, postRequest, putRequest, deleteRequest } from 'src/app/service/api-requests';
+import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 
 @Component({
    selector: 'app-company-register',
@@ -11,17 +13,29 @@ export class CompanyRegisterComponent {
    //upload img
    displayImage = "none"
    fileSrc: any;
-
-   title = 'angular';
    public Editor = ClassicEditor;
+   categories: any;
+  
+
+   constructor() {
+     getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.categories = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+         })
+   }
 
    nameRq = new FormControl('', [Validators.required]);
    emailRq = new FormControl('', [Validators.required, Validators.email]);
    taxNumRq = new FormControl('', [Validators.required]);
-   industryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
+   websiteRq = new FormControl('');
+   categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    sizeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    addressRq = new FormControl('', [Validators.required]);
    phoneRq = new FormControl('', [Validators.required]);
+   descriptionRq = new FormControl('', [Validators.required]);
 
    getErrorMessageName() {
       if (this.nameRq.hasError('required')) {
@@ -44,11 +58,11 @@ export class CompanyRegisterComponent {
       }
       return
    }
-   getErrorMessageIndustry() {
-      if (this.industryRq.hasError('required')) {
+   getErrorMessageCategory() {
+      if (this.categoryRq.hasError('required')) {
          return 'Lĩnh vực không được để trống!'
       }
-      if (this.industryRq.hasError('min')) {
+      if (this.categoryRq.hasError('min')) {
          return 'Lĩnh vực không được để trống!'
       }
       return
@@ -68,23 +82,47 @@ export class CompanyRegisterComponent {
       }
       return
    }
-   getErrorMessagePhone() {
-      if (this.phoneRq.hasError('required')) {
-         return 'Số điện thoại không được để trống!'
+
+   
+   getErrorMessageDescriptionRequirement() {
+      if (this.descriptionRq.hasError('required')) {
+         return 'Miêu cả không được để trống!'
       }
       return
    }
 
+   checkReq: any = false;
+
+
    submitButtonClicked() {
+      if( this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid 
+         && this.categoryRq.valid && this.sizeRq.valid && this.addressRq.valid ){
+            const companyName = this.nameRq.value;
+            const email = this.emailRq.value;
+            const phone = this.phoneRq.value;
+            const address = this.addressRq.value;
+            const webURL =  this.websiteRq.value;
+            const categoryName = this.categoryRq.value;
+
+            console.log(companyName);
+            console.log(email);
+            console.log(phone);
+            console.log(address);
+            console.log(webURL);
+            console.log(categoryName);
+         }
+      
+      this.checkReq = true;
       this.nameRq.markAllAsTouched()
       this.emailRq.markAllAsTouched()
       this.taxNumRq.markAllAsTouched()
-      this.industryRq.markAllAsTouched()
+      this.categoryRq.markAllAsTouched()
       this.sizeRq.markAllAsTouched()
       this.addressRq.markAllAsTouched()
       this.phoneRq.markAllAsTouched()
+      this.descriptionRq.markAllAsTouched()
 
-      console.log('submit button clicked')
+
       return
    }
 
