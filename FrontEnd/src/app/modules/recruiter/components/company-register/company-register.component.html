@@ -9,7 +9,8 @@
                      <!-- row 1 -->
                      <div class="row">
                         <div class="col-md-6 mb-2">
-                           <label class="form-label" for="name">Tên Công Ty</label>
+                           <label class="form-label" for="name">Tên Công Ty</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="text" id="name" placeholder="Nhập tên công ty" required
                                  [formControl]="nameRq" />
@@ -17,7 +18,8 @@
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2">
-                           <label class="form-label" for="email">Email</label>
+                           <label class="form-label" for="email">Email</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="email" id="email" placeholder="Nhập email" required
                                  [formControl]="emailRq" />
@@ -28,7 +30,8 @@
                      <!-- row 2 -->
                      <div class="row">
                         <div class="col-md-6 mb-2">
-                           <label for="taxNum" class="form-label">Mã Số Thuế</label>
+                           <label for="taxNum" class="form-label">Mã Số Thuế</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="number" id="taxNum" placeholder="Nhập mã số thuế" required
                                  [formControl]="taxNumRq" />
@@ -38,32 +41,33 @@
                         <div class="col-md-6 mb-2">
                            <label for="website" class="form-label">Website</label>
                            <mat-form-field appearance="outline" class="col-12 p-0">
-                              <input matInput type="text" id="website" placeholder="https://" />
+                              <input matInput type="text" id="website" placeholder="https://"  [formControl]="websiteRq"/>
                            </mat-form-field>
                         </div>
                      </div>
                      <!-- row 3 -->
                      <div class="row">
                         <div class="col-md-6 mb-2">
-                           <label class="form-label select-label">Lĩnh Vực</label>
+                           <label class="form-label select-label">Lĩnh Vực</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
-                              <mat-select required [formControl]="industryRq">
-                                 <mat-option value='0' disabled selected>Chọn lĩnh vực</mat-option>
-                                 <mat-option value="1">IT - Phần mềm</mat-option>
-                                 <mat-option value="2">Bảo Hiểm</mat-option>
-                                 <mat-option value="3">Bất động sản</mat-option>
+                              <mat-select required [formControl]="categoryRq">
+                                 <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>
+                                 <mat-option *ngFor="let elm of categories; index as i"
+                                    value={{elm.id}}>{{elm.categoryName}}</mat-option>
                               </mat-select>
-                              <mat-error *ngIf="industryRq.invalid">{{getErrorMessageIndustry()}}</mat-error>
+                              <mat-error *ngIf="categoryRq.invalid">{{getErrorMessageCategory()}}</mat-error>
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2">
-                           <label class="form-label select-label">Quy Mô</label>
+                           <label class="form-label select-label">Quy Mô</label><span class="link-danger">
+                              *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select required [formControl]="sizeRq">
                                  <mat-option value="0" disabled selected>Chọn quy mô công ty</mat-option>
-                                 <mat-option value="1">1 - 100 người</mat-option>
-                                 <mat-option value="2">101 - 500 người</mat-option>
-                                 <mat-option value="3">Trên 500 người</mat-option>
+                                 <mat-option value="1 - 100 người">1 - 100 người</mat-option>
+                                 <mat-option value="101 - 500 người">101 - 500 người</mat-option>
+                                 <mat-option value="Trên 500 người">Trên 500 người</mat-option>
                               </mat-select>
                               <mat-error *ngIf="sizeRq.invalid">{{getErrorMessageSize()}}</mat-error>
                            </mat-form-field>
@@ -71,20 +75,30 @@
                      </div>
                      <!-- row 4 -->
                      <div class="row">
-                        <div class="col-md-6 mb-2 pb-2">
-                           <label class="form-label" for="address">Địa Chỉ</label>
+                        <div class="col-md-6 mb-2">
+                           <label for="yearOfEstablishment" class="form-label">Năm thành lập</label>
                            <mat-form-field appearance="outline" class="col-12 p-0">
-                              <input matInput type="text" id="address" class="form-control"
-                                 placeholder="Nhập địa chỉ công ty" required [formControl]="addressRq" />
-                              <mat-error *ngIf="addressRq.invalid">{{getErrorMessageAddress()}}</mat-error>
+                              <input matInput type="number" id="yearOfEstablishment" placeholder="Nhập năm thành lập" required
+                                 [formControl]="yearOfEstablishmentRq" />
+
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2 pb-2">
                            <label class="form-label" for="phone">Số Điện Thoại</label>
                            <mat-form-field appearance="outline" class="col-12 p-0">
-                              <input matInput type="tel" id="phone" class="form-control"
+                              <input matInput type="tel" id="phone"
                                  placeholder="Nhập số điện thoại công ty" required [formControl]="phoneRq" />
-                              <mat-error *ngIf="phoneRq.invalid">{{getErrorMessagePhone()}}</mat-error>
+                           </mat-form-field>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12 mb-2 pb-2">
+                           <label class="form-label" for="address">Địa Chỉ</label><span class="link-danger">
+                              *</span>
+                           <mat-form-field appearance="outline" class="col-12 p-0">
+                              <input matInput type="text" id="address"
+                                 placeholder="Nhập địa chỉ công ty" required [formControl]="addressRq" />
+                              <mat-error *ngIf="addressRq.invalid">{{getErrorMessageAddress()}}</mat-error>
                            </mat-form-field>
                         </div>
                      </div>
@@ -92,9 +106,12 @@
                      <div class="row">
                         <div class="col-12 pb-4">
                            <div class="form-outline">
-                              <label class="form-label" for="description">Mô Tả</label>
-                              <ckeditor [config]="{placeholder: 'Nhập mô tả công ty'}" [editor]="Editor" data="">
+                              <label class="form-label" for="description">Mô Tả</label><span class="link-danger">
+                                 *</span>
+                              <ckeditor [config]="{placeholder: 'Nhập mô tả công ty'}" [editor]="Editor" data=""
+                              required [formControl]="descriptionRq">
                               </ckeditor>
+                              <mat-error *ngIf="descriptionRq.invalid && checkReq">{{getErrorMessageDescriptionRequirement()}}</mat-error>
                            </div>
                         </div>
                      </div>
