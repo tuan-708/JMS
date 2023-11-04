@@ -1,4 +1,4 @@
-<section class="formCompanyRegister">
+<section class="formCompanyUpdate">
    <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
          <div class="col-12 col-lg-9 col-xl-7">
@@ -52,7 +52,7 @@
                               *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select required [formControl]="categoryRq">
-                                 <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>
+                                 <mat-option value="0" disabled>Chọn lĩnh vực</mat-option>
                                  <mat-option *ngFor="let elm of categories; index as i"
                                     value={{elm.id}}>{{elm.categoryName}}</mat-option>
                               </mat-select>
@@ -64,10 +64,10 @@
                               *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select required [formControl]="sizeRq">
-                                 <mat-option value="0" disabled selected>Chọn quy mô công ty</mat-option>
+                                 <mat-option value="0" disabled>Chọn quy mô công ty</mat-option>
                                  <mat-option value="1 - 100 người">1 - 100 người</mat-option>
                                  <mat-option value="101 - 500 người">101 - 500 người</mat-option>
-                                 <mat-option value="Trên 500 người">Trên 500 người</mat-option>
+                                 <mat-option value="Trên 500 người" >Trên 500 người</mat-option>
                               </mat-select>
                               <mat-error *ngIf="sizeRq.invalid">{{getErrorMessageSize()}}</mat-error>
                            </mat-form-field>
@@ -112,6 +112,31 @@
                               required [formControl]="descriptionRq">
                               </ckeditor>
                               <mat-error *ngIf="descriptionRq.invalid && checkReq">{{getErrorMessageDescriptionRequirement()}}</mat-error>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- row 6 -->
+                     <div class="row">
+                        <div class="col-12 pb-4">
+                           <label class="form-label pb-2">Hình Ảnh Công Ty</label>
+                           <img class="file-upload-image col-12 pb-2" [src]="fileSrc" alt="your image"
+                              [style.display]="displayImage" />
+                           <div class="image-upload-wrap" ng-hide="true">
+                              <input class="file-upload-input" type='file' multiple=false (change)="getFile($event);"
+                                 accept="image/*" />
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- row 6 -->
+                     <div class="row">
+                        <div class="col-12 pb-2">
+                           <label class="form-label pb-2">Hình nền Công Ty</label>
+                           <img class="file-upload-image col-12 pb-2" [src]="fileSrc" alt="your image"
+                              [style.display]="displayImage" />
+                           <div class="image-upload-wrap" ng-hide="true">
+                              <input class="file-upload-input" type='file' multiple=false (change)="getFile($event);"
+                                 accept="image/*" />
                            </div>
                         </div>
                      </div>

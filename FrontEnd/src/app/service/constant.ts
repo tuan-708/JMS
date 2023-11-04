@@ -12,5 +12,7 @@ export enum apiRecruiter{
     GET_ALL_LEVEL_TITLE = "/api/RecuirterCommon/all-level-title",
     GET_ALL_EMPLOYMENT_TYPE = "/api/RecuirterCommon/all-employment-type",
     POST_CREATE_JD = "/api/JobDesc/new-post",
-    CREATE_COMPANY_BY_ID = "/api/Companys/create-by-recuirter"
+    CREATE_COMPANY_BY_ID = "/api/Companys/create-by-recuirter",
+    UPDATE_COMPANY = "/api/Companys/update-by-recuirter",
+    GET_COMPANY_BY_ID = "/api/Companys/get-by-id",
 }

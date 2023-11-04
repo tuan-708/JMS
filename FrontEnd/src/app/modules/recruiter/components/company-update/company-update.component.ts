@@ -5,17 +5,18 @@ import { getRequest, postRequest, putRequest, deleteRequest } from 'src/app/serv
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 
 @Component({
-   selector: 'app-company-register',
-   templateUrl: './company-register.component.html',
-   styleUrls: ['./company-register.component.css']
+   selector: 'app-company-update',
+   templateUrl: './company-update.component.html',
+   styleUrls: ['./company-update.component.css']
 })
-export class CompanyRegisterComponent {
+export class CompanyUpdateComponent {
    //upload img
    displayImage = "none"
    fileSrc: any;
    public Editor = ClassicEditor;
    categories: any;
-
+   company: any;
+   companyName: any
 
    constructor() {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
@@ -25,14 +26,38 @@ export class CompanyRegisterComponent {
          .catch(data => {
             console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
          })
+
+      getRequest(apiRecruiter.GET_COMPANY_BY_ID+"/5", AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.company = res?.data
+            console.log(this.company);
+            
+            this.nameRq.setValue(this.company?.companyName)
+            this.emailRq.setValue(this.company?.email)
+            this.taxNumRq.setValue(this.company?.tax)
+            this.taxNumRq.setValue(this.company?.tax)
+            this.websiteRq.setValue(this.company?.webURL)
+            this.categoryRq.setValue("7")
+            this.sizeRq.setValue("1 - 100 người")
+            this.yearOfEstablishmentRq.setValue(this.company?.yearOfEstablishment)
+            this.phoneRq.setValue(this.company?.phone)
+            this.addressRq.setValue(this.company?.address)
+            this.descriptionRq.setValue(this.company?.description)
+
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_COMPANY_BY_ID, data);
+         })
+
+
    }
 
    nameRq = new FormControl('', [Validators.required]);
    emailRq = new FormControl('', [Validators.required, Validators.email]);
    taxNumRq = new FormControl('', [Validators.required]);
    websiteRq = new FormControl('');
-   categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   sizeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
+   categoryRq = new FormControl('',[Validators.required, Validators.min(1)]);
+   sizeRq = new FormControl('', [Validators.required, Validators.min(1)]);
    addressRq = new FormControl('', [Validators.required]);
    yearOfEstablishmentRq = new FormControl('');
    phoneRq = new FormControl('', [Validators.required]);
@@ -92,7 +117,7 @@ export class CompanyRegisterComponent {
       return
    }
 
-   
+
 
    checkReq: any = false;
 
@@ -111,7 +136,7 @@ export class CompanyRegisterComponent {
          const categoryName = this.categoryRq.value;
          const size = this.sizeRq.value;
          const recuirterFounder = "6";
-         const yearOfEstablishment =  this.yearOfEstablishmentRq.value;
+         const yearOfEstablishment = this.yearOfEstablishmentRq.value;
 
          const data = {
             companyName: companyName,
@@ -126,19 +151,19 @@ export class CompanyRegisterComponent {
             recuirterFounder: recuirterFounder,
             recuirtersInCompany: [],
             jDs: [],
-            yearOfEstablishment:yearOfEstablishment
+            yearOfEstablishment: yearOfEstablishment
          }
 
-         postRequest(apiRecruiter.CREATE_COMPANY_BY_ID+"/"+recuirterFounder, AuthorizationMode.PUBLIC, data)   
-         .then(res => {
-            console.log(res);
-         })
-         .catch(data => {
-            console.log(data);
-         })
+         postRequest(apiRecruiter.UPDATE_COMPANY + "/" + recuirterFounder, AuthorizationMode.PUBLIC, data)
+            .then(res => {
+               console.log(res);
+            })
+            .catch(data => {
+               console.log(data);
+            })
       }
 
-      const taxNum =  this.taxNumRq.value?.toString();
+      const taxNum = this.taxNumRq.value?.toString();
       console.log(taxNum);
 
 
