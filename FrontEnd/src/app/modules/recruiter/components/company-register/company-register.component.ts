@@ -15,10 +15,10 @@ export class CompanyRegisterComponent {
    fileSrc: any;
    public Editor = ClassicEditor;
    categories: any;
-  
+
 
    constructor() {
-     getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
+      getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.categories = res.data
          })
@@ -34,6 +34,7 @@ export class CompanyRegisterComponent {
    categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    sizeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    addressRq = new FormControl('', [Validators.required]);
+   yearOfEstablishmentRq = new FormControl('');
    phoneRq = new FormControl('', [Validators.required]);
    descriptionRq = new FormControl('', [Validators.required]);
 
@@ -83,7 +84,7 @@ export class CompanyRegisterComponent {
       return
    }
 
-   
+
    getErrorMessageDescriptionRequirement() {
       if (this.descriptionRq.hasError('required')) {
          return 'Miêu cả không được để trống!'
@@ -91,27 +92,59 @@ export class CompanyRegisterComponent {
       return
    }
 
+   
+
    checkReq: any = false;
 
 
    submitButtonClicked() {
-      if( this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid 
-         && this.categoryRq.valid && this.sizeRq.valid && this.addressRq.valid ){
-            const companyName = this.nameRq.value;
-            const email = this.emailRq.value;
-            const phone = this.phoneRq.value;
-            const address = this.addressRq.value;
-            const webURL =  this.websiteRq.value;
-            const categoryName = this.categoryRq.value;
 
-            console.log(companyName);
-            console.log(email);
-            console.log(phone);
-            console.log(address);
-            console.log(webURL);
-            console.log(categoryName);
-         }
-      
+      if (this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid
+         && this.categoryRq.valid && this.sizeRq.valid && this.addressRq.valid) {
+         const companyName = this.nameRq.value;
+         const email = this.emailRq.value;
+         const phone = this.phoneRq.value;
+         const address = this.addressRq.value;
+         const description = this.descriptionRq.value;
+         const taxNum = this.taxNumRq.value?.toString();
+         const webURL = this.websiteRq.value;
+         const categoryName = this.categoryRq.value;
+         const size = this.sizeRq.value;
+         const recuirterFounder = "2";
+
+
+
+
+         // const data = {
+         //    companyName: companyName,
+         //    email: email,
+         //    phone: phone,
+         //    address: address,
+         //    description: description,
+         //    webURL: webURL,
+         //    taxNum: taxNum,
+         //    categoryName: categoryName,
+         //    size: size,
+         //    recuirterFounder: recuirterFounder,
+         //    recuirtersInCompany: [],
+         //    jDs: []
+         // }
+
+         // postRequest(apiRecruiter.CREATE_COMPANY_BY_ID+"/6", AuthorizationMode.PUBLIC, data)   
+         // .then(res => {
+         //    console.log(res);
+         // })
+         // .catch(data => {
+         //    console.log(data);
+         // })
+      }
+
+
+      const taxNum =  this.taxNumRq.value?.toString();
+      console.log(taxNum);
+
+
+
       this.checkReq = true;
       this.nameRq.markAllAsTouched()
       this.emailRq.markAllAsTouched()

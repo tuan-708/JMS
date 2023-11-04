@@ -75,13 +75,12 @@
                      </div>
                      <!-- row 4 -->
                      <div class="row">
-                        <div class="col-md-6 mb-2 pb-2">
-                           <label class="form-label" for="address">Địa Chỉ</label><span class="link-danger">
-                              *</span>
+                        <div class="col-md-6 mb-2">
+                           <label for="yearOfEstablishment" class="form-label">Năm thành lập</label>
                            <mat-form-field appearance="outline" class="col-12 p-0">
-                              <input matInput type="text" id="address"
-                                 placeholder="Nhập địa chỉ công ty" required [formControl]="addressRq" />
-                              <mat-error *ngIf="addressRq.invalid">{{getErrorMessageAddress()}}</mat-error>
+                              <input matInput type="number" id="yearOfEstablishment" placeholder="Nhập năm thành lập" required
+                                 [formControl]="yearOfEstablishmentRq" />
+
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2 pb-2">
@@ -89,6 +88,17 @@
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="tel" id="phone"
                                  placeholder="Nhập số điện thoại công ty" required [formControl]="phoneRq" />
+                           </mat-form-field>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12 mb-2 pb-2">
+                           <label class="form-label" for="address">Địa Chỉ</label><span class="link-danger">
+                              *</span>
+                           <mat-form-field appearance="outline" class="col-12 p-0">
+                              <input matInput type="text" id="address"
+                                 placeholder="Nhập địa chỉ công ty" required [formControl]="addressRq" />
+                              <mat-error *ngIf="addressRq.invalid">{{getErrorMessageAddress()}}</mat-error>
                            </mat-form-field>
                         </div>
                      </div>
