@@ -65,7 +65,9 @@ namespace APIServer.Services
                 throw new Exception("Recuirter not exist");
             }
             var com = _mapper.Map<Company>(data);
-            if (Validation.checkStringIsEmpty(com.CompanyName, com.Email, com.Phone, com.Address))
+            if (com.YearOfEstablishment <= 1000)
+                throw new Exception("Year Of Establishment must > 1000");
+            if (Validation.checkStringIsEmpty(com.CompanyName, com.Email, com.Phone, com.Address, com.Tax))
             {
                 throw new Exception("data not valid");
             }
@@ -222,23 +224,16 @@ namespace APIServer.Services
                 throw new Exception("Permission denied");
             }
             var input = _mapper.Map<Company>(data);
+            if (input.YearOfEstablishment <= 1000)
+                throw new Exception("Year Of Establishment must > 1000");
             if (Validation.checkStringIsEmpty(input.CompanyName, input.Email,
-                input.Phone, input.Address))
+                input.Phone, input.Address, input.Tax))
             {
                 throw new Exception("data not valid");
             }
 
-            //var listEmp = new List<EmployeeInCompany>();
-            //foreach (var emp in data.RecuirtersInCompany)
-            //{
-            //    var re = _recuirterRepository.GetById((int)emp.RecuirterId);
-            //    if (re == null)
-            //        throw new Exception("Data of employee not valid");
-            //    var o = _mapper.Map<EmployeeInCompany>(emp);
-            //    listEmp.Add(o);
-            //}
-            //com.EmployeeInCompanies = listEmp;
-            //com.TotalEmployee = listEmp.Count;
+            com.Tax = input.Tax;
+            com.YearOfEstablishment = input.YearOfEstablishment;
             com.CompanyName = input.CompanyName;
             com.Email = input.Email;
             com.Phone = input.Phone;
@@ -246,8 +241,7 @@ namespace APIServer.Services
             com.Description = input.Description;
             com.WebURL = input.WebURL;
             com.CategoryId = input.CategoryId;
-            com.BackGroundURL = input.BackGroundURL;
-            com.AvatarURL = input.AvatarURL;
+            com.Size = input.Size;
 
             return _companyRepository.Update(com);
         }
