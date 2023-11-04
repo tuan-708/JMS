@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { getRequest, postRequest } from 'src/app/service/api-requests';
+import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 
 @Component({
    selector: 'app-list-companys',
@@ -8,17 +9,30 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
    styleUrls: ['./list-companys.component.css']
 })
 export class CandidateListCompanysComponent {
-   industryData = ['Giáo dục', 'Thời trang', 'Tài chính', 'Bảo hiểm', 'CNTT Phần mềm', 'Truyền thông', 'Khác']
+   categories: any;
+   companies: any;
 
-   industryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
+   categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
 
-   getErrorMessageIndustry() {
-      if (this.industryRq.hasError('required')) {
-         return 'Lĩnh vực không được để trống!'
-      }
-      if (this.industryRq.hasError('min')) {
-         return 'Lĩnh vực không được để trống!'
-      }
-      return
+   constructor() {
+      getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { })
+      .then(res => {
+         this.categories = res?.data
+      })
+      .catch(data => {
+         console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+      })
+
+      getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 10})
+      .then(res => {
+         this.companies = res?.data
+         console.log(this.companies);
+         
+      })
+      .catch(data => {
+         console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+      })
+
    }
+
 }

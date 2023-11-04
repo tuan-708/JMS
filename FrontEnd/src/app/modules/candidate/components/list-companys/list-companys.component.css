@@ -15,7 +15,7 @@
 }
 
 .itemCompany {
-   height: 340px;
+   height: 350px;
    border-radius: 15px;
    border: 1px solid #ccc;
    width: 32%;
@@ -72,6 +72,7 @@
 
 .contentCompany {
    margin-top: 10px;
+   height: 140px;
 }
 
 .fllower {
@@ -105,6 +106,10 @@
 .detailJob {
    margin-left: 10px;
    padding: 0;
+}
+
+.mat-mdc-form-field {
+   line-height: 20px;
 }
 
 @media only screen and (min-width: 600px) {
