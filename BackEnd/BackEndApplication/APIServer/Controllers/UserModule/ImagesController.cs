@@ -30,7 +30,7 @@ namespace APIServer.Controllers.UserModule
                 {
                     data = imageService.updateImageCandidate(id, file),
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
-                    statusCode = HttpStatusCode.BadRequest
+                    statusCode = HttpStatusCode.OK
                 };
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace APIServer.Controllers.UserModule
                 {
                     data = imageService.updateImageRecuirter(id, file),
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
-                    statusCode = HttpStatusCode.BadRequest
+                    statusCode = HttpStatusCode.OK
                 };
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace APIServer.Controllers.UserModule
                 {
                     data = imageService.updateImageCV(candidateId, cvId, file),
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
-                    statusCode = HttpStatusCode.BadRequest
+                    statusCode = HttpStatusCode.OK
                 };
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace APIServer.Controllers.UserModule
                 {
                     data = imageService.updateImageAvtCompany(companyId, recuirterId, file),
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
-                    statusCode = HttpStatusCode.BadRequest
+                    statusCode = HttpStatusCode.OK
                 };
             }
             catch (Exception ex)
@@ -122,7 +122,7 @@ namespace APIServer.Controllers.UserModule
                 {
                     data = imageService.updateImageBgrCompany(companyId, recuirterId, file),
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
-                    statusCode = HttpStatusCode.BadRequest
+                    statusCode = HttpStatusCode.OK
                 };
             }
             catch (Exception ex)
