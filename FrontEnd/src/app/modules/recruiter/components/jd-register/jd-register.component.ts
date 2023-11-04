@@ -16,7 +16,7 @@ export class JdRegisterComponent {
    categories: any;
    levels: any;
    employmentTypes: any;
-   sexData = ['Nam', 'Nữ', 'Không yêu cầu']
+   genders: any;
 
    constructor() {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
@@ -25,6 +25,14 @@ export class JdRegisterComponent {
          })
          .catch(data => {
             console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+         })
+
+      getRequest(apiRecruiter.GET_ALL_GENDER, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.genders = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_GENDER, data);
          })
 
       getRequest(apiRecruiter.GET_ALL_LEVEL_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
@@ -205,11 +213,11 @@ export class JdRegisterComponent {
    checkBen: any = false;
 
    submitButtonClicked() {
-      if (this.titleRq.value && this.numberRequiredRq.value &&
-         this.positionRq.value && this.levelRq.value &&
-         this.genderRq.value && this.typeRq.value &&
-         this.categoryRq.value && this.expiredDateRq.value &&
-         this.addressRq.value && this.salaryRq.value && this.descriptionRq.valid && this.experienceRq.valid && this.benefitRq.valid) {
+      if (this.titleRq.valid && this.numberRequiredRq.valid &&
+         this.positionRq.valid && this.levelRq.valid &&
+         this.genderRq.valid && this.typeRq.valid &&
+         this.categoryRq.valid && this.expiredDateRq.valid &&
+         this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.experienceRq.valid && this.benefitRq.valid) {
 
          const title = this.titleRq.value;
          const numberRequirement = this.numberRequiredRq.value;

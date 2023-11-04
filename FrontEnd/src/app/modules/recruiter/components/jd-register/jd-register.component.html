@@ -80,8 +80,8 @@
                               <mat-form-field appearance="outline" class="col-12 p-0">
                                  <mat-select required [formControl]="genderRq">
                                     <mat-option value="0" disabled selected>Yêu cầu giới tính</mat-option>
-                                    <mat-option *ngFor="let elm of sexData; index as i"
-                                       value={{i+1}}>{{elm}}</mat-option>
+                                    <mat-option *ngFor="let elm of genders; index as i"
+                                       value={{elm.genderId}}>{{elm.title}}</mat-option>
                                  </mat-select>
                                  <mat-error *ngIf="genderRq.invalid">{{getErrorMessageGender()}}</mat-error>
                               </mat-form-field>

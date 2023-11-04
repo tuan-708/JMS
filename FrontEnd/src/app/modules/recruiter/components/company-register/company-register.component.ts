@@ -106,12 +106,12 @@ export class CompanyRegisterComponent {
          const phone = this.phoneRq.value;
          const address = this.addressRq.value;
          const description = this.descriptionRq.value;
-         const taxNum = this.taxNumRq.value?.toString();
+         const tax = this.taxNumRq.value?.toString();
          const webURL = this.websiteRq.value;
          const categoryName = this.categoryRq.value;
          const size = this.sizeRq.value;
-         const recuirterFounder = "2";
-
+         const recuirterFounder = "6";
+         const yearOfEstablishment =  this.yearOfEstablishmentRq.value;
 
          const data = {
             companyName: companyName,
@@ -120,15 +120,16 @@ export class CompanyRegisterComponent {
             address: address,
             description: description,
             webURL: webURL,
-            taxNum: taxNum,
+            tax: tax,
             categoryName: categoryName,
             size: size,
             recuirterFounder: recuirterFounder,
             recuirtersInCompany: [],
-            jDs: []
+            jDs: [],
+            yearOfEstablishment:yearOfEstablishment
          }
 
-         postRequest(apiRecruiter.CREATE_COMPANY_BY_ID+"/6", AuthorizationMode.PUBLIC, data)   
+         postRequest(apiRecruiter.CREATE_COMPANY_BY_ID+"/"+recuirterFounder, AuthorizationMode.PUBLIC, data)   
          .then(res => {
             console.log(res);
          })
@@ -136,7 +137,6 @@ export class CompanyRegisterComponent {
             console.log(data);
          })
       }
-
 
       const taxNum =  this.taxNumRq.value?.toString();
       console.log(taxNum);
