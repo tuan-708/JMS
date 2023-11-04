@@ -15,6 +15,7 @@ export class CompanyUpdateComponent {
    fileSrc: any;
    public Editor = ClassicEditor;
    categories: any;
+   sizes = ["1 - 100 người","101 - 500 người","Trên 500 người"]
    company: any;
    companyName: any
 
@@ -37,8 +38,10 @@ export class CompanyUpdateComponent {
             this.taxNumRq.setValue(this.company?.tax)
             this.taxNumRq.setValue(this.company?.tax)
             this.websiteRq.setValue(this.company?.webURL)
-            this.categoryRq.setValue("7")
-            this.sizeRq.setValue("1 - 100 người")
+            const selectCategoty =  this.categories.find((cate:any) => cate?.categoryName === this.company?.categoryName)
+            this.categoryRq.setValue(selectCategoty?.id.toString())
+            const selectSize =  this.sizes.find((e:any) => e == this.company?.size)
+            this.sizeRq.setValue(selectSize?selectSize:"")
             this.yearOfEstablishmentRq.setValue(this.company?.yearOfEstablishment)
             this.phoneRq.setValue(this.company?.phone)
             this.addressRq.setValue(this.company?.address)
@@ -139,6 +142,7 @@ export class CompanyUpdateComponent {
          const yearOfEstablishment = this.yearOfEstablishmentRq.value;
 
          const data = {
+            companyId: 5,
             companyName: companyName,
             email: email,
             phone: phone,
