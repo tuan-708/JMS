@@ -16,42 +16,35 @@ namespace APIServer.Controllers.UserModule
     public class TokenController : ControllerBase
     {
         private readonly IMapper mapper;
-        public IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         private readonly IRecuirterService recuirterService;
+        private readonly ICandidateService candidateService;
 
-        public TokenController(IMapper mapper, IRecuirterService userService, IConfiguration configuration)
+        public TokenController(IMapper mapper, IRecuirterService userService, IConfiguration configuration, ICandidateService candidateService)
         {
             this.mapper = mapper;
             this.recuirterService = userService;
             _configuration = configuration;
+            this.candidateService = candidateService;
         }
 
         [HttpPost]
         [Route("login-recuirter")]
-        public BaseResponseBody<TokenModel> loginForRecuirter(LoginModel loginModel)
+        public BaseResponseBody<string> loginForRecuirter(LoginModel loginModel)
         {
             try
             {
                 var user = recuirterService.Login(loginModel.username, loginModel.password);
-                //var refreshTok = recuirterService.generateRefreshToken();
-                //user.RefreshToken = refreshTok;
-                //user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(
-                //    double.Parse(_configuration["Jwt:expireRefresh"]));
-                //recuirterService.Update(user);
-                return new BaseResponseBody<TokenModel>
+                return new BaseResponseBody<string>
                 {
                     statusCode = HttpStatusCode.OK,
-                    data = new TokenModel
-                    {
-                        accessToken = recuirterService.generateToken(user),
-                        //refreshToken = refreshTok,
-                    },
+                    data = recuirterService.generateToken(user),
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
             catch
             {
-                return new BaseResponseBody<TokenModel>
+                return new BaseResponseBody<string>
                 {
                     statusCode = HttpStatusCode.OK,
                     data = null,
@@ -61,52 +54,33 @@ namespace APIServer.Controllers.UserModule
         }
 
         [HttpPost]
-        [Route("refresh")]
-        public BaseResponseBody<TokenModel> Refresh(TokenModel tokenApiModel)
+        [Route("login-candidate")]
+        public BaseResponseBody<string> loginForCandidate(LoginModel loginModel)
         {
             try
             {
-                return new BaseResponseBody<TokenModel>
+                return new BaseResponseBody<string>
                 {
-                    statusCode = HttpStatusCode.OK,
-                    data = recuirterService.regenerateToken(tokenApiModel, _configuration),
                     message = GlobalStrings.SUCCESSFULLY,
+                    statusCode = HttpStatusCode.OK,
                 };
             }
-            catch
+            catch(Exception ex)
             {
-                return new BaseResponseBody<TokenModel>
+                return new BaseResponseBody<string>
                 {
-                    statusCode = HttpStatusCode.Unauthorized,
-                    data = null,
                     message = GlobalStrings.LOGIN_ERROR,
+                    statusCode = HttpStatusCode.Unauthorized,
                 };
             }
         }
 
-        [HttpPost, Authorize]
-        [Route("revoke")]
-        public BaseResponseBody<string> Revoke(TokenModel? token)
+        [HttpGet]
+        [Route("test-author")]
+        [Authorize(Roles = $"{GlobalStrings.ROLE_RECUIRTER}")]
+        public IActionResult testAuthor()
         {
-            try
-            {
-                recuirterService.revokeToken(token);
-                return new BaseResponseBody<string>
-                {
-                    statusCode = HttpStatusCode.OK,
-                    data = null,
-                    message = GlobalStrings.SUCCESSFULLY,
-                };
-            }
-            catch
-            {
-                return new BaseResponseBody<string>
-                {
-                    statusCode = HttpStatusCode.Unauthorized,
-                    data = null,
-                    message = GlobalStrings.LOGIN_ERROR,
-                };
-            }
+            return Ok(recuirterService.getAll());
         }
     }
 }

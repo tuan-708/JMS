@@ -70,26 +70,16 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public string generateRefreshToken()
-        {
-            var randomNumber = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(randomNumber);
-                return Convert.ToBase64String(randomNumber);
-            }
-        }
-
-        public string generateToken(Recuirter? userInfo)
+        public string generateToken(Recuirter? recuirter)
         {
             var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
-                        new Claim("UserId", userInfo.Id.ToString()),
-                        new Claim("DisplayName", userInfo.FullName),
-                        new Claim("UserName", userInfo.UserName),
-                        new Claim("Email", userInfo.Email),
+                        new Claim("UserId", recuirter.Id.ToString()),
+                        new Claim("DisplayName", recuirter.FullName),
+                        new Claim("UserName", recuirter.UserName),
+                        new Claim("Email", recuirter.Email),
                         new Claim(ClaimTypes.Role, GlobalStrings.ROLE_RECUIRTER),
                     };
 
@@ -131,42 +121,6 @@ namespace APIServer.Services
             if (user == null)
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
             return user;
-        }
-
-        public TokenModel regenerateToken(TokenModel? expiredToken, IConfiguration _configuration)
-        {
-            if (expiredToken == null ||
-                Validation.checkStringIsEmpty(expiredToken.accessToken, expiredToken.refreshToken))
-                throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
-            var username = GetUserFromExpiredToken(expiredToken.accessToken);
-            var user = _recRepository.findByUserName(username);
-            if (user == null ||
-                user.RefreshToken != expiredToken.refreshToken ||
-                user.RefreshTokenExpiryTime <= DateTime.Now)
-                throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
-            var newToken = generateToken(user);
-            var newRefresh = generateRefreshToken();
-            user.RefreshToken = newRefresh;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(
-                double.Parse(_configuration["Jwt:expireRefresh"]));
-            return new TokenModel
-            {
-                accessToken = newToken,
-                refreshToken = newRefresh,
-            };
-        }
-
-        public void revokeToken(TokenModel? token)
-        {
-            if (token == null ||
-                Validation.checkStringIsEmpty(token.accessToken, token.refreshToken))
-                throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
-            var username = GetUserFromExpiredToken(token.accessToken);
-            var user = _recRepository.findByUserName(username);
-            if (user == null)
-                throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
-            user.RefreshToken = null;
-            _recRepository.Update(user);
         }
 
         public int Update(Recuirter data)

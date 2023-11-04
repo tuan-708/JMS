@@ -90,22 +90,25 @@ namespace APIServer.Services
         {
             try
             {
-                //if (candidatId <= 0)
-                //    throw new Exception("Data not valid");
-                //var can = candidateRepo.GetById(candidatId);
-                //if (can == null)
-                //    throw new Exception("Not found");
-                //if (can.AvatarURL != null)
-                //{
-                //    deleteOldImg(can.AvatarURL);
-                //}
-                //string FileName = file.FileName;
-                //string uniqueFileName = Guid.NewGuid().ToString() + "_CV_" + FileName;
-                //uploadImg(file, uniqueFileName);
-                //var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
-                //can.AvatarURL = imagePath;
-                //return cvRepo.Update(can);
-                return -1;
+                if (candidatId <= 0)
+                    throw new Exception("Data not valid");
+                var can = candidateRepo.GetById(candidatId);
+                if (can == null)
+                    throw new Exception("Not found");
+                if(can.Id != candidatId)
+                {
+                    throw new Exception("Permission denied");
+                }
+                if (can.AvatarURL != null)
+                {
+                    deleteOldImg(can.AvatarURL);
+                }
+                string FileName = file.FileName;
+                string uniqueFileName = Guid.NewGuid().ToString() + "_CV_" + FileName;
+                uploadImg(file, uniqueFileName);
+                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                can.AvatarURL = imagePath;
+                return candidateRepo.Update(can);
             }
             catch (Exception ex)
             {
