@@ -45,7 +45,7 @@ namespace APIServer.Services
                 string FileName = file.FileName;
                 string uniqueFileName = Guid.NewGuid().ToString() + "_Company_avt_" + FileName;
                 uploadImg(file, uniqueFileName);
-                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 com.AvatarURL = imagePath;
                 return companyRepo.Update(com);
             }
@@ -76,7 +76,7 @@ namespace APIServer.Services
                 string FileName = file.FileName;
                 string uniqueFileName = Guid.NewGuid().ToString() + "_Company_bgr_" + FileName;
                 uploadImg(file, uniqueFileName);
-                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 com.BackGroundURL = imagePath;
                 return companyRepo.Update(com);
             }
@@ -106,7 +106,7 @@ namespace APIServer.Services
                 string FileName = file.FileName;
                 string uniqueFileName = Guid.NewGuid().ToString() + "_CV_" + FileName;
                 uploadImg(file, uniqueFileName);
-                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 can.AvatarURL = imagePath;
                 return candidateRepo.Update(can);
             }
@@ -134,7 +134,7 @@ namespace APIServer.Services
                 string FileName = file.FileName;
                 string uniqueFileName = Guid.NewGuid().ToString() + "_CV_" + FileName;
                 uploadImg(file, uniqueFileName);
-                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 cv.AvatarURL = imagePath;
                 return cvRepo.Update(cv);
             }
@@ -160,7 +160,7 @@ namespace APIServer.Services
                 string FileName = file.FileName;
                 string uniqueFileName = Guid.NewGuid().ToString() + "_Recuirter_" + FileName;
                 uploadImg(file, uniqueFileName);
-                var imagePath = Path.Combine("\\wwwroot\\images\\", uniqueFileName);
+                var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 rec.AvatarURL = imagePath;
                 return recuirterRepository.Update(rec);
             }
@@ -183,7 +183,8 @@ namespace APIServer.Services
                 {
                     throw new Exception("Only allow img size under 25mb");
                 }
-                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", fileName);
+                var absoluthPath = Directory.GetCurrentDirectory();
+                var imagePath = absoluthPath + "\\wwwroot\\images\\" + fileName;
                 using(var stream = new FileStream(imagePath, FileMode.Create))
                 {
                     file.CopyTo(stream);
@@ -217,7 +218,7 @@ namespace APIServer.Services
         private void deleteOldImg(string? url)
         {
             var dir = Directory.GetCurrentDirectory();
-            var path = dir + url;
+            var path = dir + "\\wwwroot\\" + url;
             if (File.Exists(path))
                 File.Delete(path);
         }
