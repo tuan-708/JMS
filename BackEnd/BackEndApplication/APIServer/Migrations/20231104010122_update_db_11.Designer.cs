@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231104010122_update_db_11")]
+    partial class update_db_11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,9 +275,6 @@ namespace APIServer.Migrations
 
                     b.Property<int?>("RecuirterId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tax")
                         .HasColumnType("nvarchar(max)");

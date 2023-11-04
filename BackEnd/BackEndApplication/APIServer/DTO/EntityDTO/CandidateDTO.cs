@@ -14,5 +14,6 @@
         public DateTime LastUpdateDate { get; set; } = DateTime.Now;
         public bool IsActive { get; set; } = true;
         public bool IsDelete { get; set; } = false;
+        public string? AvatarURL { get; set; }
     }
 }

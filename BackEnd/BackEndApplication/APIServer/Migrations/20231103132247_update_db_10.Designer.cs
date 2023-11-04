@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231103132247_update_db_10")]
+    partial class update_db_10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,17 +276,14 @@ namespace APIServer.Migrations
                     b.Property<int?>("RecuirterId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalEmployee")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Tax")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalPost")
+                        .HasColumnType("int");
 
                     b.Property<string>("WebURL")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("YearOfEstablishment")
-                        .HasColumnType("int");
 
                     b.HasKey("CompanyId");
 
@@ -873,6 +872,12 @@ namespace APIServer.Migrations
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("RoleId")
                         .HasColumnType("int");
