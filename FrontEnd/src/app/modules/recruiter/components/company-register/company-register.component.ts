@@ -113,30 +113,28 @@ export class CompanyRegisterComponent {
          const recuirterFounder = "2";
 
 
+         const data = {
+            companyName: companyName,
+            email: email,
+            phone: phone,
+            address: address,
+            description: description,
+            webURL: webURL,
+            taxNum: taxNum,
+            categoryName: categoryName,
+            size: size,
+            recuirterFounder: recuirterFounder,
+            recuirtersInCompany: [],
+            jDs: []
+         }
 
-
-         // const data = {
-         //    companyName: companyName,
-         //    email: email,
-         //    phone: phone,
-         //    address: address,
-         //    description: description,
-         //    webURL: webURL,
-         //    taxNum: taxNum,
-         //    categoryName: categoryName,
-         //    size: size,
-         //    recuirterFounder: recuirterFounder,
-         //    recuirtersInCompany: [],
-         //    jDs: []
-         // }
-
-         // postRequest(apiRecruiter.CREATE_COMPANY_BY_ID+"/6", AuthorizationMode.PUBLIC, data)   
-         // .then(res => {
-         //    console.log(res);
-         // })
-         // .catch(data => {
-         //    console.log(data);
-         // })
+         postRequest(apiRecruiter.CREATE_COMPANY_BY_ID+"/6", AuthorizationMode.PUBLIC, data)   
+         .then(res => {
+            console.log(res);
+         })
+         .catch(data => {
+            console.log(data);
+         })
       }
 
 
