@@ -55,38 +55,48 @@ export async function postRequest(url: string, authorizationMode: AuthorizationM
     return datas
 }
 
-export function putRequest(url: string, data: any) {
-    fetch(url, {
-        method: "PUT",
-        mode: "cors",
+export async function postFileRequest(url: string, authorizationMode: AuthorizationMode, data: FormData) {
+    const response = await fetch(`${apiURL}${url}`, {
+        method: "POST",
         cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(data),
+        body: data
     })
-        .then(response => {
-            return response.json()
-        })
+    const datas = await response.json();
+    return datas
 }
 
-export function deleteRequest(url: string, data: any) {
-    fetch(url, {
-        method: "DELETE",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(data),
-    })
-        .then(response => {
-            return response.json()
-        })
-}
+// export function putRequest(url: string, data: any) {
+//     fetch(url, {
+//         method: "PUT",
+//         mode: "cors",
+//         cache: "no-cache",
+//         credentials: "same-origin",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//         redirect: "follow",
+//         referrerPolicy: "no-referrer",
+//         body: JSON.stringify(data),
+//     })
+//         .then(response => {
+//             return response.json()
+//         })
+// }
+
+// export function deleteRequest(url: string, data: any) {
+//     fetch(url, {
+//         method: "DELETE",
+//         mode: "cors",
+//         cache: "no-cache",
+//         credentials: "same-origin",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//         redirect: "follow",
+//         referrerPolicy: "no-referrer",
+//         body: JSON.stringify(data),
+//     })
+//         .then(response => {
+//             return response.json()
+//         })
+// }

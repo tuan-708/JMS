@@ -15,4 +15,6 @@ export enum apiRecruiter{
     CREATE_COMPANY_BY_ID = "/api/Companys/create-by-recuirter",
     UPDATE_COMPANY = "/api/Companys/update-by-recuirter",
     GET_COMPANY_BY_ID = "/api/Companys/get-by-id",
+    UPDATE_IMAGE_COMPANY_AVATAR = "/api/Images/update-img-avt-company",
+    UPDATE_IMAGE_COMPANY_BACKGROUND = "/api/Images/update-img-bgr-company"
 }

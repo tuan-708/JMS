@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormControl, Validators } from '@angular/forms';
-import { getRequest, postRequest, putRequest, deleteRequest } from 'src/app/service/api-requests';
+import { getRequest, postRequest, postFileRequest} from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 
 @Component({
@@ -11,8 +11,11 @@ import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 })
 export class CompanyUpdateComponent {
    //upload img
-   displayImage = "none"
-   fileSrc: any;
+   displayImageAvatar = "none"
+   displayImageBackground = "none"
+   imageAvatarSrc: any;
+   imageBackgroundSrc: any;
+   fileSrc:any;
    public Editor = ClassicEditor;
    categories: any;
    sizes = ["1 - 100 người","101 - 500 người","Trên 500 người"]
@@ -20,6 +23,8 @@ export class CompanyUpdateComponent {
    companyName: any
 
    constructor() {
+    
+
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.categories = res?.data
@@ -28,7 +33,7 @@ export class CompanyUpdateComponent {
             console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
          })
 
-      getRequest(apiRecruiter.GET_COMPANY_BY_ID+"/5", AuthorizationMode.PUBLIC, { page: 10 })
+      getRequest(apiRecruiter.GET_COMPANY_BY_ID+"/1", AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.company = res?.data
             console.log(this.company);
@@ -47,12 +52,17 @@ export class CompanyUpdateComponent {
             this.addressRq.setValue(this.company?.address)
             this.descriptionRq.setValue(this.company?.description)
 
+   
+
+            this.imageAvatarSrc = this.company?.avatarURL
+            this.imageBackgroundSrc = this.company?.backGroundURL
+            this.displayImageAvatar = "block"
+            this.displayImageBackground = "block"
+
          })
          .catch(data => {
             console.warn(apiRecruiter.GET_COMPANY_BY_ID, data);
          })
-
-
    }
 
    nameRq = new FormControl('', [Validators.required]);
@@ -138,11 +148,11 @@ export class CompanyUpdateComponent {
          const webURL = this.websiteRq.value;
          const categoryName = this.categoryRq.value;
          const size = this.sizeRq.value;
-         const recuirterFounder = "6";
+         const recuirterFounder = "2";
          const yearOfEstablishment = this.yearOfEstablishmentRq.value;
 
          const data = {
-            companyId: 5,
+            companyId: 1,
             companyName: companyName,
             email: email,
             phone: phone,
@@ -167,11 +177,6 @@ export class CompanyUpdateComponent {
             })
       }
 
-      const taxNum = this.taxNumRq.value?.toString();
-      console.log(taxNum);
-
-
-
       this.checkReq = true;
       this.nameRq.markAllAsTouched()
       this.emailRq.markAllAsTouched()
@@ -186,16 +191,61 @@ export class CompanyUpdateComponent {
       return
    }
 
-   getFile(event: any) {
+   loadAvatar(event: any) {
       if (event.target.files && event.target.files[0]) {
-         this.displayImage = "block"
+         let fileList: FileList = event.target.files;
+         let formData: FormData = new FormData();
+         if (fileList.length > 0) {
+            let file: File = fileList[0];
+            formData.append('file', file, file.name);
+         }
+         postFileRequest(apiRecruiter.UPDATE_IMAGE_COMPANY_AVATAR + "/2/1", AuthorizationMode.PUBLIC, formData)
+            .then(res => {
+               console.log(res);
+            })
+            .catch(data => {
+               console.log(data);
+            })
+         
+
+         this.displayImageAvatar = "block"
 
          var reader = new FileReader();
 
          reader.readAsDataURL(event.target.files[0]);
 
          reader.onload = (event) => {
-            this.fileSrc = event.target?.result;
+            this.imageAvatarSrc = event.target?.result;
+         }
+      }
+   }
+
+   loadBackGround(event: any) {
+      if (event.target.files && event.target.files[0]) {
+
+         let fileList: FileList = event.target.files;
+         let formData: FormData = new FormData();
+         if (fileList.length > 0) {
+            let file: File = fileList[0];
+            formData.append('file', file, file.name);
+         }
+         postFileRequest(apiRecruiter.UPDATE_IMAGE_COMPANY_BACKGROUND + "/2/1", AuthorizationMode.PUBLIC, formData)
+            .then(res => {
+               console.log(res);
+            })
+            .catch(data => {
+               console.log(data);
+            })
+
+
+         this.displayImageBackground = "block"
+
+         var reader = new FileReader();
+
+         reader.readAsDataURL(event.target.files[0]);
+
+         reader.onload = (event) => {
+            this.imageBackgroundSrc = event.target?.result;
          }
       }
    }
