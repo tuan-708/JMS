@@ -16,8 +16,8 @@ namespace APIServer.Models.Entity
         public string Address { get; set; }
         public string Description { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        public int? TotalPost { get; set; }
-        public int? TotalEmployee { get; set; }
+        public string? Tax { get; set; }
+        public int? YearOfEstablishment { get; set; }
         public string? WebURL { get; set; }
         public bool IsDelete { get; set; }
         public int? CategoryId { get; set; }
@@ -28,5 +28,6 @@ namespace APIServer.Models.Entity
         public string? AvatarURL { get; set; }
         public int? RecuirterId { get; set; }
         public virtual Recuirter? Recuirter { get; set; }
+        public string? Size { get; set; }
     }
 }

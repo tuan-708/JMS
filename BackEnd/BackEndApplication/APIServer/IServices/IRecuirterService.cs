@@ -9,10 +9,7 @@ namespace APIServer.IServices
     {
         public Recuirter Login(string? username, string? password);
         public string generateToken(Recuirter? userInfo);
-        public string generateRefreshToken();
         public Recuirter getById(int? id);
-        public TokenModel regenerateToken(TokenModel? expiredToken, IConfiguration _configuration);
-        public void revokeToken(TokenModel? token);
         public int CreateRecuirterAccount(Recuirter? account);
         public List<CVApply> GetCVAppliedHistory(int recruiterId, int? jobDescriptionId, DateTime? fromDate, DateTime? toDate);
         public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData);

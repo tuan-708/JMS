@@ -16,17 +16,17 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CreatedDateDisplay, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.LastUpdateDisplay, src => src.MapFrom(src => src.LastUpdate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.RoleTitle, src => src.MapFrom(src => src.Role.Name))
-                .ForMember(x => x.AvatarURL, src => src.MapFrom(src =>  Validation.checkStringIsEmpty(src.AvatarURL) ?
+                .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
                 Directory.GetCurrentDirectory() + "\\wwwroot\\defaults\\default_avt.jpg" :
                 Directory.GetCurrentDirectory() + src.AvatarURL))
                 ;
             CreateMap<JobDTO, JobDescription>()
-                .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName) ))
-                .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName) ))
-                .ForMember(x => x.CompanyId, src => src.MapFrom(src => Validation.ConvertInt(src.CompanyName) ))
-                .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName) ))
-                .ForMember(x => x.GenderId, src => src.MapFrom(src => Validation.ConvertInt(src.GenderRequirement) ))
-                .ForMember(x => x.LevelId, src => src.MapFrom(src => Validation.ConvertInt(src.LevelTitle) ))
+                .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName)))
+                .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName)))
+                .ForMember(x => x.CompanyId, src => src.MapFrom(src => Validation.ConvertInt(src.CompanyName)))
+                .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName)))
+                .ForMember(x => x.GenderId, src => src.MapFrom(src => Validation.ConvertInt(src.GenderRequirement)))
+                .ForMember(x => x.LevelId, src => src.MapFrom(src => Validation.ConvertInt(src.LevelTitle)))
                 ;
             CreateMap<JobDescription, JobDTO>()
                 .ForMember(x => x.LevelTitle, src => src.MapFrom(src => src.Level.Title))
@@ -50,14 +50,20 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.LevelTitle, src => src.MapFrom(src => src.Level.Title))
                 .ForMember(x => x.CategoryName, src => src.MapFrom(src => src.Category.CategoryName))
                 .ForMember(x => x.GenderDisplay, src => src.MapFrom(src => src.Gender.Title))
+                .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
+                Directory.GetCurrentDirectory() + "\\wwwroot\\defaults\\default_avt.jpg" :
+                Directory.GetCurrentDirectory() + src.AvatarURL))
                 ;
             CreateMap<CVApply, CVApplyDTO>()
                 .ForMember(x => x.Candidate, src => src.MapFrom(src => src.Candidate))
                 .ForMember(x => x.JobDescription, src => src.MapFrom(src => src.JobDescription))
                 .ForMember(x => x.Level, src => src.MapFrom(src => src.Level));
 
-
-            CreateMap<Candidate, CandidateDTO>();
+            CreateMap<Candidate, CandidateDTO>()
+                .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
+                Directory.GetCurrentDirectory() + "\\wwwroot\\defaults\\default_avt.jpg" :
+                Directory.GetCurrentDirectory() + src.AvatarURL))
+            ;
 
             CreateMap<Award, AwardDTO>();
             CreateMap<Skill, SkillDTO>();
@@ -77,6 +83,12 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CategoryName, src => src.MapFrom(y => y.Category.CategoryName))
                 .ForMember(x => x.DateCreatedDisplay, src => src.MapFrom(y => y.DateCreated.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.RecuirterFounder, src => src.MapFrom(y => y.Recuirter.FullName))
+                .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
+                Directory.GetCurrentDirectory() + "\\wwwroot\\defaults\\default_avt.jpg" :
+                Directory.GetCurrentDirectory() + src.AvatarURL))
+                .ForMember(x => x.BackGroundURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.BackGroundURL) ?
+                Directory.GetCurrentDirectory() + "\\wwwroot\\defaults\\default_avt.jpg" :
+                Directory.GetCurrentDirectory() + src.BackGroundURL))
                 ;
             CreateMap<CompanyDTO, Company>()
                 .ForMember(x => x.CategoryId, src => src.MapFrom(y => Validation.ConvertInt(y.CategoryName)))
@@ -88,17 +100,17 @@ namespace APIServer.MappingObj
                 ;
             CreateMap<EmployeeDTO, EmployeeInCompany>()
                 .ForMember(x => x.StartDate, src => src.MapFrom(y => Validation.convertDateTime(y.StartDateDisplay)))
-                .ForMember(x => x.EndDate, src => src.MapFrom(y => convertDateTimeNull(y.EndDateDisplay) ))
+                .ForMember(x => x.EndDate, src => src.MapFrom(y => convertDateTimeNull(y.EndDateDisplay)))
                 ;
 
             CreateMap<Category, CategoryDTO>()
-                .ForMember(x => x.CreatedAt, src => src.MapFrom(y => y.CreatedAt.ToString(GlobalStrings.FORMAT_DATE) ))
+                .ForMember(x => x.CreatedAt, src => src.MapFrom(y => y.CreatedAt.ToString(GlobalStrings.FORMAT_DATE)))
                 ;
             CreateMap<Level, LevelDTO>();
             CreateMap<EmploymentType, EmploymentTypeDTO>();
 
             CreateMap<CategoryDTO, Category>()
-                .ForMember(x => x.CreatedAt, src => src.MapFrom(y => Validation.convertDateTime(y.CreatedAt) ))
+                .ForMember(x => x.CreatedAt, src => src.MapFrom(y => Validation.convertDateTime(y.CreatedAt)))
                 ;
             CreateMap<LevelDTO, Level>();
             CreateMap<EmploymentTypeDTO, EmploymentType>();

@@ -41,7 +41,6 @@ namespace APIServer.Services
             var emp = _mapper.Map<EmployeeInCompany>(employee);
             emp.CompanyId = companyId;
             emp.RecuirterId = rec.Id;
-            com.TotalEmployee += 1;
             return _empRepo.Create(emp) + _companyRepository.Update(com);
         }
 
@@ -90,10 +89,8 @@ namespace APIServer.Services
                 }
             }
             com.EmployeeInCompanies = listEmp;
-            com.TotalEmployee = listEmp.Count;
             com.RecuirterId = id;
             com.JobDescriptions = null;
-            com.TotalPost = 0;
             com.IsDelete = false;
             com.DateCreated = DateTime.Now;
             com.AvatarURL = null;
@@ -131,7 +128,6 @@ namespace APIServer.Services
             var rec = _empRepo.GetById(employeeId);
             if (rec == null)
                 throw new Exception("Not found");
-            com.TotalEmployee -= 1;
             return _empRepo.Delete(employeeId) + _companyRepository.Update(com);
         }
 
