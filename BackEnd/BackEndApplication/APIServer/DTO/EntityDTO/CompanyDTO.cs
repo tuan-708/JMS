@@ -15,8 +15,8 @@ namespace APIServer.DTO.EntityDTO
         public string? Address { get; set; }
         public string? Description { get; set; }
         public string? DateCreatedDisplay { get; set; }
-        public int? TotalPost { get; set; }
-        public int? TotalEmployee { get; set; }
+        public string? Tax { get; set; }
+        public int? YearOfEstablishment { get; set; }
         public string? WebURL { get; set; }
         public string? CategoryName { get; set; }
         public List<EmployeeDTO>? RecuirtersInCompany { get; set; }
@@ -24,5 +24,6 @@ namespace APIServer.DTO.EntityDTO
         public string? BackGroundURL { get; set; }
         public string? AvatarURL { get; set; }
         public string? RecuirterFounder { get; set; }
+        public string? Size { get; set; }
     }
 }
