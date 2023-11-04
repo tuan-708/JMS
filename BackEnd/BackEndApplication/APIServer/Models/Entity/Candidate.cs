@@ -28,5 +28,7 @@ namespace APIServer.Models.Entity
         public bool IsActive { get; set; } = true;
         public bool IsDelete { get; set; } = false;
         public string? AvatarURL { get; set; }
+        public virtual ICollection<CurriculumVitae>? CurriculumVitaes { get; set; }
+        public virtual ICollection<CVApply>? CVApplies { get; set; }
     }
 }

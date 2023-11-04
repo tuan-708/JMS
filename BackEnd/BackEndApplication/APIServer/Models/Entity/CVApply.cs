@@ -8,7 +8,7 @@ namespace APIServer.Models.Entity
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int? CandidateId { get; set; }
-        public Candidate? Candidate { get; set; }
+        public virtual Candidate? Candidate { get; set; }
         public int? JobDescriptionId { get; set; }
         public virtual JobDescription? JobDescription { get; set; }
         [StringLength(2000)]
@@ -30,7 +30,8 @@ namespace APIServer.Models.Entity
         public string? Certificate { get; set; }
         public string? Award { get; set; }
         public DateTime ApplyDate { get; set; }
-        public string? PercentMatching { get; set; }
+        public string? JSONMatching { get; set; }
+        public float? PercentMatching { get; set; }
         public int? LevelId { get; set; }
         public virtual Level? Level { get; set; }
         [StringLength(200)]

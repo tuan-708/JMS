@@ -97,7 +97,7 @@ namespace APIServer.Services
                 CVApplied.Certificate = JsonConvert.SerializeObject(curriculumVitae.Certificates);
                 CVApplied.Award = JsonConvert.SerializeObject(curriculumVitae.Awards);
                 CVApplied.ApplyDate = DateTime.Now;
-                CVApplied.PercentMatching = "20%";
+                CVApplied.JSONMatching = "20%";
                 return _CVApplyContext.Create(CVApplied);
             }
             else throw new Exception("Your CV not exist");

@@ -1,6 +1,7 @@
 ﻿using APIServer.IRepositories;
 using APIServer.Models;
 using APIServer.Models.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace APIServer.Repositories
 {
@@ -40,7 +41,10 @@ namespace APIServer.Repositories
 
         public Candidate GetById(int id)
         {
-            throw new NotImplementedException();
+            return context.Candidates
+                .Include(x => x.CurriculumVitaes)
+                .Include(x => x.CVApplies)
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public Candidate LoginCandidate(string username, string password)
