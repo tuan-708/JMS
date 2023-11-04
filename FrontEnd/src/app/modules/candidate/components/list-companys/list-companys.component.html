@@ -25,30 +25,31 @@
 
             </div>
             <div class="col-3 ">
-               <mat-form-field appearance="outline" class="col-12 p-0">
+               <!-- <mat-form-field appearance="outline" class="col-12 p-0">
                   <mat-select required [formControl]="categoryRq">
                      <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>
                      <mat-option *ngFor="let elm of categories; index as i"
                         value={{elm.id}}>{{elm.categoryName}}</mat-option>
                   </mat-select>
-               </mat-form-field>
+               </mat-form-field> -->
+
+               <select class="form-select">
+                  <option selected value="0" disabled>Chọn lĩnh vực</option>
+                  <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
+               </select>
             </div>
          </div>
 
 
 
-         <div class="row d-flex justify-content-between listCompany" >
+         <div class="row d-flex justify-content-between listCompany">
             <div class="itemCompany" *ngFor="let com of companies; index as i">
                <div class="backgroundImage">
-                  <img
-                     src={{com?.backGroundURL}}
-                     alt="Ảnh bìa">
+                  <img src={{com?.backGroundURL}} alt="Ảnh bìa">
                </div>
 
                <div class="itemCompanyHeader">
-                  <img
-                     src={{com?.avatarURL}}
-                     alt="">
+                  <img src={{com?.avatarURL}} alt="">
                   <div class="sc-a15ef871-1 fllower"><svg width="20" height="20" style="margin-right: 10px;"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -57,7 +58,7 @@
                      </svg> {{com?.size}} người</div>
                </div>
 
-               <div class="contentCompany" >
+               <div class="contentCompany">
                   <div class="companyName" style="height: 50px;">{{com?.companyName}}</div>
                   <div style="height: 50px;">
                      <div color="#777" class="categoryCompany">
@@ -75,7 +76,7 @@
                            </defs>
                         </svg> {{com?.categoryName}}
                      </div>
-   
+
                      <div color="#777" class="amountJobs">
                         <svg width="20" height="20" style="margin-right: 10px;" viewBox="0 0 24 24" fill="none"
                            xmlns="http://www.w3.org/2000/svg">
