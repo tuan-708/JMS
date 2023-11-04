@@ -25,18 +25,13 @@
 
             </div>
             <div class="col-3 ">
-               <!-- <mat-form-field appearance="outline" class="col-12 p-0">
-                  <mat-select required [formControl]="categoryRq">
+               <mat-form-field appearance="outline" class="col-12 p-0">
+                  <mat-select panelClass="matRole" required [formControl]="categoryRq">
                      <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>
                      <mat-option *ngFor="let elm of categories; index as i"
                         value={{elm.id}}>{{elm.categoryName}}</mat-option>
                   </mat-select>
-               </mat-form-field> -->
-
-               <select class="form-select">
-                  <option selected value="0" disabled>Chọn lĩnh vực</option>
-                  <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
-               </select>
+               </mat-form-field>
             </div>
          </div>
 
