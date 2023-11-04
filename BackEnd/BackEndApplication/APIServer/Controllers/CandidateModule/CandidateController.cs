@@ -44,11 +44,11 @@ namespace APIServer.Controllers.CandidateModule
         }
 
         [HttpPost("apply-cv")]
-        public BaseResponseBody<string> ApplyCV(int candaidateId, int CVid, int jobDescriptionId)
+        public async Task<BaseResponseBody<string>> ApplyCV(int candaidateId, int CVid, int jobDescriptionId)
         {
             try
             {
-                int n = _candidateService.ApplyJob(candaidateId, CVid, jobDescriptionId);
+                int n = await _candidateService.ApplyJob(candaidateId, CVid, jobDescriptionId);
                 if(n > 0)
                 {
                     return new BaseResponseBody<string>

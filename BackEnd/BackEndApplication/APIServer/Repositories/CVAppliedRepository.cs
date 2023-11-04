@@ -77,6 +77,26 @@ namespace APIServer.Repositories
             return cVApply;
         }
 
+        public List<CVApply> GetByCVIdAndJobDescriptionId(int CVId, int jobDescriptionId)
+        {
+            List<CVApply> cVApplyList = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).Where(x => x.CurriculumVitaeId == CVId && x.JobDescriptionId == jobDescriptionId && x.IsReject == false).ToList();
+            return cVApplyList != null ? cVApplyList : null;
+        }
+
+        public CVApply GetByCVIdAndLastUpdateDate(int CVId, DateTime lastUpdateDate)
+        {
+            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CurriculumVitaeId == CVId && x.LastUpdateDate == lastUpdateDate && x.IsReject == false);
+            return cVApply != null ? cVApply : null;
+        }
+
         public CVApply GetById(int id)
         {
             throw new NotImplementedException();

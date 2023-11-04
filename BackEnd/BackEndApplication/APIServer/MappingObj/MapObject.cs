@@ -63,7 +63,8 @@ namespace APIServer.MappingObj
             CreateMap<CVApply, CVApplyDTO>()
                 .ForMember(x => x.Candidate, src => src.MapFrom(src => src.Candidate))
                 .ForMember(x => x.JobDescription, src => src.MapFrom(src => src.JobDescription))
-                .ForMember(x => x.Level, src => src.MapFrom(src => src.Level));
+                .ForMember(x => x.Level, src => src.MapFrom(src => src.Level))
+                .ForMember(x => x.CurriculumVitae, src => src.MapFrom(src => src.CurriculumVitae));
 
             CreateMap<Candidate, CandidateDTO>()
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?

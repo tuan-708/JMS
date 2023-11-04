@@ -24,5 +24,12 @@
         public string? PercentMatching { get; set; }
         public virtual LevelDTO? Level { get; set; }
         public string? CategoryName { get; set; }
+        public int? CurriculumVitaeId { get; set; }
+        public virtual CurriculumVitaeDTO? CurriculumVitae { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastUpdateDate { get; set; }
+        public bool IsAutoMatched { get; set; }
+        public bool IsApplied { get; set; }
+        public bool? IsReject { get; set; }
     }
 }
