@@ -1,13 +1,13 @@
 .carousel-inner {
    max-height: 400px;
-   box-shadow: var(--boxShadow);
+   box-shadow: var(--boxShadow1);
 }
 
 .carousel-item img {
    height: 400px;
    object-fit: cover;
    border-radius: 15px;
-   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+   box-shadow: var(--boxShadow1);
 }
 
 .carousel .carousel-inner {
@@ -159,7 +159,6 @@
    width: 100%;
    height: 230px;
    top: 1rem;
-   background-color: rgb(250, 250, 250);
    border-radius: 15px;
    box-shadow: var(--boxShadow);
 }
@@ -189,7 +188,7 @@
    font-size: 20px;
    z-index: 1;
    width: 34px;
-   background-color: #b9e7a9;
+   background-color: var(--blueLight1);
    border-radius: 17px;
    color: white;
    height: 34px;
@@ -197,7 +196,7 @@
 }
 
 #prev:hover {
-   background-color: #93e678;
+   background-color: var(--blueLight2);
 }
 
 #next {
@@ -211,12 +210,12 @@
    height: 34px;
    top: 105px;
    color: white;
-   background-color: #b9e7a9;
+   background-color: var(--blueLight1);
    border-radius: 17px;
 }
 
 #next:hover {
-   background-color: #93e678;
+   background-color: var(--blueLight2);
 }
 
 #next i {

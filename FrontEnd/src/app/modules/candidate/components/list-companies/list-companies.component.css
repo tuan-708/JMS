@@ -12,6 +12,7 @@
 
 .listCompany {
    margin-top: 30px;
+   gap: 3%;
 }
 
 .itemCompany {
@@ -21,6 +22,7 @@
    width: 32%;
    margin-bottom: 20px;
    padding: 10px;
+   float: left;
    position: relative;
 }
 
@@ -33,6 +35,7 @@
    position: absolute;
    top: 60px;
    left: 35px;
+   background-color: #fff;
 }
 
 .categoryCompany {
@@ -89,7 +92,7 @@
 
 .itemCompany:hover {
    cursor: pointer;
-   box-shadow: var(--boxShadow);
+   box-shadow: var(--boxShadow1);
 }
 
 .imgJob {

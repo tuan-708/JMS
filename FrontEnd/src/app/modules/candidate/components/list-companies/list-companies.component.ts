@@ -2,19 +2,20 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { Router } from '@angular/router';
 
 @Component({
-   selector: 'app-list-companys',
-   templateUrl: './list-companys.component.html',
-   styleUrls: ['./list-companys.component.css']
+   selector: 'app-list-companies',
+   templateUrl: './list-companies.component.html',
+   styleUrls: ['./list-companies.component.css']
 })
-export class CandidateListCompanysComponent {
+export class CandidateListCompaniesComponent {
    categories: any;
    companies: any;
 
    categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
 
-   constructor() {
+   constructor(private router: Router) {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { })
       .then(res => {
          this.categories = res?.data
@@ -27,7 +28,6 @@ export class CandidateListCompanysComponent {
       .then(res => {
          this.companies = res?.data
          console.log(this.companies);
-         
       })
       .catch(data => {
          console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
@@ -35,4 +35,7 @@ export class CandidateListCompanysComponent {
 
    }
 
+   onClick(company:any){
+      this.router.navigate(['/candidate/company-detail', company?.companyId]);
+   }
 }

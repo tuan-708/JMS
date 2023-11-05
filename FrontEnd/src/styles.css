@@ -22,10 +22,14 @@
     --border-medium: var(--gray-200);
     --border-heavy: var(--gray-300);
 
+    --textColor1: #fffe;
+
     --blueLight1: #c2e9fb;
     --blueLight2: #a1c4fd;
 
-    --boxShadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    /* --boxShadow: rgba(0, 0, 0, 0.04) 0px 3px 5px; */
+    --boxShadow:  rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    --boxShadow1: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 * {
@@ -81,7 +85,7 @@
 
 
 body{
-    font-family: "Times New Roman", Times, serif;
+    font-family: Söhne, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     color: #050509;
-    font-size: 1.1em;
+    font-size: 1.05em;
 }

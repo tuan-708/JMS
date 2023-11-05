@@ -18,6 +18,9 @@ import { CompanyRegisterComponent } from './components/company-register/company-
 import { CompanyUpdateComponent } from './components/company-update/company-update.component';
 import { RegisterComponent } from './components/register/register.component';
 import { JdRegisterComponent } from './components/jd-register/jd-register.component';
+import { ListJdsComponent } from './components/list-jds/list-jds.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 
 @NgModule({
    declarations: [
@@ -30,6 +33,8 @@ import { JdRegisterComponent } from './components/jd-register/jd-register.compon
       RegisterComponent,
       CompanyUpdateComponent,
       JdRegisterComponent,
+      ListJdsComponent,
+      JdDetailComponent,
    ],
    imports: [
       CommonModule,
@@ -43,6 +48,7 @@ import { JdRegisterComponent } from './components/jd-register/jd-register.compon
       MatToolbarModule,
       MatButtonModule,
       MatIconModule,
+      NgxPaginationModule
    ]
 })
 export class RecruiterModule { }

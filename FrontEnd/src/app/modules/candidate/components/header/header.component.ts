@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
    selector: 'candidate-header',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+   backgroudSelectedLink = `${environment.Url}/assets/background-gradients/gradients-backgrounds-sexy-blue1.png`
 }

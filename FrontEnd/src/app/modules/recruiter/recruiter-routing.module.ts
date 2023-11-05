@@ -5,14 +5,17 @@ import { RecruiterSignUpComponent } from './components/sign-up/sign-up.component
 import { CompanyRegisterComponent } from './components/company-register/company-register.component';
 import { CompanyUpdateComponent } from './components/company-update/company-update.component';
 import { JdRegisterComponent } from './components/jd-register/jd-register.component';
+import { ListJdsComponent } from './components/list-jds/list-jds.component';
+import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 
 const routes: Routes = [
    { path: "sign-in", title: "Nhà tuyển dụng - Đăng nhập", component: RecruiterSignInComponent },
    { path: "sign-up", title: "Nhà tuyển dụng - Đăng xuất", component: RecruiterSignUpComponent },
-   { path: "company-register", title: "Nhà tuyển dụng - Đăng ký company", component: CompanyRegisterComponent },
-   { path: "company-update", title: "Nhà tuyển dụng - Danh sách bài đăng", component: CompanyUpdateComponent },
-   { path: "jd-register", title: "Nhà tuyển dụng - Danh sách bài đăng", component: JdRegisterComponent },
-
+   { path: "company-register", title: "Nhà tuyển dụng - Đăng ký công ty", component: CompanyRegisterComponent },
+   { path: "company-update", title: "Nhà tuyển dụng - Chỉnh sửa công ty", component: CompanyUpdateComponent },
+   { path: "jd-register", title: "Nhà tuyển dụng - Đăng ký bài tuyển dụng", component: JdRegisterComponent },
+   { path: "list-jds", title: "Nhà tuyển dụng - Danh sách bài tuyển dụng", component: ListJdsComponent },
+   { path: "jd-detail/:id", title: "Nhà tuyển dụng - Chi tiết bài tuyển dụng", component: JdDetailComponent },
 ];
 
 @NgModule({

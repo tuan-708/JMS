@@ -14,11 +14,12 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { SlidersComponent } from './components/sliders/sliders.component';
 import { ListJobsComponent } from './components/list-jobs/list-jobs.component';
-import { CandidateListCompanysComponent } from './components/list-companys/list-companys.component';
+import { CandidateListCompaniesComponent } from './components/list-companies/list-companies.component';
 import { CandidateMyCvsComponent } from './components/my-cvs/my-cvs.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
 
 @NgModule({
    declarations: [
@@ -33,8 +34,9 @@ import { ReactiveFormsModule } from '@angular/forms';
       CandidateCreateCvComponent,
       SlidersComponent,
       ListJobsComponent,
-      CandidateListCompanysComponent,
+      CandidateListCompaniesComponent,
       CandidateMyCvsComponent,
+      CompanyDetailComponent,
    ],
    imports: [
       CommonModule,
