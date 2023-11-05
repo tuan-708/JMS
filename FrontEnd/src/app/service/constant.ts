@@ -11,7 +11,11 @@ export enum apiRecruiter{
     GET_ALL_GENDER = "/api/RecuirterCommon/all-gender",
     GET_ALL_LEVEL_TITLE = "/api/RecuirterCommon/all-level-title",
     GET_ALL_EMPLOYMENT_TYPE = "/api/RecuirterCommon/all-employment-type",
+    
     POST_CREATE_JD = "/api/JobDesc/new-post",
+    GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",
+    UPDATE_JD_BY_RECRUITER = "/api/JobDesc/update-jd",
+
     CREATE_COMPANY_BY_ID = "/api/Companys/create-by-recuirter",
     UPDATE_COMPANY = "/api/Companys/update-by-recuirter",
     GET_COMPANY_PAGING = "/api/Companys/get-all",
@@ -19,4 +23,5 @@ export enum apiRecruiter{
     UPDATE_IMAGE_COMPANY_AVATAR = "/api/Images/update-img-avt-company",
     UPDATE_IMAGE_COMPANY_BACKGROUND = "/api/Images/update-img-bgr-company",
     GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
+  
 }

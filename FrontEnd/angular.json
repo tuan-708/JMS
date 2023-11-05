@@ -11,6 +11,9 @@
       "prefix": "app",
       "architect": {
         "build": {
+          "allowedCommonJsDependencies": [
+            "lodash"
+         ],
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/front-end",

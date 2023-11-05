@@ -59,87 +59,14 @@
             </div>
          </div>
          <ul id="cards">
-            <li id="box1" class="list">
+            <li id="box1" class="list" *ngFor="let com of companies">
                <div class="imageSize">
                   <img
-                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/FPT_logo_2010.svg/800px-FPT_logo_2010.svg.png"
+                     src="{{ com?.avatarURL }}"
                      alt="...">
 
                </div>
-               <div class="titleCompany">Tập đoàn FPT</div>
-            </li>
-            <li id="box2" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/FPT_logo_2010.svg/800px-FPT_logo_2010.svg.png"
-                     alt="...">
-
-               </div>
-               <div class="titleCompany">Tập đoàn FPT</div>
-            </li>
-            <li id="box3" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg"
-                     alt="...">
-                  <div class="titleCompany">Tập đoàn FPT</div>
-               </div>
-            </li>
-            <li id="box4" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg"
-                     alt="...">
-                  <div class="titleCompany">Tập đoàn FPT</div>
-               </div>
-            </li>
-            <li id="box5" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg"
-                     alt="...">
-                  <div class="titleCompany">Tập đoàn FPT</div>
-               </div>
-            </li>
-            <li id="box6" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg"
-                     alt="...">
-                  <div class="titleCompany">Tập đoàn FPT</div>
-               </div>
-            </li>
-            <li id="box7" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg"
-                     alt="...">
-                  <div class="titleCompany">Tập đoàn FPT</div>
-               </div>
-            </li>
-            <li id="box8" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg"
-                     alt="...">
-                  <div class="titleCompany">Tập đoàn FPT</div>
-               </div>
-            </li>
-            <li id="box9" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg"
-                     alt="...">
-                  <div class="titleCompany">Tập đoàn FPT</div>
-               </div>
-            </li>
-            <li id="box10" class="list">
-               <div class="imageSize">
-                  <img
-                     src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg"
-                     alt="...">
-                  <div class="titleCompany">Tập đoàn FPT</div>
-               </div>
+               <div class="titleCompany">{{ com?.companyName }}</div>
             </li>
 
          </ul>
