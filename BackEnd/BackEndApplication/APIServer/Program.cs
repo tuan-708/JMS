@@ -142,6 +142,7 @@ namespace APIServer
             builder.Services.AddTransient<IBaseRepository<Gender>, GenderRepository>();
             builder.Services.AddTransient<IRecurterCommon, RecuirterCommonService>();
             builder.Services.AddTransient<ICandidateRepository, CandidateRepository>();
+            builder.Services.AddTransient<IBaseRepository<Slider>, SliderRepository>();
         }
     }
 }

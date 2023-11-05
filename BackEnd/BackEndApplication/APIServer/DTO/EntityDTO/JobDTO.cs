@@ -28,5 +28,8 @@ namespace APIServer.DTO.EntityDTO
         public string? CategoryName { get; set; } = null;
         public string? LevelTitle { get; set; }
         public string? PositionTitle { get; set; }
+        public string? CreatedAt { get; set; }
+        public string? ExpiredDate { get; set; }
+        public bool? IsExpired { get; set; }
     }
 }

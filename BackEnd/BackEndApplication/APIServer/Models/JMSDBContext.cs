@@ -2,6 +2,7 @@
 using APIServer.DTO.EntityDTO;
 using APIServer.Models.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace APIServer.Models
 {
@@ -26,7 +27,25 @@ namespace APIServer.Models
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Gender> Genders { get; set; }
-        
+        public DbSet<Slider> Sliders { get; set; }
+
+        //public JMSDBContext()
+        //{ 
+        //}
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        //        var conStr = config.GetConnectionString("JobConstr");
+        //        if (!optionsBuilder.IsConfigured)
+        //        {
+        //            optionsBuilder.UseSqlServer(conStr);
+        //        }
+        //    }
+        //}
+
         public JMSDBContext(DbContextOptions options) : base(options)
         {
         }

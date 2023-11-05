@@ -3,6 +3,7 @@ using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IRepositories;
 using APIServer.IServices;
+using APIServer.Models;
 using APIServer.Models.Entity;
 using AutoMapper;
 using OpenAI_API;
@@ -57,7 +58,9 @@ namespace APIServer.Services
 
         public JobDescription? GetById(int id)
         {
-            throw new NotImplementedException();
+            if (id <= 0)
+                throw new Exception("Data not valid");
+            return _jobRepo.GetById(id);
         }
 
         public int Update(JobDescription data)
@@ -158,6 +161,9 @@ namespace APIServer.Services
             jd.LevelId = data.LevelId;
             jd.CategoryId = data.CategoryId;
             jd.CompanyId = data.CompanyId;
+            jd.ExpiredDate = data.ExpiredDate;
+            if (jd.CreatedAt > jd.ExpiredDate)
+                throw new Exception("Expired date not valid");
 
             return _jobRepo.Update(jd);
         }
@@ -186,7 +192,10 @@ namespace APIServer.Services
 
             data.IsDelete = false;
             data.CreatedAt = DateTime.Now;
-            data.ExpiredDate = DateTime.Now.AddDays(7);
+            data.ExpiredDate = data.ExpiredDate == null ? DateTime.Now.AddDays(7) : data.ExpiredDate;
+            if (data.CreatedAt > data.ExpiredDate)
+                throw new Exception("Expired date not valid");
+
             return _jobRepo.CreateById(data, recuirterId);
         }
 

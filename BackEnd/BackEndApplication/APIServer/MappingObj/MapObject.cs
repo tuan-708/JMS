@@ -29,6 +29,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName)))
                 .ForMember(x => x.GenderId, src => src.MapFrom(src => Validation.ConvertInt(src.GenderRequirement)))
                 .ForMember(x => x.LevelId, src => src.MapFrom(src => Validation.ConvertInt(src.LevelTitle)))
+                .ForMember(x => x.ExpiredDate, src => src.MapFrom(src => Validation.convertDateTime(src.ExpiredDate)))
                 ;
             CreateMap<JobDescription, JobDTO>()
                 .ForMember(x => x.LevelTitle, src => src.MapFrom(src => src.Level.Title))
@@ -36,6 +37,9 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CompanyName, src => src.MapFrom(src => src.Company.CompanyName))
                 .ForMember(x => x.CategoryName, src => src.MapFrom(src => src.Category.CategoryName))
                 .ForMember(x => x.GenderRequirement, src => src.MapFrom(src => src.Gender.Title))
+                .ForMember(x => x.CreatedAt, src => src.MapFrom(src => src.CreatedAt.ToString(GlobalStrings.FORMAT_DATE)))
+                .ForMember(x => x.ExpiredDate, src => src.MapFrom(src => src.ExpiredDate.ToString(GlobalStrings.FORMAT_DATE)))
+                .ForMember(x => x.IsExpired, src => src.MapFrom(src => src.ExpiredDate < DateTime.Now))
                 ;
             CreateMap<CurriculumVitaeDTO, CurriculumVitae>()
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
@@ -91,6 +95,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.BackGroundURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.BackGroundURL) ?
                 host + "\\defaults\\default_avt.jpg" :
                 host + src.BackGroundURL))
+                .ForMember(x => x.JDs, src => src.MapFrom(y => y.JobDescriptions))
                 ;
             CreateMap<CompanyDTO, Company>()
                 .ForMember(x => x.CategoryId, src => src.MapFrom(y => Validation.ConvertInt(y.CategoryName)))
