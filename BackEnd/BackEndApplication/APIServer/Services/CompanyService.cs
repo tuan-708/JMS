@@ -65,7 +65,7 @@ namespace APIServer.Services
                 throw new Exception("Recuirter not exist");
             }
             var com = _mapper.Map<Company>(data);
-            if (com.YearOfEstablishment <= 1000)
+            if (com.YearOfEstablishment <= 1000 || com.YearOfEstablishment > DateTime.Now.Year)
                 throw new Exception("Year Of Establishment must > 1000");
             if (Validation.checkStringIsEmpty(com.CompanyName, com.Email, com.Phone, com.Address, com.Tax))
             {
@@ -224,7 +224,7 @@ namespace APIServer.Services
                 throw new Exception("Permission denied");
             }
             var input = _mapper.Map<Company>(data);
-            if (input.YearOfEstablishment <= 1000)
+            if (input.YearOfEstablishment <= 1000 || com.YearOfEstablishment > DateTime.Now.Year)
                 throw new Exception("Year Of Establishment must > 1000");
             if (Validation.checkStringIsEmpty(input.CompanyName, input.Email,
                 input.Phone, input.Address, input.Tax))
