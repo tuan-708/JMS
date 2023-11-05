@@ -3,10 +3,12 @@ using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IServices;
 using APIServer.Models;
+using APIServer.Models.Entity;
 using APIServer.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace APIServer.Controllers.RecuirterModule
@@ -119,6 +121,30 @@ namespace APIServer.Controllers.RecuirterModule
                 {
                     message = ex.Message,
                     data = -1,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("get-jd-by-id")]
+        public BaseResponseBody<JobDTO> getJDById(int jdId)
+        {
+            try
+            {
+                var rs = _mapper.Map<JobDTO>(_jobService.GetById(jdId));
+                return new BaseResponseBody<JobDTO>
+                {
+                    message = GlobalStrings.SUCCESSFULLY,
+                    data = rs,
+                    statusCode = HttpStatusCode.OK,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<JobDTO>
+                {
+                    message = ex.Message,
                     statusCode = HttpStatusCode.BadRequest,
                 };
             }

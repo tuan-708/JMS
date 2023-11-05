@@ -13,8 +13,13 @@ namespace APIServer.Services
         private readonly IBaseRepository<Company> companyRepo;
         private readonly ICandidateRepository candidateRepo;
         private readonly IBaseRepository<CurriculumVitae> cvRepo;
+        private readonly string host;
+        private readonly IBaseRepository<Slider> sliderRepo;
 
-        public ImageService(IMapper mapper, IConfiguration configuration, IRecuirterRepository recuirterRepository, IBaseRepository<Company> companyRepo, ICandidateRepository candidateRepo, IBaseRepository<CurriculumVitae> cvRepo)
+        public ImageService(IMapper mapper, IConfiguration configuration,
+            IRecuirterRepository recuirterRepository, IBaseRepository<Company> companyRepo,
+            ICandidateRepository candidateRepo, IBaseRepository<CurriculumVitae> cvRepo,
+            IBaseRepository<Slider> sliderRepo)
         {
             this.mapper = mapper;
             this.configuration = configuration;
@@ -22,9 +27,11 @@ namespace APIServer.Services
             this.companyRepo = companyRepo;
             this.candidateRepo = candidateRepo;
             this.cvRepo = cvRepo;
+            host = Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";")[0];
+            this.sliderRepo = sliderRepo;
         }
 
-        public int updateImageAvtCompany(int companyId, int recuirterId, IFormFile file)
+        public string updateImageAvtCompany(int companyId, int recuirterId, IFormFile file)
         {
             try
             {
@@ -34,7 +41,7 @@ namespace APIServer.Services
                 var com = companyRepo.GetById(companyId);
                 if (rec == null || com == null)
                     throw new Exception("Not found");
-                if(com.EmployeeInCompanies.Any(x => x.RecuirterId == recuirterId) || com.RecuirterId != recuirterId)
+                if (com.EmployeeInCompanies.Any(x => x.RecuirterId == recuirterId) || com.RecuirterId != recuirterId)
                 {
                     throw new Exception("Permission denied");
                 }
@@ -47,7 +54,10 @@ namespace APIServer.Services
                 uploadImg(file, uniqueFileName);
                 var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 com.AvatarURL = imagePath;
-                return companyRepo.Update(com);
+                if (companyRepo.Update(com) > 0)
+                    return host + com.AvatarURL;
+                else
+                    return "Error";
             }
             catch (Exception ex)
             {
@@ -55,7 +65,7 @@ namespace APIServer.Services
             }
         }
 
-        public int updateImageBgrCompany(int companyId, int recuirterId, IFormFile file)
+        public string updateImageBgrCompany(int companyId, int recuirterId, IFormFile file)
         {
             try
             {
@@ -78,7 +88,10 @@ namespace APIServer.Services
                 uploadImg(file, uniqueFileName);
                 var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 com.BackGroundURL = imagePath;
-                return companyRepo.Update(com);
+                if (companyRepo.Update(com) > 0)
+                    return host + com.BackGroundURL;
+                else
+                    return "Error";
             }
             catch (Exception ex)
             {
@@ -86,7 +99,7 @@ namespace APIServer.Services
             }
         }
 
-        public int updateImageCandidate(int candidatId, IFormFile file)
+        public string updateImageCandidate(int candidatId, IFormFile file)
         {
             try
             {
@@ -95,7 +108,7 @@ namespace APIServer.Services
                 var can = candidateRepo.GetById(candidatId);
                 if (can == null)
                     throw new Exception("Not found");
-                if(can.Id != candidatId)
+                if (can.Id != candidatId)
                 {
                     throw new Exception("Permission denied");
                 }
@@ -108,7 +121,10 @@ namespace APIServer.Services
                 uploadImg(file, uniqueFileName);
                 var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 can.AvatarURL = imagePath;
-                return candidateRepo.Update(can);
+                if (candidateRepo.Update(can) > 0)
+                    return host + can.AvatarURL;
+                else
+                    return "Error";
             }
             catch (Exception ex)
             {
@@ -116,7 +132,7 @@ namespace APIServer.Services
             }
         }
 
-        public int updateImageCV(int candidateId, int cvId, IFormFile file)
+        public string updateImageCV(int candidateId, int cvId, IFormFile file)
         {
             try
             {
@@ -136,7 +152,10 @@ namespace APIServer.Services
                 uploadImg(file, uniqueFileName);
                 var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 cv.AvatarURL = imagePath;
-                return cvRepo.Update(cv);
+                if (cvRepo.Update(cv) > 0)
+                    return host + cv.AvatarURL;
+                else
+                    return "Error";
             }
             catch (Exception ex)
             {
@@ -144,7 +163,7 @@ namespace APIServer.Services
             }
         }
 
-        public int updateImageRecuirter(int recuirterId, IFormFile file)
+        public string updateImageRecuirter(int recuirterId, IFormFile file)
         {
             try
             {
@@ -162,7 +181,10 @@ namespace APIServer.Services
                 uploadImg(file, uniqueFileName);
                 var imagePath = Path.Combine("\\images\\", uniqueFileName);
                 rec.AvatarURL = imagePath;
-                return recuirterRepository.Update(rec);
+                if (recuirterRepository.Update(rec) > 1)
+                    return rec.AvatarURL;
+                else
+                    return host + "Error";
             }
             catch (Exception ex)
             {
@@ -185,7 +207,7 @@ namespace APIServer.Services
                 }
                 var absoluthPath = Directory.GetCurrentDirectory();
                 var imagePath = absoluthPath + "\\wwwroot\\images\\" + fileName;
-                using(var stream = new FileStream(imagePath, FileMode.Create))
+                using (var stream = new FileStream(imagePath, FileMode.Create))
                 {
                     file.CopyTo(stream);
                 }
@@ -221,6 +243,71 @@ namespace APIServer.Services
             var path = dir + "\\wwwroot\\" + url;
             if (File.Exists(path))
                 File.Delete(path);
+        }
+
+        public string addImgSlider(IFormFile file, Slider slider)
+        {
+            string FileName = file.FileName;
+            string uniqueFileName = Guid.NewGuid().ToString() + "_slider_" + FileName;
+
+            try
+            {
+                string fileExtension = Path.GetExtension(file.FileName).ToLower();
+                if (!IsImageFileExtension(fileExtension))
+                {
+                    throw new Exception("Only allow img file");
+                }
+                if (!IsImageFileSizeValid(file, 25))
+                {
+                    throw new Exception("Only allow img size under 25mb");
+                }
+                var absoluthPath = Directory.GetCurrentDirectory();
+                var folderPath = absoluthPath + "\\wwwroot\\slider\\" + uniqueFileName;
+                using (var stream = new FileStream(folderPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            var imagePath = Path.Combine("\\slider\\", uniqueFileName);
+            slider.URL = imagePath;
+            var rs = sliderRepo.Create(slider);
+            if (rs > 0)
+                return host + slider.URL;
+            else
+                return "Error";
+        }
+
+        public int deleteImgSlider(int id)
+        {
+            if (id <= 0)
+                throw new Exception("Data not valid");
+            var slider = sliderRepo.GetById(id);
+            if (slider == null)
+                throw new Exception("Not found");
+            try
+            {
+                deleteOldImg(slider.URL);
+                return sliderRepo.Delete(slider.Id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Slider> getAllSlider()
+        {
+            var rs = sliderRepo.GetAll();
+            foreach (var item in rs)
+            {
+                item.URL = host + item.URL;
+            }
+            return rs;
         }
     }
 }
