@@ -59,8 +59,11 @@ namespace APIServer.Controllers.UserModule
         {
             try
             {
+                var u = loginModel.username;
+                var p = loginModel.password;
                 return new BaseResponseBody<string>
                 {
+                    data = candidateService.LoginCandidate(u, p),
                     message = GlobalStrings.SUCCESSFULLY,
                     statusCode = HttpStatusCode.OK,
                 };
@@ -76,9 +79,17 @@ namespace APIServer.Controllers.UserModule
         }
 
         [HttpGet]
-        [Route("test-author")]
+        [Route("test-recuirter")]
         [Authorize(Roles = $"{GlobalStrings.ROLE_RECUIRTER}")]
         public IActionResult testAuthor()
+        {
+            return Ok(recuirterService.getAll());
+        }
+
+        [HttpGet]
+        [Route("test-candidate")]
+        [Authorize(Roles = $"{GlobalStrings.ROLE_CANDIDATE}")]
+        public IActionResult testAuthorCan()
         {
             return Ok(recuirterService.getAll());
         }

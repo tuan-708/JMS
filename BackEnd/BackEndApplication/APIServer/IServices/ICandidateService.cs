@@ -10,5 +10,6 @@ namespace APIServer.IServices
         public List<CVApply> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate);
         public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData);
         public CVApply GetCVAppliedDetail(int candidateId, int CVAppliedId);
+        public string LoginCandidate(string? userName, string? password);
     }
 }
