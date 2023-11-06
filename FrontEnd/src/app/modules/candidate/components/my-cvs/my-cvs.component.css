@@ -1,3 +1,53 @@
 .content {
    padding-top: 110px;
+   display: flex;
+}
+
+.contentLeft{
+   width: 70%;
+}
+
+.contentRight{
+   width: 28%;
+   margin-left: 2%;
+   padding: 20px 10px 20px 10px;
+   box-shadow: var(--boxShadow);
+   border-radius: 10px;
+   height: 80vh;
+}
+
+.avatar img{
+   width: 100px;
+   height: 100px;
+   object-fit: cover;
+   border-radius: 50%;
+}
+
+.profileDesction{
+   width: 100%;
+   margin-left: 10px;
+   align-self: center;
+}
+
+.blockAvatar{
+   height: 120px;
+   border-bottom: 1px solid #ccc;
+}
+
+.textBold{
+   font-weight: 700;
+   color: black;
+}
+
+.fontOff{
+   color: #ccc;
+}
+
+.fontOn{
+   color: black;
+}
+
+.textSmall{
+   font-size: 0.8em;
+   text-align: justify;
 }

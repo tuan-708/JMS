@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
    declarations: [
@@ -45,7 +46,8 @@ import { CompanyDetailComponent } from './components/company-detail/company-deta
       FormsModule,
       MatFormFieldModule,
       MatSelectModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      InputSwitchModule
    ]
 })
 export class CandidateModule { }

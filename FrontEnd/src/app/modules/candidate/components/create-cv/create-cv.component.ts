@@ -49,16 +49,15 @@ export class CandidateCreateCvComponent {
    hideImage = "block"
    displayImage = "none"
    displayChange = "none"
-   apiURL = environment.apiUrl;
+   apiURL = environment.Url;
    fileSrc: any;
    fontCV = "Sans-serif"
 
-   colorLeftHeader = "#FFFFFF"
+   colorLeftHeader = "#444444"
    colorRightHeader = "#111111"
-   colorLeftInput = "#FFFFFF"
-   ThemStyle = "ThemeDefault"
-   backgroudSelectedLink = `${environment.apiUrl}/assets/images/themeDefault.jpg`
-
+   colorLeftInput = "#111111"
+   ThemStyle = "Theme6"
+   backgroudSelectedLink = `${environment.Url}/assets/images/theme6.jpg`
 
 
    getFile(event: any) {

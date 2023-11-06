@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
    styleUrls: ['./my-cvs.component.css']
 })
 export class CandidateMyCvsComponent {
-
+ 
 }
