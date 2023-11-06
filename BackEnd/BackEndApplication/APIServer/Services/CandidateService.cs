@@ -5,7 +5,11 @@ using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
 using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using X.PagedList;
 
 namespace APIServer.Services
@@ -16,13 +20,15 @@ namespace APIServer.Services
         private readonly ICVApplyRepository _CVApplyContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+        private readonly ICandidateRepository _candidateRepository;
 
-        public CandidateService(IBaseRepository<CurriculumVitae> context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration)
+        public CandidateService(IBaseRepository<CurriculumVitae> context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration, ICandidateRepository candidateRepository)
         {
             _context = context;
             _CVApplyContext = CVApplyContext;
             _mapper = mapper;
             _configuration = configuration;
+            _candidateRepository = candidateRepository;
         }
         public int Create(Candidate data)
         {
@@ -143,6 +149,47 @@ namespace APIServer.Services
         {
             CVApply cVApplied = _CVApplyContext.GetByCandidateIdAndCVAppliedId(candidateId, CVAppliedId);
             return cVApplied;
+        }
+
+        public string LoginCandidate(string? username, string? password)
+        {
+            if (Validation.checkStringIsEmpty(username, password))
+            {
+                throw new ArgumentNullException("Data not valid");
+            }
+            var can = _candidateRepository.LoginCandidate(username, password);
+            if (can == null)
+            {
+                throw new Exception("Not found");
+            }
+            return generateToken(can);
+        }
+
+        public string generateToken(Candidate candidate)
+        {
+            var claims = new[] {
+                        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
+                        new Claim("UserId", candidate.Id.ToString()),
+                        new Claim("DisplayName", candidate.FullName),
+                        new Claim("UserName", candidate.UserName),
+                        new Claim("Email", candidate.Email),
+                        new Claim(ClaimTypes.Role, GlobalStrings.ROLE_CANDIDATE),
+                    };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(double.Parse(_configuration["Jwt:expiredMins"])),
+                //expires: DateTime.Now.AddSeconds(20),
+                signingCredentials: signIn);
+
+            var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
+            return accessToken;
         }
     }
 }

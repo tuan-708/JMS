@@ -164,6 +164,7 @@ namespace APIServer.Services
             jd.ExpiredDate = data.ExpiredDate;
             if (jd.CreatedAt > jd.ExpiredDate)
                 throw new Exception("Expired date not valid");
+            jd.PositionTitle = data.PositionTitle;
 
             return _jobRepo.Update(jd);
         }
