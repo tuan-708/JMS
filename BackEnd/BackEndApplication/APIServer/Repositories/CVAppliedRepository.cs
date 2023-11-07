@@ -16,7 +16,7 @@ namespace APIServer.Repositories
 
         public int Create(CVApply data)
         {
-            _context.CVApplies.Add(data);
+            _context.Add(data);
             return _context.SaveChanges();
         }
 
@@ -73,8 +73,28 @@ namespace APIServer.Repositories
             CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
-                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVAppliedId);
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVAppliedId && x.IsApplied == true);
             return cVApply;
+        }
+
+        public List<CVApply> GetByCVIdAndJobDescriptionId(int CVId, int jobDescriptionId)
+        {
+            List<CVApply> cVApplyList = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).Where(x => x.CurriculumVitaeId == CVId && x.JobDescriptionId == jobDescriptionId && x.IsReject == false).ToList();
+            return cVApplyList != null ? cVApplyList : null;
+        }
+
+        public CVApply GetByCVIdAndLastUpdateDate(int CVId, DateTime lastUpdateDate)
+        {
+            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CurriculumVitaeId == CVId && x.LastUpdateDate == lastUpdateDate && x.IsReject == false);
+            return cVApply != null ? cVApply : null;
         }
 
         public CVApply GetById(int id)

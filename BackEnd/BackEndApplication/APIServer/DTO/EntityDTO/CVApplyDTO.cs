@@ -10,7 +10,7 @@
         public string? CareerGoal { get; set; }
         public string? Phone { get; set; }
         public string? DisplayName { get; set; }
-        public bool IsMale { get; set; }
+        public string? GenderDisplay { get; set; }
         public string? DisplayEmail { get; set; }
         public DateTime DOB { get; set; }
         public string? Address { get; set; }
@@ -21,8 +21,16 @@
         public string? Certificate { get; set; }
         public string? Award { get; set; }
         public DateTime ApplyDate { get; set; }
-        public string? PercentMatching { get; set; }
+        public string? JSONMatching { get; set; }
+        public float? PercentMatching { get; set; }
         public virtual LevelDTO? Level { get; set; }
         public string? CategoryName { get; set; }
+        public int? CurriculumVitaeId { get; set; }
+        public virtual CurriculumVitaeDTO? CurriculumVitae { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastUpdateDate { get; set; }
+        public bool IsAutoMatched { get; set; }
+        public bool IsApplied { get; set; }
+        public bool? IsReject { get; set; }
     }
 }

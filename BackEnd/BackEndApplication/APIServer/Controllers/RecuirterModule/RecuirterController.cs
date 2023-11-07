@@ -92,5 +92,19 @@ namespace APIServer.Controllers.RecuirterModule
             return Ok(prompt);
         }
 
+        [HttpGet]
+        [Route("matching-cv")]
+        public async Task<BaseResponseBody<List<CVApplyDTO>>> MatchingCV(int jobDescriptionId, int numberRequirement)
+        {
+            List<CVApplyDTO> cVApplies = _mapper.Map<List<CVApplyDTO>>(await _recuirterService.GetCVFromMatchingJD(jobDescriptionId, numberRequirement));
+
+            return new BaseResponseBody<List<CVApplyDTO>>
+            {
+                statusCode = HttpStatusCode.OK,
+                message = GlobalStrings.SUCCESSFULLY,
+                data = _mapper.Map<List<CVApplyDTO>>(cVApplies),
+            };
+        }
+
     }
 }
