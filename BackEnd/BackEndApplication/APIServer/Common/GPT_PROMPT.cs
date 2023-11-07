@@ -89,7 +89,11 @@ namespace APIServer.Common
                 for (int i = 0; i < skillsList.Count; i++)
                 {
                     prompt += $"+ \"skill{i + 1}\" : \"{skillsList[i].Title} - {skillsList[i].SkillDescription}\" có đáp ứng 1 trong các ý trong skillRequirements không?" + Environment.NewLine;
-                    skillNumber += $"\"skill{i + 1}\":trueOrfalse, ";
+                    if(i < skillsList.Count - 1)
+                    {
+                        skillNumber += $"\"skill{i + 1}\":trueOrfalse, ";
+                    }
+                    else skillNumber += $"\"skill{i + 1}\":trueOrfalse ";
 
                 }
             }
@@ -120,7 +124,6 @@ namespace APIServer.Common
                 for (int i = 0; i < eduRequire.Length; i++)
                 {
                     prompt += $"+ \"education{i + 1}\" : 1 trong các ý ở educations có đáp ứng \"{eduRequire[i]}\" không?" + Environment.NewLine;
-                    
                     eduNumber += $"\"education{i + 1}\":trueOrfalse, ";
                 }
             }
@@ -182,7 +185,7 @@ namespace APIServer.Common
             {
                 Model = Model.GPT4,
                 //Temperature = 0f,
-                MaxTokens = 100,
+                MaxTokens = 125,
                 Messages = new ChatMessage[] {
             new ChatMessage(ChatMessageRole.User, prompt)
         }

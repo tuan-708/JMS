@@ -16,7 +16,7 @@ namespace APIServer.Repositories
 
         public int Create(CVApply data)
         {
-            _context.CVApplies.Add(data);
+            _context.Add(data);
             return _context.SaveChanges();
         }
 
@@ -73,7 +73,7 @@ namespace APIServer.Repositories
             CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
-                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVAppliedId);
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVAppliedId && x.IsApplied == true);
             return cVApply;
         }
 

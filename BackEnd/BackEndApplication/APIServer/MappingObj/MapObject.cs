@@ -43,6 +43,9 @@ namespace APIServer.MappingObj
                 ;
             CreateMap<CurriculumVitaeDTO, CurriculumVitae>()
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
+                .ForMember(x => x.CreatedDate, src => src.MapFrom(src => Validation.convertDateTime(src.CreatedDateDisplay)))
+                .ForMember(x => x.LastUpdateDate, src => src.MapFrom(src => Validation.convertDateTime(src.LastUpdateDateDisplay)))
+                .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
                 .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName)))
                 .ForMember(x => x.LevelId, src => src.MapFrom(src => Validation.ConvertInt(src.LevelTitle)))
                 .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName)))
@@ -50,9 +53,9 @@ namespace APIServer.MappingObj
                 ;
             CreateMap<CurriculumVitae, CurriculumVitaeDTO>()
                 .ForMember(x => x.EmploymentTypeName, src => src.MapFrom(src => src.EmploymentType.Title))
-                .ForMember(x => x.DOB, src => src.MapFrom(src => src.DOB.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.CreatedDateDisplay, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE)))
-                .ForMember(x => x.LastUpdateDateDisplay, src => src.MapFrom(src => src.LastUpdateDate.ToString(GlobalStrings.FORMAT_DATE)))
+                .ForMember(x => x.DOB, src => src.MapFrom(src => src.DOB.ToString(GlobalStrings.FORMAT_DATE1)))
+                .ForMember(x => x.CreatedDateDisplay, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE1)))
+                .ForMember(x => x.LastUpdateDateDisplay, src => src.MapFrom(src => src.LastUpdateDate.ToString(GlobalStrings.FORMAT_DATE1)))
                 .ForMember(x => x.LevelTitle, src => src.MapFrom(src => src.Level.Title))
                 .ForMember(x => x.CategoryName, src => src.MapFrom(src => src.Category.CategoryName))
                 .ForMember(x => x.GenderDisplay, src => src.MapFrom(src => src.Gender.Title))
@@ -64,7 +67,15 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.Candidate, src => src.MapFrom(src => src.Candidate))
                 .ForMember(x => x.JobDescription, src => src.MapFrom(src => src.JobDescription))
                 .ForMember(x => x.Level, src => src.MapFrom(src => src.Level))
-                .ForMember(x => x.CurriculumVitae, src => src.MapFrom(src => src.CurriculumVitae));
+                .ForMember(x => x.CurriculumVitae, src => src.MapFrom(src => src.CurriculumVitae))
+                .ForMember(x => x.DOB, src => src.MapFrom(src => src.DOB.ToString(GlobalStrings.FORMAT_DATE1)))
+                .ForMember(x => x.LastUpdateDate, src => src.MapFrom(src => src.LastUpdateDate.ToString(GlobalStrings.FORMAT_DATE1)))
+                .ForMember(x => x.ApplyDate, src => src.MapFrom(src => src.ApplyDate.ToString(GlobalStrings.FORMAT_DATE1)))
+                .ForMember(x => x.CreatedDate, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE1)))
+
+                ;
+
+
 
             CreateMap<Candidate, CandidateDTO>()
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?

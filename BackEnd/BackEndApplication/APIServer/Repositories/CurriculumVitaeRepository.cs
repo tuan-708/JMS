@@ -52,6 +52,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete)
                 .ToList();
         }
@@ -68,6 +69,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Projects)
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
+                .Include(x => x.Gender)
                 .Include(x => x.Category).Where(x => x.CategoryId == categoryId && !x.IsDelete).ToList();
             return curriculumVitaes;
         }
@@ -85,6 +87,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.CandidateId == candidateId)
                 .ToList();
         }
@@ -102,6 +105,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .FirstOrDefault(x => x.Id == id);
             if( curriculumVitae != null )
                 return curriculumVitae;

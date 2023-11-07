@@ -83,56 +83,69 @@ namespace APIServer.Services
 
         public async Task<int> ApplyJob(int candaidateId, int CVid, int jobDescriptionId)
         {
-            var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candaidateId));
-            var CVAppliedByCVIdList = _mapper.Map<List<CVApplyDTO>>(_CVApplyContext.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId));
-            CurriculumVitae? cv = GetCVById(CVid);
-            var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
-            JobDescription jobDescription = _JobContext.GetById(jobDescriptionId);
-            if(cv != null)
+            
+            try
             {
-                if (CVList.Any(cv => cv.Id == curriculumVitae.Id))
+                var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candaidateId));
+                var CVAppliedByCVIdList = _mapper.Map<List<CVApplyDTO>>(_CVApplyContext.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId));
+                CurriculumVitae? cv = GetCVById(CVid);
+                var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
+                JobDescription jobDescription = _JobContext.GetById(jobDescriptionId);
+                if (cv != null)
                 {
-                    CVApply CVApplied = new CVApply();
-                    
-                    if (CVAppliedByCVIdList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsAutoMatched == true))
+                    if (CVList.Any(cv => cv.Id == curriculumVitae.Id))
                     {
-                        CVApplied = _CVApplyContext.GetByCVIdAndLastUpdateDate(curriculumVitae.Id, cv.LastUpdateDate);
-                        CVApplied.IsApplied = true;
-                        CVApplied.IsReject = false;
-                        return _CVApplyContext.Update(CVApplied);
+                        CVApply CVApplied = new CVApply();
+
+                        if (CVAppliedByCVIdList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsAutoMatched == true && x.IsReject == false))
+                        {
+                            CVApplied = _CVApplyContext.GetByCVIdAndLastUpdateDate(curriculumVitae.Id, cv.LastUpdateDate);
+                            CVApplied.IsApplied = true;
+                            CVApplied.IsReject = false;
+                            return _CVApplyContext.Update(CVApplied);
+                        }
+                        else
+                        {
+                            CVApplied.JobDescriptionId = jobDescriptionId;
+                            CVApplied.CandidateId = candaidateId;
+                            CVApplied.CareerGoal = curriculumVitae.CareerGoal;
+                            CVApplied.Phone = curriculumVitae.Phone;
+                            CVApplied.DisplayName = curriculumVitae.DisplayName;
+                            CVApplied.GenderId = curriculumVitae.GenderId;
+                            CVApplied.CategoryName = curriculumVitae.CategoryId.ToString();
+                            CVApplied.DisplayEmail = curriculumVitae.DisplayEmail;
+                            CVApplied.DOB = Convert.ToDateTime(curriculumVitae.DOB);
+                            CVApplied.Address = curriculumVitae.Address;
+                            CVApplied.Education = JsonConvert.SerializeObject(curriculumVitae.Educations);
+                            CVApplied.JobExperience = JsonConvert.SerializeObject(curriculumVitae.JobExperiences);
+                            CVApplied.Skill = JsonConvert.SerializeObject(curriculumVitae.Skills);
+                            CVApplied.Project = JsonConvert.SerializeObject(curriculumVitae.Projects);
+                            CVApplied.Certificate = JsonConvert.SerializeObject(curriculumVitae.Certificates);
+                            CVApplied.Award = JsonConvert.SerializeObject(curriculumVitae.Awards);
+                            CVApplied.ApplyDate = DateTime.Now;
+                            CVApplied.CreatedDate = Convert.ToDateTime(curriculumVitae.CreatedDateDisplay);
+                            CVApplied.LastUpdateDate = Convert.ToDateTime(curriculumVitae.LastUpdateDateDisplay);
+                            CVApplied.CurriculumVitaeId = curriculumVitae.Id;
+                            CVApplied.IsAutoMatched = false;
+                            CVApplied.IsApplied = true;
+                            CVApplied.IsReject = false;
+                            string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv));
+                            CVApplied.JSONMatching = JSONrs;
+                            CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs);
+                            return _CVApplyContext.Create(CVApplied);
+                        }
+
                     }
-                    else
-                    {
-                        CVApplied.JobDescriptionId = jobDescriptionId;
-                        CVApplied.CandidateId = candaidateId;
-                        CVApplied.CareerGoal = curriculumVitae.CareerGoal;
-                        CVApplied.Phone = curriculumVitae.Phone;
-                        CVApplied.DisplayName = curriculumVitae.DisplayName;
-                        CVApplied.GenderId = Convert.ToInt32(curriculumVitae.GenderDisplay);
-                        CVApplied.DisplayEmail = curriculumVitae.DisplayEmail;
-                        CVApplied.DOB = Convert.ToDateTime(curriculumVitae.DOB);
-                        CVApplied.Address = curriculumVitae.Address;
-                        CVApplied.Education = JsonConvert.SerializeObject(curriculumVitae.Educations);
-                        CVApplied.JobExperience = JsonConvert.SerializeObject(curriculumVitae.JobExperiences);
-                        CVApplied.Skill = JsonConvert.SerializeObject(curriculumVitae.Skills);
-                        CVApplied.Project = JsonConvert.SerializeObject(curriculumVitae.Projects);
-                        CVApplied.Certificate = JsonConvert.SerializeObject(curriculumVitae.Certificates);
-                        CVApplied.Award = JsonConvert.SerializeObject(curriculumVitae.Awards);
-                        CVApplied.ApplyDate = DateTime.Now;
-                        CVApplied.CreatedDate = Convert.ToDateTime(curriculumVitae.CreatedDateDisplay);
-                        CVApplied.LastUpdateDate = Convert.ToDateTime(curriculumVitae.LastUpdateDateDisplay);
-                        CVApplied.PercentMatching = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv));
-                        CVApplied.CurriculumVitaeId = curriculumVitae.Id;
-                        CVApplied.IsAutoMatched = false;
-                        CVApplied.IsApplied = true;
-                        CVApplied.IsReject = false;
-                        return _CVApplyContext.Create(CVApplied);
-                    }
-                    
+                    else throw new Exception("Your CV not exist");
                 }
                 else throw new Exception("Your CV not exist");
             }
-            else throw new Exception("Your CV not exist");
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
+            
         }
 
         public List<CVApply> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate)
