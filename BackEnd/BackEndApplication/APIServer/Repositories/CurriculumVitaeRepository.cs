@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APIServer.Repositories
 {
-    public class CurriculumVitaeRepository : IBaseRepository<CurriculumVitae>
+    public class CurriculumVitaeRepository : ICurriculumVitaeRepository
     {
         private readonly JMSDBContext _context;
 
@@ -51,8 +51,27 @@ namespace APIServer.Repositories
                 .Include(x => x.Projects)
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
+                .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete)
                 .ToList();
+        }
+
+        public List<CurriculumVitae> GetAllByCategoryId(int? categoryId)
+        {
+            List<CurriculumVitae> curriculumVitaes = _context.CurriculumVitaes
+                .Include(x => x.Candidate)
+                .Include(x => x.Awards)
+                .Include(x => x.JobExperiences)
+                .Include(x => x.Educations)
+                .Include(x => x.Level)
+                .Include(x => x.Skills)
+                .Include(x => x.Projects)
+                .Include(x => x.Certificates)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Gender)
+                .Include(x => x.Category).Where(x => x.CategoryId == categoryId && !x.IsDelete).ToList();
+            return curriculumVitaes;
         }
 
         public List<CurriculumVitae> GetAllById(int candidateId)
@@ -67,6 +86,8 @@ namespace APIServer.Repositories
                 .Include(x => x.Projects)
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
+                .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.CandidateId == candidateId)
                 .ToList();
         }
@@ -83,6 +104,8 @@ namespace APIServer.Repositories
                 .Include(x => x.Projects)
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
+                .Include(x => x.Category)
+                .Include(x => x.Gender)
                 .FirstOrDefault(x => x.Id == id);
             if( curriculumVitae != null )
                 return curriculumVitae;

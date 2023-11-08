@@ -13,12 +13,12 @@ namespace APIServer.Services
 {
     public class CurriculumVitaeService : ICurriculumVitaeService
     {
-        private readonly IBaseRepository<CurriculumVitae> _context;
+        private readonly ICurriculumVitaeRepository _context;
         private readonly ICVApplyRepository _CVApplyContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public CurriculumVitaeService(IBaseRepository<CurriculumVitae> context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration)
+        public CurriculumVitaeService(ICurriculumVitaeRepository context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
             _CVApplyContext = CVApplyContext;

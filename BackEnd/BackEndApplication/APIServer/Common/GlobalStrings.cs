@@ -4,6 +4,8 @@
     {
         //Format
         public const string FORMAT_DATE = "dd/MM/yyyy";
+        public const string FORMAT_DATE1 = "MM/dd/yyyy";
+
 
         //message
         public const string SUCCESSFULLY = "SUCCESSFULLY";

@@ -117,5 +117,27 @@ namespace APIServer.Common
                 throw e;
             }
         }
+
+        public static string ConvertHTMLToData(string html)
+        {
+            html = "AAAAAAAAA";
+
+            string rs = "";
+            // Tìm vị trí bắt đầu và kết thúc của thẻ <li>
+            int startIndex = html.IndexOf("<li>");
+            int endIndex = html.IndexOf("</li>");
+
+            while (startIndex >= 0 && endIndex >= 0)
+            {
+                // Lấy nội dung trong thẻ <li>
+                string liText = html.Substring(startIndex + 4, endIndex - startIndex - 4);
+
+                // Tiếp tục tìm các thẻ <li> khác
+                startIndex = html.IndexOf("<li>", endIndex + 5);
+                endIndex = html.IndexOf("</li>", endIndex + 5);
+                rs += liText + Environment.NewLine;
+            }
+            return rs;
+        }
     }
 }

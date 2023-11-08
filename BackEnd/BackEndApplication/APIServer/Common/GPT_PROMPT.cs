@@ -44,7 +44,7 @@ namespace APIServer.Common
                 for (int i = 0; i < educationsList.Count; i++)
                 {
                     prompt += $"+ \"education{i + 1}\" : \"{educationsList[i].SchoolName} - {educationsList[i].MajorName} - {educationsList[i].Description}\" có đáp ứng 1 trong các ý trong educationRequirements không?" + Environment.NewLine;
-                    eduNumber += $"\"education{i + 1}\":TrueOrFalse, ";
+                    eduNumber += $"\"education{i + 1}\":trueOrfalse, ";
 
                 }
             }
@@ -67,7 +67,7 @@ namespace APIServer.Common
                     for (int j = 0; j < ExpDescriptionSplit.Length; j++)
                     {
                         prompt += $"+ \"jobExperience{totalExperienceCount}\" : \"{ExpDescriptionSplit[j]}\" có đáp ứng 1 trong các ý trong experienceRequirements không?" + Environment.NewLine;
-                        expNumber += $"\"jobExperience{totalExperienceCount}\":TrueOrFalse, ";
+                        expNumber += $"\"jobExperience{totalExperienceCount}\":trueOrfalse, ";
                         totalExperienceCount++;
                     }
                 }
@@ -89,7 +89,11 @@ namespace APIServer.Common
                 for (int i = 0; i < skillsList.Count; i++)
                 {
                     prompt += $"+ \"skill{i + 1}\" : \"{skillsList[i].Title} - {skillsList[i].SkillDescription}\" có đáp ứng 1 trong các ý trong skillRequirements không?" + Environment.NewLine;
-                    skillNumber += $"\"skill{i + 1}\":TrueOrFalse, ";
+                    if(i < skillsList.Count - 1)
+                    {
+                        skillNumber += $"\"skill{i + 1}\":trueOrfalse, ";
+                    }
+                    else skillNumber += $"\"skill{i + 1}\":trueOrfalse ";
 
                 }
             }
@@ -120,8 +124,7 @@ namespace APIServer.Common
                 for (int i = 0; i < eduRequire.Length; i++)
                 {
                     prompt += $"+ \"education{i + 1}\" : 1 trong các ý ở educations có đáp ứng \"{eduRequire[i]}\" không?" + Environment.NewLine;
-                    
-                    eduNumber += $"\"education{i + 1}\":TrueOrFalse, ";
+                    eduNumber += $"\"education{i + 1}\":trueOrfalse, ";
                 }
             }
 
@@ -145,7 +148,7 @@ namespace APIServer.Common
                 for (int i = 0; i < expRequire.Length; i++)
                 {
                     prompt += $"+ \"experience{i + 1}\" : 1 trong các ý ở experiences có đáp ứng \"{expRequire[i]}\" không?" + Environment.NewLine;
-                    expNumber += $"\"jobExperience{i + 1}\":TrueOrFalse, ";
+                    expNumber += $"\"jobExperience{i + 1}\":trueOrfalse, ";
                 }
             }
 
@@ -166,7 +169,7 @@ namespace APIServer.Common
                 for (int i = 0; i < skillRequire.Length; i++)
                 {
                     prompt += $"+ \"skill{i + 1}\" : 1 trong các ý ở skills có đáp ứng \"{skillRequire[i]}\" không?" + Environment.NewLine;
-                    skillNumber += $"\"skill{i + 1}\":TrueOrFalse, ";
+                    skillNumber += $"\"skill{i + 1}\":trueOrfalse, ";
                 }
             }
 
@@ -182,7 +185,7 @@ namespace APIServer.Common
             {
                 Model = Model.GPT4,
                 //Temperature = 0f,
-                MaxTokens = 100,
+                MaxTokens = 125,
                 Messages = new ChatMessage[] {
             new ChatMessage(ChatMessageRole.User, prompt)
         }

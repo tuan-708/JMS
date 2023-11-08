@@ -49,7 +49,13 @@ namespace APIServer.Repositories
 
         public Candidate LoginCandidate(string username, string password)
         {
-            throw new NotImplementedException();
+            return context.Candidates
+                .Include(x => x.CurriculumVitaes)
+                .Include(x => x.CVApplies)
+                .FirstOrDefaultAsync(x => 
+                x.UserName.ToLower() == username.ToLower() &&
+                x.Password == password)
+                .Result;
         }
 
         public int Update(Candidate data)

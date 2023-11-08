@@ -128,7 +128,7 @@ namespace APIServer
             builder.Services.AddTransient<IRecuirterRepository, RecuirterRepository>();
             builder.Services.AddTransient<IJobRepository, JobRepository>();
             builder.Services.AddTransient<IJobService, JobService>();
-            builder.Services.AddTransient<IBaseRepository<CurriculumVitae>, CurriculumVitaeRepository>();
+            builder.Services.AddTransient<ICurriculumVitaeRepository, CurriculumVitaeRepository>();
             builder.Services.AddTransient<ICurriculumVitaeService, CurriculumVitaeService>();
             builder.Services.AddTransient<IBaseRepository<Level>, LevelRepository>();
             builder.Services.AddTransient<IBaseRepository<Company>, CompanyRepository>();
