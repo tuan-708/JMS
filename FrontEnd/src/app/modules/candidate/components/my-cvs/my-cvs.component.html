@@ -2,7 +2,126 @@
    <candidate-header></candidate-header>
    <section class="content container">
       <div class="contentLeft">
-         Tuấn
+         <section class="mt-0 p-3 blockTemplate">
+            <h4>Các mẫu CV</h4>
+            <div id="menu">
+               <div id="nav">
+                  <div id="prev">
+                     <i class="fa-solid fa-chevron-left"></i>
+                  </div>
+                  <div id="next">
+                     <i class="fa-solid fa-chevron-right"></i>
+                  </div>
+               </div>
+               <ul id="cards">
+                  <li id="box1" class="list" *ngFor="let com of list">
+                     <a href="{{Url}}/candidate/create-cv/{{com-1}}">
+                        <div class="imageSize">
+                           <img
+                              src="{{Url}}/assets/templateCV/theme{{ com }}.png"
+                              alt="...">
+                        </div>
+                        <div class="textTemplate">Mẫu {{ com }}</div>
+                     </a>
+                  </li>
+               </ul>
+            </div>
+         </section>
+
+         <section class="mt-4 p-3 blockYourCV">
+            <div style="display: flex; justify-content: space-between;">
+               <h4>Hồ sơ của bạn</h4>
+               <a href="{{Url}}/candidate/create-cv/7">
+                  <button type="button" class="btn btnBlueLight"><i class="fa-solid fa-plus" style="margin-right: 7px;"></i>Tạo mới</button>
+               </a>
+            </div>
+     
+            <div class="row mt-4 d-flex blockCV">
+               <div class="col-5 itemCv">
+                  <div class="d-flex">
+                     <div class="imageCV">
+                        <img
+                        src="{{Url}}/assets/templateCV/theme1.png"
+                        alt="...">
+                     </div>
+                     <div class="contentItem">
+                        <div class="textBold mb-1">Hồ sơ 1</div>
+                        <div class="textStyle mb-1">Ngành: CNTT</div>
+                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
+                     </div>
+                  </div>
+                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
+                  <i class="fa-solid fa-trash btnTrash"></i>
+               </div>
+               <div class="col-5 itemCv">
+                  <div class="d-flex">
+                     <div class="imageCV">
+                        <img
+                        src="{{Url}}/assets/templateCV/theme8.png"
+                        alt="...">
+                     </div>
+                     <div class="contentItem">
+                        <div class="textBold mb-1">Hồ sơ 2</div>
+                        <div class="textStyle mb-1">Ngành: CNTT</div>
+                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
+                     </div>
+                  </div>
+                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
+                  <i class="fa-solid fa-trash btnTrash"></i>
+               </div>
+
+               <div class="col-5 itemCv">
+                  <div class="d-flex">
+                     <div class="imageCV">
+                        <img
+                        src="{{Url}}/assets/templateCV/theme7.png"
+                        alt="...">
+                     </div>
+                     <div class="contentItem">
+                        <div class="textBold mb-1">Hồ sơ 3</div>
+                        <div class="textStyle mb-1">Ngành: Cơ khí điện tử</div>
+                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
+                     </div>
+                  </div>
+                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
+                  <i class="fa-solid fa-trash btnTrash"></i>
+               </div>
+               <div class="col-5 itemCv">
+                  <div class="d-flex">
+                     <div class="imageCV">
+                        <img
+                        src="{{Url}}/assets/templateCV/theme4.png"
+                        alt="...">
+                     </div>
+                     <div class="contentItem">
+                        <div class="textBold mb-1">Hồ sơ 4</div>
+                        <div class="textStyle mb-1">Ngành: CNTT</div>
+                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
+                     </div>
+                  </div>
+                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
+                  <i class="fa-solid fa-trash btnTrash"></i>
+               </div>
+
+               <div class="col-5 itemCv">
+                  <div class="d-flex">
+                     <div class="imageCV">
+                        <img
+                        src="{{Url}}/assets/templateCV/theme4.png"
+                        alt="...">
+                     </div>
+                     <div class="contentItem">
+                        <div class="textBold mb-1" style="text-align: left;">Hồ sơ 5</div>
+                        <div class="textStyle mb-1">Ngành: CNTT</div>
+                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
+                     </div>
+                  </div>
+                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
+                  <i class="fa-solid fa-trash btnTrash"></i>
+               </div>
+            </div>
+        
+         </section>
       </div>
 
       

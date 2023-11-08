@@ -16,7 +16,7 @@ const routes: Routes = [
    { path: "sign-in", title: "Ứng viên - Đăng nhập", component: CandidateSignInComponent },
    { path: "sign-up", title: "Ứng viên - Đăng xuất", component: CandidateSignUpComponent },
    { path: "register", title: "Ứng viên - Đăng ký", component: CandidateRegisterComponent },
-   { path: "create-cv", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent },
+   { path: "create-cv/:id", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent },
    { path: "your-cvs", title: "Ứng viên - Danh sách hồ sơ", component: CandidateMyCvsComponent },
    { path: "forgot-password", title: "Ứng viên - Quên mật khẩu", component: CandidateForgotPasswordComponent },
    { path: "list-companies", title: "Ứng viên - Danh sách công ty", component: CandidateListCompaniesComponent },

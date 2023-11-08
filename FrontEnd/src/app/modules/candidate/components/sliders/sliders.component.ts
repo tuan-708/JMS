@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-
-
-declare var $: any; // Declare $ as a global variable
+declare var $: any;
 
 @Component({
    selector: 'candidate-sliders',
@@ -17,7 +15,7 @@ export class SlidersComponent {
    ngAfterViewInit() {
       $(document).ready(function () {
          $('#myCarousel').carousel({
-            interval: 3000 // Change the value (in milliseconds) to adjust the time interval
+            interval: 3000
          });
       });
 

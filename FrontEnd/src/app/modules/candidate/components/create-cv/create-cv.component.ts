@@ -4,6 +4,7 @@ import DecoupledEditor from 'ckeditor5-custom-build/build/ckeditor';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { themeList } from './constant';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
    selector: 'app-create-cv',
@@ -60,6 +61,20 @@ export class CandidateCreateCvComponent {
    backgroudSelectedLink = `${environment.Url}/assets/images/theme6.jpg`
 
 
+   constructor(private route: ActivatedRoute){
+      let id: any;
+      this.route.params.subscribe(params => {
+        id = params['id'];
+      });
+
+      this.colorLeftHeader = themeList[id].colorLeftHeader
+      this.colorRightHeader = themeList[id].colorRightHeader
+      this.colorLeftInput = themeList[id].colorLeftInput
+      this.ThemStyle = themeList[id].ThemStyle
+      this.backgroudSelectedLink = themeList[id].backgroudSelectedLink
+   }
+
+
    getFile(event: any) {
       if (event.target.files && event.target.files[0]) {
          this.hideImage = "none"
@@ -87,7 +102,6 @@ export class CandidateCreateCvComponent {
       this.colorLeftInput = themeList[value].colorLeftInput
       this.ThemStyle = themeList[value].ThemStyle
       this.backgroudSelectedLink = themeList[value].backgroudSelectedLink
-
    }
 
 }
