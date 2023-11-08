@@ -9,7 +9,11 @@ namespace APIServer.MappingObj
     {
         public MapObject()
         {
-            var host = Environment.GetEnvironmentVariable("ASPNETCORE_URLS").Split(";")[0];
+            var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("Properties\\launchSettings.json") 
+    .Build();
+            var host = configuration["profiles:APIServer:applicationUrl"];
 
             CreateMap<UserCreatingDTO, Recuirter>()
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.dobStr)));
