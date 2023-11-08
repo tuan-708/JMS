@@ -15,7 +15,7 @@ namespace APIServer.Models.Entity
         [StringLength(50)]
         [Required]
         public string Email { get; set; }
-        [StringLength(50)]
+        [StringLength(100)]
         [Required]
         public string Password { get; set; }
         public int? GenderId { get; set; }

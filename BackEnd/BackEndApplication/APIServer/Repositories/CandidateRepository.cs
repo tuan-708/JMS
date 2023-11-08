@@ -47,6 +47,12 @@ namespace APIServer.Repositories
                 .FirstOrDefault(x => x.Id == id);
         }
 
+        public bool IsEmailExist(string email)
+        {
+            Candidate candidate = context.Candidates.FirstOrDefault(x => x.Email.Trim().Equals(email.Trim()));
+            return candidate != null;
+        }
+
         public Candidate LoginCandidate(string username, string password)
         {
             return context.Candidates
@@ -62,6 +68,18 @@ namespace APIServer.Repositories
         {
             context.Candidates.Update(data);
             return context.SaveChanges();
+        }
+
+        public int UpdatePassword(string email, string password)
+        {
+            Candidate candidate = context.Candidates.FirstOrDefault(x => x.Email.Equals(email));
+            if(candidate != null)
+            {
+                string hashPassword = BCrypt.Net.BCrypt.HashPassword(password);
+                candidate.Password = hashPassword;
+                return context.SaveChanges();
+            }
+            return 0;
         }
     }
 }

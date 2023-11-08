@@ -3,6 +3,7 @@ using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IServices;
 using APIServer.Models.Entity;
+using APIServer.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -78,6 +79,7 @@ namespace APIServer.Controllers.CandidateModule
                 };
             }
         }
+
 
         [HttpGet("cv-applied-history")]
         public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistory(int candidateId, string? fromDate, string? toDate, int? pageIndex)

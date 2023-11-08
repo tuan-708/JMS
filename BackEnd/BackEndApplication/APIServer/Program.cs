@@ -143,6 +143,7 @@ namespace APIServer
             builder.Services.AddTransient<IRecurterCommon, RecuirterCommonService>();
             builder.Services.AddTransient<ICandidateRepository, CandidateRepository>();
             builder.Services.AddTransient<IBaseRepository<Slider>, SliderRepository>();
+            builder.Services.AddTransient<IEmailService, EmailService>();
         }
     }
 }
