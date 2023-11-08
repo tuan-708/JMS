@@ -12,13 +12,13 @@ namespace APIServer.Services
         private readonly IRecuirterRepository recuirterRepository;
         private readonly IBaseRepository<Company> companyRepo;
         private readonly ICandidateRepository candidateRepo;
-        private readonly IBaseRepository<CurriculumVitae> cvRepo;
+        private readonly ICurriculumVitaeRepository cvRepo;
         private readonly string host;
         private readonly IBaseRepository<Slider> sliderRepo;
 
         public ImageService(IMapper mapper, IConfiguration configuration,
             IRecuirterRepository recuirterRepository, IBaseRepository<Company> companyRepo,
-            ICandidateRepository candidateRepo, IBaseRepository<CurriculumVitae> cvRepo,
+            ICandidateRepository candidateRepo, ICurriculumVitaeRepository cvRepo,
             IBaseRepository<Slider> sliderRepo)
         {
             this.mapper = mapper;

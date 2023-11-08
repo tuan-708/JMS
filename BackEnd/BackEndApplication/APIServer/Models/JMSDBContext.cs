@@ -50,22 +50,6 @@ namespace APIServer.Models
         {
         }
 
-        public JMSDBContext()
-        {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                var conStr = config.GetConnectionString("JobConstr");
-                if (!optionsBuilder.IsConfigured)
-                {
-                    optionsBuilder.UseSqlServer(conStr);
-                }
-            }
-        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Recuirter>().HasData(new Recuirter

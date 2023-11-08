@@ -23,7 +23,7 @@ namespace APIServer.Services
         private readonly IConfiguration _configuration;
         private readonly ICandidateRepository _candidateRepository;
 
-        public CandidateService(IBaseRepository<CurriculumVitae> context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration, ICandidateRepository candidateRepository)
+        public CandidateService(ICurriculumVitaeRepository context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration, ICandidateRepository candidateRepository)
         {
             _context = context;
             _CVApplyContext = CVApplyContext;
