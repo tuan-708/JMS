@@ -1,22 +1,22 @@
 <section class="formListJds container">
     <div class="listJobs">
-        <div class="itemJob"  *ngFor="let jd of listJds | paginate
+        <div [hidden]="isDivHidden" class="itemJob" *ngFor="let jd of listJds | paginate
         : {
             itemsPerPage: itemsPerPage,
             currentPage: page,
             totalItems: totalItems
-          }" (click)="onClick(jd)">
-            <div class="col-2">
+          }">
+          <div class="col-2">
                 <img src="https://cdn.pixabay.com/photo/2017/03/01/18/06/satisfaction-guarantee-2109235_1280.png"
                     alt="">
             </div>
-            <div class="col-10">
-                <div class="textHeader">{{jd?.title}}</div>
+            <div class="col-9">
+                <div class="textHeader" (click)="onClick(jd)" >{{jd?.title}}</div>
                 <div class="row time">
                     <div class="col-4 textOver">Thời gian đăng bài: 11-2-2023</div>
                     <div class="col-4 textOver">Thời gian hạn bài đăng: 12-2-2023</div>
-                    <div class="col-4 textOver">Số lượng tuyển dụng: {{jd?.numberRequirement ? jd?.numberRequirement : 0
-                        }}</div>
+                    <div class="col-4 textOver">Số lượng tuyển dụng: {{jd?.numberRequirement ? jd?.numberRequirement :
+                        0}}</div>
                 </div>
 
                 <div class="row more">
@@ -31,16 +31,24 @@
                     </div>
                 </div>
             </div>
-
-            <div>
-                <i class="fa-solid fa-circle status"></i>
+            <div class="col-1">
+                <div class="btn-grp">
+                    <i class="fa-solid fa-circle status"></i>
+                    <button style="padding-top: 40px;" (click)="onClickUpdate(jd)">
+                        <i class="bi bi-pencil-square h3 " title="Chỉnh sửa bài tuyển dụng"></i>
+                    </button>
+                    <button (click)="onClickDelete(jd)">
+                        <i class="bi bi-trash h3" title="Hủy bỏ bài tuyển dụng"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <pagination-controls class="pagi"  previousLabel="" nextLabel="" (pageChange)="pageChanged((page = $event))"></pagination-controls>
+            <pagination-controls class="pagi" previousLabel="" nextLabel=""
+                (pageChange)="pageChanged((page = $event))"></pagination-controls>
 
             <!-- <pagination-controls id="some_id" (pageChange)="pageChanged($event)" 
                previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"

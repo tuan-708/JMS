@@ -16,7 +16,7 @@ export class ListJdsComponent {
   passenger: any;
   itemsPerPage = 8;
   totalItems = 0;
-
+  isDivHidden: boolean = false;
 
   getListPage(totalPage: number) {
     let list = []
@@ -28,14 +28,16 @@ export class ListJdsComponent {
   }
 
   constructor(private router: Router) {
-    getRequest(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/" + this.page, AuthorizationMode.PUBLIC)
-      .then(res => {
-        this.listJds = res?.data
-        this.totalItems = res?.objectLength
-      })
-      .catch(data => {
-        console.warn(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/1", data);
-      })
+    // getRequest(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/" + this.page, AuthorizationMode.PUBLIC)
+    //   .then(res => {
+    //     this.listJds = res?.data
+    //     this.totalItems = res?.objectLength
+    //   })
+    //   .catch(data => {
+    //     console.warn(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/1", data);
+    //   })
+
+    this.listJds = [{jobId: 1,title: 'TITLE', numberRequirement: '999', positionTitle: 'POSITION TITLE', levelTitle: 'LELVEL TITLE', salary: '999.999'}, {title: 'TITLE', numberRequirement: '999', positionTitle: 'POSITION TITLE', levelTitle: 'LELVEL TITLE', salary: '999.999'}, {title: 'TITLE', numberRequirement: '999', positionTitle: 'POSITION TITLE', levelTitle: 'LELVEL TITLE', salary: '999.999'}]
   }
 
   pageChanged(page: any) {
@@ -53,5 +55,15 @@ export class ListJdsComponent {
   onClick(jd: any){
 
     this.router.navigate(['/recruiter/jd-detail', jd?.jobId]);
+  }
+
+  onClickUpdate(jd: any){
+
+    this.router.navigate(['/recruiter/jd-detail', jd?.jobId]);
+  }
+
+  onClickDelete(jd: any){
+    this.isDivHidden = true;
+    //API handle delete JD here
   }
 }
