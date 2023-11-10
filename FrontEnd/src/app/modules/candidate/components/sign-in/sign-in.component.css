@@ -14,3 +14,21 @@
 body {
    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
+
+.textHeader1{
+   font-weight: 600;
+   font-size: 1.4em;
+   padding: 5xp;
+}
+
+.textHeader2{
+   font-weight: 600;
+   font-size: 1.2em;
+   padding: 5xp;
+}
+
+.textHeader3{
+   font-weight: 400;
+   font-size: 1em;
+   padding: 5xp;
+}

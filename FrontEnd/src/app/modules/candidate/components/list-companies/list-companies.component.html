@@ -18,21 +18,13 @@
       <section class="listFilter shadow-none col">
 
          <div class="row d-flex mt-3">
-            <div class="col-6" style="align-self: center; font-weight: 600; font-size: 22px; padding: 0;">Công ty nổi
+            <div class="col-6" style="align-self: center; font-weight: 600; font-size: 1.2em; padding: 0;">Công ty nổi
                bật 20</div>
             <!-- Bootstrap select -->
             <div class="col-3">
 
             </div>
             <div class="col-3 ">
-               <!-- <mat-form-field appearance="outline" class="col-12 p-0">
-                  <mat-select required [formControl]="categoryRq">
-                     <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>
-                     <mat-option *ngFor="let elm of categories; index as i"
-                        value={{elm.id}}>{{elm.categoryName}}</mat-option>
-                  </mat-select>
-               </mat-form-field> -->
-
                <select class="form-select shadow-none">
                   <option selected value="0" disabled>Chọn lĩnh vực</option>
                   <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>

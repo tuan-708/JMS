@@ -16,6 +16,7 @@
    margin-bottom: 20px;
    padding: 10px;
    box-shadow: var(--boxShadow);
+   font-size: 1em;
 }
 
 .itemJob:hover {
@@ -46,7 +47,8 @@
 }
 
 .fontBold {
-   font-weight: 700;
+   font-weight: 600;
+   font-size: 1.1em;
 }
 
 .colorOrange {

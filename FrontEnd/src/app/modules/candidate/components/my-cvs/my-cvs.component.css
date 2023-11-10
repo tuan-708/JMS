@@ -35,8 +35,9 @@
 }
 
 .textBold{
-   font-weight: 700;
+   font-weight: 600;
    color: black;
+   font-size: 1.1em;
 }
 
 .fontOff{
@@ -256,4 +257,9 @@
 .contentItem{
    width: 140px;
    padding: 5px;
+}
+
+.textHeader1{
+   font-weight: 600;
+   font-size: 1.2em;
 }

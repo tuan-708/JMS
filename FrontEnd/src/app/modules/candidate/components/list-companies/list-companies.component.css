@@ -60,6 +60,7 @@
    -webkit-line-clamp: 2;
    margin-bottom: 10px;
    font-weight: 600;
+   font-size: 1.1em;
 }
 
 .customInput{
@@ -96,6 +97,7 @@
 .itemCompany:hover {
    cursor: pointer;
    box-shadow: var(--boxShadow1);
+   font-size: 1em;
 }
 
 .imgJob {
