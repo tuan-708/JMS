@@ -4,6 +4,8 @@
 
 .listJob {
    margin-top: 50px;
+   gap: 20px;
+
 }
 
 .itemJob {
@@ -34,6 +36,7 @@
 .detailJob {
    margin-left: 10px;
    padding: 0;
+   width: 70%;
 }
 
 .textOver {
@@ -67,4 +70,8 @@
 
 .customSelect{
    border: none;
+}
+
+.pagi {
+   margin: auto;
 }

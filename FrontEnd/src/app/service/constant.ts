@@ -23,5 +23,8 @@ export enum apiRecruiter{
     UPDATE_IMAGE_COMPANY_AVATAR = "/api/Images/update-img-avt-company",
     UPDATE_IMAGE_COMPANY_BACKGROUND = "/api/Images/update-img-bgr-company",
     GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
-  
+}
+
+export enum apiCandidate{
+    GET_ALL_JDS_PAGING =  "/api/JobDesc/get-all-jd"
 }
