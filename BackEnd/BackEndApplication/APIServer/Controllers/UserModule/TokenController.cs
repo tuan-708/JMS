@@ -24,6 +24,7 @@ namespace APIServer.Controllers.UserModule
         {
             this.mapper = mapper;
             this.recuirterService = userService;
+            this.recuirterService = userService;
             _configuration = configuration;
             this.candidateService = candidateService;
         }

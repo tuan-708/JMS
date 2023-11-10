@@ -44,6 +44,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CreatedAt, src => src.MapFrom(src => src.CreatedAt.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.ExpiredDate, src => src.MapFrom(src => src.ExpiredDate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.IsExpired, src => src.MapFrom(src => src.ExpiredDate < DateTime.Now))
+                .ForMember(x => x.CompanyDTO, src => src.MapFrom(src => src.Company))
                 ;
             CreateMap<CurriculumVitaeDTO, CurriculumVitae>()
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
