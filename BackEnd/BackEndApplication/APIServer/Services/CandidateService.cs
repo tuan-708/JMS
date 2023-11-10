@@ -96,7 +96,7 @@ namespace APIServer.Services
                         {
                     if (CVList.Any(cv => cv.Id == curriculumVitae.Id))
                     {
-                        CVApply CVApplied = new CVApply();
+                        CVMatching CVApplied = new CVMatching();
 
                         if (CVAppliedByCVIdList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsAutoMatched == true && x.IsReject == false))
                         {
@@ -127,7 +127,7 @@ namespace APIServer.Services
                             CVApplied.CreatedDate = Convert.ToDateTime(curriculumVitae.CreatedDateDisplay);
                             CVApplied.LastUpdateDate = Convert.ToDateTime(curriculumVitae.LastUpdateDateDisplay);
                             CVApplied.CurriculumVitaeId = curriculumVitae.Id;
-                            CVApplied.IsAutoMatched = false;
+                            CVApplied.IsMatched = false;
                             CVApplied.IsApplied = true;
                             CVApplied.IsReject = false;
                             string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv));
@@ -149,9 +149,9 @@ namespace APIServer.Services
             
         }
 
-        public List<CVApply> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate)
+        public List<CVMatching> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate)
         {
-            List<CVApply> cVApplies = _CVApplyContext.GetAllByCandidateIdAndFromDataAndToDate(candaidateId, fromDate, toDate);
+            List<CVMatching> cVApplies = _CVApplyContext.GetAllByCandidateIdAndFromDataAndToDate(candaidateId, fromDate, toDate);
             return cVApplies;
         }
 
@@ -185,9 +185,9 @@ namespace APIServer.Services
             };
         }
 
-        public CVApply GetCVAppliedDetail(int candidateId, int CVAppliedId)
+        public CVMatching GetCVAppliedDetail(int candidateId, int CVAppliedId)
         {
-            CVApply cVApplied = _CVApplyContext.GetByCandidateIdAndCVAppliedId(candidateId, CVAppliedId);
+            CVMatching cVApplied = _CVApplyContext.GetByCandidateIdAndCVAppliedId(candidateId, CVAppliedId);
             return cVApplied;
         }
 

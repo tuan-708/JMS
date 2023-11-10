@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APIServer.Models.Entity
 {
-    public class CVApply
+    public class CVMatching
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -40,8 +40,9 @@ namespace APIServer.Models.Entity
         public virtual CurriculumVitae? CurriculumVitae { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
-        public bool IsAutoMatched { get; set; }
+        public bool IsMatched { get; set; }
         public bool IsApplied { get; set; }
+        public bool IsSelected { get; set; }
         public bool? IsReject { get; set; }
     }
 }

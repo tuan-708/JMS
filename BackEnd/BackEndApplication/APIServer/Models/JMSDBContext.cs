@@ -14,7 +14,7 @@ namespace APIServer.Models
         public virtual DbSet<Certificate> Certificates { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<CurriculumVitae> CurriculumVitaes { get; set; }
-        public virtual DbSet<CVApply> CVApplies { get; set; }
+        public virtual DbSet<CVMatching> CVMatchings { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<EmployeeInCompany> EmployeeInCompanies { get; set; }
         public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
