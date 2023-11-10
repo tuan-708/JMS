@@ -3,6 +3,7 @@ using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IServices;
 using APIServer.Models.Entity;
+using APIServer.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -44,11 +45,11 @@ namespace APIServer.Controllers.CandidateModule
         }
 
         [HttpPost("apply-cv")]
-        public async Task<BaseResponseBody<string>> ApplyCV(int candaidateId, int CVid, int jobDescriptionId)
+        public async Task<BaseResponseBody<string>> ApplyCV(int candidateId, int CVid, int jobDescriptionId)
         {
             try
             {
-                int n = await _candidateService.ApplyJob(candaidateId, CVid, jobDescriptionId);
+                int n = await _candidateService.ApplyJob(candidateId, CVid, jobDescriptionId);
                 if(n > 0)
                 {
                     return new BaseResponseBody<string>
@@ -78,6 +79,7 @@ namespace APIServer.Controllers.CandidateModule
                 };
             }
         }
+
 
         [HttpGet("cv-applied-history")]
         public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistory(int candidateId, string? fromDate, string? toDate, int? pageIndex)

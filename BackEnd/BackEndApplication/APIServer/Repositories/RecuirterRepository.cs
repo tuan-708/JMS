@@ -84,6 +84,12 @@ namespace APIServer.Repositories
             return data;
         }
 
+        public bool IsEmailExist(string email)
+        {
+            Recuirter recuirter = context.Recuirters.FirstOrDefault(x => x.Email.Equals(email));
+            return recuirter != null;
+        }
+
         public int Update(Recuirter data)
         {
             context.Recuirters.Update(data);
@@ -93,6 +99,32 @@ namespace APIServer.Repositories
         public bool checkExistById(int? recuirterId)
         {
             return context.Recuirters.Where(x => x.Id == recuirterId).Any();
+        }
+
+        public int UpdatePassword(string email, string password)
+        {
+            Recuirter candidate = context.Recuirters.FirstOrDefault(x => x.Email.Equals(email));
+            if (candidate != null)
+            {
+                string hashPassword = BCrypt.Net.BCrypt.HashPassword(password);
+                candidate.Password = hashPassword;
+                return context.SaveChanges();
+            }
+            return 0;
+        }
+
+        public int Register(string email, string username, string password)
+        {
+            Recuirter recuirter = new Recuirter();
+            string hashPassword = BCrypt.Net.BCrypt.HashPassword(password);
+            recuirter.Email = email;
+            recuirter.Password = hashPassword;
+            recuirter.UserName = username;
+            recuirter.CreatedDate = DateTime.Now;
+            recuirter.IsActive = true;
+            recuirter.IsDelete = false;
+            context.Recuirters.Add(recuirter);
+            return context.SaveChanges();
         }
     }
 }

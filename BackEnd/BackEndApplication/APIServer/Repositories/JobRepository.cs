@@ -107,7 +107,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Company)
                 .Include(x => x.Category)
                 .Include(x => x.Gender)
-                .FirstOrDefault(x => !x.IsDelete && x.ExpiredDate > DateTime.Now && x.JobId == id);
+                .FirstOrDefault(x => !x.IsDelete && x.JobId == id);
             return rs;
         }
 

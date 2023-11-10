@@ -14,13 +14,13 @@ namespace APIServer.Repositories
             _context = context;
         }
 
-        public int Create(CVApply data)
+        public int Create(CVMatching data)
         {
             _context.Add(data);
             return _context.SaveChanges();
         }
 
-        public int CreateById(CVApply data, int? id)
+        public int CreateById(CVMatching data, int? id)
         {
             throw new NotImplementedException();
         }
@@ -30,23 +30,23 @@ namespace APIServer.Repositories
             throw new NotImplementedException();
         }
 
-        public List<CVApply> GetAll()
+        public List<CVMatching> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public List<CVApply> GetAllByCandidateIdAndFromDataAndToDate(int candidateId, DateTime? fromDate, DateTime? toDate)
+        public List<CVMatching> GetAllByCandidateIdAndFromDataAndToDate(int candidateId, DateTime? fromDate, DateTime? toDate)
         {
-            List<CVApply> cVApplies = GetAllById(candidateId);
+            List<CVMatching> cVApplies = GetAllById(candidateId);
             if(fromDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate >= fromDate).ToList();
             if(toDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate <= toDate).ToList();
 
             return cVApplies;
         }
 
-        public List<CVApply> GetAllById(int id)
+        public List<CVMatching> GetAllById(int id)
         {
-            List<CVApply> cVApplies = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+            List<CVMatching> cVApplies = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
@@ -54,9 +54,9 @@ namespace APIServer.Repositories
             return cVApplies;
         }
 
-        public List<CVApply> GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(int recruiterId, int? jobDescriptionId, DateTime? fromDate, DateTime? toDate)
+        public List<CVMatching> GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(int recruiterId, int? jobDescriptionId, DateTime? fromDate, DateTime? toDate)
         {
-            List<CVApply> cVApplies = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+            List<CVMatching> cVApplies = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
@@ -68,18 +68,18 @@ namespace APIServer.Repositories
             return cVApplies;
         }
 
-        public CVApply GetByCandidateIdAndCVAppliedId(int candidateId, int CVAppliedId)
+        public CVMatching GetByCandidateIdAndCVAppliedId(int candidateId, int CVAppliedId)
         {
-            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVAppliedId && x.IsApplied == true);
             return cVApply;
         }
 
-        public List<CVApply> GetByCVIdAndJobDescriptionId(int CVId, int jobDescriptionId)
+        public List<CVMatching> GetByCVIdAndJobDescriptionId(int CVId, int jobDescriptionId)
         {
-            List<CVApply> cVApplyList = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+            List<CVMatching> cVApplyList = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
@@ -87,9 +87,9 @@ namespace APIServer.Repositories
             return cVApplyList != null ? cVApplyList : null;
         }
 
-        public CVApply GetByCVIdAndLastUpdateDate(int CVId, DateTime lastUpdateDate)
+        public CVMatching GetByCVIdAndLastUpdateDate(int CVId, DateTime lastUpdateDate)
         {
-            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
@@ -97,14 +97,14 @@ namespace APIServer.Repositories
             return cVApply != null ? cVApply : null;
         }
 
-        public CVApply GetById(int id)
+        public CVMatching GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public CVApply GetByRecruiterIdAndCVAppliedId(int recuiterId, int CVAppliedId)
+        public CVMatching GetByRecruiterIdAndCVAppliedId(int recuiterId, int CVAppliedId)
         {
-            CVApply cVApply = _context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
@@ -112,7 +112,7 @@ namespace APIServer.Repositories
             return cVApply;
         }
 
-        public int Update(CVApply data)
+        public int Update(CVMatching data)
         {
             _context.Update(data);
             return _context.SaveChanges();
