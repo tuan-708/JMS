@@ -15,5 +15,6 @@ namespace APIServer.IServices
         public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData);
         public CVApply GetCVAppliedDetail(int recuiterId, int CVAppliedId);
         public Task<List<CVApply>> GetCVFromMatchingJD(int jobDescriptionId, int numberRequirement);
+        public string getEstimateDate(int jobId, DateTime dateRequirment);
     }
 }

@@ -30,7 +30,7 @@ namespace APIServer.Services
                 if(updatePassword > 0)
                 {
                     EmailHelper emailHelper = new EmailHelper(_configuration);
-                    emailHelper.SendMail(email, newPassword);
+                    emailHelper.SendMail(email, message);
                     return "send mail successfully";
                 }
             }
@@ -51,7 +51,7 @@ namespace APIServer.Services
                 if (updatePassword > 0)
                 {
                     EmailHelper emailHelper = new EmailHelper(_configuration);
-                    emailHelper.SendMail(email, newPassword);
+                    emailHelper.SendMail(email, message);
                     return "send mail successfully";
                 }
             }

@@ -10,6 +10,7 @@ namespace APIServer.IRepositories
         public bool checkExistById(int? recuirterId);
         public bool IsEmailExist(string email);
         public int UpdatePassword(string email, string password);
+        public int Register(string email, string username, string password);
 
     }
 }

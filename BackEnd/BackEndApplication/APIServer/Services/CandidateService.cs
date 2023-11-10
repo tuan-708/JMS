@@ -23,13 +23,14 @@ namespace APIServer.Services
         private readonly IConfiguration _configuration;
         private readonly ICandidateRepository _candidateRepository;
 
-        public CandidateService(ICurriculumVitaeRepository context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration, ICandidateRepository candidateRepository)
+        public CandidateService(ICurriculumVitaeRepository context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration, ICandidateRepository candidateRepository, IJobRepository JobContext)
         {
             _context = context;
             _CVApplyContext = CVApplyContext;
             _mapper = mapper;
             _configuration = configuration;
             _candidateRepository = candidateRepository;
+            _JobContext = JobContext;
         }
         public int Create(Candidate data)
         {
@@ -81,18 +82,18 @@ namespace APIServer.Services
             return rs;
         }
 
-        public async Task<int> ApplyJob(int candaidateId, int CVid, int jobDescriptionId)
+        public async Task<int> ApplyJob(int candidateId, int CVid, int jobDescriptionId)
         {
             
             try
             {
-                var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candaidateId));
+                var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candidateId));
                 var CVAppliedByCVIdList = _mapper.Map<List<CVApplyDTO>>(_CVApplyContext.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId));
                 CurriculumVitae? cv = GetCVById(CVid);
                 var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
                 JobDescription jobDescription = _JobContext.GetById(jobDescriptionId);
                 if (cv != null)
-                {
+                        {
                     if (CVList.Any(cv => cv.Id == curriculumVitae.Id))
                     {
                         CVApply CVApplied = new CVApply();
@@ -107,7 +108,7 @@ namespace APIServer.Services
                         else
                         {
                             CVApplied.JobDescriptionId = jobDescriptionId;
-                            CVApplied.CandidateId = candaidateId;
+                            CVApplied.CandidateId = candidateId;
                             CVApplied.CareerGoal = curriculumVitae.CareerGoal;
                             CVApplied.Phone = curriculumVitae.Phone;
                             CVApplied.DisplayName = curriculumVitae.DisplayName;

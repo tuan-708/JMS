@@ -144,6 +144,7 @@ namespace APIServer
             builder.Services.AddTransient<ICandidateRepository, CandidateRepository>();
             builder.Services.AddTransient<IBaseRepository<Slider>, SliderRepository>();
             builder.Services.AddTransient<IEmailService, EmailService>();
+            builder.Services.AddTransient<IRegisterService, RegisterService>();
         }
     }
 }

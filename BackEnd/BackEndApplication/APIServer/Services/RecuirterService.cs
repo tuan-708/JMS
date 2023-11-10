@@ -229,8 +229,6 @@ namespace APIServer.Services
             {
                 List<CVApply> sortedList = new List<CVApply>();
                 List<CVApply> matchedList = new List<CVApply>();
-                List<Task<CVApply>> matchingTasks = new List<Task<CVApply>>();
-
                 JobDescription jd =  _jobContext.GetById(jobDescriptionId);
                 if (jd != null)
                 {
@@ -238,11 +236,10 @@ namespace APIServer.Services
                     for (int i = 0; i < curriculumVitaes.Count; i++)
                     {
                         CurriculumVitae cv = _cVRepository.GetById(curriculumVitaes[i].Id);
-                        Task<CVApply> cvAfterMatching = MatchingCV(curriculumVitaes[i].Id, jobDescriptionId,cv, jd);
+                        CVApply cvAfterMatching = await MatchingCV(cv.Id, jobDescriptionId, cv, jd);
                         if (cvAfterMatching != null)
                         {
-                            matchingTasks.Add(cvAfterMatching);
-               
+                            matchedList.Add(cvAfterMatching);
                         }
                         else
                         {
@@ -250,12 +247,8 @@ namespace APIServer.Services
                         }
                         
                     }
-                    await Task.WhenAll(matchingTasks);
-
-                    matchedList.AddRange(matchingTasks
-                        .Where(task => task.Result != null)
-                        .Select(task => task.Result));
                     matchedList = matchedList.OrderByDescending(cv => cv.PercentMatching).ToList();
+
                     sortedList = new List<CVApply>(numberRequirement);
                     for (int i = 0; i < matchedList.Count; i++)
                     {
@@ -264,7 +257,6 @@ namespace APIServer.Services
                             sortedList.Add(matchedList[i]);
                         }
                         else break;
-                        //neu cvApplied co percent matching >= 60% thi add vao sortedList
                     }
                 }
 
@@ -328,13 +320,37 @@ namespace APIServer.Services
                         CVApplied.IsReject = false;
                         context.CVApplies.Add(CVApplied);
                         context.SaveChanges();
-                        await Task.Delay(15000);
+                        await Task.Delay(13000);
                         return CVApplied;
                     }
                 }
                 else throw new Exception("cv or jd does not exist");
             }
         }
-            
+
+        public string getEstimateDate(int jobId, DateTime dateRequirment)
+        {
+            int second = 15;
+            JobDescription jobDescriptions = _jobContext.GetById(jobId);
+            if(jobDescriptions != null)
+            {
+                List<CurriculumVitae> curriculumVitaes = _cVRepository.GetAllByCategoryId(jobDescriptions.CategoryId);
+                if(curriculumVitaes != null)
+                {
+                    second = second * curriculumVitaes.Count;
+                    if(dateRequirment > DateTime.Now.AddSeconds(second))
+                    {
+                        return dateRequirment.AddSeconds(-second).ToString();
+                       
+                    }
+                    else
+                    {
+                        return $"Date Requirement have to be started at {DateTime.Now.AddSeconds(second + 60)} or later";
+                    }
+                }
+                return "Now the system doesn't have any CV that can match with your JD. Try again later.";
+            }
+            return "Your JD does not exist";
+        }
     }
 }

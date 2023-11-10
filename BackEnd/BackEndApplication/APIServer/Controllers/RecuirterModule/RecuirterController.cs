@@ -106,5 +106,18 @@ namespace APIServer.Controllers.RecuirterModule
             };
         }
 
+        [HttpGet]
+        [Route("get-estimate-date-to-matching")]
+        public BaseResponseBody<string> GetEstimateDate(int jobId, DateTime dateRequirement)
+        {
+            string rs = _recuirterService.getEstimateDate(jobId, dateRequirement);
+
+            return new BaseResponseBody<string>
+            {
+                statusCode = HttpStatusCode.OK,
+                message = GlobalStrings.SUCCESSFULLY,
+                data = rs,
+            };
+        }
     }
 }

@@ -112,5 +112,19 @@ namespace APIServer.Repositories
             }
             return 0;
         }
+
+        public int Register(string email, string username, string password)
+        {
+            Recuirter recuirter = new Recuirter();
+            string hashPassword = BCrypt.Net.BCrypt.HashPassword(password);
+            recuirter.Email = email;
+            recuirter.Password = hashPassword;
+            recuirter.UserName = username;
+            recuirter.CreatedDate = DateTime.Now;
+            recuirter.IsActive = true;
+            recuirter.IsDelete = false;
+            context.Recuirters.Add(recuirter);
+            return context.SaveChanges();
+        }
     }
 }

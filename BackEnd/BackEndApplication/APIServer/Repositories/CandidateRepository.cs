@@ -64,6 +64,20 @@ namespace APIServer.Repositories
                 .Result;
         }
 
+        public int Register(string email, string username, string password)
+        {
+            Candidate candidate = new Candidate();
+            string hashPassword = BCrypt.Net.BCrypt.HashPassword(password);
+            candidate.Email = email;
+            candidate.Password = hashPassword;
+            candidate.UserName = username;
+            candidate.CreatedDate = DateTime.Now;
+            candidate.IsActive = true;
+            candidate.IsDelete = false;
+            context.Candidates.Add(candidate);
+            return context.SaveChanges();
+        }
+
         public int Update(Candidate data)
         {
             context.Candidates.Update(data);

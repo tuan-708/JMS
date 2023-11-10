@@ -40,7 +40,7 @@ namespace APIServer.Helpers
                 // Kết nối đến máy chủ SMTP và gửi email
                 using (var client = new SmtpClient())
                 {
-                    client.Connect(smtpServer, port, true);
+                    client.Connect(smtpServer, port, SecureSocketOptions.StartTls);
 
                     // Đăng nhập bằng tên đăng nhập và mật khẩu của bạn
                     client.Authenticate(username, password);
@@ -52,7 +52,7 @@ namespace APIServer.Helpers
                 }
             } catch (Exception ex)
             {
-                Console.WriteLine(ex.Message.ToString());
+                throw new Exception(ex.Message);
             }
             
         }
