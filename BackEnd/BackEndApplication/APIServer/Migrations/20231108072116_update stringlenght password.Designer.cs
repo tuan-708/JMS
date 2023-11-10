@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231108072116_update stringlenght password")]
+    partial class updatestringlenghtpassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,7 +376,7 @@ namespace APIServer.Migrations
                     b.ToTable("CurriculumVitaes");
                 });
 
-            modelBuilder.Entity("APIServer.Models.Entity.CVMatching", b =>
+            modelBuilder.Entity("APIServer.Models.Entity.CVApply", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -431,13 +433,10 @@ namespace APIServer.Migrations
                     b.Property<bool>("IsApplied")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsMatched")
+                    b.Property<bool>("IsAutoMatched")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("IsReject")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSelected")
                         .HasColumnType("bit");
 
                     b.Property<string>("JSONMatching")
@@ -480,7 +479,7 @@ namespace APIServer.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("CVMatchings");
+                    b.ToTable("CVApplies");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Education", b =>
@@ -1047,7 +1046,7 @@ namespace APIServer.Migrations
                     b.Navigation("Level");
                 });
 
-            modelBuilder.Entity("APIServer.Models.Entity.CVMatching", b =>
+            modelBuilder.Entity("APIServer.Models.Entity.CVApply", b =>
                 {
                     b.HasOne("APIServer.Models.Entity.Candidate", "Candidate")
                         .WithMany("CVApplies")

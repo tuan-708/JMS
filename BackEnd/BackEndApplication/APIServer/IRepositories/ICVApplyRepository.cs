@@ -2,13 +2,13 @@
 
 namespace APIServer.IRepositories
 {
-    public interface ICVApplyRepository : IBaseRepository<CVApply>
+    public interface ICVApplyRepository : IBaseRepository<CVMatching>
     {
-        public List<CVApply> GetAllByCandidateIdAndFromDataAndToDate(int candidateId, DateTime? fromDate, DateTime? toDate);
-        public List<CVApply> GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(int recruiterId, int? jobDescription, DateTime? fromDate, DateTime? toDate);
-        public CVApply GetByCandidateIdAndCVAppliedId(int candidateId, int CVAppliedId);
-        public CVApply GetByRecruiterIdAndCVAppliedId(int recuiterId, int CVAppliedId);
-        public List<CVApply> GetByCVIdAndJobDescriptionId(int CVId, int jobDescriptionId);
-        public CVApply GetByCVIdAndLastUpdateDate(int CVId, DateTime lastUpdateDate);
+        public List<CVMatching> GetAllByCandidateIdAndFromDataAndToDate(int candidateId, DateTime? fromDate, DateTime? toDate);
+        public List<CVMatching> GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(int recruiterId, int? jobDescription, DateTime? fromDate, DateTime? toDate);
+        public CVMatching GetByCandidateIdAndCVAppliedId(int candidateId, int CVAppliedId);
+        public CVMatching GetByRecruiterIdAndCVAppliedId(int recuiterId, int CVAppliedId);
+        public List<CVMatching> GetByCVIdAndJobDescriptionId(int CVId, int jobDescriptionId);
+        public CVMatching GetByCVIdAndLastUpdateDate(int CVId, DateTime lastUpdateDate);
     }
 }

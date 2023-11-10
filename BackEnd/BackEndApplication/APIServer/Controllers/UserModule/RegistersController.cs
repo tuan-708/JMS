@@ -1,6 +1,7 @@
 ﻿using APIServer.Common;
 using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
+using APIServer.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -11,24 +12,33 @@ namespace APIServer.Controllers.UserModule
     [ApiController]
     public class RegistersController : ControllerBase
     {
+        private readonly IRegisterService _registerService;
+        private readonly IConfiguration _config;
+
+        public RegistersController(IConfiguration configuration, IRegisterService registerService)
+        {
+            _config = configuration;
+            _registerService = registerService;
+        }
+
         [HttpPost]
-        [Route("create-candidate")]
-        public BaseResponseBody<int> CreateCandidateAccount(CandidateDTO candidate)
+        [Route("register-for-candidate")]
+        public BaseResponseBody<string> CreateCandidateAccount(string email, string username, string password, string confirmPassword)
         {
             try
             {
-                return new BaseResponseBody<int>
+                string registerMess = _registerService.RegisterForCandidate(email,username,password,confirmPassword);
+                return new BaseResponseBody<string>
                 {
-                    data = -1,
+                    data = registerMess,
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
                     statusCode = HttpStatusCode.OK,
                 };
             }
             catch(Exception ex) 
             {
-                return new BaseResponseBody<int>
+                return new BaseResponseBody<string>
                 {
-                    data = -1,
                     message = ex.Message,
                     statusCode = HttpStatusCode.BadRequest,
                 };
@@ -36,23 +46,23 @@ namespace APIServer.Controllers.UserModule
         }
 
         [HttpPost]
-        [Route("create-recuirter")]
-        public BaseResponseBody<int> CreateRecuirterAccount(RecuirterDTO recuirter)
+        [Route("register-for-recuirter")]
+        public BaseResponseBody<string> CreateRecuirterAccount(string email, string username, string password, string confirmPassword)
         {
             try
             {
-                return new BaseResponseBody<int>
+                string registerMess = _registerService.RegisterForRecruiter(email, username, password, confirmPassword);
+                return new BaseResponseBody<string>
                 {
-                    data = -1,
+                    data = registerMess,
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
                     statusCode = HttpStatusCode.OK,
                 };
             }
             catch (Exception ex)
             {
-                return new BaseResponseBody<int>
+                return new BaseResponseBody<string>
                 {
-                    data = -1,
                     message = ex.Message,
                     statusCode = HttpStatusCode.BadRequest,
                 };
