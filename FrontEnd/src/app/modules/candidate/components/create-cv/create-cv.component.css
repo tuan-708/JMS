@@ -498,3 +498,308 @@ textarea {
    margin: 5px;
    justify-content: center;
 }
+
+
+/* Form Skill */
+.form-skills{
+   position: relative;
+}
+
+.skillAdd{
+   display: none;
+   position: absolute;
+   bottom: 40px;
+   right: -5px;
+   font-size: 20px;
+   color: #00b14f;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.skillSub
+{
+   display: none;  
+   position: absolute;
+   bottom: 0px;
+   right: -5px;
+   font-size: 20px;
+   color: darkred;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-skills:hover .skillAdd
+{
+   display: block;
+}
+
+.form-skills:hover .skillSub{
+   display: block;
+}
+
+/* Form Certificates */
+
+.form-Certificates{
+   position: relative;
+}
+
+.certificatesAdd{
+   display: none;
+   position: absolute;
+   bottom: 40px;
+   right: -5px;
+   font-size: 20px;
+   color: #00b14f;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.certificatesSub
+{
+   display: none;  
+   position: absolute;
+   bottom: 0px;
+   right: -5px;
+   font-size: 20px;
+   color: darkred;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-Certificates:hover .certificatesAdd
+{
+   display: block;
+}
+
+.form-Certificates:hover .certificatesSub{
+   display: block;
+}
+
+/* Form Prizes */
+
+.form-prizes{
+   position: relative;
+}
+
+.prizesAdd{
+   display: none;
+   position: absolute;
+   bottom: 40px;
+   right: -5px;
+   font-size: 20px;
+   color: #00b14f;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.prizesSub
+{
+   display: none;  
+   position: absolute;
+   bottom: 0px;
+   right: -5px;
+   font-size: 20px;
+   color: darkred;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-prizes:hover .prizesAdd
+{
+   display: block;
+}
+
+.form-prizes:hover .prizesSub{
+   display: block;
+}
+
+/* Form Other Skills */
+.form-other-skills{
+   position: relative;
+}
+
+.other-skillsAdd{
+   display: none;
+   position: absolute;
+   bottom: 40px;
+   right: -5px;
+   font-size: 20px;
+   color: #00b14f;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.other-skillsSub
+{
+   display: none;  
+   position: absolute;
+   bottom: 0px;
+   right: -5px;
+   font-size: 20px;
+   color: darkred;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-other-skills:hover .other-skillsAdd
+{
+   display: block;
+}
+
+.form-other-skills:hover .other-skillsSub{
+   display: block;
+}
+
+/* Form Experience */
+.form-experience{
+   position: relative;
+}
+
+.form-experienceAdd{
+   display: none;
+   position: absolute;
+   bottom: 40px;
+   right: -5px;
+   font-size: 20px;
+   color: #00b14f;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-experienceSub
+{
+   display: none;  
+   position: absolute;
+   bottom: 0px;
+   right: -5px;
+   font-size: 20px;
+   color: darkred;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-experience:hover .form-experienceAdd
+{
+   display: block;
+}
+
+.form-experience:hover .form-experienceSub{
+   display: block;
+}
+
+/* Form Project */
+
+.form-project{
+   position: relative;
+}
+
+.form-projectAdd{
+   display: none;
+   position: absolute;
+   bottom: 40px;
+   right: -5px;
+   font-size: 20px;
+   color: #00b14f;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-projectSub
+{
+   display: none;  
+   position: absolute;
+   bottom: 0px;
+   right: -5px;
+   font-size: 20px;
+   color: darkred;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-project:hover .form-projectAdd
+{
+   display: block;
+}
+
+.form-project:hover .form-projectSub{
+   display: block;
+}
+
+/* Form Education */
+.form-education{
+   position: relative;
+}
+
+.form-educationAdd{
+   display: none;
+   position: absolute;
+   bottom: 40px;
+   right: -5px;
+   font-size: 20px;
+   color: #00b14f;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-educationSub
+{
+   display: none;  
+   position: absolute;
+   bottom: 0px;
+   right: -5px;
+   font-size: 20px;
+   color: darkred;
+   border-radius: 20px;
+   border: 1px #ccc solid;
+   padding: 5px;
+   background-color: #ffffff;
+   cursor: pointer;
+}
+
+.form-education:hover .form-educationAdd
+{
+   display: block;
+}
+
+.form-education:hover .form-educationSub{
+   display: block;
+}
