@@ -25,6 +25,7 @@ namespace APIServer.DTO.EntityDTO
         public string? Address { get; set; }
         public int? NumberRequirement { get; set; }
         public string? CompanyName { get; set; } = null;
+        public CompanyDTO? CompanyDTO { get; set; }
         public string? CategoryName { get; set; } = null;
         public string? LevelTitle { get; set; }
         public string? PositionTitle { get; set; }
