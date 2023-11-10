@@ -39,7 +39,6 @@ export class SlidersComponent {
       getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 10})
       .then(res => {
          this.companies = res?.data
-         console.log(this.companies);
       })
       .catch(data => {
          console.warn(apiRecruiter.GET_ALL_CATEGORY, data);

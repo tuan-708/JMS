@@ -18,10 +18,8 @@ export class ListJobsComponent {
       getRequest(apiCandidate.GET_ALL_JDS_PAGING + "/" + this.page, AuthorizationMode.PUBLIC)
          .then(res => {
             this.listJds = res?.data
-          
-
             this.totalItems = res?.objectLength
-            console.log(this.totalItems);
+            console.log(this.listJds);
          })
          .catch(data => {
             console.warn(apiCandidate.GET_ALL_JDS_PAGING + "/1" + this.page, data);
