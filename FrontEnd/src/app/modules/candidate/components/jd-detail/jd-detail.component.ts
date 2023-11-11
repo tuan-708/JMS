@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class JdDetailComponent {
 
   jd: any;
+  listCvs:any;
   jobDetail = "";
   educationRequirement = "";
   experienceRequirement = "";
@@ -23,6 +24,15 @@ export class JdDetailComponent {
   otherInformation = "";
   descriptionCompany = "";
   listJds: any;
+  isExpiredDate = false
+
+  converTringDateInput(str: string) {
+    const dateStr: string = str;
+    const item =  dateStr.split("/")
+    const newDateString = item[1]+"-"+item[0]+"-"+item[2]
+    const originalDate: Date = new Date(newDateString);
+    return originalDate
+  }
 
   constructor(private route: ActivatedRoute) {
     let id: any;
@@ -42,13 +52,28 @@ export class JdDetailComponent {
         this.candidateBenefit = this.jd?.candidateBenefit
         this.otherInformation = this.jd?.otherInformation
         this.descriptionCompany = this.jd?.companyDTO?.description
+
+        console.log(this.jd);
+
+        const currenDate =  new Date()
+        const expiredDate = this.converTringDateInput(this.jd?.expiredDate)
+        if (expiredDate < currenDate ){
+          this.isExpiredDate = true
+        }
       })
       .catch(data => {
         console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
       })
-  }
 
-  Recruitment(){
-    console.log("Ứng tuyển ngay");
+      getRequest(apiCandidate.GET_ALL_CV_BY_RECRUITER_ID+"/1", AuthorizationMode.PUBLIC, {})
+      .then(res => {
+  
+        this.listCvs = res?.data;
+        console.log(this.listCvs);
+
+      })
+      .catch(data => {
+        console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
+      })
   }
 }

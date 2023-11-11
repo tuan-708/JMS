@@ -17,13 +17,82 @@
                     <!-- Modal HTML embedded directly into document -->
                     <div id="ex1" class="modal">
                         <div class="contentModal" style="width: 100%;">
-                            <div>Tiêu đề</div>
-                            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, culpa! Doloremque repellendus laboriosam sed quis excepturi nam cum accusantium, labore molestias, soluta eius. Sequi nesciunt repudiandae hic omnis, non assumenda!</div>
+                            <div class="textHeader">Ứng tuyển <span>{{ jd?.title }}</span></div>
+                            <div class="mt-2">
+                                <div>
+                                    <div class="textHeader2">Chọn CV ứng tuyển</div>
+
+                                    <select class="form-select shadow-none p-2 mt-2"
+                                        aria-label="Default select example">
+                                        <option value="0" selected>Chọn CV ứng tuyển</option>
+                                        <option *ngFor="let cv of listCvs; index as i"
+                                        value={{cv.id}}>{{cv.id}}</option>
+                                 
+                                    </select>
+
+                                    <div class="text-left d-flex mt-3" id="box-note-modal-apply">
+                                        <div class="col-3">
+                                            <img class="logoCompany" src="{{jd?.companyDTO?.avatarURL }}" alt="">
+                                        </div>
+
+                                        <div class="col-8 header2">
+                                            <div class="textHeader">{{ jd?.title }}</div>
+                                            <div class="textNomarl">Công ty: {{ jd?.companyDTO?.companyName }}</div>
+                                            <div class="textNomarl">Địa điểm: {{ jd?.address }}</div>
+                                            <div class="textNomarl">Mức lương: {{ jd?.salary }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-left mt-3" id="box-note-modal-apply">
+                                        <h4 class="note-title">
+                                            <i class="fa-solid fa-triangle-exclamation"></i> Lưu ý:
+                                        </h4>
+                                        <div class="note-content">
+                                            <p class="note-content__list">
+                                                <span>
+                                                    JMS khuyên tất cả các bạn hãy luôn cẩn trọng trong quá trình tìm
+                                                    việc và chủ động nghiên cứu về thông
+                                                    tin
+                                                    công ty, vị trí việc làm trước khi ứng tuyển. <br>Ứng viên cần có
+                                                    trách nhiệm với hành vi ứng tuyển của
+                                                    mình. Nếu bạn gặp
+                                                    phải tin tuyển dụng hoặc nhận được liên lạc đáng ngờ của nhà tuyển
+                                                    dụng, hãy báo cáo ngay cho JMS qua
+                                                    email
+                                                    <a class="color-green" target="_top"
+                                                        href="mailto:hotro@jms.vn">hotro@jms.vn</a> để được hỗ trợ
+                                                    kịp thời.
+                                                </span>
+                                            </p>
+                                            <p class="note-content__list">
+                                                <span>
+                                                    Tìm hiểu thêm kinh nghiệm phòng tránh lừa đảo <a href=""
+                                                        target="__blank" class="hight-light color-green">tại đây</a>.
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex mt-3">
+                                        <a type="button" rel="modal:close" class="btn btn-light">Huỷ</a>
+                                        <button type="button" class="btn btnBlueLight btn-block"
+                                            style="margin-left: 15px;">Ứng tuyển ngay</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Link to open the modal -->
-                    <a href="#ex1" rel="modal:open">Ứng tuyển ngay</a>
+                    <div *ngIf="isExpiredDate; else ExpiredDate">
+                        <a class="btnRecruimentExpiredDate" rel="modal:open">Đã hết hạn</a>
+                    </div>
+
+                    <ng-template #ExpiredDate>
+                        <!-- Link to open the modal -->
+                        <a href="#ex1" class="btnRecruiment" rel="modal:open">Ứng tuyển ngay</a>
+                    </ng-template>
+
+
                 </div>
             </div>
 

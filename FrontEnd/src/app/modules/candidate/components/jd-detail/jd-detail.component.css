@@ -102,13 +102,81 @@
 }
 
 
-.modal{
-    top: 80px;
-    max-width: 700px !important;
-    height: 700px !important;
+.modal {
+    top: 70px;
+    max-width: 800px !important;
+    height: 800px !important;
 }
 
-.modal a.close-modal{
+.modal a.close-modal {
     top: 10px !important;
     right: 10px !important;
+}
+
+.btnRecruiment {
+    padding: 12px 17px 12px 17px;
+    background-color: var(--blueLight2);
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnRecruiment:hover {
+    text-decoration: none;
+}
+
+.btnRecruimentExpiredDate {
+    padding: 15px 20px 15px 20px;
+    background-color: #fff1f0;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #d83324;
+}
+
+.btnRecruimentExpiredDate:hover {
+    text-decoration: none;
+    color: #d83324;
+    cursor: pointer;
+}
+
+.btnRecruiment:active {
+    text-decoration: none;
+}
+
+.textHeader {
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+#box-note-modal-apply {
+    background: #fff;
+    border: 1px solid #e9eaec;
+    border-radius: 8px;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    margin-top: 8px;
+    padding: 16px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+#box-note-modal-apply .note-title {
+    color: #d83324;
+    font-size: 1.1em;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.textHeader2 {
+    font-size: 1.1em;
+    font-weight: 600;
 }

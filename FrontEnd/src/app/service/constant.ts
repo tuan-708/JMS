@@ -27,5 +27,6 @@ export enum apiRecruiter{
 
 export enum apiCandidate{
     GET_ALL_JDS_PAGING =  "/api/JobDesc/get-all-jd",
-    GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id"
+    GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",
+    GET_ALL_CV_BY_RECRUITER_ID = "/api/CVs/all-cv"
 }
