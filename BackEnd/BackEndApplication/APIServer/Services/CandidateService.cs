@@ -17,16 +17,16 @@ namespace APIServer.Services
     public class CandidateService : ICandidateService
     {
         private readonly ICurriculumVitaeRepository _context;
-        private readonly ICVApplyRepository _CVApplyContext;
+        private readonly ICVMatchingRepository _CVMatchingRepository;
         private readonly IJobRepository _JobContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         private readonly ICandidateRepository _candidateRepository;
 
-        public CandidateService(ICurriculumVitaeRepository context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration, ICandidateRepository candidateRepository, IJobRepository JobContext)
+        public CandidateService(ICurriculumVitaeRepository context, ICVMatchingRepository CVMatchingRepository, IMapper mapper, IConfiguration configuration, ICandidateRepository candidateRepository, IJobRepository JobContext)
         {
             _context = context;
-            _CVApplyContext = CVApplyContext;
+            _CVMatchingRepository = CVMatchingRepository;
             _mapper = mapper;
             _configuration = configuration;
             _candidateRepository = candidateRepository;
@@ -88,7 +88,7 @@ namespace APIServer.Services
             try
             {
                 var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candidateId));
-                var CVAppliedByCVIdList = _mapper.Map<List<CVApplyDTO>>(_CVApplyContext.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId));
+                var CVAppliedByCVIdList = _mapper.Map<List<CVMatchingDTO>>(_CVMatchingRepository.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId));
                 CurriculumVitae? cv = GetCVById(CVid);
                 var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
                 JobDescription jobDescription = _JobContext.GetById(jobDescriptionId);
@@ -98,12 +98,12 @@ namespace APIServer.Services
                     {
                         CVMatching CVApplied = new CVMatching();
 
-                        if (CVAppliedByCVIdList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsAutoMatched == true && x.IsReject == false))
+                        if (CVAppliedByCVIdList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsApplied == false && x.IsReject == false))
                         {
-                            CVApplied = _CVApplyContext.GetByCVIdAndLastUpdateDate(curriculumVitae.Id, cv.LastUpdateDate);
+                            CVApplied = _CVMatchingRepository.GetByCVIdAndLastUpdateDate(curriculumVitae.Id, cv.LastUpdateDate);
                             CVApplied.IsApplied = true;
                             CVApplied.IsReject = false;
-                            return _CVApplyContext.Update(CVApplied);
+                            return _CVMatchingRepository.Update(CVApplied);
                         }
                         else
                         {
@@ -129,11 +129,12 @@ namespace APIServer.Services
                             CVApplied.CurriculumVitaeId = curriculumVitae.Id;
                             CVApplied.IsMatched = false;
                             CVApplied.IsApplied = true;
+                            CVApplied.IsSelected = false;
                             CVApplied.IsReject = false;
                             string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv));
                             CVApplied.JSONMatching = JSONrs;
                             CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs);
-                            return _CVApplyContext.Create(CVApplied);
+                            return _CVMatchingRepository.Create(CVApplied);
                         }
 
                     }
@@ -151,15 +152,15 @@ namespace APIServer.Services
 
         public List<CVMatching> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate)
         {
-            List<CVMatching> cVApplies = _CVApplyContext.GetAllByCandidateIdAndFromDataAndToDate(candaidateId, fromDate, toDate);
+            List<CVMatching> cVApplies = _CVMatchingRepository.GetAllByCandidateIdAndFromDataAndToDate(candaidateId, fromDate, toDate);
             return cVApplies;
         }
 
-        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData)
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVAppliedHistoryPaging(int? page, List<CVMatchingDTO> listData)
         {
             if (!listData.Any())
             {
-                return new PagingResponseBody<List<CVApplyDTO>>
+                return new PagingResponseBody<List<CVMatchingDTO>>
                 {
                     currentPage = 0,
                     message = GlobalStrings.SUCCESSFULLY,
@@ -174,7 +175,7 @@ namespace APIServer.Services
             page = page <= 0 || page == null ? 1 : page;
             page = page > totalPage ? totalPage : page;
             var data = listData.ToPagedList((int)page, numberInOnePage).ToList();
-            return new PagingResponseBody<List<CVApplyDTO>>
+            return new PagingResponseBody<List<CVMatchingDTO>>
             {
                 currentPage = (int)page,
                 message = GlobalStrings.SUCCESSFULLY,
@@ -187,7 +188,7 @@ namespace APIServer.Services
 
         public CVMatching GetCVAppliedDetail(int candidateId, int CVAppliedId)
         {
-            CVMatching cVApplied = _CVApplyContext.GetByCandidateIdAndCVAppliedId(candidateId, CVAppliedId);
+            CVMatching cVApplied = _CVMatchingRepository.GetByCandidateIdAndCVAppliedId(candidateId, CVAppliedId);
             return cVApplied;
         }
 
@@ -230,6 +231,12 @@ namespace APIServer.Services
 
             var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
             return accessToken;
+        }
+
+        public List<CVMatching> GetCVApplied(int candaidateId)
+        {
+            List<CVMatching> cVApplied = _CVMatchingRepository.GetAllByIsApplied(candaidateId);
+            return cVApplied;
         }
     }
 }

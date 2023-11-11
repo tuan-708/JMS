@@ -185,7 +185,7 @@ namespace APIServer.Common
             {
                 Model = Model.GPT4,
                 //Temperature = 0f,
-                MaxTokens = 125,
+                MaxTokens = 150,
                 Messages = new ChatMessage[] {
             new ChatMessage(ChatMessageRole.User, prompt)
         }

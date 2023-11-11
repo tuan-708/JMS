@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APIServer.Repositories
 {
-    public class CVAppliedRepository : ICVApplyRepository
+    public class CVMatchingRepository : ICVMatchingRepository
     {
         private readonly JMSDBContext _context;
 
-        public CVAppliedRepository(JMSDBContext context)
+        public CVMatchingRepository(JMSDBContext context)
         {
             _context = context;
         }
@@ -38,8 +38,8 @@ namespace APIServer.Repositories
         public List<CVMatching> GetAllByCandidateIdAndFromDataAndToDate(int candidateId, DateTime? fromDate, DateTime? toDate)
         {
             List<CVMatching> cVApplies = GetAllById(candidateId);
-            if(fromDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate >= fromDate).ToList();
-            if(toDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate <= toDate).ToList();
+            if (fromDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate >= fromDate).ToList();
+            if (toDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate <= toDate).ToList();
 
             return cVApplies;
         }
@@ -54,6 +54,41 @@ namespace APIServer.Repositories
             return cVApplies;
         }
 
+        public List<CVMatching> GetAllByIsApplied(int candidateId)
+        {
+            List<CVMatching> cVApplies = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
+                .Where(x => x.CandidateId == candidateId && x.IsApplied).OrderByDescending(x => x.PercentMatching).ToList();
+            return cVApplies;
+        }
+
+        public List<CVMatching> GetAllByIsMatched(int recruiterId, int jobDescriptionId)
+        {
+            List<CVMatching> cVMatchings = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
+                .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsMatched && x.IsReject == false).OrderByDescending(x => x.PercentMatching).ToList();
+            return cVMatchings;
+        }
+
+        public List<CVMatching> GetAllByIsSelected(int recruiterId, int jobDescriptionId)
+        {
+            List<CVMatching> cVMatchings = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
+                .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsSelected && x.IsReject == false).OrderByDescending(x => x.PercentMatching).ToList();
+            return cVMatchings;
+        }
+
         public List<CVMatching> GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(int recruiterId, int? jobDescriptionId, DateTime? fromDate, DateTime? toDate)
         {
             List<CVMatching> cVApplies = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
@@ -62,9 +97,9 @@ namespace APIServer.Repositories
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
                 .Where(x => x.JobDescription.RecuirterId == recruiterId).ToList();
-            if(jobDescriptionId != null) cVApplies = cVApplies.Where(x => x.JobDescriptionId == jobDescriptionId).ToList();
-            if(fromDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate >= fromDate).ToList();
-            if(toDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate <= toDate).ToList();
+            if (jobDescriptionId != null) cVApplies = cVApplies.Where(x => x.JobDescriptionId == jobDescriptionId).ToList();
+            if (fromDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate >= fromDate).ToList();
+            if (toDate != null) cVApplies = cVApplies.Where(x => x.ApplyDate <= toDate).ToList();
             return cVApplies;
         }
 

@@ -92,8 +92,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Company)
                 .Include(x => x.Category)
                 .Include(x => x.Gender)
-                .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
-                x.RecuirterId == recuirterId)
+                .Where(x => !x.IsDelete && x.RecuirterId == recuirterId)
                 .ToList();
             return rs;
         }

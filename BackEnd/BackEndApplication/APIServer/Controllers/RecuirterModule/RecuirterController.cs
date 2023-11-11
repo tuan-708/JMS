@@ -65,44 +65,32 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet]
-        [Route("test-prompt")]
-        public async Task<IActionResult> getTest(int jobDescriptionId, int CVId)
+        [Route("get-all-cv-matched")]
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVMatched(int recruiterId, int jobDescriptionId, int? pageIndex)
         {
-
-            var job = context.JobDescriptions
-               .Include(x => x.Recuirter)
-               .Include(x => x.Level)
-               .Include(x => x.EmploymentType)
-               .Include(x => x.Company)
-               .Include(x => x.Category)
-               .FirstOrDefault(x => x.JobId == jobDescriptionId);
-            var cv = context.CurriculumVitaes
-                .Include(x => x.JobExperiences)
-                .Include(x => x.Skills)
-                .Include(x => x.Educations)
-                .Include(x => x.Projects)
-                .Include(x => x.Certificates)
-                .Include(x => x.Awards)
-                .FirstOrDefault(x => x.Id == CVId);
-            string prompt = GPT_PROMPT.PromptForCandidate(job, cv) + Environment.NewLine;
-            string result = await GPT_PROMPT.GetResult(prompt) + Environment.NewLine;
-            //float percent = Validation.checkPercentMatchingFromJSON(result);
-            prompt += result + Environment.NewLine;
-
-            return Ok(prompt);
+            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatched(recruiterId, jobDescriptionId));
+            return _recuirterService.GetCVPaging(pageIndex, rs);
         }
 
         [HttpGet]
-        [Route("matching-cv")]
-        public async Task<BaseResponseBody<List<CVApplyDTO>>> MatchingCV(int jobDescriptionId, int numberRequirement)
+        [Route("get-all-cv-selected")]
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVSelected(int recruiterId, int jobDescriptionId, int? pageIndex)
         {
-            List<CVApplyDTO> cVApplies = _mapper.Map<List<CVApplyDTO>>(await _recuirterService.GetCVFromMatchingJD(jobDescriptionId, numberRequirement));
+            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatched(recruiterId, jobDescriptionId));
+            return _recuirterService.GetCVPaging(pageIndex, rs);
+        }
 
-            return new BaseResponseBody<List<CVApplyDTO>>
+        [HttpPost]
+        [Route("matching-job")]
+        public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId, int numberRequirement)
+        {
+            List<CVMatchingDTO> cVApplies = _mapper.Map<List<CVMatchingDTO>>(await _recuirterService.GetCVFromMatchingJD(recruiterId, jobDescriptionId, numberRequirement));
+
+            return new BaseResponseBody<List<CVMatchingDTO>>
             {
                 statusCode = HttpStatusCode.OK,
                 message = GlobalStrings.SUCCESSFULLY,
-                data = _mapper.Map<List<CVApplyDTO>>(cVApplies),
+                data = _mapper.Map<List<CVMatchingDTO>>(cVApplies),
             };
         }
 

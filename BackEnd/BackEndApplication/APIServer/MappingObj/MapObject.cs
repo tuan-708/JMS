@@ -68,7 +68,7 @@ namespace APIServer.MappingObj
                 host + "\\defaults\\default_avt.jpg" :
                 host + src.AvatarURL))
                 ;
-            CreateMap<CVMatching, CVApplyDTO>()
+            CreateMap<CVMatching, CVMatchingDTO>()
                 .ForMember(x => x.Candidate, src => src.MapFrom(src => src.Candidate))
                 .ForMember(x => x.JobDescription, src => src.MapFrom(src => src.JobDescription))
                 .ForMember(x => x.Level, src => src.MapFrom(src => src.Level))
