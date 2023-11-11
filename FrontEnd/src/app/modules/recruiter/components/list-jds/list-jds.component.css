@@ -89,7 +89,6 @@ button{
     flex-direction: column;
 }
 
-
 .pagination li a[aria-label="Previous"],
 .pagination li a[aria-label="Next"] {
   /* Hide the text but keep the functionality */
@@ -102,3 +101,11 @@ button{
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.bi{
+    color: coral;
+}
+
+.hidden {
+    display: none;
+  }

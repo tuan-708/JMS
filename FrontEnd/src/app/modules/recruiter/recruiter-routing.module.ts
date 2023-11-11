@@ -6,6 +6,7 @@ import { CompanyRegisterComponent } from './components/company-register/company-
 import { CompanyUpdateComponent } from './components/company-update/company-update.component';
 import { JdRegisterComponent } from './components/jd-register/jd-register.component';
 import { ListJdsComponent } from './components/list-jds/list-jds.component';
+import { JdUpdateComponent } from './components/jd-update/jd-update.component';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
    { path: "company-update", title: "Nhà tuyển dụng - Chỉnh sửa công ty", component: CompanyUpdateComponent },
    { path: "jd-register", title: "Nhà tuyển dụng - Đăng ký bài tuyển dụng", component: JdRegisterComponent },
    { path: "list-jds", title: "Nhà tuyển dụng - Danh sách bài tuyển dụng", component: ListJdsComponent },
-   { path: "jd-detail/:id", title: "Nhà tuyển dụng - Chi tiết bài tuyển dụng", component: JdDetailComponent },
+   { path: "jd-detail/:id", title: "Nhà tuyển dụng - Cập nhật bài tuyển dụng", component: JdUpdateComponent },
+   { path: "view-jd-detail/:id", title: "Nhà tuyển dụng - Chi tiết bài tuyển dụng", component: JdDetailComponent },
 ];
 
 @NgModule({

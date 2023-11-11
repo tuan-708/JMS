@@ -1,0 +1,29 @@
+button {
+    width: 80px;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    box-shadow: var(--boxShadow);
+}
+
+.prm-btn{
+    margin-right: 20px;
+    background-color: blueviolet;
+    color: white;
+}
+
+.popup{
+    margin-bottom: 20px;
+    border-radius: 15px;
+    border: 1px #ccc solid;
+    padding: 15px;
+    display: flex;
+    position: absolute;
+    box-shadow: var(--boxShadow);
+}
+
+.content{
+    display: block;
+    overflow: auto;
+    padding: 30px 10px 10px 10px;
+    text-align: center;
+}

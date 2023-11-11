@@ -1,7 +1,71 @@
-.formJđetail{
-    padding-top: 80px;
+.formCompanyRegister {
+   padding-top: 80px;
 }
 
-.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input{
-    color: black !important;
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+   font-size: 1rem;
+   line-height: 2.15;
+   padding-left: .75em;
+   padding-right: .75em;
+}
+
+.card-registration {
+   top: 13px;
+   margin-top: 20px;
+}
+
+input {
+   font-size: medium;
+}
+
+.file-upload-image {
+   max-height: 300px;
+   margin: auto;
+   object-fit: cover;
+}
+
+.grp-btn {
+   text-align: center;
+   margin-bottom: 10px;
+   color: white;
+}
+
+.grp-btn button {
+   width: 250px;
+   color: white;
+   background-color: cornflowerblue;
+}
+
+.btnSnd {
+   margin-left: 10px;
+}
+
+.bi {
+   color: #6EA8FE;
+}
+
+.p-parent {
+   display: flex;
+   /* justify-content: center; */
+   margin-bottom: 15px;
+   padding-left: 30px;
+}
+
+.p-child {
+   display: flex;
+   flex-direction: column;
+   text-align: left;
+}
+
+.p-child-content {
+   display: block;
+   padding-left: 10px;
+}
+
+.p-child-content:first-child{
+   color: darkorange;
+}
+
+.p-child-content:nth-child(2){
+   font-weight: 600;
 }
