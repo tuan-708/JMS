@@ -12,22 +12,26 @@ import { Router } from '@angular/router';
 export class CandidateListCompaniesComponent {
    categories: any;
    companies: any;
-
+   page = 1;
+   itemsPerPage = 9;
+   totalItems = 0;
    categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
 
    constructor(private router: Router) {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { })
       .then(res => {
          this.categories = res?.data
+   
       })
       .catch(data => {
          console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
       })
 
-      getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 10})
+      getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page:this.page})
       .then(res => {
          this.companies = res?.data
-         console.log(this.companies);
+         this.totalItems = res?.objectLength
+         console.log(this.totalItems);
       })
       .catch(data => {
          console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
@@ -37,5 +41,17 @@ export class CandidateListCompaniesComponent {
 
    onClick(company:any){
       this.router.navigate(['/candidate/company-detail', company?.companyId]);
+   }
+
+   pageChanged(page: any) {
+      this.page = page
+      getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, {page:this.page})
+         .then(res => {
+            this.companies = res?.data
+
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_COMPANY_PAGING);
+         })
    }
 }

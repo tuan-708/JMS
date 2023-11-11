@@ -136,8 +136,8 @@
                     <!-- Input Email  -->
                     <div class="mt-1">
                         <i class="fa-solid fa-envelope" [style.color]="colorLeftHeader"></i>
-                        <input type="text" placeholder="Email" class="form-info-input inputEmail" [style.color]="colorLeftInput"
-                            [class]="ThemStyle">
+                        <input type="text" placeholder="Email" class="form-info-input inputEmail"
+                            [style.color]="colorLeftInput" [class]="ThemStyle">
                     </div>
                     <!-- Input Phone  -->
                     <div class="mt-1">
@@ -148,8 +148,8 @@
                     <!-- Input Media  -->
                     <div class="mt-1">
                         <i class="fa-solid fa-earth-americas" [style.color]="colorLeftHeader"></i>
-                        <input type="text" placeholder="Link web" class="form-info-input inputLinkMedia" [style.color]="colorLeftInput"
-                            [class]="ThemStyle">
+                        <input type="text" placeholder="Link web" class="form-info-input inputLinkMedia"
+                            [style.color]="colorLeftInput" [class]="ThemStyle">
                     </div>
                     <!-- Input Address  -->
                     <div class="mt-1 d-flex">
@@ -170,14 +170,15 @@
                     <div class="skill">
                         <!-- Input Name Skills  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Tên kỹ năng" class="form-info-input"
+                            <input type="text" placeholder="Tên kỹ năng" class="form-info-input inputTitleSkills"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
 
                         <!-- Input Describe Skills  -->
                         <div class="mt-1">
-                            <textarea rows="4" maxlength="120" placeholder="Mô tả kỹ năng" class="form-info-input"
-                                [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                            <textarea rows="4" maxlength="120" placeholder="Mô tả kỹ năng"
+                                class="form-info-input inputDescripitonSkills" [style.color]="colorLeftInput"
+                                [class]="ThemStyle"></textarea>
                         </div>
                     </div>
 
@@ -196,15 +197,29 @@
                     </div>
 
                     <div class="certificates">
-                        <!-- Input Time Certificates  -->
+                        <!-- Input Name Certificates  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Thời gian" class="form-info-input"
+                            <input type="text" placeholder="Tên chứng chỉ" class="form-info-input"
+                            [style.color]="colorLeftInput" [class]="ThemStyle">
+                        </div>
+
+                        <!-- Input Time Certificates  -->
+                        <div class="mt-1 d-flex">
+                            <input type="text" placeholder="Bắt đầu" class="form-info-input width50"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
+                            <div>-</div>
+                            <input type="text" placeholder="Kết thúc" class="form-info-input width50"
+                                [style.color]="colorLeftInput" [class]="ThemStyle">
+                        </div>
+
+                        <div class="mt-1">
+                            <input type="text" placeholder="Link" class="form-info-input width50"
+                            [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
 
                         <!-- Input Name Certificates  -->
                         <div class="mt-1">
-                            <textarea rows="2" maxlength="60" placeholder="Miêu tả" class="form-info-input"
+                            <textarea rows="2" maxlength="120" placeholder="Miêu tả" class="form-info-input"
                                 [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
                         </div>
                     </div>

@@ -82,9 +82,12 @@ export class CandidateCreateCvComponent {
       const phone = $(".inputPhone")[0].value;
       const linkMedia = $(".inputLinkMedia")[0].value;
       const address = $(".inputAddress")[0].value;
+      $(".inputTitleSkills").length
+      $(".inputDescripitonSkills").length
+      
+      $(".inputTitleSkills");
 
-
-      console.log(address);
+      console.log( $(".inputTitleSkills").length);
 
 
    }
