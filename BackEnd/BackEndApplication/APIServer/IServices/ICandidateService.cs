@@ -8,8 +8,9 @@ namespace APIServer.IServices
     {
         public Task<int> ApplyJob(int candaidateId, int CVid, int jobDescriptionId);
         public List<CVMatching> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate);
-        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData);
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVAppliedHistoryPaging(int? page, List<CVMatchingDTO> listData);
         public CVMatching GetCVAppliedDetail(int candidateId, int CVAppliedId);
         public string LoginCandidate(string? userName, string? password);
+        public List<CVMatching> GetCVApplied(int candaidateId);
     }
 }
