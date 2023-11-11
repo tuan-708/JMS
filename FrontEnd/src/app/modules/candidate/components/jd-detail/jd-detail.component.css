@@ -6,7 +6,7 @@
     display: flex;
 }
 
-.header1{
+.header1 {
     display: flex;
     justify-content: center;
 }
@@ -17,13 +17,13 @@
     object-fit: contain;
 }
 
-.Recruitment{
+.Recruitment {
     padding: 10px 15px 10px 15px;
     border-radius: 10px;
     background-color: var(--blueLight2);
 }
 
-.header3{
+.header3 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +34,7 @@
     font-weight: 600;
 }
 
-.textBold{
+.textBold {
     font-size: 1.3em;
     font-weight: 600;
     margin-bottom: 10px;
@@ -45,56 +45,70 @@
     font-weight: 400;
 }
 
-.infomationLeft{
+.infomationLeft {
     border-right: 1px solid #ccc;
 }
 
-.mat-mdc-tab-group, .mat-mdc-tab-nav-bar{
+.mat-mdc-tab-group,
+.mat-mdc-tab-nav-bar {
     --mat-tab-header-active-focus-label-text-color: #151414;
-    --mat-tab-header-active-label-text-color : #151414;
+    --mat-tab-header-active-label-text-color: #151414;
     --mat-tab-header-inactive-label-text-color: rgb(0 0 0 / 60%);
     --mat-tab-header-inactive-focus-label-text-color: #151414;
-    --mat-tab-header-inactive-hover-label-text-color : #151414;
+    --mat-tab-header-inactive-hover-label-text-color: #151414;
     --mdc-tab-indicator-active-indicator-color: #242022;
     --mat-tab-header-active-hover-label-text-color: var(--blueLight2);
-    --mat-tab-header-active-ripple-color:  var(--blueLight2);
+    --mat-tab-header-active-ripple-color: var(--blueLight2);
     --mat-tab-header-inactive-ripple-color: #232222;
 }
 
-.mdc-tab__text-label{
+.mdc-tab__text-label {
     min-width: 30px !important;
-    padding: 20px; 
+    padding: 20px;
     color: white;
     opacity: 1 !important;
     font-weight: 700;
     font-size: 1.2em;
 }
-.mat-mdc-tab-labels{
+
+.mat-mdc-tab-labels {
     width: 50%;
     margin-top: 20px;
 }
 
-.itemSmall{
+.itemSmall {
     margin-bottom: 10px;
     height: 55px;
 }
 
-.itemSmall i{
+.itemSmall i {
     line-height: 55px;
 }
 
-.line{
+.line {
     width: 65%;
     height: 2px;
     background-color: #ccc;
     margin-bottom: 10px;
 }
 
-.contentItemSmal{
+.contentItemSmal {
     margin-left: 15px;
     font-size: 1em;
 }
 
-.contentItemSmal >:nth-child(odd){
+.contentItemSmal>:nth-child(odd) {
     font-weight: 500;
+}
+
+
+.modal{
+    top: 80px;
+    max-width: 700px !important;
+    height: 700px !important;
+}
+
+.modal a.close-modal{
+    top: 10px !important;
+    right: 10px !important;
 }

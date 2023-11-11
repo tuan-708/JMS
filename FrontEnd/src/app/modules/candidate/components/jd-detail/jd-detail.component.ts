@@ -47,4 +47,8 @@ export class JdDetailComponent {
         console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
       })
   }
+
+  Recruitment(){
+    console.log("Ứng tuyển ngay");
+  }
 }

@@ -13,7 +13,17 @@
                     <div class="textNomarl">Mức lương: {{ jd?.salary }}</div>
                 </div>
                 <div class="col-3 header3">
-                    <button class="Recruitment">Ứng tuyển ngay</button>
+
+                    <!-- Modal HTML embedded directly into document -->
+                    <div id="ex1" class="modal">
+                        <div class="contentModal" style="width: 100%;">
+                            <div>Tiêu đề</div>
+                            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, culpa! Doloremque repellendus laboriosam sed quis excepturi nam cum accusantium, labore molestias, soluta eius. Sequi nesciunt repudiandae hic omnis, non assumenda!</div>
+                        </div>
+                    </div>
+
+                    <!-- Link to open the modal -->
+                    <a href="#ex1" rel="modal:open">Ứng tuyển ngay</a>
                 </div>
             </div>
 
@@ -49,7 +59,7 @@
                             <div [innerHTML]="skillRequirement">
                             </div>
 
-                            
+
                             <div class="textBold">
                                 Yêu cầu chứng chỉ
                             </div>
@@ -71,7 +81,7 @@
                             <div [innerHTML]="candidateBenefit">
                             </div>
 
-                            
+
                             <div class="textBold">
                                 Yêu cầu khác
                             </div>
@@ -162,7 +172,7 @@
                             </div>
                         </div>
                         <div style="width: 35%; padding: 20px;">
-                      
+
 
                             <div class="d-flex itemSmall">
                                 <i class="fa-solid fa-signature"></i>
@@ -190,7 +200,7 @@
                                     <div>{{ jd?.companyDTO?.categoryName}}</div>
                                 </div>
                             </div>
-                            
+
                             <div class="line"></div>
 
                             <div class="d-flex itemSmall">

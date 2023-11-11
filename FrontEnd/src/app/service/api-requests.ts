@@ -29,6 +29,7 @@ export async function getRequest(url: string, authorizationMode: AuthorizationMo
     const query = convertPayloadToQueryString(data);
 
     const fullUrl = query ? `${apiURL}${url}?${query}` : `${apiURL}${url}`;
+    
     const response = await fetch(fullUrl, {
         method: "GET",
         cache: "no-cache",
