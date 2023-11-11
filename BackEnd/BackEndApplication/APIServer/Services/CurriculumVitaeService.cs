@@ -34,7 +34,7 @@ namespace APIServer.Services
         public int CreateById(CurriculumVitae cv, int candidateId)
         {
             cv.CandidateId = candidateId;
-            if (!Validation.checkStringIsEmpty(cv.Phone, cv.DisplayName, cv.DisplayEmail) &&
+            if (!Validation.checkStringIsEmpty(cv.Phone, cv.DisplayName, cv.DisplayEmail, cv.CVTitle) &&
                 !Validation.IsPhoneNumberValid(cv.Phone))
             {
                 throw new ArgumentNullException("cv not finished yet");
@@ -83,8 +83,6 @@ namespace APIServer.Services
             }
             return rs;
         }
-
-        
 
         public int Update(CurriculumVitae data)
         {
