@@ -27,6 +27,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ListCandidateComponent } from './components/list-candidate/list-candidate.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { AutosizeModule } from 'ngx-autosize';
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -60,6 +61,7 @@ import { MatListModule } from '@angular/material/list';
       MatTabsModule,
       MatDividerModule,
       MatListModule,
+      AutosizeModule,
    ]
 })
 export class RecruiterModule { }

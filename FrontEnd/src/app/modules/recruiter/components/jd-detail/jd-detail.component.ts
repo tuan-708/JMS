@@ -14,7 +14,9 @@ export class JdDetailComponent {
   jdDetail: any
   id: any
   listCandidate: any
-
+  jobDescription: any
+  jobBenefit: any
+  jobRequirement: any
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
@@ -25,6 +27,7 @@ export class JdDetailComponent {
       .then(res => {
         this.jdDetail = res.data
         console.log(res);
+        this.handleData();
       })
       .catch(data => {
         console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
@@ -50,4 +53,15 @@ export class JdDetailComponent {
     });
   }
 
+  handleData(){
+    console.log(this.jdDetail.jobDetail)
+
+    this.jobDescription = ((this.jdDetail.jobDetail).replaceAll(/ -/g, "	&#13;-")).trim();
+    this.jobBenefit = ((this.jdDetail.candidateBenefit).replaceAll(/ -/g, "	&#13;-")).trim();
+    let skillRq  = ((this.jdDetail.skillRequirement).replaceAll(/ -/g, "	&#13;-")).trim();
+    let expRq  = ((this.jdDetail.experienceRequirement).replaceAll(/ -/g, "	&#13;-")).trim();
+    let eduRq  = ((this.jdDetail.educationRequirement).replaceAll(/ -/g, "	&#13;-")).trim();
+    this.jobRequirement = skillRq + '\n' + expRq + '\n' + eduRq
+    console.log(this.jobRequirement)
+  }
 }

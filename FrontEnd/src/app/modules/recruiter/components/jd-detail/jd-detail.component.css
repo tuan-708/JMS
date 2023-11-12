@@ -62,10 +62,35 @@ input {
    padding-left: 10px;
 }
 
-.p-child-content:first-child{
+.p-child-content:first-child {
    color: darkorange;
 }
 
-.p-child-content:nth-child(2){
+.p-child-content:nth-child(2) {
    font-weight: 600;
+}
+
+.rq-area {
+   width: 100%;
+   height: 100%;
+   resize: none;
+   padding-bottom: 20px;
+   /* set can't select */
+   -webkit-user-select: none;
+   /* Safari */
+   -ms-user-select: none;
+   /* IE 10 and IE 11 */
+   user-select: none;
+   /* Standard syntax */
+   cursor: default;
+   -webkit-user-select: none;
+   -webkit-touch-callout: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   -o-user-select: none;
+}
+
+.rq-area:focus {
+   outline: none;
 }
