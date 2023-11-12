@@ -15,8 +15,10 @@ namespace APIServer.Models.Entity
         public string? MajorName { get; set; }
         [StringLength(500)]
         public string? Description { get; set; }
-        public int? FromYear { get; set; }
-        public int? ToYear { get; set; }
+        [StringLength(200)]
+        public string? FromYear { get; set; }
+        [StringLength(200)]
+        public string? ToYear { get; set; }
         public bool StillLearning { get; set; }
     }
 }
