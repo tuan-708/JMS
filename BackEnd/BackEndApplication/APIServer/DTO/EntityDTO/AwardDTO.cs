@@ -7,6 +7,6 @@ namespace APIServer.DTO.EntityDTO
     {
         public string AwardName { get; set; }
         public string? Description { get; set; }
-        public int? FromYear { get; set; }
+        public string? FromYear { get; set; }
     }
 }

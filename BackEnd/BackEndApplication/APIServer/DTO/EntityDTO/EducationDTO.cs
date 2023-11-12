@@ -8,8 +8,8 @@ namespace APIServer.DTO.EntityDTO
         public string SchoolName { get; set; }
         public string? MajorName { get; set; }
         public string? Description { get; set; }
-        public int? FromYear { get; set; }
-        public int? ToYear { get; set; }
+        public string? FromYear { get; set; }
+        public string? ToYear { get; set; }
         public bool StillLearning { get; set; }
     }
 }

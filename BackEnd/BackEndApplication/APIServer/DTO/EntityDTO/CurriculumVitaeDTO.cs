@@ -32,5 +32,7 @@ namespace APIServer.DTO.EntityDTO
         public bool? IsFindingJob { get; set; }
         public string? LevelTitle { get; set; }
         public string CVTitle { get; set; }
+        public int? Theme { get; set; }
+        public string? Font { get; set; }
     }
 }

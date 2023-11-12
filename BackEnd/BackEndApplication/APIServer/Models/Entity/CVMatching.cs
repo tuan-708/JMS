@@ -44,5 +44,7 @@ namespace APIServer.Models.Entity
         public bool IsApplied { get; set; }
         public bool IsSelected { get; set; }
         public bool? IsReject { get; set; }
+        public int? Theme { get; set; }
+        public string? Font { get; set; }
     }
 }

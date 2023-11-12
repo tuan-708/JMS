@@ -53,7 +53,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
                 .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName)))
                 .ForMember(x => x.LevelId, src => src.MapFrom(src => Validation.ConvertInt(src.LevelTitle)))
-                .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName)))
+                .ForMember(x => x.CategoryId, src => src.MapFrom(src => src.CategoryId))
                 .ForMember(x => x.GenderId, src => src.MapFrom(src => Validation.ConvertInt(src.GenderDisplay)))
                 ;
             CreateMap<CurriculumVitae, CurriculumVitaeDTO>()
