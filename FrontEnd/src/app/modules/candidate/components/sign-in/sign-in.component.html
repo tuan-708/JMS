@@ -31,14 +31,14 @@
                <!-- Email input -->
                <div class="form-label-group mb-4 mt-3">
                   <label class="form-label" for="form3Example3">Tên đăng nhập</label><span class="link-danger"> *</span>
-                  <input type="text" id="form3Example3" class="form-control form-control-md shadow-none"/>
+                  <input type="text" [(ngModel)]="username" name="username" id="form3Example3" class="form-control form-control-md shadow-none"/>
                </div>
    
                <!-- Password input -->
                <div class="form-outline mb-3">
                   <label class="form-label" for="form3Example4">Mật khẩu</label><span class="link-danger">
                      *</span>
-                  <input type="password" id="form3Example4" class="form-control form-control-md shadow-none"
+                  <input type="password" [(ngModel)]="password" name="password" id="form3Example4" class="form-control form-control-md shadow-none"
                      placeholder="" />
    
                </div>
@@ -55,7 +55,7 @@
                </div>
    
                <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="button" class="btn btn-primary btn-lg col-12">Đăng nhập</button>
+                  <button type="button" class="btn btn-primary btn-lg col-12" (click)="signIn($event)">Đăng nhập</button>
                   <p class="textHeader2 mt-3 pt-1 mb-0 mb-5">Bạn chưa có tài khoản?
                      <a [routerLink]="['/candidate/register']" class="textHeader3 link-danger text-decoration-none"> Đăng
                         ký</a>

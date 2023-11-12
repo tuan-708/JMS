@@ -263,3 +263,14 @@
    font-weight: 600;
    font-size: 1.2em;
 }
+
+.modal {
+   top: 70px;
+   max-width: 800px !important;
+   height: 800px !important;
+}
+
+.modal a.close-modal {
+   top: 10px !important;
+   right: 10px !important;
+}

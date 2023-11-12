@@ -17,9 +17,7 @@
                   <li id="box1" class="list" *ngFor="let com of list">
                      <a href="{{Url}}/candidate/create-cv/{{com-1}}">
                         <div class="imageSize">
-                           <img
-                              src="{{Url}}/assets/templateCV/theme{{ com }}.png"
-                              alt="...">
+                           <img src="{{Url}}/assets/templateCV/theme{{ com }}.png" alt="...">
                         </div>
                         <div class="textTemplate">Mẫu {{ com }}</div>
                      </a>
@@ -32,99 +30,52 @@
             <div style="display: flex; justify-content: space-between;">
                <div class="textHeader1">Hồ sơ của bạn</div>
                <a href="{{Url}}/candidate/create-cv/6">
-                  <button type="button" class="btn btnBlueLight"><i class="fa-solid fa-plus" style="margin-right: 7px;"></i>Tạo mới</button>
+                  <button type="button" class="btn btnBlueLight"><i class="fa-solid fa-plus"
+                        style="margin-right: 7px;"></i>Tạo mới</button>
                </a>
             </div>
-     
+
             <div class="row mt-4 d-flex blockCV">
-               <div class="col-5 itemCv">
+               <div class="col-5 itemCv" *ngFor="let cv of listCVs">
                   <div class="d-flex">
                      <div class="imageCV">
-                        <img
-                        src="{{Url}}/assets/templateCV/theme1.png"
-                        alt="...">
+                        <img src="{{Url}}/assets/templateCV/theme{{ cv?.theme + 1 }}.png" alt="...">
                      </div>
                      <div class="contentItem">
-                        <div class="textBold mb-1">Hồ sơ 1</div>
-                        <div class="textStyle mb-1">Ngành: CNTT</div>
-                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
+                        <div class="textBold mb-1">- {{ cv.cvTitle}}</div>
+                        <div class="textStyle mb-1">- Vị trí ứng tuyển: {{ cv.positionTitleName ? cv.positionTitleName :
+                           "Chưa cập nhật" }}</div>
+                        <div class="textStyle">- Cập nhật gần nhất {{ cv?.lastUpdateDateDisplay}} </div>
                      </div>
                   </div>
-                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
-                  <i class="fa-solid fa-trash btnTrash"></i>
-               </div>
-               <div class="col-5 itemCv">
-                  <div class="d-flex">
-                     <div class="imageCV">
-                        <img
-                        src="{{Url}}/assets/templateCV/theme8.png"
-                        alt="...">
-                     </div>
-                     <div class="contentItem">
-                        <div class="textBold mb-1">Hồ sơ 2</div>
-                        <div class="textStyle mb-1">Ngành: CNTT</div>
-                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
-                     </div>
-                  </div>
-                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
-                  <i class="fa-solid fa-trash btnTrash"></i>
-               </div>
+                  <i class="fa-solid fa-pen-to-square btnEdit" (click)="gotoEditCV(cv.id)"></i>
 
-               <div class="col-5 itemCv">
-                  <div class="d-flex">
-                     <div class="imageCV">
-                        <img
-                        src="{{Url}}/assets/templateCV/theme7.png"
-                        alt="...">
-                     </div>
-                     <div class="contentItem">
-                        <div class="textBold mb-1">Hồ sơ 3</div>
-                        <div class="textStyle mb-1">Ngành: Cơ khí điện tử</div>
-                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
-                     </div>
-                  </div>
-                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
-                  <i class="fa-solid fa-trash btnTrash"></i>
-               </div>
-               <div class="col-5 itemCv">
-                  <div class="d-flex">
-                     <div class="imageCV">
-                        <img
-                        src="{{Url}}/assets/templateCV/theme4.png"
-                        alt="...">
-                     </div>
-                     <div class="contentItem">
-                        <div class="textBold mb-1">Hồ sơ 4</div>
-                        <div class="textStyle mb-1">Ngành: CNTT</div>
-                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
-                     </div>
-                  </div>
-                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
-                  <i class="fa-solid fa-trash btnTrash"></i>
-               </div>
-
-               <div class="col-5 itemCv">
-                  <div class="d-flex">
-                     <div class="imageCV">
-                        <img
-                        src="{{Url}}/assets/templateCV/theme4.png"
-                        alt="...">
-                     </div>
-                     <div class="contentItem">
-                        <div class="textBold mb-1" style="text-align: left;">Hồ sơ 5</div>
-                        <div class="textStyle mb-1">Ngành: CNTT</div>
-                        <div class="textStyle">Cập nhật lần cuối 10-10-2023 00:16 AM </div>
-                     </div>
-                  </div>
-                  <i class="fa-solid fa-pen-to-square btnEdit"></i>
-                  <i class="fa-solid fa-trash btnTrash"></i>
+                  <a href="#ex1" rel="modal:open"><i class="fa-solid fa-trash btnTrash"></i></a>
                </div>
             </div>
-        
+
+
+
+
+
+            <!-- Modal HTML embedded directly into document -->
+            <div id="ex1" class="modal">
+               <div class="contentModal" style="width: 100%;">
+                  <div class="textHeader">Ứng tuyển
+                  </div>
+               </div>
+            </div>
+            <!-- Modal HTML embedded directly into document -->
+            <div id="ex2" class="modal">
+               <div class="contentModal" style="width: 100%;">
+                  <div class="textHeader">Ứng tuyển
+                  </div>
+               </div>
+            </div>
          </section>
       </div>
 
-      
+
       <div class="contentRight">
          <div class="d-flex blockAvatar">
             <div class="avatar">

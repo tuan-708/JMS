@@ -32,3 +32,11 @@
    font-size: 1em;
    padding: 5xp;
 }
+
+::ng-deep #toast-container>div {
+   -moz-box-shadow: none !important;
+   -webkit-box-shadow: none !important;
+   box-shadow: none !important;
+   color: #ffffff;
+   opacity: 0.9;
+}
