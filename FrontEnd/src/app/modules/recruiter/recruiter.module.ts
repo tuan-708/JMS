@@ -20,8 +20,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { JdRegisterComponent } from './components/jd-register/jd-register.component';
 import { ListJdsComponent } from './components/list-jds/list-jds.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { JdUpdateComponent } from './components/jd-update/jd-update.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { ListCandidateComponent } from './components/list-candidate/list-candidate.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { AutosizeModule } from 'ngx-autosize';
+import { OptionMatchModalComponent } from './components/option-match-modal/option-match-modal.component';
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -34,7 +41,10 @@ import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
       CompanyUpdateComponent,
       JdRegisterComponent,
       ListJdsComponent,
+      JdUpdateComponent,
       JdDetailComponent,
+      ListCandidateComponent,
+      OptionMatchModalComponent,
    ],
    imports: [
       CommonModule,
@@ -48,7 +58,12 @@ import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
       MatToolbarModule,
       MatButtonModule,
       MatIconModule,
-      NgxPaginationModule
+      NgxPaginationModule,
+      MatDialogModule,
+      MatTabsModule,
+      MatDividerModule,
+      MatListModule,
+      AutosizeModule,
    ]
 })
 export class RecruiterModule { }

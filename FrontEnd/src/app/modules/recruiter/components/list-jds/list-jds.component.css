@@ -30,13 +30,20 @@
 }
 
 .textHeader {
-    height: 50px;
+    height: 40px;
     font-weight: 700;
     font-size: 18px;
     margin-bottom: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    align-items: center;
+    display: flex;
+}
+
+.textHeader:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .time {
@@ -71,6 +78,16 @@
  
 }
 
+button{
+    margin: 5px 0;
+    cursor: pointer;
+    background-color: white;
+}
+
+.btn-grp {
+    display: flex;
+    flex-direction: column;
+}
 
 .pagination li a[aria-label="Previous"],
 .pagination li a[aria-label="Next"] {
@@ -84,3 +101,11 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.bi{
+    color: coral;
+}
+
+.hidden {
+    display: none;
+  }

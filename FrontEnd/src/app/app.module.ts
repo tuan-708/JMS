@@ -5,11 +5,14 @@ import { AppComponent } from './app.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
    declarations: [
       AppComponent,
+      ConfirmDialogComponent,
    ],
    imports: [
       BrowserModule,
