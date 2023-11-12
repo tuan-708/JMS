@@ -18,21 +18,13 @@
       <section class="listFilter shadow-none col">
 
          <div class="row d-flex mt-3">
-            <div class="col-6" style="align-self: center; font-weight: 600; font-size: 22px; padding: 0;">Công ty nổi
+            <div class="col-6" style="align-self: center; font-weight: 600; font-size: 1.2em; padding: 0;">Công ty nổi
                bật 20</div>
             <!-- Bootstrap select -->
             <div class="col-3">
 
             </div>
             <div class="col-3 ">
-               <!-- <mat-form-field appearance="outline" class="col-12 p-0">
-                  <mat-select required [formControl]="categoryRq">
-                     <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>
-                     <mat-option *ngFor="let elm of categories; index as i"
-                        value={{elm.id}}>{{elm.categoryName}}</mat-option>
-                  </mat-select>
-               </mat-form-field> -->
-
                <select class="form-select shadow-none">
                   <option selected value="0" disabled>Chọn lĩnh vực</option>
                   <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
@@ -40,17 +32,20 @@
             </div>
          </div>
 
-
-
          <div class="row d-flex listCompany">
-            <div class="itemCompany" *ngFor="let com of companies; index as i">
+            <div class="itemCompany" *ngFor="let com of companies | paginate: 
+            {
+               itemsPerPage: itemsPerPage,
+               currentPage: page,
+               totalItems: totalItems
+             }">
                <div (click)="onClick(com)">
                   <div class="backgroundImage">
                      <img src={{com?.backGroundURL}} alt="Ảnh bìa">
                   </div>
 
                   <div class="itemCompanyHeader">
-                        <img src={{com?.avatarURL}} alt="">    
+                     <img src={{com?.avatarURL}} alt="">
                      <div class="sc-a15ef871-1 fllower"><svg width="20" height="20" style="margin-right: 10px;"
                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                            <path
@@ -95,17 +90,11 @@
          </div>
       </section>
 
+
       <nav aria-label="Page navigation example">
          <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-               <a class="page-link shadow-none" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item shadow-none"><a class="page-link" href="#">1</a></li>
-            <li class="page-item shadow-none"><a class="page-link" href="#">2</a></li>
-            <li class="page-item shadow-none"><a class="page-link" href="#">3</a></li>
-            <li class="page-item shadow-none">
-               <a class="page-link" href="#">Next</a>
-            </li>
+            <pagination-controls class="pagi" previousLabel="" nextLabel=""
+               (pageChange)="pageChanged((page = $event))"></pagination-controls>
          </ul>
       </nav>
 

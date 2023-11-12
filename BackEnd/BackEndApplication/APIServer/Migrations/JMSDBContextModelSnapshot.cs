@@ -52,8 +52,8 @@ namespace APIServer.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(10)
@@ -89,8 +89,9 @@ namespace APIServer.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<int?>("FromYear")
-                        .HasColumnType("int");
+                    b.Property<string>("FromYear")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -140,8 +141,8 @@ namespace APIServer.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(10)
@@ -310,6 +311,10 @@ namespace APIServer.Migrations
                     b.Property<string>("AvatarURL")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CVTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("CandidateId")
                         .HasColumnType("int");
 
@@ -337,6 +342,9 @@ namespace APIServer.Migrations
                     b.Property<int?>("EmploymentTypeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Font")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("GenderId")
                         .HasColumnType("int");
 
@@ -359,6 +367,9 @@ namespace APIServer.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<int?>("Theme")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CandidateId");
@@ -374,7 +385,7 @@ namespace APIServer.Migrations
                     b.ToTable("CurriculumVitaes");
                 });
 
-            modelBuilder.Entity("APIServer.Models.Entity.CVApply", b =>
+            modelBuilder.Entity("APIServer.Models.Entity.CVMatching", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -425,16 +436,22 @@ namespace APIServer.Migrations
                     b.Property<string>("Education")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Font")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("GenderId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsApplied")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsAutoMatched")
+                    b.Property<bool>("IsMatched")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("IsReject")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSelected")
                         .HasColumnType("bit");
 
                     b.Property<string>("JSONMatching")
@@ -465,6 +482,9 @@ namespace APIServer.Migrations
                     b.Property<string>("Skill")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Theme")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CandidateId");
@@ -477,7 +497,7 @@ namespace APIServer.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("CVApplies");
+                    b.ToTable("CVMatchings");
                 });
 
             modelBuilder.Entity("APIServer.Models.Entity.Education", b =>
@@ -495,8 +515,9 @@ namespace APIServer.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int?>("FromYear")
-                        .HasColumnType("int");
+                    b.Property<string>("FromYear")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("MajorName")
                         .HasMaxLength(500)
@@ -510,8 +531,9 @@ namespace APIServer.Migrations
                     b.Property<bool>("StillLearning")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ToYear")
-                        .HasColumnType("int");
+                    b.Property<string>("ToYear")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -737,14 +759,9 @@ namespace APIServer.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("Position")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ToDate")
                         .IsRequired()
@@ -1044,7 +1061,7 @@ namespace APIServer.Migrations
                     b.Navigation("Level");
                 });
 
-            modelBuilder.Entity("APIServer.Models.Entity.CVApply", b =>
+            modelBuilder.Entity("APIServer.Models.Entity.CVMatching", b =>
                 {
                     b.HasOne("APIServer.Models.Entity.Candidate", "Candidate")
                         .WithMany("CVApplies")

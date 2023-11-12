@@ -44,6 +44,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CreatedAt, src => src.MapFrom(src => src.CreatedAt.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.ExpiredDate, src => src.MapFrom(src => src.ExpiredDate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.IsExpired, src => src.MapFrom(src => src.ExpiredDate < DateTime.Now))
+                .ForMember(x => x.CompanyDTO, src => src.MapFrom(src => src.Company))
                 ;
             CreateMap<CurriculumVitaeDTO, CurriculumVitae>()
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
@@ -52,7 +53,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.DOB, src => src.MapFrom(src => Validation.convertDateTime(src.DOB)))
                 .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName)))
                 .ForMember(x => x.LevelId, src => src.MapFrom(src => Validation.ConvertInt(src.LevelTitle)))
-                .ForMember(x => x.CategoryId, src => src.MapFrom(src => Validation.ConvertInt(src.CategoryName)))
+                .ForMember(x => x.CategoryId, src => src.MapFrom(src => src.CategoryId))
                 .ForMember(x => x.GenderId, src => src.MapFrom(src => Validation.ConvertInt(src.GenderDisplay)))
                 ;
             CreateMap<CurriculumVitae, CurriculumVitaeDTO>()
@@ -67,7 +68,7 @@ namespace APIServer.MappingObj
                 host + "\\defaults\\default_avt.jpg" :
                 host + src.AvatarURL))
                 ;
-            CreateMap<CVApply, CVApplyDTO>()
+            CreateMap<CVMatching, CVMatchingDTO>()
                 .ForMember(x => x.Candidate, src => src.MapFrom(src => src.Candidate))
                 .ForMember(x => x.JobDescription, src => src.MapFrom(src => src.JobDescription))
                 .ForMember(x => x.Level, src => src.MapFrom(src => src.Level))

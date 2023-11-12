@@ -135,7 +135,7 @@ namespace APIServer
             builder.Services.AddTransient<ICompanyService, CompanyService>();
             builder.Services.AddTransient<IBaseRepository<Category>, CategoryRepository>();
             builder.Services.AddTransient<IBaseRepository<EmploymentType>, EmploymentTypeRepository>();
-            builder.Services.AddTransient<ICVApplyRepository, CVAppliedRepository>();
+            builder.Services.AddTransient<ICVMatchingRepository, CVMatchingRepository>();
             builder.Services.AddTransient<IBaseRepository<EmployeeInCompany>, EmployeeInCompanyRepository>();
             builder.Services.AddTransient<IImageService, ImageService>();
             builder.Services.AddTransient<ICandidateService, CandidateService>();
@@ -143,6 +143,8 @@ namespace APIServer
             builder.Services.AddTransient<IRecurterCommon, RecuirterCommonService>();
             builder.Services.AddTransient<ICandidateRepository, CandidateRepository>();
             builder.Services.AddTransient<IBaseRepository<Slider>, SliderRepository>();
+            builder.Services.AddTransient<IEmailService, EmailService>();
+            builder.Services.AddTransient<IRegisterService, RegisterService>();
         }
     }
 }

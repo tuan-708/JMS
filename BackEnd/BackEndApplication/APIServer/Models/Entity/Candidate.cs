@@ -15,7 +15,7 @@ namespace APIServer.Models.Entity
         [StringLength(50)]
         [Required]
         public string Email { get; set; }
-        [StringLength(50)]
+        [StringLength(100)]
         [Required]
         public string Password { get; set; }
         public int? GenderId { get; set; }
@@ -29,6 +29,6 @@ namespace APIServer.Models.Entity
         public bool IsDelete { get; set; } = false;
         public string? AvatarURL { get; set; }
         public virtual ICollection<CurriculumVitae>? CurriculumVitaes { get; set; }
-        public virtual ICollection<CVApply>? CVApplies { get; set; }
+        public virtual ICollection<CVMatching>? CVApplies { get; set; }
     }
 }

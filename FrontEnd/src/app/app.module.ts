@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
    declarations: [
@@ -19,7 +20,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
       CKEditorModule,
       BrowserAnimationsModule,
       FormsModule,
-
+      ToastrModule.forRoot()
    ],
    providers: [],
    bootstrap: [AppComponent],

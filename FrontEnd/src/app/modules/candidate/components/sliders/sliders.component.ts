@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+
 declare var $: any;
 
 @Component({
@@ -11,35 +12,29 @@ declare var $: any;
 })
 export class SlidersComponent {
    Url = environment.Url;
+   companies: any;
 
    ngAfterViewInit() {
-      $(document).ready(function () {
-         $('#myCarousel').carousel({
-            interval: 3000
-         });
-      });
-
-      $('#prev').on('click', function () {
+      $('#prev1').on('click', function () {
          $('#cards').animate({
             scrollLeft: '-=250'
-         }, 500, 'swing');
+         }, 300, 'swing');
       });
 
-      $('#next').on('click', function () {
+      $('#next1').on('click', function () {
          $('#cards').animate({
             scrollLeft: '+=250'
-         }, 500, 'swing');
+         }, 300, 'swing');
       });
-
    }
 
-   companies: any;
+
    
    constructor(){
+
       getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 10})
       .then(res => {
          this.companies = res?.data
-         console.log(this.companies);
       })
       .catch(data => {
          console.warn(apiRecruiter.GET_ALL_CATEGORY, data);

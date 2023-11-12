@@ -7,9 +7,11 @@ namespace APIServer.IServices
     public interface ICandidateService :IBaseService<Candidate>
     {
         public Task<int> ApplyJob(int candaidateId, int CVid, int jobDescriptionId);
-        public List<CVApply> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate);
-        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData);
-        public CVApply GetCVAppliedDetail(int candidateId, int CVAppliedId);
+        public List<CVMatching> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate);
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVAppliedHistoryPaging(int? page, List<CVMatchingDTO> listData);
+        public CVMatching GetCVAppliedDetail(int candidateId, int CVAppliedId);
         public string LoginCandidate(string? userName, string? password);
+        public List<CVMatching> GetCVApplied(int candaidateId);
+        public CandidateDTO getCandidateInformationByToken(string? token);
     }
 }

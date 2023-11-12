@@ -63,7 +63,7 @@
 
 .Header .textHeader{
     max-height: 50px;
-    font-size: 18px;
+    font-size: 1.4em;
     font-weight: 700;
     margin-bottom: 10px;
     color: var(--textColor1);
@@ -74,13 +74,12 @@
     height: 50px;
     border-radius: 20px 20px 0px 0px;
     overflow: hidden;
- 
 }
 
 .texHeaderLeft{
     position: absolute;
     max-height: 50px;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: 700;
     top: 10px;
     left: 30px;
@@ -112,7 +111,7 @@
 .texHeaderRight{
     position: absolute;
     max-height: 50px;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: 700;
     top: 10px;
     left: 30px;

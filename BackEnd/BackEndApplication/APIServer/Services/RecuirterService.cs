@@ -6,6 +6,7 @@ using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models;
 using APIServer.Models.Entity;
+using APIServer.Repositories;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -23,16 +24,16 @@ namespace APIServer.Services
     {
         private readonly IRecuirterRepository _recRepository;
         private readonly IConfiguration _configuration;
-        private readonly ICVApplyRepository _cVApplyRepository;
+        private readonly ICVMatchingRepository _cVMatchingRepository;
         private readonly ICurriculumVitaeRepository _cVRepository;
         private readonly IMapper _mapper;
         private readonly IJobRepository _jobContext;
 
-        public RecuirterService(IRecuirterRepository userRepository, IConfiguration configuration, ICVApplyRepository cVApplyRepository, ICurriculumVitaeRepository cVRepository, IMapper mapper, IJobRepository jobContext)
+        public RecuirterService(IRecuirterRepository userRepository, IConfiguration configuration, ICVMatchingRepository cVMatchingRepository, ICurriculumVitaeRepository cVRepository, IMapper mapper, IJobRepository jobContext)
         {
             _recRepository = userRepository;
             _configuration = configuration;
-            _cVApplyRepository = cVApplyRepository;
+            _cVMatchingRepository = cVMatchingRepository;
             _cVRepository = cVRepository;
             _mapper = mapper;
             _jobContext = jobContext;
@@ -181,17 +182,17 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
-        public List<CVApply> GetCVAppliedHistory(int recruiterId, int? jobDescription, DateTime? fromDate, DateTime? toDate)
+        public List<CVMatching> GetCVAppliedHistory(int recruiterId, int? jobDescription, DateTime? fromDate, DateTime? toDate)
         {
-            List<CVApply> cVApplies = _cVApplyRepository.GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(recruiterId, jobDescription, fromDate, toDate);
+            List<CVMatching> cVApplies = _cVMatchingRepository.GetAllByRecruiterIdAndJobDescriptionIdAndFromDataAndToDate(recruiterId, jobDescription, fromDate, toDate);
             return cVApplies;
         }
 
-        public PagingResponseBody<List<CVApplyDTO>> GetCVAppliedHistoryPaging(int? page, List<CVApplyDTO> listData)
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVPaging(int? page, List<CVMatchingDTO> listData)
         {
             if (!listData.Any())
             {
-                return new PagingResponseBody<List<CVApplyDTO>>
+                return new PagingResponseBody<List<CVMatchingDTO>>
                 {
                     currentPage = 0,
                     message = GlobalStrings.SUCCESSFULLY,
@@ -206,7 +207,7 @@ namespace APIServer.Services
             page = page <= 0 || page == null ? 1 : page;
             page = page > totalPage ? totalPage : page;
             var data = listData.ToPagedList((int)page, numberInOnePage).ToList();
-            return new PagingResponseBody<List<CVApplyDTO>>
+            return new PagingResponseBody<List<CVMatchingDTO>>
             {
                 currentPage = (int)page,
                 message = GlobalStrings.SUCCESSFULLY,
@@ -217,85 +218,93 @@ namespace APIServer.Services
             };
         }
 
-        public CVApply GetCVAppliedDetail(int recuiterId, int CVAppliedId)
+        public CVMatching GetCVAppliedDetail(int recuiterId, int CVAppliedId)
         {
-            CVApply cVApply = _cVApplyRepository.GetByRecruiterIdAndCVAppliedId(recuiterId, CVAppliedId);
+            CVMatching cVApply = _cVMatchingRepository.GetByRecruiterIdAndCVAppliedId(recuiterId, CVAppliedId);
             return cVApply;
         }
 
-        public async Task<List<CVApply>> GetCVFromMatchingJD(int jobDescriptionId, int numberRequirement)
+        public async Task<List<CVMatching>> GetCVFromMatchingJD(int recruiterId, int jobDescriptionId, int numberRequirement)
         {
             try
             {
-                List<CVApply> sortedList = new List<CVApply>();
-                List<CVApply> matchedList = new List<CVApply>();
-                List<Task<CVApply>> matchingTasks = new List<Task<CVApply>>();
-
-                JobDescription jd =  _jobContext.GetById(jobDescriptionId);
-                if (jd != null)
+                var JDList = _mapper.Map<List<JobDTO>>(_jobContext.getAllByRecuirterId(recruiterId));
+                List<CVMatching> sortedList = new List<CVMatching>();
+                List<CVMatching> matchedList = new List<CVMatching>();
+                JobDescription jd = _jobContext.GetById(jobDescriptionId);
+                if (JDList.Any(x => x.JobId == jd.JobId))
                 {
-                    List<CurriculumVitae> curriculumVitaes =  _cVRepository.GetAllByCategoryId(jd.CategoryId);
-                    for (int i = 0; i < curriculumVitaes.Count; i++)
+                    if (jd != null)
                     {
-                        CurriculumVitae cv = _cVRepository.GetById(curriculumVitaes[i].Id);
-                        Task<CVApply> cvAfterMatching = MatchingCV(curriculumVitaes[i].Id, jobDescriptionId,cv, jd);
-                        if (cvAfterMatching != null)
+                        List<CurriculumVitae> curriculumVitaes = _cVRepository.GetAllByCategoryId(jd.CategoryId);
+                        for (int i = 0; i < curriculumVitaes.Count; i++)
                         {
-                            matchingTasks.Add(cvAfterMatching);
-               
-                        }
-                        else
-                        {
-                            numberRequirement -= 1;
-                        }
-                        
-                    }
-                    await Task.WhenAll(matchingTasks);
+                            CurriculumVitae cv = _cVRepository.GetById(curriculumVitaes[i].Id);
+                            CVMatching cvAfterMatching = await MatchingCV(cv.Id, jobDescriptionId, cv, jd);
+                            if (cvAfterMatching != null)
+                            {
+                                matchedList.Add(cvAfterMatching);
+                            }
+                            else
+                            {
+                                numberRequirement -= 1;
+                            }
 
-                    matchedList.AddRange(matchingTasks
-                        .Where(task => task.Result != null)
-                        .Select(task => task.Result));
-                    matchedList = matchedList.OrderByDescending(cv => cv.PercentMatching).ToList();
-                    sortedList = new List<CVApply>(numberRequirement);
-                    for (int i = 0; i < matchedList.Count; i++)
-                    {
-                        if (i < numberRequirement)
-                        {
-                            sortedList.Add(matchedList[i]);
                         }
-                        else break;
-                        //neu cvApplied co percent matching >= 60% thi add vao sortedList
+                        matchedList = matchedList.OrderByDescending(cv => cv.PercentMatching).ToList();
+
+                        sortedList = new List<CVMatching>(numberRequirement);
+                        for (int i = 0; i < matchedList.Count; i++)
+                        {
+                            if (i < numberRequirement)
+                            {
+                                using (var context = new JMSDBContext())
+                                {
+                                    matchedList[i].IsMatched = true;
+                                    context.CVMatchings.Add(matchedList[i]);
+                                    context.SaveChanges();
+                                }
+                                sortedList.Add(matchedList[i]);
+                            }
+                            else break;
+                        }
                     }
+
+                    return sortedList;
                 }
+                return null;
 
-                return sortedList;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.InnerException.Message);
-                return new List<CVApply>();
+                Console.WriteLine(ex.Message);
+                return new List<CVMatching>();
             }
-            
+
         }
 
-        public async Task<CVApply> MatchingCV(int CVid, int jobDescriptionId, CurriculumVitae cv, JobDescription jd)
+        public async Task<CVMatching> MatchingCV(int CVid, int jobDescriptionId, CurriculumVitae cv, JobDescription jd)
         {
-
-            using(var context = new JMSDBContext())
+            using (var context = new JMSDBContext())
             {
-                List<CVApply> cVApplyList = context.CVApplies.Include(c => c.Candidate).Include(p => p.Level)
+                List<CVMatching> cVApplyList = context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).Where(x => x.CurriculumVitaeId == CVid && x.JobDescriptionId == jobDescriptionId && x.IsReject == false).ToList();
-                var CVAppliedByCVIdList = _mapper.Map<List<CVApplyDTO>>(cVApplyList);
+                var CVAppliedByCVIdList = _mapper.Map<List<CVMatchingDTO>>(cVApplyList);
                 if (cv != null && jd != null)
                 {
                     var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
-                    CVApply CVApplied = new CVApply();
+                    CVMatching CVApplied = new CVMatching();
 
-                    if (CVAppliedByCVIdList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsApplied == true && x.IsAutoMatched == false))
+                    if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsApplied == true && x.IsReject == false ||
+                        x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsReject == false))
                     {
+                        CVApplied = context.CVMatchings.FirstOrDefault(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsApplied == true && x.IsMatched == false ||
+                        x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsReject == false);
+                        CVApplied.IsMatched = true;
+                        context.SaveChanges();
                         return null;
                     }
                     else
@@ -317,24 +326,90 @@ namespace APIServer.Services
                         CVApplied.Certificate = JsonConvert.SerializeObject(curriculumVitae.Certificates);
                         CVApplied.Award = JsonConvert.SerializeObject(curriculumVitae.Awards);
                         CVApplied.ApplyDate = DateTime.Now;
-                        CVApplied.CreatedDate = Convert.ToDateTime(curriculumVitae.CreatedDateDisplay);
-                        CVApplied.LastUpdateDate = Convert.ToDateTime(curriculumVitae.LastUpdateDateDisplay);
+                        CVApplied.CreatedDate = cv.CreatedDate;
+                        CVApplied.LastUpdateDate = cv.LastUpdateDate;
                         string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jd, cv));
                         CVApplied.JSONMatching = JSONrs;
                         CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs);
                         CVApplied.CurriculumVitaeId = curriculumVitae.Id;
-                        CVApplied.IsAutoMatched = true;
+                        CVApplied.IsMatched = false;
                         CVApplied.IsApplied = false;
+                        CVApplied.IsSelected = false;
                         CVApplied.IsReject = false;
-                        context.CVApplies.Add(CVApplied);
-                        context.SaveChanges();
-                        await Task.Delay(15000);
+                        await Task.Delay(13000);
                         return CVApplied;
                     }
                 }
                 else throw new Exception("cv or jd does not exist");
             }
         }
-            
+
+        public string getEstimateDate(int jobId, DateTime dateRequirment)
+        {
+            int second = 15;
+            JobDescription jobDescriptions = _jobContext.GetById(jobId);
+            if (jobDescriptions != null)
+            {
+                List<CurriculumVitae> curriculumVitaes = _cVRepository.GetAllByCategoryId(jobDescriptions.CategoryId);
+                if (curriculumVitaes != null)
+                {
+                    second = second * curriculumVitaes.Count;
+                    if (dateRequirment > DateTime.Now.AddSeconds(second))
+                    {
+                        return dateRequirment.AddSeconds(-second).ToString();
+
+                    }
+                    else
+                    {
+                        return $"Date Requirement have to be started at {DateTime.Now.AddSeconds(second + 60)} or later";
+                    }
+                }
+                return "Now the system doesn't have any CV that can match with your JD. Try again later.";
+            }
+            return "Your JD does not exist";
+        }
+
+        public List<CVMatching> GetCVSelected(int recruiterId, int jobDescriptionId)
+        {
+            List<CVMatching> CVSelected = _cVMatchingRepository.GetAllByIsSelected(recruiterId, jobDescriptionId);
+            return CVSelected;
+        }
+
+        public List<CVMatching> GetCVMatched(int recruiterId, int jobDescriptionId)
+        {
+            List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatched(recruiterId, jobDescriptionId);
+            return CVMatched;
+        }
+
+        public RecuirterDTO getRecruiterInformationByToken(string? token)
+        {
+            try
+            {
+                if (Validation.checkStringIsEmpty(token))
+                {
+                    throw new Exception("token not valid");
+                }
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                if (jsonToken == null)
+                {
+                    throw new Exception("your token not valid");
+                }
+                if (jsonToken.ValidTo < DateTime.UtcNow)
+                    throw new Exception("token has expired");
+                var canId = jsonToken.Claims.FirstOrDefault(x => x.Type == "UserId").Value;
+                var email = jsonToken.Claims.FirstOrDefault(x => x.Type == "Email").Value;
+                var can = _recRepository.GetById((int)Validation.ConvertInt(canId));
+                if (can.Email != email)
+                    throw new Exception("token not valid");
+                var rs = _mapper.Map<RecuirterDTO>(can);
+                return rs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

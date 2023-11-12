@@ -46,13 +46,7 @@
     </div>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <pagination-controls class="pagi" previousLabel="" nextLabel=""
-                (pageChange)="pageChanged((page = $event))"></pagination-controls>
-
-            <!-- <pagination-controls id="some_id" (pageChange)="pageChanged($event)" 
-               previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
-                screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
-            </pagination-controls> -->
+            <pagination-controls class="pagi"  previousLabel="" nextLabel="" (pageChange)="pageChanged((page = $event))"></pagination-controls>
         </ul>
     </nav>
 </section>

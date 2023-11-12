@@ -20,7 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
+import { MatTabsModule} from '@angular/material/tabs';
+import { UpdateCvComponent } from './components/update-cv/update-cv.component';
 
 @NgModule({
    declarations: [
@@ -38,6 +41,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
       CandidateListCompaniesComponent,
       CandidateMyCvsComponent,
       CompanyDetailComponent,
+      JdDetailComponent,
+      UpdateCvComponent,
    ],
    imports: [
       CommonModule,
@@ -47,7 +52,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
       MatFormFieldModule,
       MatSelectModule,
       ReactiveFormsModule,
-      InputSwitchModule
+      NgxPaginationModule,
+      MatTabsModule,
+      
    ]
 })
 export class CandidateModule { }

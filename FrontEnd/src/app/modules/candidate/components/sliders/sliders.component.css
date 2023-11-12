@@ -1,18 +1,19 @@
 .carousel-inner {
    max-height: 400px;
+   overflow: hidden;
+   border-radius: 15px;
    box-shadow: var(--boxShadow1);
 }
 
 .carousel-item img {
    height: 400px;
    object-fit: cover;
-   border-radius: 15px;
    box-shadow: var(--boxShadow1);
 }
 
 .carousel .carousel-inner {
    .carousel-item {
-      transition: opacity 0.2s linear;
+      transition: opacity 0.3s linear;
    }
 
    .active.carousel-item {
@@ -21,106 +22,8 @@
 
    .carousel-item-left,
    .carousel-item-right {
-      opacity: 0;
+      opacity: 1;
    }
-}
-
-#frm-search-job {
-   width: 100%;
-   margin-bottom: 15px;
-}
-
-.formSearch {
-   background-color: white;
-   height: 40px;
-   border-radius: 12px;
-   padding: 5px;
-   display: flex;
-}
-
-.inputPostistionJob {
-   display: flex;
-   margin-left: 5px;
-   margin-right: 5px;
-}
-
-.inputPostistionJob input,
-.inputPostistionJob i {
-   line-height: 30px;
-   margin-right: 5px;
-}
-
-.inputPostistionJob input {
-   outline: none;
-   width: 100%;
-}
-
-.slectAddress {
-   display: flex;
-   margin-left: 5px;
-   margin-right: 5px;
-}
-
-.slectAddress i {
-   line-height: 28px;
-   margin-right: 5px;
-}
-
-.slectAddress select {
-   line-height: 16px;
-   outline: none;
-}
-
-.btnSearchCustom {
-   display: flex;
-   justify-content: end;
-   align-items: center;
-   align-self: center;
-}
-
-.btnCustom {
-   line-height: 16px;
-   width: 80%;
-}
-
-
-
-.box-demand-job {
-   background: rgba(33, 47, 63, .3);
-   border: 1px solid transparent;
-   border-radius: 12px;
-   overflow: hidden;
-   padding: 16px 24px;
-   position: relative;
-   transition: .3s;
-}
-
-.box-demand-job_work-market {
-   margin-bottom: 16px;
-}
-
-.box-demand-job_work-market .work-market_header {
-   align-items: center;
-   color: #fff;
-   display: flex;
-   justify-content: space-between;
-   margin-bottom: 22px;
-}
-
-.box-demand-job_work-market .work-market_content {
-   display: grid;
-   grid-template-columns: repeat(2, 1fr);
-   margin: 0 8px 18px;
-}
-
-.box-demand-job_work-market .work-market_header span {
-   color: #fff;
-   display: flex;
-   font-size: 14px;
-   font-weight: 600;
-   gap: 8px;
-   letter-spacing: .175px;
-   line-height: 22px;
 }
 
 .list {
@@ -182,7 +85,7 @@
    width: 300px hidden;
 }
 
-#prev {
+#prev1 {
    display: inline-block;
    position: absolute;
    left: 10px;
@@ -197,11 +100,11 @@
    top: 105px
 }
 
-#prev:hover {
+#prev1:hover {
    background-color: var(--blueLight2);
 }
 
-#next {
+#next1 {
    display: inline-block;
    position: absolute;
    right: 10px;
@@ -216,17 +119,17 @@
    border-radius: 17px;
 }
 
-#next:hover {
+#next1:hover {
    background-color: var(--blueLight2);
 }
 
-#next i {
+#next1 i {
    display: flex;
    justify-content: center;
    line-height: 34px;
 }
 
-#prev i {
+#prev1 i {
    display: flex;
    justify-content: center;
    line-height: 34px;
@@ -234,4 +137,9 @@
 
 .titleCompany {
    margin-top: 10px;
+}
+
+.textHeader1{
+   font-size: 1.4em;
+   font-weight: 600;
 }

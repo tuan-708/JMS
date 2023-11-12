@@ -24,6 +24,7 @@ namespace APIServer.Controllers.UserModule
         {
             this.mapper = mapper;
             this.recuirterService = userService;
+            this.recuirterService = userService;
             _configuration = configuration;
             this.candidateService = candidateService;
         }
@@ -46,7 +47,7 @@ namespace APIServer.Controllers.UserModule
             {
                 return new BaseResponseBody<string>
                 {
-                    statusCode = HttpStatusCode.OK,
+                    statusCode = HttpStatusCode.Unauthorized,
                     data = null,
                     message = GlobalStrings.LOGIN_ERROR,
                 };
@@ -68,7 +69,7 @@ namespace APIServer.Controllers.UserModule
                     statusCode = HttpStatusCode.OK,
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new BaseResponseBody<string>
                 {
@@ -92,6 +93,54 @@ namespace APIServer.Controllers.UserModule
         public IActionResult testAuthorCan()
         {
             return Ok(recuirterService.getAll());
+        }
+
+        [HttpPost]
+        [Route("get-data-candidate")]
+        [Authorize(Roles = GlobalStrings.ROLE_CANDIDATE)]
+        public BaseResponseBody<CandidateDTO> getCandidateInformation(string? token)
+        {
+            try
+            {
+                return new BaseResponseBody<CandidateDTO>()
+                {
+                    message = GlobalStrings.SUCCESSFULLY,
+                    statusCode = HttpStatusCode.OK,
+                    data = candidateService.getCandidateInformationByToken(token),
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<CandidateDTO>()
+                {
+                    message = GlobalStrings.LOGIN_ERROR,
+                    statusCode = HttpStatusCode.Unauthorized,
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("get-data-recruiter")]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
+        public BaseResponseBody<RecuirterDTO> getRecruiterInformation(string? token)
+        {
+            try
+            {
+                return new BaseResponseBody<RecuirterDTO>()
+                {
+                    message = GlobalStrings.SUCCESSFULLY,
+                    statusCode = HttpStatusCode.OK,
+                    data = recuirterService.getRecruiterInformationByToken(token),
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<RecuirterDTO>()
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.Unauthorized,
+                };
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CandidateListCompaniesComponent } from './components/list-companies/list-companies.component';
 import { CandidateMyCvsComponent } from './components/my-cvs/my-cvs.component';
 import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
-
+import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 
 const routes: Routes = [
    { path: "sign-in", title: "Ứng viên - Đăng nhập", component: CandidateSignInComponent },
@@ -21,6 +21,8 @@ const routes: Routes = [
    { path: "forgot-password", title: "Ứng viên - Quên mật khẩu", component: CandidateForgotPasswordComponent },
    { path: "list-companies", title: "Ứng viên - Danh sách công ty", component: CandidateListCompaniesComponent },
    { path: "company-detail/:id", title: "Ứng viên - Chi tiết công ty công ty", component: CompanyDetailComponent },
+   { path: "jd-detail/:id", title: "Ứng viên - Chi tiết công việc", component: JdDetailComponent },
+   { path: "update-cv/:id", title: "Ứng viên - Cập nhật cv", component: JdDetailComponent },
    { path: "", component: CandidateHomeComponent }
 ];
 

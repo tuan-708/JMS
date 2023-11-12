@@ -12,7 +12,7 @@ namespace APIServer.Models.Entity
         public string UserName { get; set; }
         [StringLength(200)]
         public string FullName { get; set; }
-        [StringLength(50)]
+        [StringLength(100)]
         [Required]
         public string Password { get; set; }
         [StringLength(10)]

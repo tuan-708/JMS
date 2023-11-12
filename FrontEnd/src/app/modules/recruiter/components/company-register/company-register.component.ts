@@ -110,7 +110,7 @@ export class CompanyRegisterComponent {
          const webURL = this.websiteRq.value;
          const categoryName = this.categoryRq.value;
          const size = this.sizeRq.value;
-         const recuirterFounder = "6";
+         const recuirterFounder = "20";
          const yearOfEstablishment =  this.yearOfEstablishmentRq.value;
 
          const data = {

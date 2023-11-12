@@ -14,11 +14,11 @@ namespace APIServer.Services
     public class CurriculumVitaeService : ICurriculumVitaeService
     {
         private readonly ICurriculumVitaeRepository _context;
-        private readonly ICVApplyRepository _CVApplyContext;
+        private readonly ICVMatchingRepository _CVApplyContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public CurriculumVitaeService(ICurriculumVitaeRepository context, ICVApplyRepository CVApplyContext, IMapper mapper, IConfiguration configuration)
+        public CurriculumVitaeService(ICurriculumVitaeRepository context, ICVMatchingRepository CVApplyContext, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
             _CVApplyContext = CVApplyContext;
@@ -34,7 +34,7 @@ namespace APIServer.Services
         public int CreateById(CurriculumVitae cv, int candidateId)
         {
             cv.CandidateId = candidateId;
-            if (!Validation.checkStringIsEmpty(cv.Phone, cv.DisplayName, cv.DisplayEmail) &&
+            if (!Validation.checkStringIsEmpty(cv.Phone, cv.DisplayName, cv.DisplayEmail, cv.CVTitle) &&
                 !Validation.IsPhoneNumberValid(cv.Phone))
             {
                 throw new ArgumentNullException("cv not finished yet");
@@ -83,8 +83,6 @@ namespace APIServer.Services
             }
             return rs;
         }
-
-        
 
         public int Update(CurriculumVitae data)
         {

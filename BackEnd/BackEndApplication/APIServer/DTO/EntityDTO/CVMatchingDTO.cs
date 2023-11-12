@@ -1,6 +1,6 @@
 ﻿namespace APIServer.DTO.EntityDTO
 {
-    public class CVApplyDTO
+    public class CVMatchingDTO
     {
         public int Id { get; set; }
         public int? CandidateId { get; set; }
@@ -29,8 +29,11 @@
         public virtual CurriculumVitaeDTO? CurriculumVitae { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
-        public bool IsAutoMatched { get; set; }
+        public bool IsMatched { get; set; }
         public bool IsApplied { get; set; }
+        public bool IsSelected { get; set; }
         public bool? IsReject { get; set; }
+        public int? Theme { get; set; }
+        public string? Font { get; set; }
     }
 }

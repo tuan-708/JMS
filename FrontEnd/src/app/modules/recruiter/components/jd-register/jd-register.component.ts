@@ -257,14 +257,14 @@ export class JdRegisterComponent {
             contactEmail: contactEmail,
             address: address,
             numberRequirement: numberRequirement,
-            companyName: "",
+            companyName: "1",
             categoryName: categoryName,
             expiredDate: expiredDate,
             levelTitle: levelTitle,
             positionTitle: positionTitle
          }
 
-         postRequest(apiRecruiter.POST_CREATE_JD + "/2", AuthorizationMode.PUBLIC, data)
+         postRequest(apiRecruiter.POST_CREATE_JD + "/1", AuthorizationMode.PUBLIC, data)
             .then(res => {
                console.log(res);
             })
