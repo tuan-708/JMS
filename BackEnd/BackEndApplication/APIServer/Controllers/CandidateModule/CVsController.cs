@@ -82,26 +82,28 @@ namespace APIServer.Controllers.CandidateModule
 
         [HttpPost]
         [Route("new-cv/{candidateId}")]
-        public BaseResponseBody<string> createNewCV(int candidateId,
+        public BaseResponseBody<int> createNewCV(int candidateId,
             [FromBody] CurriculumVitaeDTO cv)
         {
             try
             {
                 var c = mapper.Map<CurriculumVitae>(cv);
                 var rs = cvService.CreateById(c, candidateId);
-                return new BaseResponseBody<string>
+                return new BaseResponseBody<int>
                 {
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
                     statusCode = HttpStatusCode.Created,
+                    data = c.Id,
                 };
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
-                return new BaseResponseBody<string>
+                return new BaseResponseBody<int>
                 {
                     message = GlobalStrings.BAD_REQUEST,
                     statusCode = HttpStatusCode.BadRequest,
+                    data = -1,
                 };
             }
         }

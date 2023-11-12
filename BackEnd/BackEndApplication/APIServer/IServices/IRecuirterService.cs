@@ -18,6 +18,6 @@ namespace APIServer.IServices
         public string getEstimateDate(int jobId, DateTime dateRequirment);
         public List<CVMatching> GetCVSelected(int recruiterId, int jobDescriptionId);
         public List<CVMatching> GetCVMatched(int recruiterId, int jobDescriptionId);
-
+        public RecuirterDTO getRecruiterInformationByToken(string? token);
     }
 }
