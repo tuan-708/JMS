@@ -41,5 +41,7 @@ namespace APIServer.Models.Entity
         public virtual Category? Category { get; set; }
         public bool? IsFindingJob { get; set; }
         public string CVTitle { get; set; }
+        public int? Theme { get; set; }
+        public string? Font { get; set; }
     }
 }
