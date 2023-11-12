@@ -28,6 +28,7 @@ import { ListCandidateComponent } from './components/list-candidate/list-candida
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { AutosizeModule } from 'ngx-autosize';
+import { OptionMatchModalComponent } from './components/option-match-modal/option-match-modal.component';
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -43,6 +44,7 @@ import { AutosizeModule } from 'ngx-autosize';
       JdUpdateComponent,
       JdDetailComponent,
       ListCandidateComponent,
+      OptionMatchModalComponent,
    ],
    imports: [
       CommonModule,
