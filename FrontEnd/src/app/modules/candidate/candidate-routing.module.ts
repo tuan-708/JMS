@@ -22,6 +22,7 @@ const routes: Routes = [
    { path: "list-companies", title: "Ứng viên - Danh sách công ty", component: CandidateListCompaniesComponent },
    { path: "company-detail/:id", title: "Ứng viên - Chi tiết công ty công ty", component: CompanyDetailComponent },
    { path: "jd-detail/:id", title: "Ứng viên - Chi tiết công việc", component: JdDetailComponent },
+   { path: "update-cv/:id", title: "Ứng viên - Cập nhật cv", component: JdDetailComponent },
    { path: "", component: CandidateHomeComponent }
 ];
 

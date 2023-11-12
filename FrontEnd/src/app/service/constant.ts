@@ -34,5 +34,6 @@ export enum apiCandidate{
     CREATE_CV_BY_CANDIDATE_ID= "/api/CVs/new-cv",
     UPLOAD_AVATAR_CV_ID= "/api/Images/upload-imge-cv",
     LOGIN_CANDIDATE = "/api/Token/login-candidate",
-    GET_ALL_CV_BY_ID = "/api/CVs/all-cv"
+    GET_ALL_CV_BY_ID = "/api/CVs/all-cv",
+    CANDIDATE_APPLYJOB = "/api/Candidate/apply-cv"
 }

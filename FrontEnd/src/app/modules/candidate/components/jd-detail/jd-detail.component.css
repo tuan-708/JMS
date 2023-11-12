@@ -113,6 +113,15 @@
     right: 10px !important;
 }
 
+
+::ng-deep #toast-container>div {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    color: #ffffff;
+    opacity: 0.9;
+ }
+
 .btnRecruiment {
     padding: 12px 17px 12px 17px;
     background-color: var(--blueLight2);

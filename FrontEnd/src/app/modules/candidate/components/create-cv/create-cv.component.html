@@ -153,7 +153,7 @@
                     <!-- Input Phone  -->
                     <div class="mt-1">
                         <i class="fa-solid fa-phone" [style.color]="colorLeftHeader"></i>
-                        <input type="text" placeholder="Số điện thoại" class="form-info-input inputPhone"
+                        <input type="text" placeholder="Số điện thoại"  class="form-info-input inputPhone"
                             [style.color]="colorLeftInput" [class]="ThemStyle">
                     </div>
                     <!-- Input Media  -->
@@ -164,23 +164,23 @@
                     </div> -->
                     <!-- Input Dob  -->
                     <div class="mt-1">
-                        <i class="fa-solid fa-calendar"></i>
-                        <input type="date" placeholder="Ngày sinh" class="form-info-input inputDob"
+                        <i class="fa-solid fa-calendar" [style.color]="colorLeftHeader"></i>
+                        <input type="date" data-date-format="dd/mm/yyyy" class="form-info-input inputDob"
                             [style.color]="colorLeftInput" [class]="ThemStyle">
                     </div>
                     <!-- Input Gender  -->
                     <div class="d-flex mt-2">
-                        <i class="fa-solid fa-venus-mars"></i>
+                        <i class="fa-solid fa-venus-mars" [style.color]="colorLeftHeader"></i>
                         <div class="d-flex">
                             <div class="form-check ml-2">
-                                <input class="form-check-input shadow-none" value="1" checked type="radio" name="gender"
+                                <input class="form-check-input shadow-none"  [style.color]="colorLeftInput" value="1" checked type="radio" name="gender"
                                     id="nam">
                                 <label class="form-check-label" for="nam">
                                     Nam
                                 </label>
                             </div>
                             <div class="form-check  ml-2">
-                                <input class="form-check-input shadow-none" value="2"  type="radio" name="gender"
+                                <input class="form-check-input shadow-none" [style.color]="colorLeftHeader" value="2"  type="radio" name="gender"
                                     id="nu">
                                 <label class="form-check-label" for="nu">
                                     Nữ
@@ -213,7 +213,7 @@
 
                         <!-- Input Describe Skills  -->
                         <div class="mt-1">
-                            <textarea rows="4" maxlength="120" placeholder="Mô tả kỹ năng"
+                            <textarea rows="3" maxlength="300" placeholder="Mô tả kỹ năng"
                                 class="form-info-input inputDescripitonSkills skillDescription"
                                 [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
                         </div>
@@ -258,7 +258,7 @@
 
                         <!-- Input Description Certificates  -->
                         <div class="mt-1">
-                            <textarea rows="2" maxlength="120" placeholder="Miêu tả"
+                            <textarea rows="3" maxlength="300" placeholder="Miêu tả"
                                 class="form-info-input certificateProvider" [style.color]="colorLeftInput"
                                 [class]="ThemStyle"></textarea>
                         </div>
@@ -290,7 +290,7 @@
 
                         <!-- Input Description Award  -->
                         <div class="mt-1">
-                            <textarea rows="2" maxlength="60" type="text" placeholder="Miêu tả"
+                            <textarea rows="3" maxlength="300" type="text" placeholder="Miêu tả"
                                 class="form-info-input awardDescription" [style.color]="colorLeftInput"
                                 [class]="ThemStyle"></textarea>
                         </div>
@@ -350,7 +350,7 @@
 
                     <!-- Input Decribe careerGoal  -->
                     <div class="mt-1">
-                        <textarea rows="3" maxlength="200"
+                        <textarea rows="3" maxlength="300"
                             placeholder="mục tiêu nghề nghiệp của bạn, bao gồm mục tiêu ngắn và dài hạn"
                             class="input-side-right mt-2 careerGoal" [style.color]="colorRightHeader"
                             [class]="ThemStyle"></textarea>
@@ -385,7 +385,7 @@
                         </div>
 
                         <div>
-                            <textarea rows="3" maxlength="200" placeholder="Mô tả kinh nghiệm việc làm của bạn"
+                            <textarea rows="3" maxlength="300" placeholder="Mô tả kinh nghiệm việc làm của bạn"
                                 class="form-info-input-right width100 mt-2 experienceDescription"
                                 [class]="ThemStyle"></textarea>
                         </div>
@@ -423,7 +423,7 @@
                             </div>
                         </div>
                         <div>
-                            <textarea rows="3" maxlength="200" placeholder="Mô tả kinh nghiệm trong dự án của bạn"
+                            <textarea rows="3" maxlength="300" placeholder="Mô tả kinh nghiệm trong dự án của bạn"
                                 class="form-info-input-right width100 mt-2 projectDescription"
                                 [class]="ThemStyle"></textarea>
                         </div>
@@ -468,7 +468,7 @@
                         </div>
 
                         <div>
-                            <textarea rows="3" maxlength="200"
+                            <textarea rows="3" maxlength="300"
                                 placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
                                 class="form-info-input-right width100 mt-2 educationDescription"
                                 [class]="ThemStyle"></textarea>
