@@ -22,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
    declarations: [
@@ -51,7 +51,8 @@ import {MatTabsModule} from '@angular/material/tabs';
       MatSelectModule,
       ReactiveFormsModule,
       NgxPaginationModule,
-      MatTabsModule
+      MatTabsModule,
+      
    ]
 })
 export class CandidateModule { }

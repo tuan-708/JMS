@@ -3,19 +3,11 @@
 
     <div class="container header__container">
         <div class="flex">
-            <div class="header__title">
-                <input type="text" class="header__input" placeholder="Tên CV">
-            </div>
+
             <div class="header__tool">
                 <div class="header__preview-cv">
                     <button class="btn-cv btn-cv--success btn-cv--fix-size is-plain">
                         <i class="mr-8 fa-regular fa-eye"></i><span class="btn-cv__text">Xem trước</span></button>
-                </div>
-                <div>
-                    <button class="ml-20 mr-20 btn-cv btn-cv--success btn-cv--fix-size is-plain">
-                        <i class="mr-8 fa-solid fa-download"></i>
-                        <span class="btn-cv__text">Lưu và tải xuống</span>
-                    </button>
                 </div>
                 <div class="save-cv" (click)="SumbitCV($event)">
                     <button class="save-cv save-cv__btn btn-cv btn-cv--success btn-cv--fix-size">
@@ -33,12 +25,38 @@
     </div>
 
 
+
     <div class="container mb-5" [style.font-family]="fontCV">
-
         <div class="container Header">
+            <div class="header__title">
+                <input type="text" class="header__input cvTitle" placeholder="Tên CV">
+            </div>
+            <div class="header__title">
+                <select class="form-select shadow-none customSelect categoryId" aria-label="Default select example">
+                    <option selected> Chọn Lĩnh Vực</option>
+                    <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
+                </select>
+            </div>
 
-            <div class="select" (change)="selectedFont($event)">
-                <select>
+            <div class="header__title">
+                <select class="form-select shadow-none customSelect levelId" aria-label="Default select example">
+                    <option selected>Chọn Cấp Bậc</option>
+                    <option *ngFor="let elm of levels; index as i" value={{elm.id}}>{{elm.title}}</option>
+                </select>
+            </div>
+
+            <div class="header__title">
+                <select class="form-select shadow-none customSelect employmentTypeId" aria-label="Default select example">
+                    <option selected>Chọn Loại việc làm</option>
+                    <option *ngFor="let elm of employmentTypes; index as i" value={{elm.id}}>{{elm.title}}</option>
+                </select>
+            </div>
+
+          
+
+            <div class="header__title">
+                <select class="form-select shadow-none customSelect1" (change)="selectedFont($event)"
+                    aria-label="Default select example">
                     <option value="Sans-serif">Sans-serif</option>
                     <option value="Monospace">Monospace</option>
                     <option value="Arial">Arial</option>
@@ -50,12 +68,12 @@
                 </select>
             </div>
             <div class="block-BackGroundCV">
-                <div class="">
-                    <label class="mr-4" data-v-d95532fe="">
-                        <i class="fa-solid fa-image mr-6" data-v-d95532fe=""></i>
-                        <span>Hình nền CV</span>
-                    </label><!--v-if-->
+
+                <div style="margin: auto;">
+                    <i class="fa-solid fa-image"></i>
+                    <span>Hình nền CV</span>
                 </div>
+
                 <div class="wrapModel">
                     <div class="modelBackground">
                         <div class="items" (click)="SelectedBackGround(0)">
@@ -98,12 +116,6 @@
             </div>
         </div>
 
-
-        <!-- <ckeditor #editor [(ngModel)]="model.editorData" [editor]="Editor" (ready)="onReady($event)"></ckeditor>
-
-
-      <button type="button" class="btn btn-primary mt-5" (click)="handleSave($event)">Save</button> -->
-
         <div class="conten-detail-cv">
             <div class="col-4 p-3 block-left" [style.background-image]="'url('+ backgroudSelectedLink + ')'">
                 <div class="avatar-candidate">
@@ -122,7 +134,6 @@
                                     onclick="$('.file-upload-input').trigger( 'click' )"
                                     [style.display]="displayChange"></i>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -146,10 +157,36 @@
                             [style.color]="colorLeftInput" [class]="ThemStyle">
                     </div>
                     <!-- Input Media  -->
-                    <div class="mt-1">
+                    <!-- <div class="mt-1">
                         <i class="fa-solid fa-earth-americas" [style.color]="colorLeftHeader"></i>
                         <input type="text" placeholder="Link web" class="form-info-input inputLinkMedia"
                             [style.color]="colorLeftInput" [class]="ThemStyle">
+                    </div> -->
+                    <!-- Input Dob  -->
+                    <div class="mt-1">
+                        <i class="fa-solid fa-calendar"></i>
+                        <input type="date" placeholder="Ngày sinh" class="form-info-input inputDob"
+                            [style.color]="colorLeftInput" [class]="ThemStyle">
+                    </div>
+                    <!-- Input Gender  -->
+                    <div class="d-flex mt-2">
+                        <i class="fa-solid fa-venus-mars"></i>
+                        <div class="d-flex">
+                            <div class="form-check ml-2">
+                                <input class="form-check-input shadow-none" value="1" checked type="radio" name="gender"
+                                    id="nam">
+                                <label class="form-check-label" for="nam">
+                                    Nam
+                                </label>
+                            </div>
+                            <div class="form-check  ml-2">
+                                <input class="form-check-input shadow-none" value="2"  type="radio" name="gender"
+                                    id="nu">
+                                <label class="form-check-label" for="nu">
+                                    Nữ
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <!-- Input Address  -->
                     <div class="mt-1 d-flex">
@@ -253,8 +290,9 @@
 
                         <!-- Input Description Award  -->
                         <div class="mt-1">
-                            <textarea rows="2" maxlength="60" type="text" placeholder="Miêu tả" class="form-info-input awardDescription"
-                                [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                            <textarea rows="2" maxlength="60" type="text" placeholder="Miêu tả"
+                                class="form-info-input awardDescription" [style.color]="colorLeftInput"
+                                [class]="ThemStyle"></textarea>
                         </div>
                     </div>
                     <i class="fa-solid fa-plus prizesAdd" (click)="prizesAdd($event)"></i>
@@ -263,14 +301,14 @@
 
                 <!-- Form Other Skills  -->
                 <!-- <div class="mt-3 form-other-skills form-input-value"> -->
-                    <!-- Header  -->
-                    <!-- <div>
+                <!-- Header  -->
+                <!-- <div>
                         <input type="text" placeholder="Kỹ năng mềm" value="Kỹ năng mềm" disabled
                             class="form-left--header width100" [style.color]="colorLeftHeader">
                     </div>
                     <div class="otherSkill"> -->
-                        <!-- Input Describe Skills  -->
-                        <!-- <div class="mt-1">
+                <!-- Input Describe Skills  -->
+                <!-- <div class="mt-1">
                             <input type="text" placeholder="miêu tả" class="form-info-input otherSkillsDescription"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
@@ -286,18 +324,23 @@
                 <div class="form-position form-input-value">
                     <!-- Header  Title-->
                     <div>
-                        <input type="text" placeholder="Họ và tên" class="form-right--header mt-2"
+                        <input type="text" placeholder="Họ và tên" class="form-right--header mt-2 displayName"
                             [style.color]="colorRightHeader" [class]="ThemStyle">
                     </div>
 
                     <!-- Header -->
                     <div>
-                        <input type="text" placeholder="Vị trí công việc" class="form-right--header mt-2"
-                            [style.color]="colorRightHeader" [class]="ThemStyle">
+                        <input type="text" placeholder="Vị trí công việc"
+                            class="form-right--header mt-2 positionTitleName" [style.color]="colorRightHeader"
+                            [class]="ThemStyle">
                     </div>
+
+
+
+
                 </div>
 
-                <!-- Form Target  -->
+                <!-- Form careerGoal  -->
                 <div class="mt-3 form-target form-input-value">
                     <!-- Header Title -->
                     <div>
@@ -305,11 +348,11 @@
                             class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
                     </div>
 
-                    <!-- Input Decribe Target  -->
+                    <!-- Input Decribe careerGoal  -->
                     <div class="mt-1">
                         <textarea rows="3" maxlength="200"
                             placeholder="mục tiêu nghề nghiệp của bạn, bao gồm mục tiêu ngắn và dài hạn"
-                            class="input-side-right mt-2" [style.color]="colorRightHeader"
+                            class="input-side-right mt-2 careerGoal" [style.color]="colorRightHeader"
                             [class]="ThemStyle"></textarea>
                     </div>
                 </div>
@@ -326,23 +369,25 @@
                         <!-- Header Experience  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-suitcase"></i>
-                            <input type="text" placeholder="Vị trí công việc" class="form-info-input-right mt-2"
-                                [style.color]="colorRightHeader" [class]="ThemStyle">
+                            <input type="text" placeholder="Vị trí công việc"
+                                class="form-info-input-right mt-2 positionOfCompany" [style.color]="colorRightHeader"
+                                [class]="ThemStyle">
                             <span>//</span>
-                            <input type="text" placeholder="Bắt đầu" class="form-info-input-right mt-2"
-                                [class]="ThemStyle">
-                            <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2"
-                                [class]="ThemStyle">
+                            <input type="text" placeholder="Bắt đầu"
+                                class="form-info-input-right mt-2 fromDateExperience" [class]="ThemStyle">
+                            <input type="text" placeholder="Kết thúc"
+                                class="form-info-input-right mt-2 toDateExperience" [class]="ThemStyle">
                         </div>
 
                         <div>
-                            <input type="text" placeholder="Tên công ty " class="form-info-input-right mt-2"
+                            <input type="text" placeholder="Tên công ty " class="form-info-input-right mt-2 companyName"
                                 [class]="ThemStyle">
                         </div>
 
                         <div>
                             <textarea rows="3" maxlength="200" placeholder="Mô tả kinh nghiệm việc làm của bạn"
-                                class="form-info-input-right width100 mt-2" [class]="ThemStyle"></textarea>
+                                class="form-info-input-right width100 mt-2 experienceDescription"
+                                [class]="ThemStyle"></textarea>
                         </div>
                     </div>
                     <i class="fa-solid fa-plus form-experienceAdd" (click)="formExperienceAdd($event)"></i>
@@ -361,23 +406,26 @@
                         <!-- Header Project  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
-                            <input type="text" placeholder="Vị trí công việc" class="form-info-input-right mt-2"
+                            <input type="text" placeholder="Tên dự án" class="form-info-input-right mt-2 projectName"
                                 [class]="ThemStyle">
                             <span>//</span>
-                            <input type="text" placeholder="Bắt đầu" class="form-info-input-right mt-2"
+                            <input type="text" placeholder="Bắt đầu" class="form-info-input-right mt-2 fromDateProject"
                                 [class]="ThemStyle">
-                            <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2"
-                                [class]="ThemStyle">
-                        </div>
-
-                        <div>
-                            <input type="text" placeholder="Tên công ty" class="form-info-input-right mt-2"
+                            <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2 toDateProject"
                                 [class]="ThemStyle">
                         </div>
-
                         <div>
-                            <textarea rows="3" maxlength="200" placeholder="Mô tả kinh nghiệm việc làm của bạn"
-                                class="form-info-input-right width100 mt-2" [class]="ThemStyle"></textarea>
+                            <div class="form-check ">
+                                <input class="form-check-input shadow-none isStillWorking" type="checkbox" value="">
+                                <label class="form-check-label">
+                                    Đang làm việc
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <textarea rows="3" maxlength="200" placeholder="Mô tả kinh nghiệm trong dự án của bạn"
+                                class="form-info-input-right width100 mt-2 projectDescription"
+                                [class]="ThemStyle"></textarea>
                         </div>
                     </div>
 
@@ -397,24 +445,33 @@
                         <!-- Header Educations  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-school" [style.color]="colorRightHeader"></i>
-                            <input type="text" placeholder="Ngành học - môn học " class="form-info-input-right mt-2"
-                                [class]="ThemStyle">
+                            <input type="text" placeholder="Ngành học - môn học "
+                                class="form-info-input-right mt-2 majorName" [class]="ThemStyle">
                             <span>//</span>
-                            <input type="text" placeholder="Bắt đầu" class="form-info-input-right mt-2"
-                                [class]="ThemStyle">
-                            <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2"
+                            <input type="text" placeholder="Bắt đầu"
+                                class="form-info-input-right mt-2 fromYearEducation" [class]="ThemStyle">
+                            <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2 toYearEducation"
                                 [class]="ThemStyle">
                         </div>
 
                         <div>
-                            <input type="text" placeholder="Tên trường học" class="form-info-input-right mt-2"
-                                [class]="ThemStyle">
+                            <input type="text" placeholder="Tên trường học"
+                                class="form-info-input-right mt-2 schoolName" [class]="ThemStyle">
+                        </div>
+                        <div>
+                            <div class="form-check ">
+                                <input type="checkbox" class="form-check-input shadow-none stillLearning">
+                                <label class="form-check-label">
+                                    Đang học tập
+                                </label>
+                            </div>
                         </div>
 
                         <div>
                             <textarea rows="3" maxlength="200"
                                 placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
-                                class="form-info-input-right width100 mt-2" [class]="ThemStyle"></textarea>
+                                class="form-info-input-right width100 mt-2 educationDescription"
+                                [class]="ThemStyle"></textarea>
                         </div>
                     </div>
 

@@ -69,19 +69,32 @@ select::-ms-expand {
    color: var(--gray-600);
 }
 
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+   display: none;
+   -webkit-appearance: none;
+}
+
+::ng-deep #toast-container>div {
+   -moz-box-shadow: none !important;
+   -webkit-box-shadow: none !important;
+   box-shadow: none !important;
+   color: #ffffff;
+   opacity: 0.9;
+}
 
 /*  */
 .block-BackGroundCV {
    display: flex;
    align-items: center;
    align-self: center;
-   padding: 10px;
-   height: 48px;
+   height: 40px;
    width: 180px;
-   border-left: 1px #ccc solid;
    cursor: pointer;
-   margin-left: 10px;
    position: relative;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   padding-left: 5px;
 }
 
 
@@ -150,11 +163,13 @@ select::-ms-expand {
 
 .header__title {
    margin-right: auto;
-   padding: 0 10px;
+   padding: 0 5px;
    transition: .1s;
    display: flex;
    flex-wrap: unset;
    justify-content: center;
+   align-items: center;
+   display: flex;
    align-items: center;
 }
 
@@ -163,8 +178,8 @@ select::-ms-expand {
    font-style: normal;
    outline: none;
    font-weight: 500;
-   font-size: 1.1em;
-   line-height: 24px;
+   font-size: 1em;
+   height: 40px;
    padding: 4px;
    border-radius: 5px;
    font-family: Inter, sans-serif;
@@ -352,7 +367,21 @@ textarea {
 }
 
 
+.customSelect {
+   border-radius: 5px;
+   margin: 0;
+   line-height: 1.4em;
+}
 
+.customSelect1 {
+   border-radius: 5px;
+   margin: 0;
+   line-height: 1.4em;
+}
+
+option {
+   color: #444444;
+}
 
 .form-info-input {
    background-color: transparent;
@@ -404,7 +433,7 @@ textarea {
    width: 98%;
 }
 
-.width50{
+.width50 {
    width: 48%;
    min-width: 150px;
 }
@@ -504,11 +533,11 @@ textarea {
 
 
 /* Form Skill */
-.form-skills{
+.form-skills {
    position: relative;
 }
 
-.skillAdd{
+.skillAdd {
    display: none;
    position: absolute;
    bottom: 40px;
@@ -522,9 +551,8 @@ textarea {
    cursor: pointer;
 }
 
-.skillSub
-{
-   display: none;  
+.skillSub {
+   display: none;
    position: absolute;
    bottom: 0px;
    right: -5px;
@@ -537,22 +565,21 @@ textarea {
    cursor: pointer;
 }
 
-.form-skills:hover .skillAdd
-{
+.form-skills:hover .skillAdd {
    display: block;
 }
 
-.form-skills:hover .skillSub{
+.form-skills:hover .skillSub {
    display: block;
 }
 
 /* Form Certificates */
 
-.form-Certificates{
+.form-Certificates {
    position: relative;
 }
 
-.certificatesAdd{
+.certificatesAdd {
    display: none;
    position: absolute;
    bottom: 40px;
@@ -566,9 +593,8 @@ textarea {
    cursor: pointer;
 }
 
-.certificatesSub
-{
-   display: none;  
+.certificatesSub {
+   display: none;
    position: absolute;
    bottom: 0px;
    right: -5px;
@@ -581,22 +607,21 @@ textarea {
    cursor: pointer;
 }
 
-.form-Certificates:hover .certificatesAdd
-{
+.form-Certificates:hover .certificatesAdd {
    display: block;
 }
 
-.form-Certificates:hover .certificatesSub{
+.form-Certificates:hover .certificatesSub {
    display: block;
 }
 
 /* Form Prizes */
 
-.form-prizes{
+.form-prizes {
    position: relative;
 }
 
-.prizesAdd{
+.prizesAdd {
    display: none;
    position: absolute;
    bottom: 40px;
@@ -610,9 +635,8 @@ textarea {
    cursor: pointer;
 }
 
-.prizesSub
-{
-   display: none;  
+.prizesSub {
+   display: none;
    position: absolute;
    bottom: 0px;
    right: -5px;
@@ -625,21 +649,20 @@ textarea {
    cursor: pointer;
 }
 
-.form-prizes:hover .prizesAdd
-{
+.form-prizes:hover .prizesAdd {
    display: block;
 }
 
-.form-prizes:hover .prizesSub{
+.form-prizes:hover .prizesSub {
    display: block;
 }
 
 /* Form Other Skills */
-.form-other-skills{
+.form-other-skills {
    position: relative;
 }
 
-.other-skillsAdd{
+.other-skillsAdd {
    display: none;
    position: absolute;
    bottom: 30px;
@@ -653,9 +676,8 @@ textarea {
    cursor: pointer;
 }
 
-.other-skillsSub
-{
-   display: none;  
+.other-skillsSub {
+   display: none;
    position: absolute;
    bottom: 0px;
    right: -5px;
@@ -668,21 +690,20 @@ textarea {
    cursor: pointer;
 }
 
-.form-other-skills:hover .other-skillsAdd
-{
+.form-other-skills:hover .other-skillsAdd {
    display: block;
 }
 
-.form-other-skills:hover .other-skillsSub{
+.form-other-skills:hover .other-skillsSub {
    display: block;
 }
 
 /* Form Experience */
-.form-experience{
+.form-experience {
    position: relative;
 }
 
-.form-experienceAdd{
+.form-experienceAdd {
    display: none;
    position: absolute;
    bottom: 40px;
@@ -696,9 +717,8 @@ textarea {
    cursor: pointer;
 }
 
-.form-experienceSub
-{
-   display: none;  
+.form-experienceSub {
+   display: none;
    position: absolute;
    bottom: 0px;
    right: -5px;
@@ -711,22 +731,21 @@ textarea {
    cursor: pointer;
 }
 
-.form-experience:hover .form-experienceAdd
-{
+.form-experience:hover .form-experienceAdd {
    display: block;
 }
 
-.form-experience:hover .form-experienceSub{
+.form-experience:hover .form-experienceSub {
    display: block;
 }
 
 /* Form Project */
 
-.form-project{
+.form-project {
    position: relative;
 }
 
-.form-projectAdd{
+.form-projectAdd {
    display: none;
    position: absolute;
    bottom: 40px;
@@ -740,9 +759,8 @@ textarea {
    cursor: pointer;
 }
 
-.form-projectSub
-{
-   display: none;  
+.form-projectSub {
+   display: none;
    position: absolute;
    bottom: 0px;
    right: -5px;
@@ -755,21 +773,20 @@ textarea {
    cursor: pointer;
 }
 
-.form-project:hover .form-projectAdd
-{
+.form-project:hover .form-projectAdd {
    display: block;
 }
 
-.form-project:hover .form-projectSub{
+.form-project:hover .form-projectSub {
    display: block;
 }
 
 /* Form Education */
-.form-education{
+.form-education {
    position: relative;
 }
 
-.form-educationAdd{
+.form-educationAdd {
    display: none;
    position: absolute;
    bottom: 40px;
@@ -783,9 +800,8 @@ textarea {
    cursor: pointer;
 }
 
-.form-educationSub
-{
-   display: none;  
+.form-educationSub {
+   display: none;
    position: absolute;
    bottom: 0px;
    right: -5px;
@@ -798,11 +814,10 @@ textarea {
    cursor: pointer;
 }
 
-.form-education:hover .form-educationAdd
-{
+.form-education:hover .form-educationAdd {
    display: block;
 }
 
-.form-education:hover .form-educationSub{
+.form-education:hover .form-educationSub {
    display: block;
 }

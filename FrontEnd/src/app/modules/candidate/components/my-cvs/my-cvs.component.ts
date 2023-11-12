@@ -12,22 +12,16 @@ export class CandidateMyCvsComponent {
    list = [1,2,3,4,5,6,7,8,9]
 
    ngAfterViewInit() {
-      $(document).ready(function () {
-         $('#myCarousel').carousel({
-            interval: 3000 
-         });
-      });
-
       $('#prev').on('click', function () {
          $('#cards').animate({
             scrollLeft: '-=250'
-         }, 500, 'swing');
+         }, 300, 'swing');
       });
 
       $('#next').on('click', function () {
          $('#cards').animate({
             scrollLeft: '+=250'
-         }, 500, 'swing');
+         }, 300, 'swing');
       });
 
    }
