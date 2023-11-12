@@ -7,6 +7,7 @@ using APIServer.Models.Entity;
 using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -84,7 +85,7 @@ namespace APIServer.Services
 
         public async Task<int> ApplyJob(int candidateId, int CVid, int jobDescriptionId)
         {
-            
+
             try
             {
                 var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candidateId));
@@ -93,7 +94,7 @@ namespace APIServer.Services
                 var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
                 JobDescription jobDescription = _JobContext.GetById(jobDescriptionId);
                 if (cv != null)
-                        {
+                {
                     if (CVList.Any(cv => cv.Id == curriculumVitae.Id))
                     {
                         CVMatching CVApplied = new CVMatching();
@@ -142,12 +143,12 @@ namespace APIServer.Services
                 }
                 else throw new Exception("Your CV not exist");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return 0;
             }
-            
+
         }
 
         public List<CVMatching> GetCVAppliedHistory(int candaidateId, DateTime? fromDate, DateTime? toDate)
@@ -237,6 +238,38 @@ namespace APIServer.Services
         {
             List<CVMatching> cVApplied = _CVMatchingRepository.GetAllByIsApplied(candaidateId);
             return cVApplied;
+        }
+
+        public CandidateDTO getCandidateInformationByToken(string? token)
+        {
+            try
+            {
+                if (Validation.checkStringIsEmpty(token))
+                {
+                    throw new Exception("token not valid");
+                }
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                if (jsonToken == null)
+                {
+                    throw new Exception("your token not valid");
+                }
+                if (jsonToken.ValidTo < DateTime.UtcNow)
+                    throw new Exception("token has expired");
+                var canId = jsonToken.Claims.FirstOrDefault(x => x.Type == "UserId").Value;
+                var email = jsonToken.Claims.FirstOrDefault(x => x.Type == "Email").Value;
+                var can = _candidateRepository.GetById((int) Validation.ConvertInt(canId));
+                if (can.Email != email)
+                    throw new Exception("token not valid");
+                var rs = _mapper.Map<CandidateDTO>(can);
+                rs.Password = null;
+                return rs;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
