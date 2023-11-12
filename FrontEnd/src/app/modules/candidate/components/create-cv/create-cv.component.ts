@@ -77,18 +77,118 @@ export class CandidateCreateCvComponent {
       this.backgroudSelectedLink = themeList[id].backgroudSelectedLink
    }
 
+   getValueSkills() {
+      var titleSkills: any[] = [];
+      var descriptionSkills: any[] = [];
+
+      var inputs = $(".skillTitle");
+      for (const input of inputs) { titleSkills.push($(input).val())}
+
+      var inputs = $(".skillDescription");
+      for (const input of inputs) { descriptionSkills.push($(input).val())}
+
+      var skills = [];
+      for (var i = 0; i < titleSkills.length; i++) {
+         var dict:any = {}; dict["title"] = titleSkills[i]; dict["skillDescription"] = descriptionSkills[i];
+         skills.push(dict);
+      }
+      return skills
+   }
+
+   getValueCertificates(){
+      var certificateName: any[] = [];
+      var certificateProvider: any[] = [];
+      var issuedDate: any[] = [];
+      var expiredDate: any[] = [];
+      var credentialURL: any[] = [];
+
+      var inputs = $(".certificateName");
+      for (const input of inputs) { certificateName.push($(input).val())}
+
+      var inputs = $(".issuedDateCertificate");
+      for (const input of inputs) { issuedDate.push($(input).val())}
+
+      var inputs = $(".expiredDateCertificate");
+      for (const input of inputs) { expiredDate.push($(input).val())}
+
+      var inputs = $(".credentialURLCertificate");
+      for (const input of inputs) { credentialURL.push($(input).val())}
+
+      var inputs = $(".certificateProvider");
+      for (const input of inputs) { certificateProvider.push($(input).val())}
+
+      var certificates = [];
+      for (var i = 0; i < certificateName.length; i++) {
+         var dict:any = {}; 
+         dict["certificateName"] = certificateName[i]; dict["issuedDate"] = issuedDate[i]; 
+         dict["expiredDate"] = expiredDate[i]; dict["credentialURL"] = credentialURL[i]; dict["certificateProvider"] = certificateProvider[i];
+         certificates.push(dict);
+      }
+      return certificates
+   }
+
+   getValueAwards(){
+      var fromYear: any[] = [];
+      var awardName: any[] = [];
+      var description: any[] = [];
+
+      var inputs = $(".fromYearAwards");
+      for (const input of inputs) { fromYear.push($(input).val())}
+
+      var inputs = $(".awardName");
+      for (const input of inputs) { awardName.push($(input).val())}
+
+      var inputs = $(".awardDescription");
+      for (const input of inputs) { description.push($(input).val())}
+
+      var awards = [];
+      for (var i = 0; i < fromYear.length; i++) {
+         var dict:any = {}; 
+         dict["fromYear"] = fromYear[i]; dict["awardName"] = awardName[i]; 
+         dict["description"] = description[i];
+         awards.push(dict);
+      }
+      return awards
+   }
+
+   getValuesOtherSkills(){
+      var otherSkills: any[] = [];
+      var inputs = $(".otherSkillsDescription");
+      for (const input of inputs) { otherSkills.push($(input).val())}
+
+      var otherSkill = [];
+      for (var i = 0; i < otherSkills.length; i++) {
+         var dict:any = {}; 
+         dict["otherSkills"] = otherSkills[i];
+         otherSkill.push(dict);
+      }
+
+      return otherSkill
+   }
+
+   getValuesExperiences(){
+      var fromYear: any[] = [];
+      var awardName: any[] = [];
+      var description: any[] = [];
+      var fromYear: any[] = [];
+      var awardName: any[] = [];
+      var description: any[] = [];
+
+   
+   }
+
    SumbitCV(event: any) {
       const email = $(".inputEmail")[0].value;
       const phone = $(".inputPhone")[0].value;
       const linkMedia = $(".inputLinkMedia")[0].value;
       const address = $(".inputAddress")[0].value;
-      $(".inputTitleSkills").length
-      $(".inputDescripitonSkills").length
-      
-      $(".inputTitleSkills");
 
-      console.log( $(".inputTitleSkills").length);
+      const skills =  this.getValueSkills()
+      const certificates = this.getValueCertificates()
+      const awards = this.getValueAwards()
+      const otherSkills = this.getValuesOtherSkills()
 
+      console.log(otherSkills);
 
    }
 

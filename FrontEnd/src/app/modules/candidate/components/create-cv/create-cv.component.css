@@ -642,7 +642,7 @@ textarea {
 .other-skillsAdd{
    display: none;
    position: absolute;
-   bottom: 40px;
+   bottom: 30px;
    right: -5px;
    font-size: 1em;
    color: #00b14f;

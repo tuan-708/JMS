@@ -170,19 +170,17 @@
                     <div class="skill">
                         <!-- Input Name Skills  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Tên kỹ năng" class="form-info-input inputTitleSkills"
+                            <input type="text" placeholder="Tên kỹ năng" class="form-info-input skillTitle"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
 
                         <!-- Input Describe Skills  -->
                         <div class="mt-1">
                             <textarea rows="4" maxlength="120" placeholder="Mô tả kỹ năng"
-                                class="form-info-input inputDescripitonSkills" [style.color]="colorLeftInput"
-                                [class]="ThemStyle"></textarea>
+                                class="form-info-input inputDescripitonSkills skillDescription"
+                                [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
                         </div>
                     </div>
-
-
 
                     <i class="fa-solid fa-plus skillAdd" (click)="skillAdd($event)"></i>
                     <i class="fa-solid fa-minus skillSub" (click)="skillSub($event)"></i>
@@ -199,35 +197,40 @@
                     <div class="certificates">
                         <!-- Input Name Certificates  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Tên chứng chỉ" class="form-info-input"
-                            [style.color]="colorLeftInput" [class]="ThemStyle">
+                            <input type="text" placeholder="Tên chứng chỉ" class="form-info-input certificateName"
+                                [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
 
                         <!-- Input Time Certificates  -->
                         <div class="mt-1 d-flex">
-                            <input type="text" placeholder="Bắt đầu" class="form-info-input width50"
-                                [style.color]="colorLeftInput" [class]="ThemStyle">
+                            <input type="text" placeholder="Bắt đầu"
+                                class="form-info-input width50 issuedDateCertificate" [style.color]="colorLeftInput"
+                                [class]="ThemStyle">
                             <div>-</div>
-                            <input type="text" placeholder="Kết thúc" class="form-info-input width50"
-                                [style.color]="colorLeftInput" [class]="ThemStyle">
+                            <input type="text" placeholder="Kết thúc"
+                                class="form-info-input width50 expiredDateCertificate" [style.color]="colorLeftInput"
+                                [class]="ThemStyle">
                         </div>
 
+                        <!-- Input Link Certificates  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Link" class="form-info-input width50"
-                            [style.color]="colorLeftInput" [class]="ThemStyle">
+                            <input type="text" placeholder="Link"
+                                class="form-info-input width50 credentialURLCertificate" [style.color]="colorLeftInput"
+                                [class]="ThemStyle">
                         </div>
 
-                        <!-- Input Name Certificates  -->
+                        <!-- Input Description Certificates  -->
                         <div class="mt-1">
-                            <textarea rows="2" maxlength="120" placeholder="Miêu tả" class="form-info-input"
-                                [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                            <textarea rows="2" maxlength="120" placeholder="Miêu tả"
+                                class="form-info-input certificateProvider" [style.color]="colorLeftInput"
+                                [class]="ThemStyle"></textarea>
                         </div>
                     </div>
                     <i class="fa-solid fa-plus certificatesAdd" (click)="certificatesAdd($event)"></i>
                     <i class="fa-solid fa-minus certificatesSub" (click)="certificatesSub($event)"></i>
                 </div>
 
-                <!-- Form Prizes  -->
+                <!-- Form Award  -->
                 <div class="mt-3 form-prizes form-input-value">
                     <!-- Header  -->
                     <div>
@@ -236,41 +239,45 @@
                     </div>
 
                     <div class="prizes">
-                        <!-- Input Time Prizes  -->
+                        <!-- Input Time Award  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Thời gian" class="form-info-input"
+                            <input type="text" placeholder="Thời gian" class="form-info-input fromYearAwards"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
 
-                        <!-- Input Name Prizes  -->
+                        <!-- Input Name Award  -->
                         <div class="mt-1">
-                            <textarea rows="2" maxlength="60" type="text" placeholder="Tên giải thưởng"
-                                class="form-info-input" [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                            <input type="text" placeholder="Tên giải thưởng" class="form-info-input awardName"
+                                [style.color]="colorLeftInput" [class]="ThemStyle">
+                        </div>
+
+                        <!-- Input Description Award  -->
+                        <div class="mt-1">
+                            <textarea rows="2" maxlength="60" type="text" placeholder="Miêu tả" class="form-info-input awardDescription"
+                                [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
                         </div>
                     </div>
-
-
                     <i class="fa-solid fa-plus prizesAdd" (click)="prizesAdd($event)"></i>
                     <i class="fa-solid fa-minus prizesSub" (click)="prizesSub($event)"></i>
                 </div>
 
                 <!-- Form Other Skills  -->
-                <div class="mt-3 form-other-skills form-input-value">
+                <!-- <div class="mt-3 form-other-skills form-input-value"> -->
                     <!-- Header  -->
-                    <div>
+                    <!-- <div>
                         <input type="text" placeholder="Kỹ năng mềm" value="Kỹ năng mềm" disabled
                             class="form-left--header width100" [style.color]="colorLeftHeader">
                     </div>
-                    <div class="otherSkill">
-                        <!-- Input Decribe Skills  -->
-                        <div class="mt-1">
-                            <textarea rows="5" maxlength="150" placeholder="miêu tả" class="form-info-input"
-                                [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                    <div class="otherSkill"> -->
+                        <!-- Input Describe Skills  -->
+                        <!-- <div class="mt-1">
+                            <input type="text" placeholder="miêu tả" class="form-info-input otherSkillsDescription"
+                                [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
                     </div>
                     <i class="fa-solid fa-plus other-skillsAdd" (click)="otherSkillsAdd($event)"></i>
                     <i class="fa-solid fa-minus other-skillsSub" (click)="otherSkillsSub($event)"></i>
-                </div>
+                </div> -->
             </div>
 
             <div class="col-8 p-4 block-right">
