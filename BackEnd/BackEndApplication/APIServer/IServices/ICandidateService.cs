@@ -12,5 +12,6 @@ namespace APIServer.IServices
         public CVMatching GetCVAppliedDetail(int candidateId, int CVAppliedId);
         public string LoginCandidate(string? userName, string? password);
         public List<CVMatching> GetCVApplied(int candaidateId);
+        public CandidateDTO getCandidateInformationByToken(string? token);
     }
 }

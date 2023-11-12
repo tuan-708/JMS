@@ -6,6 +6,7 @@ using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models;
 using APIServer.Models.Entity;
+using APIServer.Repositories;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -378,6 +379,37 @@ namespace APIServer.Services
         {
             List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatched(recruiterId, jobDescriptionId);
             return CVMatched;
+        }
+
+        public RecuirterDTO getRecruiterInformationByToken(string? token)
+        {
+            try
+            {
+                if (Validation.checkStringIsEmpty(token))
+                {
+                    throw new Exception("token not valid");
+                }
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                if (jsonToken == null)
+                {
+                    throw new Exception("your token not valid");
+                }
+                if (jsonToken.ValidTo < DateTime.UtcNow)
+                    throw new Exception("token has expired");
+                var canId = jsonToken.Claims.FirstOrDefault(x => x.Type == "UserId").Value;
+                var email = jsonToken.Claims.FirstOrDefault(x => x.Type == "Email").Value;
+                var can = _recRepository.GetById((int)Validation.ConvertInt(canId));
+                if (can.Email != email)
+                    throw new Exception("token not valid");
+                var rs = _mapper.Map<RecuirterDTO>(can);
+                return rs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
