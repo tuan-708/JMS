@@ -24,5 +24,6 @@ namespace APIServer.DTO.EntityDTO
         public int? CreatedBy { get; set; }
         public int? RoleTitle { get; set; }
         public string? AvatarURL { get; set; }
+        public int? CompanyId { get; set; }
     }
 }
