@@ -25,6 +25,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
                 host + "\\defaults\\default_avt.jpg" :
                 host + src.AvatarURL))
+                .ForMember(x => x.CompanyId, src => src.MapFrom(src => src.Company.CompanyId))
                 ;
             CreateMap<JobDTO, JobDescription>()
                 .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName)))

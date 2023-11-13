@@ -97,7 +97,14 @@ namespace APIServer.Services
             com.DateCreated = DateTime.Now;
             com.AvatarURL = null;
             com.BackGroundURL = null;
-            return _companyRepository.CreateById(com, id);
+            var rs = _companyRepository.CreateById(com, id);
+            if (rs > 0)
+            {
+                rec.Company = com;
+                var r = _recuirterRepository.Update(rec);
+                return r + rs;
+            }
+            return rs;
         }
 
         public int Delete(CompanyDTO data)
