@@ -77,10 +77,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.LastUpdateDate, src => src.MapFrom(src => src.LastUpdateDate.ToString(GlobalStrings.FORMAT_DATE1)))
                 .ForMember(x => x.ApplyDate, src => src.MapFrom(src => src.ApplyDate.ToString(GlobalStrings.FORMAT_DATE1)))
                 .ForMember(x => x.CreatedDate, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE1)))
-
                 ;
-
-
 
             CreateMap<Candidate, CandidateDTO>()
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?

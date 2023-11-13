@@ -18,7 +18,7 @@ namespace APIServer.DTO.EntityDTO
         public string? DOB { get; set; }
         public string? CreatedDateDisplay { get; set; }
         public string? LastUpdateDateDisplay { get; set; }
-        public string? PositionTitleName { get; set; }
+        //public string? PositionTitleName { get; set; }
         public List<JobExperienceDTO>? JobExperiences { get; set; }
         public List<SkillDTO>? Skills { get; set; }
         public List<EducationDTO>? Educations { get; set; }
