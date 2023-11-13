@@ -69,7 +69,14 @@ export class ListJdsComponent {
 
   onClickDelete(jd: any) {
     jd.isShow = false;
-    //API handle delete JD here
+    //API handle delete JD
+    postRequest(apiRecruiter.DELETE_JD_BY_ID + "2/" + jd?.jobId, AuthorizationMode.PUBLIC, {})
+      .then(res => {
+         console.log(res);
+      })
+      .catch(data => {
+         console.log(data);
+      })
   }
 
   openDialog(jd: any): void {
