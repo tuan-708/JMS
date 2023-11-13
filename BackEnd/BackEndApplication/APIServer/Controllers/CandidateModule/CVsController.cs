@@ -45,7 +45,7 @@ namespace APIServer.Controllers.CandidateModule
                     TotalPage = 1,
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return new PagingResponseBody<List<CurriculumVitaeDTO>>
@@ -70,7 +70,7 @@ namespace APIServer.Controllers.CandidateModule
                     statusCode = HttpStatusCode.OK,
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new BaseResponseBody<CurriculumVitaeDTO>
                 {
@@ -96,12 +96,36 @@ namespace APIServer.Controllers.CandidateModule
                     data = c.Id,
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return new BaseResponseBody<int>
                 {
                     message = GlobalStrings.BAD_REQUEST,
+                    statusCode = HttpStatusCode.BadRequest,
+                    data = -1,
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("update-cv")]
+        public BaseResponseBody<int> updateCv(int candidateId, int cvId, CurriculumVitaeDTO cvDTO)
+        {
+            try
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = GlobalStrings.SUCCESSFULLY_SAVED,
+                    statusCode = HttpStatusCode.OK,
+                    data = cvService.UpdateCvByCandidateIdAndCvId(candidateId, cvId, cvDTO),
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = ex.InnerException.Message,
                     statusCode = HttpStatusCode.BadRequest,
                     data = -1,
                 };
