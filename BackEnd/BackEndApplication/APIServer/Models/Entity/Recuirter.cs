@@ -42,5 +42,7 @@ namespace APIServer.Models.Entity
         public bool IsDelete { get; set; }
         public virtual ICollection<EmployeeInCompany> EmployeeInCompanies { get; set; }
         public string? AvatarURL { get; set; }
+        //founder
+        public virtual Company? Company { get; set; }
     }
 }

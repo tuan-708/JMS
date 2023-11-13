@@ -13,19 +13,24 @@
                         <div class="col-4 textOver">
                         Ngày Sinh: {{candidate?.dob}}
                         </div>
-                        <div class="col-4 textOver">
+                        <div class="col-3 textOver">
                             Giới Tính: {{candidate?.sex}}
                         </div>
-                        <div class="col-4 textOver">
+                        <div class="col-5 textOver">
                             Email: {{candidate?.email}}
                         </div>
                     </div>
                 </div>
-                <div class="col-md-1 block">
+                <!-- <div class="col-md-1 block">
                     <div class="btn-grp">
                         <button (click)="onClickView(candidate)">
                             <i class="bi bi-file-earmark-person h3" title="Xem thông tin ứng viên"></i>
                         </button>
+                    </div>
+                </div> -->
+                <div class="col-md-1 block">
+                    <div class="btn-grp">
+                        <mat-checkbox></mat-checkbox>
                     </div>
                 </div>
             </mat-list-item>

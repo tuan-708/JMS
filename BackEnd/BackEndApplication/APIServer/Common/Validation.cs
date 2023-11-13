@@ -78,7 +78,8 @@ namespace APIServer.Common
 
         public static bool IsPhoneNumberValid(string phoneNumber)
         {
-            return phoneNumber.Length == 10 && phoneNumber.All(char.IsDigit);
+            return phoneNumber.Length == 10 && phoneNumber.All(char.IsDigit) ? 
+                true : throw new Exception("Phone number not valid");
         }
 
         public static int? ConvertInt(string? input)

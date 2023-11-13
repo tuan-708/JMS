@@ -57,7 +57,8 @@ namespace APIServer.Repositories
             var rs = context.Recuirters
                 .Include(x => x.Role)
                 .Include(x => x.EmployeeInCompanies)
-                .Where(x => !x.IsDelete)
+                .Include(x => x.Company)
+                .Where(x => x.IsDelete == false)
                 .ToList();
             return rs;
         }
@@ -72,6 +73,7 @@ namespace APIServer.Repositories
             var rs = context.Recuirters
                 .Include(x => x.Role)
                 .Include(x => x.EmployeeInCompanies)
+                .Include(x => x.Company)
                 .FirstOrDefault(x => !x.IsDelete && x.Id == id);
             return rs;
         }

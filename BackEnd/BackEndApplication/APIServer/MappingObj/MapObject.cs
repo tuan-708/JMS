@@ -25,6 +25,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
                 host + "\\defaults\\default_avt.jpg" :
                 host + src.AvatarURL))
+                .ForMember(x => x.CompanyId, src => src.MapFrom(src => src.Company.CompanyId))
                 ;
             CreateMap<JobDTO, JobDescription>()
                 .ForMember(x => x.EmploymentTypeId, src => src.MapFrom(src => Validation.ConvertInt(src.EmploymentTypeName)))
@@ -77,10 +78,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.LastUpdateDate, src => src.MapFrom(src => src.LastUpdateDate.ToString(GlobalStrings.FORMAT_DATE1)))
                 .ForMember(x => x.ApplyDate, src => src.MapFrom(src => src.ApplyDate.ToString(GlobalStrings.FORMAT_DATE1)))
                 .ForMember(x => x.CreatedDate, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE1)))
-
                 ;
-
-
 
             CreateMap<Candidate, CandidateDTO>()
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?

@@ -13,13 +13,14 @@
     <mat-form-field>
         <mat-label>Giờ</mat-label>
         <input matInput type="number" [formControl]="hourControl" [(ngModel)]="hour">
-        <mat-error *ngIf="(hourControl.invalid || getErrorTime())">Thời gian không hợp lệ!</mat-error>
+        <mat-error *ngIf="hourControl.invalid">Thời gian không hợp lệ!</mat-error>
     </mat-form-field>
     <mat-form-field class="pl-3">
         <mat-label>Phút</mat-label>
-        <input matInput type="number" [formControl]="minControl" [(ngModel)]="minute">
-        <mat-error *ngIf="minControl.invalid || getErrorTime()">Thời gian không hợp lệ!</mat-error>
+        <input matInput type="number" [formControl]="minControl" [(ngModel)]="minute" (isValidForm)="true">
+        <mat-error *ngIf="minControl.invalid">Thời gian không hợp lệ!</mat-error>
     </mat-form-field>
+    <p class="text-danger" *ngIf="!isValidForm">Thời gian không hợp lệ!</p>
 </div>
 <div mat-dialog-actions align="end">
     <button mat-button (click)="onNoClick()">Đóng</button>
