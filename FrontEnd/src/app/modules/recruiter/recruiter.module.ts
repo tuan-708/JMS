@@ -10,13 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RecruiterRoutingModule } from './recruiter-routing.module';
 import { RecruiterSignInComponent } from './components/sign-in/sign-in.component';
-import { RecruiterSignUpComponent } from './components/sign-up/sign-up.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RecruiterComponent } from './recruiter.component';
 import { CompanyRegisterComponent } from './components/company-register/company-register.component';
 import { CompanyUpdateComponent } from './components/company-update/company-update.component';
-import { RegisterComponent } from './components/register/register.component';
+import { RegisterRecruiterComponent } from './components/sign-up/sign-up.component';
 import { JdRegisterComponent } from './components/jd-register/jd-register.component';
 import { ListJdsComponent } from './components/list-jds/list-jds.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -32,12 +31,11 @@ import { OptionMatchModalComponent } from './components/option-match-modal/optio
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
-      RecruiterSignUpComponent,
       HeaderComponent,
       FooterComponent,
       RecruiterComponent,
       CompanyRegisterComponent,
-      RegisterComponent,
+      RegisterRecruiterComponent,
       CompanyUpdateComponent,
       JdRegisterComponent,
       ListJdsComponent,

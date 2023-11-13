@@ -2,7 +2,7 @@
    <div class="row justify-content-center contentBlock">
       <div class="col-md-5">
          <h5>Chào mừng bạn đã quay trở lại</h5>
-         <p>Hãy tìm kiếm công việc phù hợp cùng nhiều cơ hội sự nghiệp lý tưởng</p>
+         <p>Hãy tìm kiếm ứng viên phù hợp với công việc của bạn.</p>
          <div style="display: flex; justify-content: center; align-items: center;" class="mt-5">
             <img [src]="backgroudSelectedLink" class="img-fluid" alt="Sample image"
                style="width: 300px; display: flex; justify-content: center; align-items: center;">
@@ -37,13 +37,13 @@
                      Lưu đăng nhập
                   </label>
                </div>
-               <a href="#!" class="text-decoration-none">Quên mật khẩu?</a>
+               <a href="" class="text-decoration-none">Quên mật khẩu?</a>
             </div>
 
             <div class="text-center text-lg-start mt-4 pt-2">
                <button type="button" class="btn btn-primary btn-lg col-12" (click)="signIn($event)">Đăng nhập</button>
                <p class="fw-bold mt-3 pt-1 mb-0 mb-5">Bạn chưa có tài khoản?
-                  <a [routerLink]="['/candidate/register']" class="link-danger text-decoration-none"> Đăng
+                  <a [routerLink]="['/recruiter/sign-up']" class="link-danger text-decoration-none"> Đăng
                      ký</a>
                </p>
             </div>

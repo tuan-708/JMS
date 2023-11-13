@@ -1,13 +1,10 @@
-import { Component } from '@angular/core';
-import { Title } from "@angular/platform-browser";
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-   selector: 'app-sign-up',
+   selector: 'app-register',
    templateUrl: './sign-up.component.html',
-   styleUrls: ['./sign-up.component.css']
+   styleUrls: ['./sign-up.component.css'],
 })
-export class CandidateSignUpComponent {
-   constructor(private titleService: Title) {
-      this.titleService.setTitle("Ứng viên - Đăng xuất");
-   }
+export class CandidateRegisterComponent {
+
 }

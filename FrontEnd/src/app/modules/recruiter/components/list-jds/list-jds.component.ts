@@ -1,13 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { getRequest, postRequest, postFileRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { getToken, saveItem, signOut, getProfile } from 'src/app/service/localstorage';
+import { ToastrService } from 'ngx-toastr';
+
+
 @Component({
   selector: 'app-list-jds',
   templateUrl: './list-jds.component.html',
-  styleUrls: ['./list-jds.component.css']
+  styleUrls: ['./list-jds.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class ListJdsComponent {
@@ -29,7 +34,7 @@ export class ListJdsComponent {
     return list
   }
 
-  constructor(private router: Router, public dialog: MatDialog) {
+  constructor(private router: Router, public dialog: MatDialog, private toastr: ToastrService) {
     getRequest(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/" + this.page, AuthorizationMode.PUBLIC)
       .then(res => {
         console.log(res?.data);
@@ -47,7 +52,6 @@ export class ListJdsComponent {
   }
 
   pageChanged(page: any) {
-    console.log('pageeeee');
     this.page = page
     getRequest(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/" + this.page, AuthorizationMode.PUBLIC)
       .then(res => {

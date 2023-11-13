@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { getRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
+import { getProfile, isLogin } from 'src/app/service/localstorage';
 import { environment } from 'src/environments/environment';
 declare var $: any; 
 
@@ -29,14 +30,20 @@ export class CandidateMyCvsComponent {
    }
 
    constructor(){
-      getRequest(apiCandidate.GET_ALL_CV_BY_ID+"/1", AuthorizationMode.PUBLIC, {})
-      .then(res => {
-         this.listCVs = res?.data
-         console.log(this.listCVs);
-      })
-      .catch(data => {
-         console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
-      })
+      const isLog = isLogin();
+      if(isLog){
+         const profile = getProfile();
+
+         getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
+         .then(res => {
+            this.listCVs = res?.data
+            console.log(this.listCVs);
+         })
+         .catch(data => {
+            console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
+         })
+      }
+    
    }
 
    gotoEditCV(id: number){

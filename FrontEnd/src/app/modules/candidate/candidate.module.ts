@@ -5,8 +5,7 @@ import { CandidateComponent } from './candidate.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CandidateSignInComponent } from './components/sign-in/sign-in.component';
-import { CandidateSignUpComponent } from './components/sign-up/sign-up.component';
-import { CandidateRegisterComponent } from './components/register/register.component';
+import { CandidateRegisterComponent } from './components/sign-up/sign-up.component';
 import { CandidateHomeComponent } from './components/home/home.component';
 import { CandidateForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { CandidateCreateCvComponent } from './components/create-cv/create-cv.component';
@@ -31,7 +30,6 @@ import { UpdateCvComponent } from './components/update-cv/update-cv.component';
       HeaderComponent,
       FooterComponent,
       CandidateSignInComponent,
-      CandidateSignUpComponent,
       CandidateRegisterComponent,
       CandidateHomeComponent,
       CandidateForgotPasswordComponent,

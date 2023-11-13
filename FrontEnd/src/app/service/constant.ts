@@ -24,7 +24,8 @@ export enum apiRecruiter{
     UPDATE_IMAGE_COMPANY_BACKGROUND = "/api/Images/update-img-bgr-company",
     GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
 
-    LOGIN_RECRUITER = "/api/Token/login-recuirter"
+    LOGIN_RECRUITER = "/api/Token/login-recuirter",
+    GET_PROFILE_RECRUITER = "/api/Token/get-data-recruiter"
 }
 
 export enum apiCandidate{
@@ -33,7 +34,9 @@ export enum apiCandidate{
     GET_ALL_CV_BY_RECRUITER_ID = "/api/CVs/all-cv",
     CREATE_CV_BY_CANDIDATE_ID= "/api/CVs/new-cv",
     UPLOAD_AVATAR_CV_ID= "/api/Images/upload-imge-cv",
-    LOGIN_CANDIDATE = "/api/Token/login-candidate",
     GET_ALL_CV_BY_ID = "/api/CVs/all-cv",
-    CANDIDATE_APPLYJOB = "/api/Candidate/apply-cv"
+    CANDIDATE_APPLYJOB = "/api/Candidate/apply-cv",
+
+    LOGIN_CANDIDATE = "/api/Token/login-candidate",
+    GET_PROFILE_USER = "/api/Token/get-data-candidate"
 }

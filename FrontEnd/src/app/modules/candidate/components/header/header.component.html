@@ -20,10 +20,13 @@
             </li>
          </ul>
          <form class="d-flex">
-            <button type="button" class="btn btn-outline-primary m-2 p-2" [routerLink]="['/candidate/sign-in/']">Đăng
-               nhập</button>
-            <button type="button" class="btn btn-success m-2 p-2" [routerLink]="['/candidate/register/']">Đăng
-               ký</button>
+            <div *ngIf="isLog">
+               <button type="button" class="btn btn-success m-2 p-2" [routerLink]="['/candidate/sign-out/']" (click)="signOut()">Đăng xuất</button>
+             </div>
+             <div *ngIf="!isLog">
+               <button type="button" class="btn btn-outline-primary m-2 p-2" [routerLink]="['/candidate/sign-in/']">Đăng nhập</button>
+               <button type="button" class="btn btn-success m-2 p-2" [routerLink]="['/candidate/sign-up/']">Đăng ký</button>
+             </div>
          </form>
       </div>
    </div>

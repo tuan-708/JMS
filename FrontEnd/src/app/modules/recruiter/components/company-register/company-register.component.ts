@@ -3,6 +3,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormControl, Validators } from '@angular/forms';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { getProfile, isLogin } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'app-company-register',
@@ -92,7 +93,7 @@ export class CompanyRegisterComponent {
       return
    }
 
-   
+
 
    checkReq: any = false;
 
@@ -110,38 +111,39 @@ export class CompanyRegisterComponent {
          const webURL = this.websiteRq.value;
          const categoryName = this.categoryRq.value;
          const size = this.sizeRq.value;
-         const recuirterFounder = "20";
-         const yearOfEstablishment =  this.yearOfEstablishmentRq.value;
+         const yearOfEstablishment = this.yearOfEstablishmentRq.value;
 
-         const data = {
-            companyName: companyName,
-            email: email,
-            phone: phone,
-            address: address,
-            description: description,
-            webURL: webURL,
-            tax: tax,
-            categoryName: categoryName,
-            size: size,
-            recuirterFounder: recuirterFounder,
-            recuirtersInCompany: [],
-            jDs: [],
-            yearOfEstablishment:yearOfEstablishment
+         const isLog = isLogin();
+         if (isLog) {
+            const profile = getProfile();
+
+            const data = {
+               companyName: companyName,
+               email: email,
+               phone: phone,
+               address: address,
+               description: description,
+               webURL: webURL,
+               tax: tax,
+               categoryName: categoryName,
+               size: size,
+               recuirterFounder: profile.id,
+               recuirtersInCompany: [],
+               jDs: [],
+               yearOfEstablishment: yearOfEstablishment
+            }
+
+
+
+            postRequest(apiRecruiter.CREATE_COMPANY_BY_ID + "/" + profile.id, AuthorizationMode.BEARER_TOKEN, data)
+               .then(res => {
+                  console.log(res);
+               })
+               .catch(data => {
+                  console.log(data);
+               })
          }
-
-         postRequest(apiRecruiter.CREATE_COMPANY_BY_ID+"/"+recuirterFounder, AuthorizationMode.PUBLIC, data)   
-         .then(res => {
-            console.log(res);
-         })
-         .catch(data => {
-            console.log(data);
-         })
       }
-
-      const taxNum =  this.taxNumRq.value?.toString();
-      console.log(taxNum);
-
-
 
       this.checkReq = true;
       this.nameRq.markAllAsTouched()

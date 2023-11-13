@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/constant';
 import { ToastrService } from 'ngx-toastr';
+import { getProfile, isLogin } from 'src/app/service/localstorage';
 
 declare var $: any;
 
@@ -332,14 +333,21 @@ export class CandidateCreateCvComponent {
          'theme': theme,
          'font': font
       }
-      postRequest(apiCandidate.CREATE_CV_BY_CANDIDATE_ID + "/1", AuthorizationMode.PUBLIC, data)
-      .then(res => {
-         this.showSuccess()
-         console.log(res);
-      })
-      .catch(data => {
-         console.log(data);
-      })
+
+      const isLog = isLogin();
+      if(isLog){
+         const profile = getProfile();
+
+         postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
+         .then(res => {
+            this.showSuccess()
+            console.log(res);
+         })
+         .catch(data => {
+            console.log(data);
+         })
+      }
+
 
 
       console.log(data);

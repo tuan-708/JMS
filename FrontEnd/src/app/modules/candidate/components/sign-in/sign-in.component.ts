@@ -2,6 +2,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { ToastrService } from 'ngx-toastr';
+import { signOut, saveToken, saveItem, isLogin } from 'src/app/service/localstorage';
+import { Router } from '@angular/router';
+
 declare var $: any;
 @Component({
    selector: 'app-sign-in',
@@ -29,8 +32,8 @@ export class CandidateSignInComponent {
    }
 
 
-   constructor(private toastr: ToastrService) {
-
+   constructor(private toastr: ToastrService, private router: Router) {
+      // deleteToken()
    }
 
    signIn(even: any) {
@@ -44,9 +47,20 @@ export class CandidateSignInComponent {
                this.showFail()
             }
             if (res?.statusCode == 200) {
-               localStorage.setItem('token', res.data);
-               
-               this.showSuccess()
+               saveToken(res.data)
+
+               postRequest(apiCandidate.GET_PROFILE_USER+"?token="+res.data, AuthorizationMode.BEARER_TOKEN, {})
+               .then(res => {
+                  if(res.statusCode == 200){
+                     setTimeout(() => {
+                        saveItem("profile", res.data);
+                      }, 1000);
+                      setTimeout(() => {
+                        this.showSuccess()
+                        this.router.navigate(['/candidate/']);
+                      }, 1000);
+                  }
+               })
             }
          })
          .catch(data => {

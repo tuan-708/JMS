@@ -22,7 +22,7 @@ export class ListJobsComponent {
             console.log(this.listJds);
          })
          .catch(data => {
-            console.warn(apiCandidate.GET_ALL_JDS_PAGING + "/1" + this.page, data);
+            console.warn(apiCandidate.GET_ALL_JDS_PAGING + "/" + this.page, data);
          })
    }
 
