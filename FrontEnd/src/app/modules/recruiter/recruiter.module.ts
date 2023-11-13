@@ -29,6 +29,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { AutosizeModule } from 'ngx-autosize';
 import { OptionMatchModalComponent } from './components/option-match-modal/option-match-modal.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -64,6 +65,7 @@ import { OptionMatchModalComponent } from './components/option-match-modal/optio
       MatDividerModule,
       MatListModule,
       AutosizeModule,
+      MatCheckboxModule,
    ]
 })
 export class RecruiterModule { }
