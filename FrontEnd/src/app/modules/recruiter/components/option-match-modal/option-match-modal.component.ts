@@ -10,9 +10,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 //validate data wrong
 export class OptionMatchModalComponent {
 
-  hour: any
-  minute: any
+  hour: number = 24
+  minute: number = 0
   data: any = { quantity: 10, intendTime: 1440 }
+  isValidForm = true
 
   constructor(
     public dialogRef: MatDialogRef<OptionMatchModalComponent>) { }
@@ -41,20 +42,15 @@ export class OptionMatchModalComponent {
     return
   }
 
-  getErrorTime(){
-    if (this.minute <= 0 && this.hour <= 0) {
-      return true
-    }
-    return false
-  }
-
   checkFormValid() {
     this.data.intendTime = this.hour * 60 + this.minute
-    console.log(this.data)
-    if (this.data.quantity <= 0 || this.data.intendTime <= 0) {
+    if (this.data.quantity <= 0 || this.data.intendTime < 0 || this.hour < 0 || this.minute < 0) {
       return false
     }
-    alert('true');
-    return false;
+    if(this.hour == 0 && this.minute == 0){
+      this.isValidForm = false
+      return false
+    }
+    return true;
   }
 }

@@ -23,6 +23,7 @@ export enum apiRecruiter{
     UPDATE_IMAGE_COMPANY_AVATAR = "/api/Images/update-img-avt-company",
     UPDATE_IMAGE_COMPANY_BACKGROUND = "/api/Images/update-img-bgr-company",
     GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
+    DELETE_JD_BY_ID = "/api/JobDesc/delete-jd/",
 
     LOGIN_RECRUITER = "/api/Token/login-recuirter"
 }

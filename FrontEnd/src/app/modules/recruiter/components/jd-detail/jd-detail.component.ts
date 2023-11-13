@@ -70,14 +70,18 @@ export class JdDetailComponent {
   }
 
   handleData() {
-    console.log(this.jdDetail.jobDetail)
+    this.jobDescription = this.handleText(this.jdDetail.jobDetail);
+    this.jobBenefit = this.handleText(this.jdDetail.candidateBenefit);
+    let skillRq = this.handleText(this.jdDetail.skillRequirement);
+    let expRq = this.handleText(this.jdDetail.experienceRequirement);
+    let eduRq = this.handleText(this.jdDetail.educationRequirement);
+    this.jobRequirement = this.handleText(skillRq) + '\n' + this.handleText(expRq) + '\n' + this.handleText(eduRq)
+  }
 
-    this.jobDescription = ((this.jdDetail.jobDetail).replaceAll(/ -/g, "	&#13;-")).trim();
-    this.jobBenefit = ((this.jdDetail.candidateBenefit).replaceAll(/ -/g, "	&#13;-")).trim();
-    let skillRq = ((this.jdDetail.skillRequirement).replaceAll(/ -/g, "	&#13;-")).trim();
-    let expRq = ((this.jdDetail.experienceRequirement).replaceAll(/ -/g, "	&#13;-")).trim();
-    let eduRq = ((this.jdDetail.educationRequirement).replaceAll(/ -/g, "	&#13;-")).trim();
-    this.jobRequirement = skillRq + '\n' + expRq + '\n' + eduRq
-    console.log(this.jobRequirement)
+  handleText(text: string) {
+    const lines: string[] = text.trim().split('\n');
+    const linesWithHyphen: string[] = lines.map((line: string) => (line.startsWith('-') ? line : `- ${line}`));
+    const newText: string = linesWithHyphen.join('\n');
+    return newText
   }
 }
