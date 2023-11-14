@@ -19,12 +19,14 @@ export class JdDetailComponent {
   jobBenefit: any
   jobRequirement: any
   matchOption: any
+  isMatching: boolean = false;
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
 
+    //get jd detail
     getRequest(apiRecruiter.GET_JD_BY_ID, AuthorizationMode.PUBLIC, { jdId: this.id })
       .then(res => {
         this.jdDetail = res.data
@@ -34,11 +36,6 @@ export class JdDetailComponent {
       .catch(data => {
         console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
       })
-
-    //fake data get applicant
-    this.listCandidate = [{ id: 1, name: 'Nguyen Van An', dob: '01/10/1990', sex: 'Nam', avatar: 'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg', email: 'abc@gmail.com' },
-    { id: 2, name: 'Nguyen Van Binh', dob: '01/10/1990', sex: 'Nam', avatar: 'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg', email: 'abc@gmail.com' },
-    { id: 3, name: 'Nguyen Van Manh', dob: '01/10/1990', sex: 'Nam', avatar: 'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg', email: 'abc@gmail.com' }]
   }
 
   openMatchingDialog(): void {
@@ -50,23 +47,37 @@ export class JdDetailComponent {
       if (result !== undefined) {
         this.matchOption = result;
         console.log(this.matchOption);
-        // write other function, send data matchOption to run, this func run when open
+        this.isMatching = true;
+        // call matching api
+        postRequest(apiRecruiter.MATCHING_JOB, AuthorizationMode.PUBLIC, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, numberRequirement: this.matchOption.quantity })
+          .then(res => {
+            console.log(res);
+          })
+          .catch(data => {
+            console.log(data);
+          })
       }
     });
   }
 
-  openCandidateDialog(): void {
-    this.dialog.open(ListCandidateComponent, {
-      width: '60%',
-      data: { type: 1, content: this.listCandidate }
-    });
-  }
+  openCandidateDialog(type: any): void {
+    // type 0: matched list 
+    // type 1: applied list 
+    // type 2: seelected list
+    const typeCandidate = type == 0 ? apiRecruiter.GET_CV_MATCHED : type == 1 ? apiRecruiter.GET_CV_APPLIED : apiRecruiter.GET_CV_SELECTED
+    getRequest(typeCandidate, AuthorizationMode.PUBLIC, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: 1 })
+      .then(res => {
+        this.listCandidate = res.data
+        console.log(res.data);
 
-  openApplicantDialog(): void {
-    this.dialog.open(ListCandidateComponent, {
-      width: '60%',
-      data: { type: 2, content: this.listCandidate }
-    });
+        this.dialog.open(ListCandidateComponent, {
+          width: '60%',
+          data: { type: 1, content: this.listCandidate }
+        });
+      })
+      .catch(data => {
+        console.warn(data);
+      })
   }
 
   handleData() {
@@ -79,7 +90,10 @@ export class JdDetailComponent {
   }
 
   handleText(text: string) {
-    const lines: string[] = text.trim().split('\n');
+    const doc = new DOMParser().parseFromString(text, 'text/html');
+    const sanitizedText = doc.body.textContent || '';
+    const formattedText = sanitizedText.replace(/(\.-|\.\s-)/g, '\n');
+    const lines: string[] = formattedText.trim().split('\n');
     const linesWithHyphen: string[] = lines.map((line: string) => (line.startsWith('-') ? line : `- ${line}`));
     const newText: string = linesWithHyphen.join('\n');
     return newText

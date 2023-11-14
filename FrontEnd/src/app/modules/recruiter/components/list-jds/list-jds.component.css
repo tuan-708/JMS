@@ -18,6 +18,7 @@ body{
     display: flex;
     position: relative;
     box-shadow: var(--boxShadow);
+    background-color: white;
 }
 
 .itemJob:hover{
