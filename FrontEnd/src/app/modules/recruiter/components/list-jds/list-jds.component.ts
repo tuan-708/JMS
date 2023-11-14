@@ -35,7 +35,7 @@ export class ListJdsComponent {
   }
 
   constructor(private router: Router, public dialog: MatDialog, private toastr: ToastrService) {
-    getRequest(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/" + this.page, AuthorizationMode.PUBLIC)
+    getRequest(apiRecruiter.GET_COMPANY_JDS_PAGING + "/2/" + this.page, AuthorizationMode.PUBLIC)
       .then(res => {
         console.log(res?.data);
         this.listJds = res?.data
