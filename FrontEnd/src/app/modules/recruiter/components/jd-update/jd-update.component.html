@@ -1,3 +1,4 @@
+<app-header-recruiter></app-header-recruiter>
 <section class="formJđetail container">
     <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
@@ -26,7 +27,7 @@
                                     <label class="form-label" for="numberRequired">Số lượng tuyển dụng</label><span
                                         class="link-danger"> *</span>
                                     <mat-form-field appearance="outline" class="col-12 p-0">
-                                        <input matInput type="text" id="numberRequired" placeholder="100" required  style="color: black;"
+                                        <input matInput type="number" id="numberRequired" placeholder="100" required  style="color: black;"
                                             [formControl]="numberRequiredRq" />
                                         <mat-error
                                             *ngIf="numberRequiredRq.invalid">{{getErrorMessageNumberRequired()}}</mat-error>

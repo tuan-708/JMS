@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { getToken, isLogin, saveItem, signOut } from 'src/app/service/localstorage';
+import { getProfile, getToken, isLogin, saveItem, signOut } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'app-header-recruiter',
@@ -12,9 +12,16 @@ import { getToken, isLogin, saveItem, signOut } from 'src/app/service/localstora
 })
 export class HeaderComponent {
    isLog:boolean = true;
+   hasCompany: boolean = true;
+   profile: any;
 
    auth(){
       this.isLog = isLogin();
+      this.profile = getProfile();
+      if(this.profile.companyId === null){
+         this.hasCompany = false
+      }
+  
       if(!this.isLog){
          const token = getToken()
          postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})

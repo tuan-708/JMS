@@ -19,6 +19,12 @@ export class JdDetailComponent {
   jobBenefit: any
   jobRequirement: any
   matchOption: any
+  descriptionJd: any
+  jobRequirementJd: any
+  skillRequirementJd: any
+  experienceRequirementJd: any
+  educationRequirementJd:any
+  candidateBenefitJd:any
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
@@ -70,17 +76,17 @@ export class JdDetailComponent {
   }
 
   handleData() {
-    this.jobDescription = this.handleText(this.jdDetail.jobDetail);
-    this.jobBenefit = this.handleText(this.jdDetail.candidateBenefit);
-    let skillRq = this.handleText(this.jdDetail.skillRequirement);
-    let expRq = this.handleText(this.jdDetail.experienceRequirement);
-    let eduRq = this.handleText(this.jdDetail.educationRequirement);
-    this.jobRequirement = this.handleText(skillRq) + '\n' + this.handleText(expRq) + '\n' + this.handleText(eduRq)
+    this.descriptionJd = this.handleText(this.jdDetail.jobDetail);
+    this.candidateBenefitJd = this.handleText(this.jdDetail.candidateBenefit);
+    this.skillRequirementJd = this.handleText(this.jdDetail.skillRequirement);
+    this.experienceRequirementJd = this.handleText(this.jdDetail.experienceRequirement);
+    this.educationRequirementJd = this.handleText(this.jdDetail.educationRequirement);
+    // this.jobRequirementJd = this.handleText(skillRq) + '\n' + this.handleText(expRq) + '\n' + this.handleText(eduRq)
   }
 
   handleText(text: string) {
     const lines: string[] = text.trim().split('\n');
-    const linesWithHyphen: string[] = lines.map((line: string) => (line.startsWith('-') ? line : `- ${line}`));
+    const linesWithHyphen: string[] = lines.map((line: string) => (line.startsWith('-') ? line : `${line}`));
     const newText: string = linesWithHyphen.join('\n');
     return newText
   }

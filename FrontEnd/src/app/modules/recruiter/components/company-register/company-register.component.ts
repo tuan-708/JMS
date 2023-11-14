@@ -3,7 +3,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormControl, Validators } from '@angular/forms';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { getProfile, isLogin } from 'src/app/service/localstorage';
+import { getProfile, isLogin, signOut } from 'src/app/service/localstorage';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
    selector: 'app-company-register',
@@ -18,7 +20,7 @@ export class CompanyRegisterComponent {
    categories: any;
 
 
-   constructor() {
+   constructor(private router: Router,private toastr: ToastrService) {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.categories = res?.data
@@ -97,6 +99,21 @@ export class CompanyRegisterComponent {
 
    checkReq: any = false;
 
+   showSuccess() {
+      this.toastr.info('Thông báo!', 'Đăng ký thành công công ty!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   showFail() {
+      this.toastr.error('Thông báo!', 'Đăng ký công ty thất bại!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+
 
    submitButtonClicked() {
 
@@ -113,36 +130,32 @@ export class CompanyRegisterComponent {
          const size = this.sizeRq.value;
          const yearOfEstablishment = this.yearOfEstablishmentRq.value;
 
-         const isLog = isLogin();
-         if (isLog) {
-            const profile = getProfile();
 
-            const data = {
-               companyName: companyName,
-               email: email,
-               phone: phone,
-               address: address,
-               description: description,
-               webURL: webURL,
-               tax: tax,
-               categoryName: categoryName,
-               size: size,
-               recuirterFounder: profile.id,
-               recuirtersInCompany: [],
-               jDs: [],
-               yearOfEstablishment: yearOfEstablishment
-            }
+         const profile = getProfile();
 
-
-
-            postRequest(apiRecruiter.CREATE_COMPANY_BY_ID + "/" + profile.id, AuthorizationMode.BEARER_TOKEN, data)
-               .then(res => {
-                  console.log(res);
-               })
-               .catch(data => {
-                  console.log(data);
-               })
+         const data = {
+            companyName: companyName,
+            email: email,
+            phone: phone,
+            address: address,
+            description: description,
+            webURL: webURL,
+            tax: tax,
+            categoryName: categoryName,
+            size: size,
+            recuirterFounder: profile.id,
+            recuirtersInCompany: [],
+            jDs: [],
+            yearOfEstablishment: yearOfEstablishment
          }
+
+         postRequest(apiRecruiter.CREATE_COMPANY_BY_ID + "/" + profile.id, AuthorizationMode.BEARER_TOKEN, data)
+            .then(res => {
+               this.showSuccess();
+            })
+            .catch(data => {
+               this.showFail()
+            })
       }
 
       this.checkReq = true;

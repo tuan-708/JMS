@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { getProfile } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'app-jd-register',
@@ -17,8 +19,11 @@ export class JdRegisterComponent {
    levels: any;
    employmentTypes: any;
    genders: any;
+   profile: any;
 
-   constructor() {
+   constructor(private toastr: ToastrService) {
+      this.profile = getProfile();
+
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.categories = res.data
@@ -212,6 +217,22 @@ export class JdRegisterComponent {
    checkDes: any = false;
    checkBen: any = false;
 
+      
+   showCreateJDSuccess() {
+      this.toastr.info('Thông báo!', 'Tạo bài viết thành công!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   showCreateJDFail() {
+      this.toastr.error('Thông báo!', 'Tạo bài viết thất bại!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+
    submitButtonClicked() {
       if (this.titleRq.valid && this.numberRequiredRq.valid &&
          this.positionRq.valid && this.levelRq.valid &&
@@ -257,18 +278,20 @@ export class JdRegisterComponent {
             contactEmail: contactEmail,
             address: address,
             numberRequirement: numberRequirement,
-            companyName: "1",
+            companyName: this.profile.companyId,
             categoryName: categoryName,
             expiredDate: expiredDate,
             levelTitle: levelTitle,
             positionTitle: positionTitle
          }
 
-         postRequest(apiRecruiter.POST_CREATE_JD + "/1", AuthorizationMode.PUBLIC, data)
+         postRequest(`${apiRecruiter.POST_CREATE_JD}/${this.profile.id}`, AuthorizationMode.PUBLIC, data)
             .then(res => {
+               this.showCreateJDSuccess()
                console.log(res);
             })
             .catch(data => {
+               this.showCreateJDFail()
                console.log(data);
             })
 

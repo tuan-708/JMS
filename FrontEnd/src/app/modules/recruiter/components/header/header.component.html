@@ -7,14 +7,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-               <a class="nav-link" [routerLink]="['/recruiter/company-update']">Công ty</a>
-            </li>
 
-            <li class="nav-item">
-               <a class="nav-link" [routerLink]="['/recruiter/company-register']">Tạo công ty</a>
-            </li>
+            <div *ngIf="hasCompany">
+               <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/recruiter/company-update']">Công ty</a>
+               </li>
+            </div>
 
+            <div *ngIf="!hasCompany">
+               <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/recruiter/company-register']">Tạo công ty</a>
+               </li>
+            </div>
             <li class="nav-item">
                <a class="nav-link" [routerLink]="['/recruiter/jd-register']" tabindex="-1" aria-disabled="true">Đăng tuyển dụng</a>
             </li>

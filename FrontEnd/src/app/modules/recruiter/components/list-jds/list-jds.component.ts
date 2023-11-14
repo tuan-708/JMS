@@ -18,12 +18,12 @@ import { ToastrService } from 'ngx-toastr';
 export class ListJdsComponent {
 
   listJds: any;
-
   page = 0;
   passenger: any;
   itemsPerPage = 8;
   totalItems = 0;
   isDivHidden: boolean = false;
+  profile:any;
 
   getListPage(totalPage: number) {
     let list = []
@@ -35,7 +35,11 @@ export class ListJdsComponent {
   }
 
   constructor(private router: Router, public dialog: MatDialog, private toastr: ToastrService) {
-    getRequest(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/" + this.page, AuthorizationMode.PUBLIC)
+    this.profile = getProfile()
+    console.log(this.profile);
+    
+
+    getRequest(`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, AuthorizationMode.PUBLIC)
       .then(res => {
         console.log(res?.data);
         this.listJds = res?.data
@@ -46,20 +50,19 @@ export class ListJdsComponent {
         }
       })
       .catch(data => {
-        console.log('fail:' + data)
-        console.warn(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/1", data);
+        console.warn('Lỗi',`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, data);
       })
   }
 
   pageChanged(page: any) {
     this.page = page
-    getRequest(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/" + this.page, AuthorizationMode.PUBLIC)
+    getRequest(`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, AuthorizationMode.PUBLIC)
       .then(res => {
         this.listJds = res?.data
         this.totalItems = res?.objectLength
       })
       .catch(data => {
-        console.warn(apiRecruiter.GET_COMPANY_JDS_PAGING + "/1/" + this.page, data);
+        console.warn('Lỗi',`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, data);
       })
   }
 
@@ -71,15 +74,29 @@ export class ListJdsComponent {
     this.router.navigate(['/recruiter/jd-detail', jd?.jobId]);
   }
 
+  showSuccess() {
+    this.toastr.success('Thông báo!', 'Xoá thành công CV!', {
+       progressBar: true,
+       timeOut: 3000,
+    });
+ }
+
+ showFail() {
+    this.toastr.error('Thông báo!', 'Xoá thất bại CV, vui lòng thử lại sau!', {
+       progressBar: true,
+       timeOut: 3000,
+    });
+ }
+
   onClickDelete(jd: any) {
     jd.isShow = false;
     //API handle delete JD
-    postRequest(apiRecruiter.DELETE_JD_BY_ID + "2/" + jd?.jobId, AuthorizationMode.PUBLIC, {})
+    postRequest(`${apiRecruiter.DELETE_JD_BY_ID}/${this.profile.id}/${jd?.jobId}`, AuthorizationMode.PUBLIC, {})
       .then(res => {
-         console.log(res);
+         this.showSuccess()
       })
       .catch(data => {
-         console.log(data);
+         this.showFail()
       })
   }
 
@@ -92,11 +109,8 @@ export class ListJdsComponent {
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result === true) {
         this.onClickDelete(jd);
-        console.log('User clicked Yes');
       } else if (result === false) {
-        console.log('User clicked No');
       } else {
-        console.log('Dialog closed without a choice');
       }
     });
   }

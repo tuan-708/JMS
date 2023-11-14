@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { getProfile } from 'src/app/service/localstorage';
 
 @Component({
   selector: 'app-jd-update',
@@ -18,8 +20,11 @@ export class JdUpdateComponent {
   genders: any;
   jdDetail: any;
   id: any;
+  profile: any;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private toastr: ToastrService) {
+    this.profile = getProfile();
+
     getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
       .then(res => {
         this.categories = res?.data
@@ -276,6 +281,21 @@ export class JdUpdateComponent {
   checkDes: any = false;
   checkBen: any = false;
 
+  showUpdateJDSuccess() {
+    this.toastr.info('Thông báo!', 'Cập nhật bài viết thành công!', {
+       progressBar: true,
+       timeOut: 3000,
+    });
+ }
+
+ showUpdateJDFail() {
+    this.toastr.error('Thông báo!', 'Cập nhật bài viết thất bại!', {
+       progressBar: true,
+       timeOut: 3000,
+    });
+ }
+
+
   submitButtonClicked() {
     if (this.titleRq.valid && this.numberRequiredRq.valid &&
       this.positionRq.valid && this.levelRq.valid &&
@@ -287,7 +307,6 @@ export class JdUpdateComponent {
       const numberRequirement = this.numberRequiredRq.value;
       const contactEmail = this.emailRq.value;
       const positionTitle = this.positionRq.value;
-      console.log(positionTitle);
       
       const levelTitle = this.levelRq.value;
       const ageRequirement = this.ageRequiredRq.value;
@@ -326,18 +345,20 @@ export class JdUpdateComponent {
         contactEmail: contactEmail,
         address: address,
         numberRequirement: numberRequirement,
-        companyName: "1",
+        companyName: this.profile.companyId,
         categoryName: categoryName,
         expiredDate: expiredDate,
         levelTitle: levelTitle,
         positionTitle: positionTitle
       }
 
-      postRequest(apiRecruiter.UPDATE_JD_BY_RECRUITER + "/2", AuthorizationMode.PUBLIC, data)
+      postRequest(`${apiRecruiter.UPDATE_JD_BY_RECRUITER}/${this.profile.id}`, AuthorizationMode.PUBLIC, data)
         .then(res => {
+          this.showUpdateJDSuccess()
           console.log(res);
         })
         .catch(data => {
+          this.showUpdateJDFail()
           console.log(data);
         })
 

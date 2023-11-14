@@ -3,6 +3,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormControl, Validators } from '@angular/forms';
 import { getRequest, postRequest, postFileRequest} from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { getProfile } from 'src/app/service/localstorage';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
    selector: 'app-company-update',
@@ -21,9 +23,10 @@ export class CompanyUpdateComponent {
    sizes = ["1 - 100 người","101 - 500 người","Trên 500 người"]
    company: any;
    companyName: any
+   profile: any
 
-   constructor() {
-    
+   constructor(private toastr: ToastrService) {
+      this.profile = getProfile();
 
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
@@ -33,7 +36,7 @@ export class CompanyUpdateComponent {
             console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
          })
 
-      getRequest(apiRecruiter.GET_COMPANY_BY_ID+"/1", AuthorizationMode.PUBLIC, { page: 10 })
+      getRequest(`${apiRecruiter.GET_COMPANY_BY_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.company = res?.data
             console.log(this.company);
@@ -134,6 +137,21 @@ export class CompanyUpdateComponent {
 
    checkReq: any = false;
 
+   
+   showUpdateCompanySuccess() {
+      this.toastr.info('Thông báo!', 'Cập nhật thành công công ty!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   showUpdateCompanyFail() {
+      this.toastr.error('Thông báo!', 'Cập nhật công ty thất bại!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
 
    submitButtonClicked() {
 
@@ -148,7 +166,7 @@ export class CompanyUpdateComponent {
          const webURL = this.websiteRq.value;
          const categoryName = this.categoryRq.value;
          const size = this.sizeRq.value;
-         const recuirterFounder = "2";
+         const recuirterFounder = this.profile.id;
          const yearOfEstablishment = this.yearOfEstablishmentRq.value;
 
          const data = {
@@ -170,9 +188,11 @@ export class CompanyUpdateComponent {
 
          postRequest(apiRecruiter.UPDATE_COMPANY + "/" + recuirterFounder, AuthorizationMode.PUBLIC, data)
             .then(res => {
+               this.showUpdateCompanySuccess()
                console.log(res);
             })
             .catch(data => {
+               this.showUpdateCompanyFail()
                console.log(data);
             })
       }
@@ -191,6 +211,20 @@ export class CompanyUpdateComponent {
       return
    }
 
+   showChangeAvatarSuccess() {
+      this.toastr.info('Thông báo!', 'Cập nhật logo thành công!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   showChangeAvatarCompanyFail() {
+      this.toastr.error('Thông báo!', 'Cập nhật logo thất bại!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
    loadAvatar(event: any) {
       if (event.target.files && event.target.files[0]) {
          let fileList: FileList = event.target.files;
@@ -199,7 +233,7 @@ export class CompanyUpdateComponent {
             let file: File = fileList[0];
             formData.append('file', file, file.name);
          }
-         postFileRequest(apiRecruiter.UPDATE_IMAGE_COMPANY_AVATAR + "/2/1", AuthorizationMode.PUBLIC, formData)
+         postFileRequest(`${apiRecruiter.UPDATE_IMAGE_COMPANY_AVATAR}/${this.profile.id}/${this.profile.companyId}`, AuthorizationMode.PUBLIC, formData)
             .then(res => {
                console.log(res);
             })
@@ -220,6 +254,22 @@ export class CompanyUpdateComponent {
       }
    }
 
+   
+   showChangeBackgroundSuccess() {
+      this.toastr.info('Thông báo!', 'Cập nhật ảnh nền thành công!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   showChangeBackgroundCompanyFail() {
+      this.toastr.error('Thông báo!', 'Cập nhật ảnh nền thất bại!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+
    loadBackGround(event: any) {
       if (event.target.files && event.target.files[0]) {
 
@@ -229,11 +279,13 @@ export class CompanyUpdateComponent {
             let file: File = fileList[0];
             formData.append('file', file, file.name);
          }
-         postFileRequest(apiRecruiter.UPDATE_IMAGE_COMPANY_BACKGROUND + "/2/1", AuthorizationMode.PUBLIC, formData)
+         postFileRequest(`${apiRecruiter.UPDATE_IMAGE_COMPANY_BACKGROUND}/${this.profile.id}/${this.profile.companyId}`, AuthorizationMode.PUBLIC, formData)
             .then(res => {
+               this.showChangeBackgroundSuccess()
                console.log(res);
             })
             .catch(data => {
+               this.showChangeBackgroundCompanyFail()
                console.log(data);
             })
 

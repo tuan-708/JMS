@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
    selector: 'app-sign-in',
    templateUrl: './sign-in.component.html',
    styleUrls: ['./sign-in.component.css'],
-   encapsulation: ViewEncapsulation.None
 })
 export class RecruiterSignInComponent {
    backgroudSelectedLink = `${environment.Url}/assets/images/imageRecruiterRegister.png`
