@@ -14,12 +14,43 @@ namespace APIServer.Common
             var result = new List<string>();
             foreach (var c in cacDong)
             {
-                if(!Validation.checkStringIsEmpty(c) )
+                if (!Validation.checkStringIsEmpty(c))
                 {
                     result.Add(c.Trim());
                 }
             }
             return result.ToArray();
+        }
+
+        public static int GetExperienceMonths(string fromDateStr, string toDateStr)
+        {
+            // Chuyển đổi chuỗi ngày thành đối tượng DateTime
+            DateTime fromDate = ParseDateString(fromDateStr);
+            DateTime toDate = ParseDateString(toDateStr);
+
+            // Tính số tháng giữa hai ngày
+            int soThang = ((toDate.Year - fromDate.Year) * 12) + toDate.Month - fromDate.Month;
+
+            return soThang;
+        }
+        public static DateTime ParseDateString(string dateString)
+        {
+            if (DateTime.TryParseExact(dateString, "MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime result))
+            {
+                return result;
+            }
+            else if (DateTime.TryParseExact(dateString, "yyyy", null, System.Globalization.DateTimeStyles.None, out result))
+            {
+                return result;
+            }
+            else if (DateTime.TryParseExact(dateString, "M/yyyy", null, System.Globalization.DateTimeStyles.None, out result))
+            {
+                return result;
+            }
+            else
+            {
+                throw new ArgumentException("Định dạng ngày không hợp lệ.");
+            }
         }
 
         public static string PromptForRecruiter(JobDescription jobDescription, CurriculumVitae curriculumVitae)
@@ -32,18 +63,18 @@ namespace APIServer.Common
             if (!Validation.checkStringIsEmpty(jobDescription.EducationRequirement) &&
                 curriculumVitae.Educations.Any())
             {
-                var eduRequire = processStr(jobDescription.EducationRequirement);
+                var eduRequire = processStr(Validation.ConvertHTMLToData(jobDescription.EducationRequirement));
                 prompt += "- educationRequirements:\"";
                 for (int i = 0; i < eduRequire.Length; i++)
                 {
-                    prompt += $"{eduRequire[i]}" + Environment.NewLine;
+                    prompt += $"{eduRequire[i].Trim()}" + Environment.NewLine;
 
                 }
                 prompt += " \" " + Environment.NewLine;
                 var educationsList = curriculumVitae.Educations.ToList();
                 for (int i = 0; i < educationsList.Count; i++)
                 {
-                    prompt += $"+ \"education{i + 1}\" : \"{educationsList[i].SchoolName} - {educationsList[i].MajorName} - {educationsList[i].Description}\" có đáp ứng 1 trong các ý trong educationRequirements không?" + Environment.NewLine;
+                    prompt += $"+ \"education{i + 1}\" : \"{educationsList[i].SchoolName.Trim()} - {educationsList[i].MajorName.Trim()} - {educationsList[i].Description.Trim()}\" có đáp ứng 1 trong các ý trong educationRequirements không?" + Environment.NewLine;
                     eduNumber += $"\"education{i + 1}\":trueOrfalse, ";
 
                 }
@@ -53,11 +84,11 @@ namespace APIServer.Common
             if (!Validation.checkStringIsEmpty(jobDescription.ExperienceRequirement) &&
                 curriculumVitae.JobExperiences.Any())
             {
-                var expRequire = processStr(jobDescription.ExperienceRequirement);
+                var expRequire = processStr(Validation.ConvertHTMLToData(jobDescription.ExperienceRequirement));
                 prompt += "- experienceRequirements:\"";
                 for (int i = 0; i < expRequire.Length; i++)
                 {
-                    prompt += $"{expRequire[i]}" + Environment.NewLine;
+                    prompt += $"{expRequire[i].Trim()}" + Environment.NewLine;
                 }
                 prompt += " \" " + Environment.NewLine;
                 int totalExperienceCount = 1;
@@ -66,30 +97,37 @@ namespace APIServer.Common
                     var ExpDescriptionSplit = processStr(e.Description);
                     for (int j = 0; j < ExpDescriptionSplit.Length; j++)
                     {
-                        prompt += $"+ \"jobExperience{totalExperienceCount}\" : \"{ExpDescriptionSplit[j]}\" có đáp ứng 1 trong các ý trong experienceRequirements không?" + Environment.NewLine;
+                        prompt += $"+ \"jobExperience{totalExperienceCount}\" : \"{ExpDescriptionSplit[j].Trim()}\" có đáp ứng 1 trong các ý trong experienceRequirements không?" + Environment.NewLine;
                         expNumber += $"\"jobExperience{totalExperienceCount}\":trueOrfalse, ";
                         totalExperienceCount++;
                     }
                 }
+                string experienceMonth = "";
+                foreach (var e in curriculumVitae.JobExperiences)
+                {
+                    experienceMonth += $"Đã làm tại vị trí công việc {e.Position.Trim()} được {GetExperienceMonths(e.FromDate, e.ToDate)} tháng; ";
+                }
+                prompt += $"+ \"jobExperience{totalExperienceCount}\" : \"{experienceMonth.Trim()}\" có đáp ứng 1 trong các ý trong experienceRequirements không?" + Environment.NewLine;
+                expNumber += $"\"jobExperience{totalExperienceCount}\":trueOrfalse, ";
             }
 
             //Skill prompt
             if (!Validation.checkStringIsEmpty(jobDescription.SkillRequirement) &&
                 curriculumVitae.Skills.Any())
             {
-                var skillRequire = processStr(jobDescription.SkillRequirement);
+                var skillRequire = processStr(Validation.ConvertHTMLToData(jobDescription.SkillRequirement));
                 prompt += "- skillRequirements:\"";
 
                 for (int i = 0; i < skillRequire.Length; i++)
                 {
-                    prompt += $"{skillRequire[i]}" + Environment.NewLine;
+                    prompt += $"{skillRequire[i].Trim()}" + Environment.NewLine;
                 }
                 prompt += " \" " + Environment.NewLine;
                 var skillsList = curriculumVitae.Skills.ToList();
                 for (int i = 0; i < skillsList.Count; i++)
                 {
-                    prompt += $"+ \"skill{i + 1}\" : \"{skillsList[i].Title} - {skillsList[i].SkillDescription}\" có đáp ứng 1 trong các ý trong skillRequirements không?" + Environment.NewLine;
-                    if(i < skillsList.Count - 1)
+                    prompt += $"+ \"skill{i + 1}\" : \"{skillsList[i].Title.Trim()} - {skillsList[i].SkillDescription.Trim()}\" có đáp ứng 1 trong các ý trong skillRequirements không?" + Environment.NewLine;
+                    if (i < skillsList.Count - 1)
                     {
                         skillNumber += $"\"skill{i + 1}\":trueOrfalse, ";
                     }
@@ -179,32 +217,40 @@ namespace APIServer.Common
 
         public static async Task<string> GetResult(string prompt)
         {
-            string apiKey = Validation.readKey();
-            var api = new OpenAIAPI(apiKey);
-            var result = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
+            try
             {
-                Model = Model.GPT4,
-                //Temperature = 0f,
-                MaxTokens = 150,
-                Messages = new ChatMessage[] {
+                string apiKey = Validation.readKey();
+                var api = new OpenAIAPI(apiKey);
+                var result = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
+                {
+                    Model = Model.GPT4,
+                    //Temperature = 0f,
+                    MaxTokens = 150,
+                    Messages = new ChatMessage[] {
             new ChatMessage(ChatMessageRole.User, prompt)
         }
-            });
+                });
 
-            if (result != null)
-            {
-                var arr = result.Choices;
-                var rs = "";
-                foreach (var choice in arr)
+                if (result != null)
                 {
-                    rs += choice.Message.Content;
+                    var arr = result.Choices;
+                    var rs = "";
+                    foreach (var choice in arr)
+                    {
+                        rs += choice.Message.Content;
+                    }
+                    return rs;
                 }
-                return rs;
+                else
+                {
+                    return "not found";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return "not found";
+                throw new Exception(ex.Message.ToString());
             }
+
         }
     }
 }
