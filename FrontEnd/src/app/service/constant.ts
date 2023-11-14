@@ -1,4 +1,6 @@
 export const ITEM_LOAD = 20;
+export const AVATAR_DEFAULT_URL = 'https://gcavocats.ca/wp-content/uploads/2018/09/man-avatar-icon-flat-vector-19152370-1.jpg';
+export const IMG_LOADING = 'https://truetech.com.vn/wp-content/uploads/2021/07/loading.gif';
 
 export enum AuthorizationMode {
     PUBLIC = 0,
@@ -11,10 +13,18 @@ export enum apiRecruiter{
     GET_ALL_GENDER = "/api/RecuirterCommon/all-gender",
     GET_ALL_LEVEL_TITLE = "/api/RecuirterCommon/all-level-title",
     GET_ALL_EMPLOYMENT_TYPE = "/api/RecuirterCommon/all-employment-type",
+
+    GET_CV_MATCHED = "/api/Recuirter/get-all-cv-matched/",
+    GET_CV_SELECTED = "/api/Recuirter/get-all-cv-selected/",
+    GET_CV_APPLIED = "/api/Recuirter/get-all-cv-applied/",
+    MATCHING_JOB = "/api/Recuirter/matching-job/",
+    GET_ESTIMATE_TIME = "/api/Recuirter/get-estimate-date-to-matching/",
     
     POST_CREATE_JD = "/api/JobDesc/new-post",
     GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",
     UPDATE_JD_BY_RECRUITER = "/api/JobDesc/update-jd",
+    GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
+    DELETE_JD_BY_ID = "/api/JobDesc/delete-jd/",
 
     CREATE_COMPANY_BY_ID = "/api/Companys/create-by-recuirter",
     UPDATE_COMPANY = "/api/Companys/update-by-recuirter",
@@ -22,8 +32,6 @@ export enum apiRecruiter{
     GET_COMPANY_BY_ID = "/api/Companys/get-by-id",
     UPDATE_IMAGE_COMPANY_AVATAR = "/api/Images/update-img-avt-company",
     UPDATE_IMAGE_COMPANY_BACKGROUND = "/api/Images/update-img-bgr-company",
-    GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
-    DELETE_JD_BY_ID = "/api/JobDesc/delete-jd",
 
     LOGIN_RECRUITER = "/api/Token/login-recuirter",
     GET_PROFILE_RECRUITER = "/api/Token/get-data-recruiter"

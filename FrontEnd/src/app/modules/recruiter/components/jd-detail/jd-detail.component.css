@@ -94,3 +94,10 @@ input {
 .rq-area:focus {
    outline: none;
 }
+
+.btn-img {
+   width: 18px;
+   height: 18px;
+   object-fit: contain;
+   /* border-radius: 5px; */
+}

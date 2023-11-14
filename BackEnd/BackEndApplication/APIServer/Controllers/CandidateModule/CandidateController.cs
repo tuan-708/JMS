@@ -50,6 +50,14 @@ namespace APIServer.Controllers.CandidateModule
             try
             {
                 int n = await _candidateService.ApplyJob(candidateId, CVid, jobDescriptionId);
+                if(n == -1)
+                {
+                    return new BaseResponseBody<string>
+                    {
+                        message = "You applied this job already",
+                        statusCode = HttpStatusCode.NoContent,
+                    };
+                }
                 if(n > 0)
                 {
                     return new BaseResponseBody<string>

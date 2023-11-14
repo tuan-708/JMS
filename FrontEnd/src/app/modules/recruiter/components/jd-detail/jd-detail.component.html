@@ -7,21 +7,24 @@
                <div class="card-body p-4 p-md-4">
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">{{jdDetail?.title}}</h3>
                   <div class="row text-center">
-                     <div class="col-4"><i class="bi bi-person-circle h4"></i> NGƯỜI ĐĂNG: {{jdDetail?.recruiterId}}
+                     <div class="col-4"><i class="bi bi-person-circle h4"></i> NGƯỜI ĐĂNG: {{jdDetail?.recuirterId}}
                      </div>
-                     <div class="col-4"><i class="bi bi-calendar h4"></i> NGÀY TẠO: {{jdDetail?.createAt}}</div>
+                     <div class="col-4"><i class="bi bi-calendar h4"></i> NGÀY TẠO: {{jdDetail?.createdAt}}</div>
                      <div class="col-4"><i class="bi bi-calendar-check h4"></i> NGÀY HẾT HẠN: {{jdDetail?.expiredDate}}
                      </div>
                   </div>
                   <div class="row pt-5">
                      <div class="grp-btn">
-                        <button type="button" class="btn btn-info" (click)="openMatchingDialog()">Đề xuất ứng
+                        <button *ngIf="!isMatching" type="button" class="btn btn-info" (click)="openMatchingDialog()">Đề
+                           xuất ứng
                            viên</button>
-                        <button type="button" class="btn btn-info btnSnd" (click)="openCandidateDialog()">Danh sách ứng
+                        <button *ngIf="isMatching" type="button" class="btn btn-info" (click)="openMatchingDialog()"
+                           disabled>Đang tìm ứng viên...</button>
+                        <button type="button" class="btn btn-info btnSnd" (click)="openCandidateDialog(0)">Danh sách ứng
                            viên đề xuất</button>
-                        <button type="button" class="btn btn-info btnSnd" (click)="openApplicantDialog()">Danh sách
+                        <button type="button" class="btn btn-info btnSnd" (click)="openCandidateDialog(1)">Danh sách
                            người ứng tuyển</button>
-                        <button type="button" class="btn btn-info btnSnd" (click)="openApplicantDialog()">Danh sách
+                        <button type="button" class="btn btn-info btnSnd" (click)="openCandidateDialog(2)">Danh sách
                            đã lưu</button>
                      </div>
                   </div>
@@ -67,7 +70,7 @@
                         </div>
                         <div class="p-child">
                            <div class="p-child-content">Độ tuổi</div>
-                           <div class="p-child-content">{{jdDetail?.agreRequirement}}</div>
+                           <div class="p-child-content">{{jdDetail?.ageRequirement}}</div>
                         </div>
                      </div>
                      <div class="col-4 p-parent">

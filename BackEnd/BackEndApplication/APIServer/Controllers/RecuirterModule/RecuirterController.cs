@@ -80,6 +80,14 @@ namespace APIServer.Controllers.RecuirterModule
             return _recuirterService.GetCVPaging(pageIndex, rs);
         }
 
+        [HttpGet]
+        [Route("get-all-cv-applied")]
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVApplied(int recruiterId, int jobDescriptionId, int? pageIndex)
+        {
+            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVApplied(recruiterId, jobDescriptionId));
+            return _recuirterService.GetCVPaging(pageIndex, rs);
+        }
+
         [HttpPost]
         [Route("matching-job")]
         public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId, int numberRequirement)

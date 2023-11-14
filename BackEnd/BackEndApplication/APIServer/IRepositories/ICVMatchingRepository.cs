@@ -13,5 +13,6 @@ namespace APIServer.IRepositories
         public List<CVMatching> GetAllByIsApplied(int candidateId);
         public List<CVMatching> GetAllByIsSelected(int recruiterId, int jobDescriptionId);
         public List<CVMatching> GetAllByIsMatched(int recruiterId, int jobDescriptionId);
+        public List<CVMatching> GetAllByIsApplied(int recruiterId, int jobDescriptionId);
     }
 }

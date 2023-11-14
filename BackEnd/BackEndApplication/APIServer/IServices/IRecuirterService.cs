@@ -19,5 +19,6 @@ namespace APIServer.IServices
         public List<CVMatching> GetCVSelected(int recruiterId, int jobDescriptionId);
         public List<CVMatching> GetCVMatched(int recruiterId, int jobDescriptionId);
         public RecuirterDTO getRecruiterInformationByToken(string? token);
+        public List<CVMatching> GetCVApplied(int recruiterId, int jobDescriptionId);
     }
 }
