@@ -121,8 +121,6 @@ namespace APIServer.Common
 
         public static string ConvertHTMLToData(string html)
         {
-            html = "AAAAAAAAA";
-
             string rs = "";
             // Tìm vị trí bắt đầu và kết thúc của thẻ <li>
             int startIndex = html.IndexOf("<li>");

@@ -106,6 +106,10 @@ namespace APIServer.Services
                             CVApplied.IsReject = false;
                             return _CVMatchingRepository.Update(CVApplied);
                         }
+                        if (CVAppliedByCVIdList.Any(x => x.CandidateId == candidateId && x.JobDescriptionId == jobDescriptionId && x.IsApplied == true && x.IsReject == false))
+                        {
+                            return -1;
+                        }
                         else
                         {
                             CVApplied.JobDescriptionId = jobDescriptionId;
@@ -125,9 +129,12 @@ namespace APIServer.Services
                             CVApplied.Certificate = JsonConvert.SerializeObject(curriculumVitae.Certificates);
                             CVApplied.Award = JsonConvert.SerializeObject(curriculumVitae.Awards);
                             CVApplied.ApplyDate = DateTime.Now;
-                            CVApplied.CreatedDate = Convert.ToDateTime(curriculumVitae.CreatedDateDisplay);
-                            CVApplied.LastUpdateDate = Convert.ToDateTime(curriculumVitae.LastUpdateDateDisplay);
+                            CVApplied.CreatedDate = cv.CreatedDate;
+                            CVApplied.LastUpdateDate = cv.LastUpdateDate;
                             CVApplied.CurriculumVitaeId = curriculumVitae.Id;
+                            CVApplied.Theme = curriculumVitae.Theme;
+                            CVApplied.LevelId = cv.LevelId;
+                            CVApplied.Font = curriculumVitae.Font;
                             CVApplied.IsMatched = false;
                             CVApplied.IsApplied = true;
                             CVApplied.IsSelected = false;
