@@ -92,7 +92,6 @@ export class JdDetailComponent {
     this.skillRequirementJd = this.handleText(this.jdDetail.skillRequirement);
     this.experienceRequirementJd = this.handleText(this.jdDetail.experienceRequirement);
     this.educationRequirementJd = this.handleText(this.jdDetail.educationRequirement);
-    // this.jobRequirementJd = this.handleText(skillRq) + '\n' + this.handleText(expRq) + '\n' + this.handleText(eduRq)
   }
 
   handleText(text: string) {
