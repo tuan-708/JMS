@@ -117,7 +117,8 @@ namespace APIServer.Repositories
 
         public CVMatching GetByCandidateIdAndCVAppliedId(int candidateId, int CVAppliedId)
         {
-            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
+            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVAppliedId && x.IsApplied == true);
@@ -126,7 +127,8 @@ namespace APIServer.Repositories
 
         public List<CVMatching> GetByCVIdAndJobDescriptionId(int CVId, int jobDescriptionId)
         {
-            List<CVMatching> cVApplyList = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
+            List<CVMatching> cVApplyList = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
@@ -136,7 +138,8 @@ namespace APIServer.Repositories
 
         public CVMatching GetByCVIdAndLastUpdateDate(int CVId, DateTime lastUpdateDate)
         {
-            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
+            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
@@ -149,13 +152,14 @@ namespace APIServer.Repositories
             throw new NotImplementedException();
         }
 
-        public CVMatching GetByRecruiterIdAndCVAppliedId(int recuiterId, int CVAppliedId)
+        public CVMatching GetByRecruiterIdAndCVAppliedId(int recruiterId, int jobDescriptionId, int CVMatchingId)
         {
-            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate).Include(p => p.Level)
+            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
-                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.JobDescription.RecuirterId == recuiterId && x.Id == CVAppliedId);
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).FirstOrDefault(x => x.JobDescription.RecuirterId == recruiterId && x.Id == CVMatchingId && x.JobDescriptionId == jobDescriptionId && x.IsReject == false);
             return cVApply;
         }
 
@@ -163,6 +167,24 @@ namespace APIServer.Repositories
         {
             _context.Update(data);
             return _context.SaveChanges();
+        }
+
+        public int UpdateSelectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
+                .FirstOrDefault(x => x.JobDescription.RecuirterId == recruiterId && x.Id == CVMatchingId && x.JobDescriptionId == jobDescriptionId && x.IsReject == false);
+            if(cVApply != null)
+            {
+                if(cVApply.IsSelected) cVApply.IsSelected = false;
+                else cVApply.IsSelected = true;
+                return _context.SaveChanges();
+            }
+            return 0;
         }
     }
 }
