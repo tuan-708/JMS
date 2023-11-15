@@ -23,6 +23,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 import { MatTabsModule} from '@angular/material/tabs';
 import { UpdateCvComponent } from './components/update-cv/update-cv.component';
+import { MyApplyJobComponent } from './components/my-apply-job/my-apply-job.component';
 
 @NgModule({
    declarations: [
@@ -41,6 +42,7 @@ import { UpdateCvComponent } from './components/update-cv/update-cv.component';
       CompanyDetailComponent,
       JdDetailComponent,
       UpdateCvComponent,
+      MyApplyJobComponent,
    ],
    imports: [
       CommonModule,

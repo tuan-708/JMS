@@ -1,0 +1,143 @@
+.Content{
+    padding-top: 130px;
+}
+
+
+.listJobs {
+    margin-top: 15px;
+}
+
+.item{
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: var(--boxShadow);
+}
+
+.itemJob {
+    margin-bottom: 20px;
+    border-radius: 15px;
+    border: 1px #ccc solid;
+    padding: 15px;
+    display: flex;
+    position: relative;
+    box-shadow: var(--boxShadow);
+    background-color: white;
+}
+
+.itemJob:hover{
+    transition: 0.3s;
+    box-shadow: var(--boxShadow1);
+    cursor: pointer;
+}
+
+.itemJob img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.textHeader {
+    height: 40px;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+    display: flex;
+}
+
+.textHeader:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.time {
+    display: flex;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.more {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.status {
+    width: 10px;
+    height: 10px;
+    color: limegreen;
+    position: absolute;
+    right: 20px;
+}
+
+.pagi {
+    margin: auto;
+}
+
+.textOver{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ 
+}
+
+button{
+    margin: 5px 0;
+    cursor: pointer;
+    background-color: white;
+}
+
+.btn-grp {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagination li a[aria-label="Previous"],
+.pagination li a[aria-label="Next"] {
+  /* Hide the text but keep the functionality */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.bi{
+    color: coral;
+}
+
+.hidden {
+    display: none;
+  }
+
+.aplied{
+    width: 150px;
+    text-align: center;
+    background-color: darkturquoise;
+    border-radius: 15px;
+    position: absolute;
+    padding: 5px 10px 5px 10px;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+}
+
+.notApplied{
+    width: 150px;
+    text-align: center;
+    background-color: darkorange;
+    border-radius: 15px;
+    position: absolute;
+    padding: 5px 10px 5px 10px;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+}

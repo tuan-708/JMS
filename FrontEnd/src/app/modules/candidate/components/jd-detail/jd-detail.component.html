@@ -22,12 +22,11 @@
                                 <div>
                                     <div class="textHeader2">Chọn CV ứng tuyển</div>
 
-                                    <select class="form-select shadow-none p-2 mt-2"
+                                    <select [(ngModel)]="selectedCV" class="form-select shadow-none p-2 mt-2"
                                         aria-label="Default select example">
                                         <option value="0" selected>Chọn CV ứng tuyển</option>
                                         <option *ngFor="let cv of listCvs; index as i"
                                         value={{cv.id}}>{{cv.cvTitle}}</option>
-                                 
                                     </select>
 
                                     <div class="text-left d-flex mt-3" id="box-note-modal-apply">

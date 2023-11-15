@@ -10,12 +10,14 @@ import { CandidateListCompaniesComponent } from './components/list-companies/lis
 import { CandidateMyCvsComponent } from './components/my-cvs/my-cvs.component';
 import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
+import { MyApplyJobComponent } from './components/my-apply-job/my-apply-job.component';
 
 const routes: Routes = [
    { path: "sign-in", title: "Ứng viên - Đăng nhập", component: CandidateSignInComponent },
    { path: "sign-up", title: "Ứng viên - Đăng ký", component: CandidateRegisterComponent },
    { path: "create-cv/:id", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent },
    { path: "your-cvs", title: "Ứng viên - Danh sách hồ sơ", component: CandidateMyCvsComponent },
+   { path: "your-apply-job", title: "Ứng viên - Danh sách công việc ứng tuyển", component: MyApplyJobComponent },
    { path: "forgot-password", title: "Ứng viên - Quên mật khẩu", component: CandidateForgotPasswordComponent },
    { path: "list-companies", title: "Ứng viên - Danh sách công ty", component: CandidateListCompaniesComponent },
    { path: "company-detail/:id", title: "Ứng viên - Chi tiết công ty công ty", component: CompanyDetailComponent },
