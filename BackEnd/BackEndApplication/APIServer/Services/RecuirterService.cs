@@ -218,9 +218,9 @@ namespace APIServer.Services
             };
         }
 
-        public CVMatching GetCVAppliedDetail(int recuiterId, int CVAppliedId)
+        public CVMatching GetCVMatchingDetail(int recruiterId, int jobDescriptionId, int CVMatchingId)
         {
-            CVMatching cVApply = _cVMatchingRepository.GetByRecruiterIdAndCVAppliedId(recuiterId, CVAppliedId);
+            CVMatching cVApply = _cVMatchingRepository.GetByRecruiterIdAndCVAppliedId(recruiterId, jobDescriptionId, CVMatchingId);
             return cVApply;
         }
 
@@ -386,6 +386,11 @@ namespace APIServer.Services
         {
             List<CVMatching> CVApplied = _cVMatchingRepository.GetAllByIsApplied(recruiterId, jobDescriptionId);
             return CVApplied;
+        }
+
+        public int UpdateCVSelectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            return _cVMatchingRepository.UpdateSelectedStatus(recruiterId, jobDescriptionId, CVMatchingId);
         }
 
         public RecuirterDTO getRecruiterInformationByToken(string? token)

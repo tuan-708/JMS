@@ -76,7 +76,7 @@ namespace APIServer.Controllers.RecuirterModule
         [Route("get-all-cv-selected")]
         public PagingResponseBody<List<CVMatchingDTO>> GetCVSelected(int recruiterId, int jobDescriptionId, int? pageIndex)
         {
-            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatched(recruiterId, jobDescriptionId));
+            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVSelected(recruiterId, jobDescriptionId));
             return _recuirterService.GetCVPaging(pageIndex, rs);
         }
 
@@ -100,6 +100,60 @@ namespace APIServer.Controllers.RecuirterModule
                 message = GlobalStrings.SUCCESSFULLY,
                 data = _mapper.Map<List<CVMatchingDTO>>(cVApplies),
             };
+        }
+
+        [HttpPost]
+        [Route("update-cv-selected-status")]
+        public BaseResponseBody<string> UpdateCVSelectedStatusd(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            int n = _recuirterService.UpdateCVSelectedStatus(recruiterId, jobDescriptionId, CVMatchingId);
+            if (n > 0)
+            {
+                return new BaseResponseBody<string>
+                {
+                    statusCode = HttpStatusCode.OK,
+                    message = "update successfully",
+                };
+            }
+
+            return new BaseResponseBody<string>
+            {
+                statusCode = HttpStatusCode.BadRequest,
+                message = "update failed",
+            };
+        }
+
+        [HttpGet]
+        [Route("get-cv-matching-detail")]
+        public BaseResponseBody<CVMatchingDTO> GetCVMatchingDetail(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            try
+            {
+                CVMatching CVMatching = _recuirterService.GetCVMatchingDetail(recruiterId, jobDescriptionId, CVMatchingId);
+                var CVMatchingDTO = _mapper.Map<CVMatchingDTO>(CVMatching);
+                if (CVMatchingDTO != null)
+
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        data = CVMatchingDTO,
+                        statusCode = HttpStatusCode.OK,
+                        message = "get CV successfully",
+                    };
+                else
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        data = CVMatchingDTO,
+                        statusCode = HttpStatusCode.NotFound,
+                        message = "CV doesn't exist",
+                    };
+            } catch (Exception ex)
+            {
+                return new BaseResponseBody<CVMatchingDTO>
+                {
+                    message = ex.Message.ToString(),
+                };
+            }
+            
         }
 
         [HttpGet]
