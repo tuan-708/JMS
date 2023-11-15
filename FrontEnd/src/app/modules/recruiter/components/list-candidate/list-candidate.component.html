@@ -25,8 +25,8 @@
                 <div class="col-md-2 block">
                     <div class="btn-grp float-end">
                         <button class="pr-2"><i class="bi bi-person-dash h4"></i></button>
-                        <button *ngIf="candidate?.isSelected == 0"><i class="bi bi-star h4"></i></button>
-                        <button *ngIf="candidate?.isSelected == 1"><i class="bi bi-star-fill h4"></i></button>
+                        <button *ngIf="candidate?.isSelected == 0" (click)="onClickSelect(candidate)"><i class="bi bi-star h4"></i></button>
+                        <button *ngIf="candidate?.isSelected == 1" (click)="onClickSelect(candidate)"><i class="bi bi-star-fill h4"></i></button>
                     </div>
                 </div>
             </mat-list-item>

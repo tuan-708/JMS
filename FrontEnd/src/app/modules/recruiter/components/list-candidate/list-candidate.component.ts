@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AVATAR_DEFAULT_URL } from 'src/app/service/constant';
+import { postRequest } from 'src/app/service/api-requests';
+import { AVATAR_DEFAULT_URL, AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 @Component({
   selector: 'app-list-candidate',
   templateUrl: './list-candidate.component.html',
@@ -17,7 +18,17 @@ export class ListCandidateComponent {
     alert('hehe')
   }
 
-  onClickSelect(id: any){
-    
+  onClickSelect(item: any) {
+    //call api update cv selected status
+    postRequest(apiRecruiter.UPDATE_CV_SELECTED_STATUS + "?recruiterId=" + this.data.recruiterId + "&jobDescriptionId=" + item.jobDescriptionId + "&CVMatchingId=" + item.id, AuthorizationMode.PUBLIC, {})
+      .then(res => {
+        if (res.statusCode == 200) {
+          item.isSelected = item.isSelected == 0 ? 1 : 0
+        }
+        console.log(res);
+      })
+      .catch(data => {
+        console.log(data);
+      })
   }
 }

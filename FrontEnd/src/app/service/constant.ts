@@ -17,14 +17,15 @@ export enum apiRecruiter{
     GET_CV_MATCHED = "/api/Recuirter/get-all-cv-matched/",
     GET_CV_SELECTED = "/api/Recuirter/get-all-cv-selected/",
     GET_CV_APPLIED = "/api/Recuirter/get-all-cv-applied/",
-    MATCHING_JOB = "/api/Recuirter/matching-job/",
+    MATCHING_JOB = "/api/Recuirter/matching-job",
     GET_ESTIMATE_TIME = "/api/Recuirter/get-estimate-date-to-matching/",
+    UPDATE_CV_SELECTED_STATUS = "/api/Recuirter/update-cv-selected-status",
     
     POST_CREATE_JD = "/api/JobDesc/new-post",
     GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",
     UPDATE_JD_BY_RECRUITER = "/api/JobDesc/update-jd",
     GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
-    DELETE_JD_BY_ID = "/api/JobDesc/delete-jd/",
+    DELETE_JD_BY_ID = "/api/JobDesc/delete-jd",
 
     CREATE_COMPANY_BY_ID = "/api/Companys/create-by-recuirter",
     UPDATE_COMPANY = "/api/Companys/update-by-recuirter",
