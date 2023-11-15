@@ -89,11 +89,14 @@ export class ListJdsComponent {
  }
 
   onClickDelete(jd: any) {
-    jd.isShow = false;
     //API handle delete JD
     postRequest(`${apiRecruiter.DELETE_JD_BY_ID}/${this.profile.id}/${jd?.jobId}`, AuthorizationMode.PUBLIC, {})
       .then(res => {
-         this.showSuccess()
+        if(res.statusCode == 200){
+          this.showSuccess()
+          jd.isShow = false;
+        }
+        this.showFail()
       })
       .catch(data => {
          this.showFail()

@@ -5,6 +5,7 @@ import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { ActivatedRoute } from '@angular/router';
 import { OptionMatchModalComponent } from '../option-match-modal/option-match-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-jd-detail',
@@ -23,11 +24,11 @@ export class JdDetailComponent {
   jobRequirementJd: any
   skillRequirementJd: any
   experienceRequirementJd: any
-  educationRequirementJd:any
-  candidateBenefitJd:any
+  educationRequirementJd: any
+  candidateBenefitJd: any
   isMatching: boolean = false;
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute) {
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private toastr: ToastrService) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -54,12 +55,20 @@ export class JdDetailComponent {
         this.matchOption = result;
         console.log(this.matchOption);
         this.isMatching = true;
+        this.showSuccess();
         // call matching api
-        postRequest(apiRecruiter.MATCHING_JOB, AuthorizationMode.PUBLIC, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, numberRequirement: this.matchOption.quantity })
+        postRequest(apiRecruiter.MATCHING_JOB + "?recruiterId=" + this.jdDetail.recuirterId + "&jobDescriptionId=" + this.jdDetail.jobId + "&numberRequirement=" + this.matchOption.quantity, AuthorizationMode.PUBLIC, {})
           .then(res => {
+            if (res.statusCode == 200) {
+              this.isMatching = false;
+              this.showInfo();
+            }else{
+              this.showError();
+            }
             console.log(res);
           })
           .catch(data => {
+            this.showError();
             console.log(data);
           })
       }
@@ -78,7 +87,7 @@ export class JdDetailComponent {
 
         this.dialog.open(ListCandidateComponent, {
           width: '60%',
-          data: { type: 1, content: this.listCandidate }
+          data: { recruiterId: this.jdDetail.recuirterId, content: this.listCandidate }
         });
       })
       .catch(data => {
@@ -100,5 +109,26 @@ export class JdDetailComponent {
     const linesWithHyphen: string[] = lines.map((line: string) => (line.startsWith('-') ? line : `${line}`));
     const newText: string = linesWithHyphen.join('\n');
     return newText
+  }
+
+  showSuccess() {
+    this.toastr.success('Xác nhận thành công, hệ thống đang tìm ứng viên phù hợp...', 'Thông báo!' ,{
+       progressBar: true,
+       timeOut: 3000,
+    });
+  }
+
+  showInfo() {
+    this.toastr.success('Đề xuất thành công! Vui lòng xem chi tiết tại danh sách đề xuất.', 'Thông báo!',{
+       progressBar: true,
+       timeOut: 3000,
+    });
+  }
+
+  showError() {
+    this.toastr.error('Đề xuất thất bại. Vui lòng thử lại sau!', 'Thông báo!',{
+       progressBar: true,
+       timeOut: 3000,
+    });
   }
 }
