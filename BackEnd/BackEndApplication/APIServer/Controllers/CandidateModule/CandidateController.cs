@@ -107,7 +107,7 @@ namespace APIServer.Controllers.CandidateModule
             return _candidateService.GetCVAppliedHistoryPaging(pageIndex, rs);
         }
 
-        [HttpGet("get-cv-by-candidate-id-and-cvapplied-id/{candidateId}/{CVAppliedId}")]
+        [HttpGet("get-cv-applied-detail")]
         public BaseResponseBody<CVMatchingDTO> GetCVAppliedDetail(int candidateId, int CVAppliedId)
         {
             try
@@ -124,7 +124,7 @@ namespace APIServer.Controllers.CandidateModule
                     return new BaseResponseBody<CVMatchingDTO>
                     {
                         data = null,
-                        message = GlobalStrings.NOT_FOUND,
+                        message = "CV doesn't exist",
                         statusCode = HttpStatusCode.NotFound,
                     };
             }
