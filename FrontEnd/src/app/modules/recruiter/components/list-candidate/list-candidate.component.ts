@@ -16,4 +16,8 @@ export class ListCandidateComponent {
   onClickView(candidate: any) {
     alert('hehe')
   }
+
+  onClickSelect(id: any){
+    
+  }
 }
