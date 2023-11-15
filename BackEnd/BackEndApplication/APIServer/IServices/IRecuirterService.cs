@@ -13,12 +13,13 @@ namespace APIServer.IServices
         public int CreateRecuirterAccount(Recuirter? account);
         public List<CVMatching> GetCVAppliedHistory(int recruiterId, int? jobDescriptionId, DateTime? fromDate, DateTime? toDate);
         public PagingResponseBody<List<CVMatchingDTO>> GetCVPaging(int? page, List<CVMatchingDTO> listData);
-        public CVMatching GetCVAppliedDetail(int recuiterId, int CVAppliedId);
+        public CVMatching GetCVMatchingDetail(int recruiterId, int jobDescriptionId, int CVMatchingId);
         public Task<List<CVMatching>> GetCVFromMatchingJD(int recruiterId, int jobDescriptionId, int numberRequirement);
         public string getEstimateDate(int jobId, DateTime dateRequirment);
         public List<CVMatching> GetCVSelected(int recruiterId, int jobDescriptionId);
         public List<CVMatching> GetCVMatched(int recruiterId, int jobDescriptionId);
         public RecuirterDTO getRecruiterInformationByToken(string? token);
         public List<CVMatching> GetCVApplied(int recruiterId, int jobDescriptionId);
+        public int UpdateCVSelectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
     }
 }
