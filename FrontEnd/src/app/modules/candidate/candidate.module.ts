@@ -24,7 +24,8 @@ import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 import { MatTabsModule} from '@angular/material/tabs';
 import { UpdateCvComponent } from './components/update-cv/update-cv.component';
 import { MyApplyJobComponent } from './components/my-apply-job/my-apply-job.component';
-
+import { ViewCvComponent } from './components/view-cv/view-cv.component';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
    declarations: [
       CandidateComponent,
@@ -43,6 +44,7 @@ import { MyApplyJobComponent } from './components/my-apply-job/my-apply-job.comp
       JdDetailComponent,
       UpdateCvComponent,
       MyApplyJobComponent,
+      ViewCvComponent,
    ],
    imports: [
       CommonModule,
@@ -54,7 +56,7 @@ import { MyApplyJobComponent } from './components/my-apply-job/my-apply-job.comp
       ReactiveFormsModule,
       NgxPaginationModule,
       MatTabsModule,
-      
+      MatDialogModule
    ]
 })
 export class CandidateModule { }

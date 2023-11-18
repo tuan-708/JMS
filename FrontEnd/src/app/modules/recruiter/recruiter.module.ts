@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { RecruiterRoutingModule } from './recruiter-routing.module';
 import { RecruiterSignInComponent } from './components/sign-in/sign-in.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { RecruiterComponent } from './recruiter.component';
 import { CompanyRegisterComponent } from './components/company-register/company-register.component';
 import { CompanyUpdateComponent } from './components/company-update/company-update.component';
@@ -35,7 +34,6 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
    declarations: [
       RecruiterSignInComponent,
       HeaderComponent,
-      FooterComponent,
       RecruiterComponent,
       CompanyRegisterComponent,
       RegisterRecruiterComponent,

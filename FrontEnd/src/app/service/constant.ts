@@ -50,5 +50,7 @@ export enum apiCandidate{
     LOGIN_CANDIDATE = "/api/Token/login-candidate",
     GET_PROFILE_USER = "/api/Token/get-data-candidate",
 
-    GET_ALL_CV_APPLIED = "/api/Candidate/get-all-cv-applied"
+    GET_ALL_CV_APPLIED = "/api/Candidate/get-all-cv-applied",
+    UPDATE_IMAGES_CV = "/api/Images/update-img-cv"
+
 }
