@@ -5,11 +5,15 @@
         <div class="item" *ngFor="let candidate of data.content" [class.hidden]="data.content == null">
             <mat-list-item style="height: fit-content;">
                 <div class="col-md-2 block">
-                    <img *ngIf="candidate.avatarURL" src={{candidate?.avatarURL}} alt={{candidate.displayName}}>
-                    <img *ngIf="!candidate.avatarURL" src={{avatar}} alt={{candidate.displayName}}>
+                    <img class=" item-img" *ngIf="candidate.avatarURL" src={{candidate?.avatarURL}} alt={{candidate.displayName}}>
+                    <img class=" item-img" *ngIf="!candidate.avatarURL" src={{avatar}} alt={{candidate.displayName}}>
                 </div>
                 <div class="col-md-8 block">
-                    <div class="textHeader">{{candidate?.displayName}}</div>
+                    <div class="textHeader">
+                        {{candidate?.displayName}}
+                        <img class="icon-img-tap" *ngIf="candidate.isApplied" title="Ứng viên ứng tuyển" src="https://icons-for-free.com/iconfiles/png/512/finger+gesture+hand+one+tap+icon-1320183620658585234.png">
+                        <img class="icon-img-gpt" *ngIf="!candidate.isApplied" title="Ứng viên được đề xuất" src="https://static.vecteezy.com/system/resources/previews/021/059/827/non_2x/chatgpt-logo-chat-gpt-icon-on-white-background-free-vector.jpg">
+                    </div>
                     <div class="row more">
                         <div class="col-5 textOver">
                             Ngày Sinh: {{candidate?.dob | date:'yyyy-MM-dd'}}
@@ -21,12 +25,23 @@
                             Phù hợp: {{candidate?.percentMatching | percent:'1.1-2'}}
                         </div>
                     </div>
+                    <div class="row more" *ngIf="data.listType == 2">
+                        <div class="col-6 textOver">
+                            Email: {{candidate?.displayEmail}}
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-4 textOver">
+                            SDT: {{candidate?.phone}}
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-2 block">
                     <div class="btn-grp float-end">
-                        <button class="pr-2"><i class="bi bi-person-dash h4"></i></button>
-                        <button *ngIf="candidate?.isSelected == 0" (click)="onClickSelect(candidate)"><i class="bi bi-star h4"></i></button>
-                        <button *ngIf="candidate?.isSelected == 1" (click)="onClickSelect(candidate)"><i class="bi bi-star-fill h4"></i></button>
+                        <button class="pr-2"  title="Loại khỏi danh sách"><i class="bi bi-person-dash h4"></i></button>
+                        <button *ngIf="candidate?.isSelected == 0" (click)="onClickSelect(candidate)"  title="Yêu thích"><i
+                                class="bi bi-star h4"></i></button>
+                        <button *ngIf="candidate?.isSelected == 1" (click)="onClickSelect(candidate)" title="Bỏ yêu thích"><i
+                                class="bi bi-star-fill h4"></i></button>
                     </div>
                 </div>
             </mat-list-item>
@@ -35,5 +50,6 @@
     </mat-list>
 </mat-dialog-content>
 <mat-dialog-actions class="float-end">
+    <mat-paginator [length]="data.content.length" [pageSize]="10" [showFirstLastButtons]="true" [hidePageSize]="true"></mat-paginator>
     <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>

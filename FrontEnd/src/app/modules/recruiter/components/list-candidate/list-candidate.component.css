@@ -18,7 +18,7 @@ mat-dialog-title {
     cursor: pointer;
 }
 
-.item img {
+.item-img {
     width: 90px;
     height: 90px;
     object-fit: contain;
@@ -62,4 +62,20 @@ button {
 
 .hidden {
     display: none;
-  }
+}
+
+.icon-img-tap {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    padding-left: 10px;
+    /* border-radius: 5px; */
+}
+
+.icon-img-gpt {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    padding-left: 10px;
+    /* border-radius: 5px; */
+}

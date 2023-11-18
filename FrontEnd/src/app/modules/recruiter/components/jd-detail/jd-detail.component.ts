@@ -87,7 +87,7 @@ export class JdDetailComponent {
 
         this.dialog.open(ListCandidateComponent, {
           width: '60%',
-          data: { recruiterId: this.jdDetail.recuirterId, content: this.listCandidate }
+          data: {listType: type, recruiterId: this.jdDetail.recuirterId, content: this.listCandidate }
         });
       })
       .catch(data => {
@@ -101,6 +101,7 @@ export class JdDetailComponent {
     this.skillRequirementJd = this.handleText(this.jdDetail.skillRequirement);
     this.experienceRequirementJd = this.handleText(this.jdDetail.experienceRequirement);
     this.educationRequirementJd = this.handleText(this.jdDetail.educationRequirement);
+    // this.jobRequirementJd = this.handleText(skillRq) + '\n' + this.handleText(expRq) + '\n' + this.handleText(eduRq)
   }
 
   handleText(text: string) {
