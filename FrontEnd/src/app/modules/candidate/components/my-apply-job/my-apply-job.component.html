@@ -8,18 +8,19 @@
                 currentPage: page,
                 totalItems: totalItems
               }">
-              <div class="col-2">
+                <div class="col-2" (click)="openViewCVDialog(jd)">
                     <img src="{{jd.jobDescription.companyDTO.avatarURL}}" alt="">
                 </div>
                 <div class="col-9">
-                    <div class="textHeader col-11" (click)="onClickView(jd)" >{{jd.jobDescription.title}}</div>
+                    <div class="textHeader col-11" (click)="onClickViewJD(jd)">{{jd.jobDescription.title}}</div>
                     <div class="row time">
                         <div class="col-4 textOver">Thời gian đăng bài: {{ jd.jobDescription.createdAt }}</div>
                         <div class="col-4 textOver">Thời gian hạn bài đăng: {{ jd.jobDescription.expiredDate }}</div>
-                        <div class="col-4 textOver">Số lượng tuyển dụng: {{jd.jobDescription.numberRequirement ? jd.jobDescription.numberRequirement :
+                        <div class="col-4 textOver">Số lượng tuyển dụng: {{jd.jobDescription.numberRequirement ?
+                            jd.jobDescription.numberRequirement :
                             0}}</div>
                     </div>
-    
+
                     <div class="row more">
                         <div class="col-4 textOver">
                             Vị trí tuyển: {{jd.jobDescription.positionTitle}}
@@ -35,12 +36,13 @@
                 <div class="aplied" *ngIf="jd.isSelected">Đã ứng tuyển</div>
                 <div class="notApplied" *ngIf="jd.isReject">Đang đợi duyệt</div>
                 <div class="notApplied" *ngIf="!jd.isSelected && !jd.isReject">Đang đợi duyệt</div>
-              
+
             </div>
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <pagination-controls class="pagi"  previousLabel="" nextLabel="" (pageChange)="pageChanged((page = $event))"></pagination-controls>
+                <pagination-controls class="pagi" previousLabel="" nextLabel=""
+                    (pageChange)="pageChanged((page = $event))"></pagination-controls>
             </ul>
         </nav>
     </div>

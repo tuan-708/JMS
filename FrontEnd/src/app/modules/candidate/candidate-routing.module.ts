@@ -11,6 +11,7 @@ import { CandidateMyCvsComponent } from './components/my-cvs/my-cvs.component';
 import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 import { MyApplyJobComponent } from './components/my-apply-job/my-apply-job.component';
+import { ViewCvComponent } from './components/view-cv/view-cv.component';
 
 const routes: Routes = [
    { path: "sign-in", title: "Ứng viên - Đăng nhập", component: CandidateSignInComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
    { path: "company-detail/:id", title: "Ứng viên - Chi tiết công ty công ty", component: CompanyDetailComponent },
    { path: "jd-detail/:id", title: "Ứng viên - Chi tiết công việc", component: JdDetailComponent },
    { path: "update-cv/:id", title: "Ứng viên - Cập nhật cv", component: JdDetailComponent },
+   { path: "view-cv/:id", title: "Ứng viên - Chi tiết Hồ sơ", component: ViewCvComponent },
    { path: "", component: CandidateHomeComponent }
 ];
 

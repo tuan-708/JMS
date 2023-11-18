@@ -5,7 +5,7 @@ import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { themeList } from './constant';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import { getRequest, postRequest } from 'src/app/service/api-requests';
+import { getRequest, postFileRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/constant';
 import { ToastrService } from 'ngx-toastr';
 import { getProfile, isLogin } from 'src/app/service/localstorage';
@@ -38,8 +38,13 @@ export class CandidateCreateCvComponent {
    backgroudSelectedLink = `${environment.Url}/assets/images/theme6.jpg`
    id: any;
 
+   profile:any
+   onChangeAvatar = false
+
 
    constructor(private route: ActivatedRoute, private toastr: ToastrService) {
+      this.profile = getProfile()
+
       this.route.params.subscribe(params => {
          this.id = params['id'];
       });
@@ -336,12 +341,29 @@ export class CandidateCreateCvComponent {
 
       const isLog = isLogin();
       if(isLog){
-         const profile = getProfile();
-
-         postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
+         postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
          .then(res => {
-            this.showSuccess()
-            console.log(res);
+         
+            const cvIdCreated =  res?.data
+            if(this.onChangeAvatar){
+               if($('#avatarCv')[0].files[0]){
+         
+                  let formData: FormData = new FormData();
+                  let file: File = $('#avatarCv')[0].files[0];
+                  formData.append('file', file, file.name);
+                  console.log(formData);
+
+                  postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
+                  .then(res => {
+                     console.log(res);
+
+                     this.showSuccess()
+                  })
+                  .catch(data => {
+                     console.log(data);
+                  })
+               }
+            }
          })
          .catch(data => {
             console.log(data);
@@ -357,6 +379,7 @@ export class CandidateCreateCvComponent {
 
    getFile(event: any) {
       if (event.target.files && event.target.files[0]) {
+
          this.hideImage = "none"
          this.displayImage = "block"
          this.displayChange = "block"
@@ -368,6 +391,8 @@ export class CandidateCreateCvComponent {
          reader.onload = (event) => {
             this.fileSrc = event.target?.result;
          }
+
+         this.onChangeAvatar = true
       }
    }
 

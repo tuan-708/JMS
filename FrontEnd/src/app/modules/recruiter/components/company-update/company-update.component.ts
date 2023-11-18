@@ -233,6 +233,10 @@ export class CompanyUpdateComponent {
             let file: File = fileList[0];
             formData.append('file', file, file.name);
          }
+
+         console.log(formData);
+         
+
          postFileRequest(`${apiRecruiter.UPDATE_IMAGE_COMPANY_AVATAR}/${this.profile.id}/${this.profile.companyId}`, AuthorizationMode.PUBLIC, formData)
             .then(res => {
                console.log(res);

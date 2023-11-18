@@ -121,7 +121,7 @@
                 <div class="avatar-candidate">
                     <div class="file-upload">
                         <div class="image-upload-wrap" ng-hide="true" [style.display]="hideImage">
-                            <input class="file-upload-input" type='file' multiple=false (change)="getFile($event);"
+                            <input class="file-upload-input" type='file' id="avatarCv" multiple=false (change)="getFile($event);"
                                 accept="image/*" />
                             <div class="drag-text">
                                 <h3 [class]="ThemStyle">Kéo thả ảnh hoặc chọn ảnh</h3>
@@ -165,7 +165,7 @@
                     <!-- Input Dob  -->
                     <div class="mt-1">
                         <i class="fa-solid fa-calendar" [style.color]="colorLeftHeader"></i>
-                        <input type="date" data-date-format="dd/mm/yyyy" class="form-info-input inputDob"
+                        <input type="date" data-date-format="DD/MM/YYYY" class="form-info-input inputDob"
                             [style.color]="colorLeftInput" [class]="ThemStyle">
                     </div>
                     <!-- Input Gender  -->
@@ -175,14 +175,14 @@
                             <div class="form-check ml-2">
                                 <input class="form-check-input shadow-none"  [style.color]="colorLeftInput" value="1" checked type="radio" name="gender"
                                     id="nam">
-                                <label class="form-check-label" for="nam">
+                                <label class="form-check-label" for="nam"  [class]="ThemStyle">
                                     Nam
                                 </label>
                             </div>
                             <div class="form-check  ml-2">
                                 <input class="form-check-input shadow-none" [style.color]="colorLeftHeader" value="2"  type="radio" name="gender"
                                     id="nu">
-                                <label class="form-check-label" for="nu">
+                                <label class="form-check-label" for="nu"  [class]="ThemStyle">
                                     Nữ
                                 </label>
                             </div>
@@ -463,7 +463,7 @@
                                 <input type="checkbox" class="form-check-input shadow-none stillLearning">
                                 <label class="form-check-label">
                                     Đang học tập
-                                </label>
+                                </label >
                             </div>
                         </div>
 

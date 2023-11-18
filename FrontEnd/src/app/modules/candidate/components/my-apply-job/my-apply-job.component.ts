@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { getRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { getProfile } from 'src/app/service/localstorage';
+import { ViewCvComponent } from '../view-cv/view-cv.component';
 
 @Component({
   selector: 'app-my-apply-job',
@@ -17,7 +19,7 @@ export class MyApplyJobComponent {
   itemsPerPage = 9;
   totalItems = 0;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,public dialog: MatDialog) {
     this.profile = getProfile();
 
     getRequest(`${apiCandidate.GET_ALL_CV_APPLIED}`, AuthorizationMode.PUBLIC, { candidateId: this.profile.id, pageIndex: 1 })
@@ -55,8 +57,18 @@ export class MyApplyJobComponent {
       })
   }
 
-  onClickView(jd: any) {
-  this.router.navigate(['/recruiter/view-jd-detail', jd?.jobId]);
+  onClickViewJD(jd: any) {
+    this.router.navigate([`/candidate/jd-detail/${jd?.jobDescriptionId}`]);
   }
 
+  openViewCVDialog(jd:any){
+
+      console.log("Tuan", jd);
+      
+      this.dialog.open(ViewCvComponent, {
+        width: '55%',
+        height: '100%',
+        data: {jd}
+      });
+  }
 }

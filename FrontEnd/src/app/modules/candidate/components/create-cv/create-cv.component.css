@@ -285,7 +285,7 @@ textarea {
 }
 
 .ThemeDefault::placeholder {
-   color: #eebaba;
+   color: #eebaba !important;
    opacity: 1;
 }
 
