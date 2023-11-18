@@ -8,6 +8,7 @@ import { ListJdsComponent } from './components/list-jds/list-jds.component';
 import { JdUpdateComponent } from './components/jd-update/jd-update.component';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 import { RegisterRecruiterComponent } from './components/sign-up/sign-up.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 const routes: Routes = [
    { path: "sign-in", title: "Nhà tuyển dụng - Đăng nhập", component: RecruiterSignInComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
    { path: "", title: "Nhà tuyển dụng - Danh sách bài tuyển dụng", component: ListJdsComponent },
    { path: "jd-detail/:id", title: "Nhà tuyển dụng - Cập nhật bài tuyển dụng", component: JdUpdateComponent },
    { path: "view-jd-detail/:id", title: "Nhà tuyển dụng - Chi tiết bài tuyển dụng", component: JdDetailComponent },
+   { path: "landing-page", title: "Nhà tuyển dụng - Chi tiết bài tuyển dụng", component: LandingPageComponent },
 ];
 
 @NgModule({

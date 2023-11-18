@@ -30,6 +30,7 @@ import { AutosizeModule } from 'ngx-autosize';
 import { OptionMatchModalComponent } from './components/option-match-modal/option-match-modal.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -45,6 +46,7 @@ import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
       JdDetailComponent,
       ListCandidateComponent,
       OptionMatchModalComponent,
+      LandingPageComponent,
    ],
    imports: [
       CommonModule,
