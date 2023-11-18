@@ -19,7 +19,7 @@ export class RecruiterSignInComponent {
    password: any;
 
    showSuccess() {
-      this.toastr.info('Thông báo!', 'Đăng nhập thành công!', {
+      this.toastr.success('Thông báo!', 'Đăng nhập thành công!', {
          progressBar: true,
          timeOut: 3000,
       });

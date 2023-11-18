@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
+import { themeList } from './constant';
 
 @Component({
   selector: 'app-view-cv',
@@ -13,6 +14,7 @@ export class ViewCvComponent {
   displayImage = "none"
   displayChange = "none"
   apiURL = environment.Url;
+  fontCV = "Sans-serif"
 
   colorLeftHeader = "#444444"
   colorRightHeader = "#111111"
@@ -38,6 +40,13 @@ export class ViewCvComponent {
       if(data.jd.dob){
         this.dob = this.convertDate(data.jd.dob.split("T")[0]);
       }
+
+      this.colorLeftHeader = themeList[data.jd.theme].colorLeftHeader
+      this.colorRightHeader = themeList[data.jd.theme].colorRightHeader
+      this.colorLeftInput = themeList[data.jd.theme].colorLeftInput
+      this.ThemStyle = themeList[data.jd.theme].ThemStyle
+      this.backgroudSelectedLink = themeList[data.jd.theme].backgroudSelectedLink
+      this.fontCV = data.jd.font
   }
 
 

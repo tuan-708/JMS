@@ -91,3 +91,21 @@ body{
     color: #050509;
     font-size: 1.05em;
 }
+
+
+#toast-container > .toast-success {
+    background-color: #03d673;
+    color: white;
+    border-radius: 10px;
+}
+#toast-container > .toast-error {
+    background-color: #df202a;
+    color: white;
+    border-radius: 10px;
+}
+
+#toast-container > .toast-info {
+    background-color: #3fa8ee;
+    color: white;
+    border-radius: 10px;
+}

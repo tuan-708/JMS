@@ -18,14 +18,14 @@ export class CandidateSignInComponent {
    password: any;
 
    showSuccess() {
-      this.toastr.info('Thông báo!', 'Đăng nhập thành công!', {
+      this.toastr.success('Thông báo!', 'Đăng nhập thành công!', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showFail() {
-      this.toastr.error('Thông báo!', 'Đăng nhập thất bại!', {
+      this.toastr.error('Thông báo!', 'Tài khoản hoặc mật khẩu không chính xác!', {
          progressBar: true,
          timeOut: 3000,
       });
