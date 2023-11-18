@@ -1,5 +1,6 @@
 .formCompanyRegister {
    padding-top: 80px;
+   background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%);
 }
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -31,17 +32,19 @@ input {
 }
 
 .grp-btn button {
-   width: 250px;
+   width: 200px;
    color: white;
-   background-color: cornflowerblue;
+   /* background-color: cornflowerblue; */
+   background: linear-gradient(109.6deg, rgb(0, 0, 0) 11.2%, rgb(11, 132, 145) 91.1%);
+
 }
 
 .btnSnd {
-   margin-left: 10px;
+   margin-left: 20px;
 }
 
 .bi {
-   color: #6EA8FE;
+   color:   rgb(10, 112, 123);
 }
 
 .p-parent {
@@ -63,7 +66,8 @@ input {
 }
 
 .p-child-content:first-child {
-   color: darkorange;
+   color: rgb(4, 116, 93);
+   font-weight: 600;
 }
 
 .p-child-content:nth-child(2) {
