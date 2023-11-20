@@ -224,10 +224,16 @@ namespace APIServer.Services
             return cVApply;
         }
 
-        public async Task<List<CVMatching>> GetCVFromMatchingJD(int recruiterId, int jobDescriptionId)
+        public async Task<List<CVMatching>> GetCVFromMatchingJD(int recruiterId, int jobDescriptionId, int numberRequirement)
         {
             try
             {
+                using (var context = new JMSDBContext())
+                {
+                    JobDescription jd1 = _jobContext.GetById(jobDescriptionId);
+                    jd1.NumberRequirement = numberRequirement;
+                    context.SaveChanges();
+                }
                 var JDList = _jobContext.getAllByRecuirterId(recruiterId);
                 List<CVMatching> matchedList = new List<CVMatching>();
                 JobDescription jd = _jobContext.GetById(jobDescriptionId);
@@ -368,15 +374,32 @@ namespace APIServer.Services
             return CVSelected;
         }
 
-        public List<CVMatching> GetCVMatchedLeft(int recruiterId, int jobDescriptionId, int numberRequirement)
+        public List<CVMatching> GetCVMatchedLeft(int recruiterId, int jobDescriptionId)
         {
-            List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatchedLeft(recruiterId, jobDescriptionId, numberRequirement);
-            return CVMatched;
+            List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatchedLeft(recruiterId, jobDescriptionId);
+            using (var context = new JMSDBContext())
+            {
+                JobDescription? jobDescription = context.JobDescriptions.FirstOrDefault(x => x.RecuirterId == recruiterId && x.JobId == jobDescriptionId);
+                if(jobDescription != null && jobDescription.NumberRequirement != null)
+                {
+                    return CVMatched.Skip((int)jobDescription.NumberRequirement).ToList();
+                }
+                return null;
+            }
+            
         }
-        public List<CVMatching> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId, int numberRequirement)
+        public List<CVMatching> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId)
         {
-            List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatchedByNumberRequirement(recruiterId, jobDescriptionId, numberRequirement);
-            return CVMatched;
+            List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatchedByNumberRequirement(recruiterId, jobDescriptionId);
+            using (var context = new JMSDBContext())
+            {
+                JobDescription? jobDescription = context.JobDescriptions.FirstOrDefault(x => x.RecuirterId == recruiterId && x.JobId == jobDescriptionId);
+                if (jobDescription != null && jobDescription.NumberRequirement != null)
+                {
+                    return CVMatched.Take((int)jobDescription.NumberRequirement).ToList();
+                }
+                return null;
+            }
         }
 
         public List<CVMatching> GetCVApplied(int recruiterId, int jobDescriptionId)
