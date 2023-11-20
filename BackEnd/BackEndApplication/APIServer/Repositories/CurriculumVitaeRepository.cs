@@ -70,7 +70,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Gender)
-                .Include(x => x.Category).Where(x => x.CategoryId == categoryId && !x.IsDelete).ToList();
+                .Include(x => x.Category).Where(x => x.CategoryId == categoryId && x.IsFindingJob == true && !x.IsDelete).ToList();
             return curriculumVitaes;
         }
 
@@ -116,6 +116,29 @@ namespace APIServer.Repositories
         {
             _context.CurriculumVitaes.Update(data);
             return _context.SaveChanges();
+        }
+
+        public int UpdateIsFindingJobStatus(int candidateId, int CVId)
+        {
+            CurriculumVitae? curriculumVitae = _context.CurriculumVitaes
+                .Include(x => x.Candidate)
+                .Include(x => x.Awards)
+                .Include(x => x.JobExperiences)
+                .Include(x => x.Educations)
+                .Include(x => x.Level)
+                .Include(x => x.Skills)
+                .Include(x => x.Projects)
+                .Include(x => x.Certificates)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Category)
+                .Include(x => x.Gender).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVId);
+            if( curriculumVitae != null)
+            {
+                if(curriculumVitae.IsFindingJob == true) curriculumVitae.IsFindingJob = false;
+                else curriculumVitae.IsFindingJob = true;
+                return _context.SaveChanges();
+            }
+            return 0;
         }
     }
 }

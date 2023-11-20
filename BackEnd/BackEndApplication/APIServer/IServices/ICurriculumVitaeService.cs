@@ -8,5 +8,6 @@ namespace APIServer.IServices
     {
         public CurriculumVitae GetCurriculumVitaeByCandidateId(int candidateId, int CVid);
         public int UpdateCvByCandidateIdAndCvId(int candidateId, int cvId, CurriculumVitaeDTO cvDTO);
+        public int ChangeCVStatus(int candidateId, int CVId);
     }
 }

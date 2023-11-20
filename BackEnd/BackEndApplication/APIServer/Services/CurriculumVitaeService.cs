@@ -14,19 +14,24 @@ namespace APIServer.Services
 {
     public class CurriculumVitaeService : ICurriculumVitaeService
     {
-        private readonly ICurriculumVitaeRepository _context;
+        private readonly ICurriculumVitaeRepository _CvContext;
         private readonly ICVMatchingRepository _CVApplyContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
-        private readonly ICandidateRepository _candidateRepository;
+        private readonly ICandidateRepository _candidateContext;
 
         public CurriculumVitaeService(ICurriculumVitaeRepository context, ICVMatchingRepository CVApplyContext, IMapper mapper, IConfiguration configuration, ICandidateRepository candidateRepository)
         {
-            _context = context;
+            _CvContext = context;
             _CVApplyContext = CVApplyContext;
             _mapper = mapper;
             _configuration = configuration;
-            _candidateRepository = candidateRepository;
+            _candidateContext = candidateRepository;
+        }
+
+        public int ChangeCVStatus(int candidateId, int CVId)
+        {
+            return _CvContext.UpdateIsFindingJobStatus(candidateId, CVId);
         }
 
         public int Create(CurriculumVitae data)
@@ -46,7 +51,7 @@ namespace APIServer.Services
             cv.IsDelete = false;
             cv.CreatedDate = DateTime.Now;
             cv.LastUpdateDate = DateTime.Now;
-            return _context.Create(cv);
+            return _CvContext.Create(cv);
         }
 
         public int Delete(CurriculumVitae data)
@@ -56,12 +61,12 @@ namespace APIServer.Services
 
         public List<CurriculumVitae> getAll()
         {
-            return _context.GetAll();
+            return _CvContext.GetAll();
         }
 
         public List<CurriculumVitae> getAllById(int candidateId)
         {
-            var rs = _context.GetAllById(candidateId);
+            var rs = _CvContext.GetAllById(candidateId);
             if (rs == null)
                 throw new Exception("CV not exist");
             return rs;
@@ -69,7 +74,7 @@ namespace APIServer.Services
 
         public CurriculumVitae? GetById(int id)
         {
-            var rs = _context.GetById(id);
+            var rs = _CvContext.GetById(id);
             if (rs == null)
                 throw new Exception("CV not exist");
             return rs;
@@ -77,7 +82,7 @@ namespace APIServer.Services
 
         public CurriculumVitae GetCurriculumVitaeByCandidateId(int candidateId, int CVid)
         {
-            var rs = _context.GetById(CVid);
+            var rs = _CvContext.GetById(CVid);
             if (rs == null)
                 throw new Exception("CV not exist");
             if (rs.CandidateId != candidateId)
@@ -94,8 +99,8 @@ namespace APIServer.Services
 
         public int UpdateCvByCandidateIdAndCvId(int candidateId, int cvId, CurriculumVitaeDTO cvDTO)
         {
-            var can = _candidateRepository.GetById(candidateId);
-            var cv = _context.GetById(cvId);
+            var can = _candidateContext.GetById(candidateId);
+            var cv = _CvContext.GetById(cvId);
             if (can == null || cv == null || cvDTO == null)
             {
                 throw new Exception("Data not valid");

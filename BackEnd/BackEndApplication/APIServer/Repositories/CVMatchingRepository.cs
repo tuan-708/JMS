@@ -77,7 +77,19 @@ namespace APIServer.Repositories
             return cVMatchings;
         }
 
-        public List<CVMatching> GetAllByIsMatched(int recruiterId, int jobDescriptionId)
+        public List<CVMatching> GetAllByIsMatchedLeft(int recruiterId, int jobDescriptionId, int numberRequirement)
+        {
+            List<CVMatching> cVMatchings = _context.CVMatchings.Include(c => c.Candidate)
+                            .Include(p => p.Level).Include(g => g.Gender)
+                            .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                            .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                            .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                            .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
+                            .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsMatched && x.IsReject == false).OrderByDescending(x => x.IsApplied == true).OrderByDescending(x => x.PercentMatching).Skip(numberRequirement).ToList();
+            return cVMatchings;
+        }
+
+        public List<CVMatching> GetAllByIsMatchedByNumberRequirement(int recruiterId, int jobDescriptionId, int numberRequirement)
         {
             List<CVMatching> cVMatchings = _context.CVMatchings.Include(c => c.Candidate)
                 .Include(p => p.Level).Include(g => g.Gender)
@@ -85,7 +97,7 @@ namespace APIServer.Repositories
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
-                .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsMatched && x.IsReject == false).OrderByDescending(x => x.PercentMatching).ToList();
+                .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsMatched && x.IsReject == false).OrderByDescending(x => x.IsApplied == true).OrderByDescending(x => x.PercentMatching).Take(numberRequirement).ToList();
             return cVMatchings;
         }
 
@@ -178,9 +190,9 @@ namespace APIServer.Repositories
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
                 .FirstOrDefault(x => x.JobDescription.RecuirterId == recruiterId && x.Id == CVMatchingId && x.JobDescriptionId == jobDescriptionId && x.IsReject == false);
-            if(cVApply != null)
+            if (cVApply != null)
             {
-                if(cVApply.IsSelected) cVApply.IsSelected = false;
+                if (cVApply.IsSelected) cVApply.IsSelected = false;
                 else cVApply.IsSelected = true;
                 return _context.SaveChanges();
             }
