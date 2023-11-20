@@ -131,5 +131,37 @@ namespace APIServer.Controllers.CandidateModule
                 };
             }
         }
+
+        [HttpPost]
+        [Route("change-is-finding-job-status")]
+        public BaseResponseBody<string> ChangeIsFindingJobStatus(int candidateId, int cvId)
+        {
+            try
+            {
+                int n = cvService.ChangeCVStatus(candidateId, cvId);
+                if (n > 0)
+                {
+                    return new BaseResponseBody<string>
+                    {
+                        message = "Change status successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                }else
+                    return new BaseResponseBody<string>
+                    {
+                        message = "Change status failed",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<string>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+            
+        }
     }
 }

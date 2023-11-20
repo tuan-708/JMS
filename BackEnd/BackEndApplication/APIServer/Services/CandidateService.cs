@@ -89,7 +89,7 @@ namespace APIServer.Services
             try
             {
                 var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candidateId));
-                var CVAppliedByCVIdList = _mapper.Map<List<CVMatchingDTO>>(_CVMatchingRepository.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId));
+                List<CVMatching> cVMatchings = _CVMatchingRepository.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId);
                 CurriculumVitae? cv = GetCVById(CVid);
                 var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
                 JobDescription jobDescription = _JobContext.GetById(jobDescriptionId);
@@ -99,14 +99,14 @@ namespace APIServer.Services
                     {
                         CVMatching CVApplied = new CVMatching();
 
-                        if (CVAppliedByCVIdList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsApplied == false && x.IsReject == false))
+                        if (cVMatchings.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsApplied == false && x.IsReject == false))
                         {
                             CVApplied = _CVMatchingRepository.GetByCVIdAndLastUpdateDate(curriculumVitae.Id, cv.LastUpdateDate);
                             CVApplied.IsApplied = true;
                             CVApplied.IsReject = false;
                             return _CVMatchingRepository.Update(CVApplied);
                         }
-                        if (CVAppliedByCVIdList.Any(x => x.CandidateId == candidateId && x.JobDescriptionId == jobDescriptionId && x.IsApplied == true && x.IsReject == false))
+                        if (cVMatchings.Any(x => x.CandidateId == candidateId && x.JobDescriptionId == jobDescriptionId && x.IsApplied == true && x.IsReject == false))
                         {
                             return -1;
                         }
@@ -139,9 +139,8 @@ namespace APIServer.Services
                             CVApplied.IsApplied = true;
                             CVApplied.IsSelected = false;
                             CVApplied.IsReject = false;
-                            string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv));
-                            CVApplied.JSONMatching = JSONrs;
-                            CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs);
+                            CVApplied.JSONMatching = null;
+                            CVApplied.PercentMatching = null;
                             return _CVMatchingRepository.Create(CVApplied);
                         }
 
