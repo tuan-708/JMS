@@ -66,17 +66,17 @@ namespace APIServer.Controllers.RecuirterModule
 
         [HttpGet]
         [Route("get-all-cv-matched-by-number-requirement")]
-        public PagingResponseBody<List<CVMatchingDTO>> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId, int numberRequirement, int? pageIndex)
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId, int? pageIndex)
         {
-            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatchedByNumberRequirement(recruiterId, jobDescriptionId, numberRequirement));
+            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatchedByNumberRequirement(recruiterId, jobDescriptionId));
             return _recuirterService.GetCVPaging(pageIndex, rs);
         }
 
         [HttpGet]
         [Route("get-all-cv-matched-left")]
-        public PagingResponseBody<List<CVMatchingDTO>> GetCVMatchedLeft(int recruiterId, int jobDescriptionId, int numberRequirement, int? pageIndex)
+        public PagingResponseBody<List<CVMatchingDTO>> GetCVMatchedLeft(int recruiterId, int jobDescriptionId, int? pageIndex)
         {
-            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatchedLeft(recruiterId, jobDescriptionId, numberRequirement));
+            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatchedLeft(recruiterId, jobDescriptionId));
             return _recuirterService.GetCVPaging(pageIndex, rs);
         }
 
@@ -90,9 +90,9 @@ namespace APIServer.Controllers.RecuirterModule
 
         [HttpPost]
         [Route("matching-job")]
-        public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId)
+        public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId, int numberRequirement)
         {
-            List<CVMatchingDTO> cVApplies = _mapper.Map<List<CVMatchingDTO>>(await _recuirterService.GetCVFromMatchingJD(recruiterId, jobDescriptionId));
+            List<CVMatchingDTO> cVApplies = _mapper.Map<List<CVMatchingDTO>>(await _recuirterService.GetCVFromMatchingJD(recruiterId, jobDescriptionId, numberRequirement));
 
             return new BaseResponseBody<List<CVMatchingDTO>>
             {

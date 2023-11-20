@@ -12,8 +12,8 @@ namespace APIServer.IRepositories
         public CVMatching GetByCVIdAndLastUpdateDate(int CVId, DateTime lastUpdateDate);
         public List<CVMatching> GetAllByIsApplied(int candidateId);
         public List<CVMatching> GetAllByIsSelected(int recruiterId, int jobDescriptionId);
-        public List<CVMatching> GetAllByIsMatchedByNumberRequirement(int recruiterId, int jobDescriptionId, int numberRequirement);
-        public List<CVMatching> GetAllByIsMatchedLeft(int recruiterId, int jobDescriptionId, int numberRequirement);
+        public List<CVMatching> GetAllByIsMatchedByNumberRequirement(int recruiterId, int jobDescriptionId);
+        public List<CVMatching> GetAllByIsMatchedLeft(int recruiterId, int jobDescriptionId);
         public List<CVMatching> GetAllByIsApplied(int recruiterId, int jobDescriptionId);
         public int UpdateSelectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
     }

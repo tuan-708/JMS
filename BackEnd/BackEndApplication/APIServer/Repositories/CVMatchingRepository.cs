@@ -77,7 +77,7 @@ namespace APIServer.Repositories
             return cVMatchings;
         }
 
-        public List<CVMatching> GetAllByIsMatchedLeft(int recruiterId, int jobDescriptionId, int numberRequirement)
+        public List<CVMatching> GetAllByIsMatchedLeft(int recruiterId, int jobDescriptionId)
         {
             List<CVMatching> cVMatchings = _context.CVMatchings.Include(c => c.Candidate)
                             .Include(p => p.Level).Include(g => g.Gender)
@@ -85,11 +85,11 @@ namespace APIServer.Repositories
                             .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                             .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
                             .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
-                            .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsMatched && x.IsReject == false).OrderByDescending(x => x.IsApplied == true).OrderByDescending(x => x.PercentMatching).Skip(numberRequirement).ToList();
+                            .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsMatched && x.IsReject == false).OrderByDescending(x => x.IsApplied == true).OrderByDescending(x => x.PercentMatching).ToList();
             return cVMatchings;
         }
 
-        public List<CVMatching> GetAllByIsMatchedByNumberRequirement(int recruiterId, int jobDescriptionId, int numberRequirement)
+        public List<CVMatching> GetAllByIsMatchedByNumberRequirement(int recruiterId, int jobDescriptionId)
         {
             List<CVMatching> cVMatchings = _context.CVMatchings.Include(c => c.Candidate)
                 .Include(p => p.Level).Include(g => g.Gender)
@@ -97,7 +97,7 @@ namespace APIServer.Repositories
                 .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                 .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
                 .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
-                .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsMatched && x.IsReject == false).OrderByDescending(x => x.IsApplied == true).OrderByDescending(x => x.PercentMatching).Take(numberRequirement).ToList();
+                .Where(x => x.JobDescription.RecuirterId == recruiterId && x.JobDescriptionId == jobDescriptionId && x.IsMatched && x.IsReject == false).OrderByDescending(x => x.IsApplied == true).OrderByDescending(x => x.PercentMatching).ToList();
             return cVMatchings;
         }
 
