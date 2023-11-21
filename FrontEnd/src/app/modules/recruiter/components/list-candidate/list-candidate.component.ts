@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { ViewCvComponent } from 'src/app/modules/candidate/components/view-cv/view-cv.component';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AVATAR_DEFAULT_URL, AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 @Component({
@@ -9,13 +11,16 @@ import { AVATAR_DEFAULT_URL, AuthorizationMode, apiRecruiter } from 'src/app/ser
 })
 export class ListCandidateComponent {
   avatar: any = AVATAR_DEFAULT_URL
+  pageIndex: any = 0
+  pageSize: any = 5
+  listDisplay: any
+  isShowLeftMatched: boolean = false
 
   constructor(
     public dialogRef: MatDialogRef<ListCandidateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onClickView(candidate: any) {
-    alert('hehe')
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.getPageRange()
   }
 
   onClickSelect(item: any) {
@@ -33,17 +38,46 @@ export class ListCandidateComponent {
   }
 
   openListCandidateLeft(): void {
-    getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.PUBLIC, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId, pageIndex: 1 })
+    if(this.isShowLeftMatched == true) return;
+    getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.PUBLIC, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId, pageIndex: this.pageIndex+1 })
       .then(res => {
-        console.log(this.data.content);
-        console.log(res.data);
         if (res.data != null) {
           this.data.content = this.data.content.concat(res.data)
+          this.getPageRange()
+          this.isShowLeftMatched = true
         }
-        console.log(this.data.content);
       })
       .catch(data => {
         console.warn(data);
       })
+  }
+
+  openViewCVModal(jd: any) {
+    this.dialogRef.close();
+
+    jd.award = JSON.parse(jd.award)
+    jd.certificate = JSON.parse(jd.certificate)
+    jd.education = JSON.parse(jd.education)
+    jd.jobExperience = JSON.parse(jd.jobExperience)
+    jd.jsonMatching = JSON.parse(jd.jsonMatching)
+    jd.project = JSON.parse(jd.project)
+    jd.skill = JSON.parse(jd.skill)
+    this.dialog.open(ViewCvComponent, {
+      width: '55%',
+      height: '85%',
+      data: { jd }
+    });
+  }
+
+  handlePage(e: PageEvent) {
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.getPageRange();
+  }
+
+  getPageRange() {
+    const start = this.pageIndex * this.pageSize;
+    const end = Math.min((this.pageIndex + 1) * this.pageSize, this.data.content.length);
+    this.listDisplay = this.data.content.slice(start, end)
   }
 }
