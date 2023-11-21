@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { getRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { getProfile, isLogin } from 'src/app/service/localstorage';
 import { environment } from 'src/environments/environment';
+import { ViewCvComponent } from '../view-cv/view-cv.component';
 declare var $: any; 
 
 @Component({
@@ -14,6 +16,7 @@ export class CandidateMyCvsComponent {
    Url = environment.Url;
    list = [1,2,3,4,5,6,7,8,9]
    listCVs:any; 
+   profile: any
 
    ngAfterViewInit() {
       $('#prev').on('click', function () {
@@ -29,12 +32,12 @@ export class CandidateMyCvsComponent {
       });
    }
 
-   constructor(){
+   constructor(public dialog: MatDialog){
       const isLog = isLogin();
       if(isLog){
-         const profile = getProfile();
+         this.profile = getProfile();
 
-         getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
+         getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             this.listCVs = res?.data
             console.log(this.listCVs);
@@ -47,7 +50,7 @@ export class CandidateMyCvsComponent {
    }
 
    gotoEditCV(id: number){
-      console.log(id);
+     console.log(id); 
       
    }
 }

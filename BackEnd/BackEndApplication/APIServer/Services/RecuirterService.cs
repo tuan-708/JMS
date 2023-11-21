@@ -230,8 +230,9 @@ namespace APIServer.Services
             {
                 using (var context = new JMSDBContext())
                 {
-                    JobDescription jd1 = _jobContext.GetById(jobDescriptionId);
-                    jd1.NumberRequirement = numberRequirement;
+                    JobDescription? jd1 = context.JobDescriptions.FirstOrDefault(x => x.JobId == jobDescriptionId);
+                    if(jd1 != null)
+                        jd1.NumberRequirement = numberRequirement;
                     context.SaveChanges();
                 }
                 var JDList = _jobContext.getAllByRecuirterId(recruiterId);
