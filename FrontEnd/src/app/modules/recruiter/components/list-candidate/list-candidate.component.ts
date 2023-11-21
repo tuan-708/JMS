@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { postRequest } from 'src/app/service/api-requests';
+import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AVATAR_DEFAULT_URL, AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 @Component({
   selector: 'app-list-candidate',
@@ -29,6 +29,17 @@ export class ListCandidateComponent {
       })
       .catch(data => {
         console.log(data);
+      })
+  }
+
+  openListCandidateLeft(): void {
+    getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.PUBLIC, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId, pageIndex: 1 })
+      .then(res => {
+        this.data.content += res.data
+        console.log(res.data);
+      })
+      .catch(data => {
+        console.warn(data);
       })
   }
 }

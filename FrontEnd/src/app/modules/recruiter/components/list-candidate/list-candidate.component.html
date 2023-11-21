@@ -5,14 +5,17 @@
         <div class="item" *ngFor="let candidate of data.content" [class.hidden]="data.content == null">
             <mat-list-item style="height: fit-content;">
                 <div class="col-md-2 block">
-                    <img class=" item-img" *ngIf="candidate.avatarURL" src={{candidate?.avatarURL}} alt={{candidate.displayName}}>
+                    <img class=" item-img" *ngIf="candidate.avatarURL" src={{candidate?.avatarURL}}
+                        alt={{candidate.displayName}}>
                     <img class=" item-img" *ngIf="!candidate.avatarURL" src={{avatar}} alt={{candidate.displayName}}>
                 </div>
                 <div class="col-md-8 block">
                     <div class="textHeader">
                         {{candidate?.displayName}}
-                        <img class="icon-img-tap" *ngIf="candidate.isApplied" title="Ứng viên ứng tuyển" src="https://icons-for-free.com/iconfiles/png/512/finger+gesture+hand+one+tap+icon-1320183620658585234.png">
-                        <img class="icon-img-gpt" *ngIf="!candidate.isApplied" title="Ứng viên được đề xuất" src="https://static.vecteezy.com/system/resources/previews/021/059/827/non_2x/chatgpt-logo-chat-gpt-icon-on-white-background-free-vector.jpg">
+                        <img class="icon-img-tap" *ngIf="candidate.isApplied" title="Ứng viên ứng tuyển"
+                            src="https://icons-for-free.com/iconfiles/png/512/finger+gesture+hand+one+tap+icon-1320183620658585234.png">
+                        <img class="icon-img-gpt" *ngIf="!candidate.isApplied" title="Ứng viên được đề xuất"
+                            src="https://static.vecteezy.com/system/resources/previews/021/059/827/non_2x/chatgpt-logo-chat-gpt-icon-on-white-background-free-vector.jpg">
                     </div>
                     <div class="row more">
                         <div class="col-5 textOver">
@@ -37,11 +40,11 @@
                 </div>
                 <div class="col-md-2 block">
                     <div class="btn-grp float-end">
-                        <button class="pr-2"  title="Loại khỏi danh sách"><i class="bi bi-person-dash h4"></i></button>
-                        <button *ngIf="candidate?.isSelected == 0" (click)="onClickSelect(candidate)"  title="Yêu thích"><i
-                                class="bi bi-star h4"></i></button>
-                        <button *ngIf="candidate?.isSelected == 1" (click)="onClickSelect(candidate)" title="Bỏ yêu thích"><i
-                                class="bi bi-star-fill h4"></i></button>
+                        <button class="pr-2" title="Loại khỏi danh sách"><i class="bi bi-person-dash h4"></i></button>
+                        <button *ngIf="candidate?.isSelected == 0" (click)="onClickSelect(candidate)"
+                            title="Yêu thích"><i class="bi bi-star h4"></i></button>
+                        <button *ngIf="candidate?.isSelected == 1" (click)="onClickSelect(candidate)"
+                            title="Bỏ yêu thích"><i class="bi bi-star-fill h4"></i></button>
                     </div>
                 </div>
             </mat-list-item>
@@ -49,7 +52,9 @@
         </div>
     </mat-list>
 </mat-dialog-content>
-<mat-dialog-actions class="float-end">
-    <mat-paginator [length]="data.content.length" [pageSize]="10" [showFirstLastButtons]="true" [hidePageSize]="true"></mat-paginator>
-    <button mat-button mat-dialog-close>Close</button>
+<mat-dialog-actions class="float-end col-12">
+    <div class="col-3 d-flex align-items-center"><a class="ml-auto" (click)="openListCandidateLeft()">Nhiều ứng viên hơn</a></div>
+    <mat-paginator class="col-7" *ngIf="data.content != null" [length]="data.content?.length" [pageSize]="10"
+        [showFirstLastButtons]="true" [hidePageSize]="true"></mat-paginator>
+    <button mat-button mat-dialog-close class="col-1 ml-auto">Close</button>
 </mat-dialog-actions>
