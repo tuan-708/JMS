@@ -62,8 +62,6 @@ export class MyApplyJobComponent {
   }
 
   openViewCVDialog(jd:any){
-
-      console.log("Tuan", jd);
       
       this.dialog.open(ViewCvComponent, {
         width: '55%',
