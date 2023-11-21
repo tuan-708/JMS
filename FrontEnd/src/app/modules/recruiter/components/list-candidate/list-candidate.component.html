@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-md-8 block">
                     <div class="textHeader">
-                        {{candidate?.displayName}}
+                        <span class="candidate-name">{{candidate?.displayName}}</span>
                         <img class="icon-img-tap" *ngIf="candidate.isApplied" title="Ứng viên ứng tuyển"
                             src="https://icons-for-free.com/iconfiles/png/512/finger+gesture+hand+one+tap+icon-1320183620658585234.png">
                         <img class="icon-img-gpt" *ngIf="!candidate.isApplied" title="Ứng viên được đề xuất"

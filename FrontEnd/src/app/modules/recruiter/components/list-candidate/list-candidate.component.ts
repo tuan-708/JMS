@@ -35,8 +35,12 @@ export class ListCandidateComponent {
   openListCandidateLeft(): void {
     getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.PUBLIC, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId, pageIndex: 1 })
       .then(res => {
-        this.data.content += res.data
+        console.log(this.data.content);
         console.log(res.data);
+        if (res.data != null) {
+          this.data.content = this.data.content.concat(res.data)
+        }
+        console.log(this.data.content);
       })
       .catch(data => {
         console.warn(data);
