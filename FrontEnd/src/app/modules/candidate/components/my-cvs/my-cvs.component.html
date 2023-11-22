@@ -48,12 +48,15 @@
                         <div class="textStyle">- Cập nhật gần nhất {{ cv?.lastUpdateDateDisplay}} </div>
                      </div>
                   </div>
-                  <i class="fa-solid fa-pen-to-square btnEdit" (click)="gotoEditCV(cv.id)"></i>
+                  <a href="/candidate/update-cv/{{ cv.id }}">
+                     <i class="fa-solid fa-pen-to-square btnEdit" (click)="gotoEditCV(cv.id)"></i>
+                  </a>
+          
 
-               <i class="fa-solid fa-trash btnTrash"></i>
+                  <i class="fa-solid fa-trash btnTrash"></i>
                </div>
             </div>
-            
+
             <!-- Modal HTML embedded directly into document -->
             <div id="ex2" class="modal">
                <div class="contentModal" style="width: 100%;">

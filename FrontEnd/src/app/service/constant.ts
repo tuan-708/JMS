@@ -43,6 +43,7 @@ export enum apiCandidate{
     GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",
     GET_ALL_CV_BY_RECRUITER_ID = "/api/CVs/all-cv",
     CREATE_CV_BY_CANDIDATE_ID= "/api/CVs/new-cv",
+    UPDATE_CV_BY_CANDIDATE_ID="/api/CVs/update-cv",
     UPLOAD_AVATAR_CV_ID= "/api/Images/upload-imge-cv",
     GET_ALL_CV_BY_ID = "/api/CVs/all-cv",
     CANDIDATE_APPLYJOB = "/api/Candidate/apply-cv",
@@ -51,6 +52,8 @@ export enum apiCandidate{
     GET_PROFILE_USER = "/api/Token/get-data-candidate",
 
     GET_ALL_CV_APPLIED = "/api/Candidate/get-all-cv-applied",
-    UPDATE_IMAGES_CV = "/api/Images/update-img-cv"
+    UPDATE_IMAGES_CV = "/api/Images/update-img-cv",
+
+    GET_CV_CANDIDATE_BY_ID = "/api/CVs/getCV"
 
 }

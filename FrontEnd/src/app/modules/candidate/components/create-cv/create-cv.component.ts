@@ -35,7 +35,7 @@ export class CandidateCreateCvComponent {
    colorRightHeader = "#111111"
    colorLeftInput = "#111111"
    ThemStyle = "Theme6"
-   backgroudSelectedLink = `${environment.Url}/assets/images/theme6.jpg`
+   backgroundSelectedLink = `${environment.Url}/assets/images/theme6.jpg`
    id: any;
 
    profile:any
@@ -53,7 +53,7 @@ export class CandidateCreateCvComponent {
       this.colorRightHeader = themeList[this.id].colorRightHeader
       this.colorLeftInput = themeList[this.id].colorLeftInput
       this.ThemStyle = themeList[this.id].ThemStyle
-      this.backgroudSelectedLink = themeList[this.id].backgroudSelectedLink
+      this.backgroundSelectedLink = themeList[this.id].backgroundSelectedLink
 
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
       .then(res => {
@@ -84,15 +84,15 @@ export class CandidateCreateCvComponent {
       var titleSkills: any[] = [];
       var descriptionSkills: any[] = [];
 
-      var inputs = $(".skillTitle");
-      for (const input of inputs) { titleSkills.push($(input).val())}
+      // var inputs = $(".skillTitle");
+      // for (const input of inputs) { titleSkills.push($(input).val())}
 
       var inputs = $(".skillDescription");
       for (const input of inputs) { descriptionSkills.push($(input).val())}
 
       var skills = [];
       for (var i = 0; i < titleSkills.length; i++) {
-         var dict:any = {}; dict["title"] = titleSkills[i]; dict["skillDescription"] = descriptionSkills[i];
+         var dict:any = {}; dict["title"] = ""; dict["skillDescription"] = descriptionSkills[i];
          skills.push(dict);
       }
       return skills
@@ -405,7 +405,7 @@ export class CandidateCreateCvComponent {
       this.colorRightHeader = themeList[value].colorRightHeader
       this.colorLeftInput = themeList[value].colorLeftInput
       this.ThemStyle = themeList[value].ThemStyle
-      this.backgroudSelectedLink = themeList[value].backgroudSelectedLink
+      this.backgroundSelectedLink = themeList[value].backgroundSelectedLink
    }
 
    // Thêm sửa xoá skill

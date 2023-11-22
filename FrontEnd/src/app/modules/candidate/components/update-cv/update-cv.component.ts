@@ -30,11 +30,23 @@ export class UpdateCvComponent {
   colorRightHeader = "#111111"
   colorLeftInput = "#111111"
   ThemStyle = "Theme6"
-  backgroudSelectedLink = `${environment.Url}/assets/images/theme6.jpg`
+  backgroundSelectedLink = `${environment.Url}/assets/images/theme6.jpg`
   id: any;
 
   profile: any
   onChangeAvatar = false
+  cv: any
+
+  selectedGender: string = '1'
+  selectCategory: any
+  selectLevel:any
+  selectEmploymentTypes: any
+  theme:any
+
+  convertDate(date: string){
+    const d = date.split("/");
+    return d[2]+"-"+d[1]+"-"+d[0]
+  }
 
 
   constructor(private route: ActivatedRoute, private toastr: ToastrService) {
@@ -43,12 +55,6 @@ export class UpdateCvComponent {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
-
-    this.colorLeftHeader = themeList[this.id].colorLeftHeader
-    this.colorRightHeader = themeList[this.id].colorRightHeader
-    this.colorLeftInput = themeList[this.id].colorLeftInput
-    this.ThemStyle = themeList[this.id].ThemStyle
-    this.backgroudSelectedLink = themeList[this.id].backgroudSelectedLink
 
     getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
       .then(res => {
@@ -72,6 +78,34 @@ export class UpdateCvComponent {
       })
       .catch(data => {
         console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
+      })
+
+    getRequest(`${apiCandidate.GET_CV_CANDIDATE_BY_ID}/${this.profile.id}/${this.id}`, AuthorizationMode.BEARER_TOKEN)
+      .then(res => {
+        this.cv = res.data
+
+        this.cv.dob = this.convertDate(this.cv.dob)
+        this.theme = this.cv.theme
+
+        this.selectedGender = this.cv.genderId.toString();
+        this.selectCategory = this.categories.filter((item:any) => item.categoryName == this.cv.categoryName)[0].id
+        this.selectLevel = this.levels.filter((item:any) => item.title == this.cv.levelTitle)[0].id
+        this.selectEmploymentTypes = this.employmentTypes.filter((item:any) => item.title == this.cv.employmentTypeName)[0].id
+        
+        this.colorLeftHeader = themeList[this.cv.theme].colorLeftHeader
+        this.colorRightHeader = themeList[this.cv.theme].colorRightHeader
+        this.colorLeftInput = themeList[this.cv.theme].colorLeftInput
+        this.ThemStyle = themeList[this.cv.theme].ThemStyle
+        this.backgroundSelectedLink = themeList[this.cv.theme].backgroundSelectedLink
+
+        this.hideImage = "none"
+        this.displayImage = "block"
+        this.displayChange = "block"
+        this.fileSrc = this.cv.avatarURL
+
+      })
+      .catch(data => {
+        console.warn(apiCandidate.GET_CV_CANDIDATE_BY_ID, data);
       })
   }
 
@@ -269,7 +303,7 @@ export class UpdateCvComponent {
   }
 
   showSuccess() {
-    this.toastr.success('Thông báo!', 'Tạo hồ sơ thành công!', {
+    this.toastr.success('Thông báo!', 'Chỉnh sửa hồ sơ thành công!', {
       progressBar: true,
       timeOut: 3000,
     });
@@ -289,7 +323,7 @@ export class UpdateCvComponent {
     const levelId = $(".levelId")[0].value;
     const categoryId = $(".categoryId")[0].value;
     const employmentTypeName = $(".employmentTypeId")[0].value;
-    const theme = this.id;
+    const theme = this.theme;
     const font = this.fontCV;
     const gender = $("input[name='gender']:checked").val();
 
@@ -336,7 +370,8 @@ export class UpdateCvComponent {
 
     const isLog = isLogin();
     if (isLog) {
-      postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
+      console.log(this.id.toString())
+      postRequest(`${apiCandidate.UPDATE_CV_BY_CANDIDATE_ID}?candidateId=${this.profile.id}&cvId=${this.id}`, AuthorizationMode.BEARER_TOKEN, data)
         .then(res => {
 
           const cvIdCreated = res?.data
@@ -346,29 +381,22 @@ export class UpdateCvComponent {
               let formData: FormData = new FormData();
               let file: File = $('#avatarCv')[0].files[0];
               formData.append('file', file, file.name);
-              console.log(formData);
 
               postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
                 .then(res => {
                   console.log(res);
-
-                  this.showSuccess()
                 })
                 .catch(data => {
                   console.log(data);
                 })
             }
           }
+          this.showSuccess()
         })
         .catch(data => {
           console.log(data);
         })
     }
-
-
-
-    console.log(data);
-
   }
 
 
@@ -396,11 +424,12 @@ export class UpdateCvComponent {
   }
 
   SelectedBackGround(value: any) {
+    this.theme = value
     this.colorLeftHeader = themeList[value].colorLeftHeader
     this.colorRightHeader = themeList[value].colorRightHeader
     this.colorLeftInput = themeList[value].colorLeftInput
     this.ThemStyle = themeList[value].ThemStyle
-    this.backgroudSelectedLink = themeList[value].backgroudSelectedLink
+    this.backgroundSelectedLink = themeList[value].backgroundSelectedLink
   }
 
   // Thêm sửa xoá skill
