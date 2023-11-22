@@ -12,15 +12,17 @@ import { AVATAR_DEFAULT_URL, AuthorizationMode, apiRecruiter } from 'src/app/ser
 export class ListCandidateComponent {
   avatar: any = AVATAR_DEFAULT_URL
   pageIndex: any = 0
-  pageSize: any = 5
+  pageSize: any = 10
   listDisplay: any
   isShowLeftMatched: boolean = false
+  isHideModal: boolean = false
 
   constructor(
     public dialogRef: MatDialogRef<ListCandidateComponent>,
+    public dialogCvRef: MatDialogRef<ViewCvComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      if(data.content != null)this.getPageRange()
+    if (data.content != null) this.getPageRange()
   }
 
   onClickSelect(item: any) {
@@ -38,8 +40,8 @@ export class ListCandidateComponent {
   }
 
   openListCandidateLeft(): void {
-    if(this.isShowLeftMatched == true) return;
-    getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.PUBLIC, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId, pageIndex: this.pageIndex+1 })
+    if (this.isShowLeftMatched == true) return;
+    getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.PUBLIC, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId, pageIndex: this.pageIndex + 1 })
       .then(res => {
         if (res.data != null) {
           this.data.content = this.data.content.concat(res.data)
@@ -53,19 +55,26 @@ export class ListCandidateComponent {
   }
 
   openViewCVModal(jd: any) {
-    this.dialogRef.close();
+    this.isHideModal = true
 
-    jd.award = JSON.parse(jd.award)
-    jd.certificate = JSON.parse(jd.certificate)
-    jd.education = JSON.parse(jd.education)
-    jd.jobExperience = JSON.parse(jd.jobExperience)
-    jd.jsonMatching = JSON.parse(jd.jsonMatching)
-    jd.project = JSON.parse(jd.project)
-    jd.skill = JSON.parse(jd.skill)
-    this.dialog.open(ViewCvComponent, {
+    while (typeof (jd.skill) != 'object') {
+      jd.award = JSON.parse(jd.award)
+      jd.certificate = JSON.parse(jd.certificate)
+      jd.education = JSON.parse(jd.education)
+      jd.jobExperience = JSON.parse(jd.jobExperience)
+      jd.jsonMatching = JSON.parse(jd.jsonMatching)
+      jd.project = JSON.parse(jd.project)
+      jd.skill = JSON.parse(jd.skill)
+    }
+
+    const dialogRef = this.dialog.open(ViewCvComponent, {
       width: '55%',
       height: '85%',
-      data: { jd }
+      data: { jd: jd, recruiterId: this.data.recruiterId }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.isHideModal = false
     });
   }
 

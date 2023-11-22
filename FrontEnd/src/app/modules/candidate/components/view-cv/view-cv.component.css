@@ -447,3 +447,7 @@ option {
 .bi {
     color: coral;
 }
+
+.btn-option button{
+    background-color: white;
+}
