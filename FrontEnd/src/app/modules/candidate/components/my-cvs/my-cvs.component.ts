@@ -5,6 +5,7 @@ import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { getProfile, isLogin } from 'src/app/service/localstorage';
 import { environment } from 'src/environments/environment';
 import { ViewCvComponent } from '../view-cv/view-cv.component';
+import { Router } from '@angular/router';
 declare var $: any; 
 
 @Component({
@@ -32,7 +33,7 @@ export class CandidateMyCvsComponent {
       });
    }
 
-   constructor(public dialog: MatDialog){
+   constructor(public dialog: MatDialog, private router: Router){
       const isLog = isLogin();
       if(isLog){
          this.profile = getProfile();
@@ -51,6 +52,6 @@ export class CandidateMyCvsComponent {
 
    gotoEditCV(id: number){
      console.log(id); 
-      
+     this.router.navigate([`/candidate/update-cv/`]);
    }
 }

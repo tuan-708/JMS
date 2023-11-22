@@ -198,11 +198,6 @@
     margin-left: auto;
  }
  
- .btn-cv--success.is-plain {
-    background-color: #e5f7ed;
-    color: #00b14f;
- }
- 
  .btn-cv--fix-size {
     height: 40px;
     min-width: 142px;
@@ -213,12 +208,12 @@
  }
  
  .btn-cv--success.is-plain {
-    background-color: #e5f7ed;
-    color: #00b14f;
+    background-color: rgb(229, 243, 247);
+    color: #007bff;
  }
  
  .btn-cv--success {
-    background-color: #00b14f;
+    background-color: #007bff;
     color: #fff;
  }
  
