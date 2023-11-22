@@ -443,3 +443,7 @@ option {
 .mat-mdc-dialog-content {
     max-height: 120vh !important;
 }
+
+.bi {
+    color: coral;
+}

@@ -20,7 +20,7 @@ export class ListCandidateComponent {
     public dialogRef: MatDialogRef<ListCandidateComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.getPageRange()
+      if(data.content != null)this.getPageRange()
   }
 
   onClickSelect(item: any) {
