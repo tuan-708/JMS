@@ -198,5 +198,21 @@ namespace APIServer.Repositories
             }
             return 0;
         }
+        public int UpdateRejectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            CVMatching cVApply = _context.CVMatchings.Include(c => c.Candidate)
+                .Include(p => p.Level).Include(g => g.Gender)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Company)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Category)
+                .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
+                .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType)
+                .FirstOrDefault(x => x.JobDescription.RecuirterId == recruiterId && x.Id == CVMatchingId && x.JobDescriptionId == jobDescriptionId && x.IsReject == false);
+            if (cVApply != null)
+            {
+                cVApply.IsReject = true;
+                return _context.SaveChanges();
+            }
+            return 0;
+        }
     }
 }

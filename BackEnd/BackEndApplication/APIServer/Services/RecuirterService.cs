@@ -414,6 +414,11 @@ namespace APIServer.Services
             return _cVMatchingRepository.UpdateSelectedStatus(recruiterId, jobDescriptionId, CVMatchingId);
         }
 
+        public int UpdateCVRejectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            return _cVMatchingRepository.UpdateRejectedStatus(recruiterId, jobDescriptionId, CVMatchingId);
+        }
+
         public RecuirterDTO getRecruiterInformationByToken(string? token)
         {
             try
@@ -444,5 +449,6 @@ namespace APIServer.Services
                 throw ex;
             }
         }
+
     }
 }

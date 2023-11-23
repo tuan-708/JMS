@@ -123,6 +123,27 @@ namespace APIServer.Controllers.RecuirterModule
             };
         }
 
+        [HttpPost]
+        [Route("reject-cv")]
+        public BaseResponseBody<string> RejectCV(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            int n = _recuirterService.UpdateCVRejectedStatus(recruiterId, jobDescriptionId, CVMatchingId);
+            if (n > 0)
+            {
+                return new BaseResponseBody<string>
+                {
+                    statusCode = HttpStatusCode.OK,
+                    message = "Reject successfully",
+                };
+            }
+
+            return new BaseResponseBody<string>
+            {
+                statusCode = HttpStatusCode.BadRequest,
+                message = "Reject failed",
+            };
+        }
+
         [HttpGet]
         [Route("get-cv-matching-detail")]
         public BaseResponseBody<CVMatchingDTO> GetCVMatchingDetail(int recruiterId, int jobDescriptionId, int CVMatchingId)
