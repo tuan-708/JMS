@@ -6,5 +6,7 @@ namespace APIServer.IRepositories
     {
         public List<CurriculumVitae> GetAllByCategoryId(int? categoryId);
         public int UpdateIsFindingJobStatus(int candidateId, int CVId);
+        public int UpdateIsDeleteStatus(int candidateId, int CVId);
+
     }
 }
