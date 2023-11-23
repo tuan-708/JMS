@@ -118,6 +118,28 @@ namespace APIServer.Repositories
             return _context.SaveChanges();
         }
 
+        public int UpdateIsDeleteStatus(int candidateId, int CVId)
+        {
+            CurriculumVitae? curriculumVitae = _context.CurriculumVitaes
+                            .Include(x => x.Candidate)
+                            .Include(x => x.Awards)
+                            .Include(x => x.JobExperiences)
+                            .Include(x => x.Educations)
+                            .Include(x => x.Level)
+                            .Include(x => x.Skills)
+                            .Include(x => x.Projects)
+                            .Include(x => x.Certificates)
+                            .Include(x => x.EmploymentType)
+                            .Include(x => x.Category)
+                            .Include(x => x.Gender).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVId);
+            if( curriculumVitae != null)
+            {
+                curriculumVitae.IsDelete = true;
+                return _context.SaveChanges();
+            }
+            return 0;
+        }
+
         public int UpdateIsFindingJobStatus(int candidateId, int CVId)
         {
             CurriculumVitae? curriculumVitae = _context.CurriculumVitaes
