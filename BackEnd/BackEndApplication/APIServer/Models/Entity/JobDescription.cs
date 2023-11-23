@@ -41,6 +41,7 @@ namespace APIServer.Models.Entity
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
         public int? NumberRequirement { get; set; }
+        public int? MatchingNumberRequirement { get; set; }
         public string? PositionTitle { get; set; }
     }
 }
