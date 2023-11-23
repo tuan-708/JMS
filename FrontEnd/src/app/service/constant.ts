@@ -54,6 +54,8 @@ export enum apiCandidate{
     GET_ALL_CV_APPLIED = "/api/Candidate/get-all-cv-applied",
     UPDATE_IMAGES_CV = "/api/Images/update-img-cv",
 
-    GET_CV_CANDIDATE_BY_ID = "/api/CVs/getCV"
+    GET_CV_CANDIDATE_BY_ID = "/api/CVs/getCV",
+
+    DELETE_CV_BY_ID = "/api/CVs/delete-cv"
 
 }

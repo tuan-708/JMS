@@ -278,11 +278,17 @@ export class JdRegisterComponent {
             contactEmail: contactEmail,
             address: address,
             numberRequirement: numberRequirement,
-            companyName: this.profile.companyId,
+            companyName: this.profile.companyId.toString(),
             categoryName: categoryName,
             expiredDate: expiredDate,
             levelTitle: levelTitle,
-            positionTitle: positionTitle
+            positionTitle: positionTitle,
+            companyDTO: {
+               "companyId": this.profile.companyId,
+               "companyName": "string",
+               "email": "string",
+               "phone": "string"
+            },
          }
 
          postRequest(`${apiRecruiter.POST_CREATE_JD}/${this.profile.id}`, AuthorizationMode.PUBLIC, data)

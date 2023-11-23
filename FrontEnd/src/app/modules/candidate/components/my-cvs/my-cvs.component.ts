@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { getRequest } from 'src/app/service/api-requests';
+import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { getProfile, isLogin } from 'src/app/service/localstorage';
 import { environment } from 'src/environments/environment';
 import { ViewCvComponent } from '../view-cv/view-cv.component';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any; 
 
 @Component({
@@ -34,7 +35,7 @@ export class CandidateMyCvsComponent {
       });
    }
 
-   constructor(public dialog: MatDialog, private router: Router){
+   constructor(public dialog: MatDialog, private router: Router, private toastr: ToastrService){
       const isLog = isLogin();
       if(isLog){
          this.profile = getProfile();
@@ -53,8 +54,41 @@ export class CandidateMyCvsComponent {
      this.router.navigate([`/candidate/update-cv/`]);
    }
 
+   showSuccess() {
+      this.toastr.success('Thông báo!', 'Xoá hồ sơ thành công!', {
+        progressBar: true,
+        timeOut: 3000,
+      });
+    }
+  
+    showError() {
+      this.toastr.error('Thông báo!', 'Xoá thất bại,Vui lòng thử lại sau !', {
+        progressBar: true,
+        timeOut: 3000,
+      });
+    }
+  
+
    onClickDelete(id: number){
-      
+      postRequest(`${apiCandidate.DELETE_CV_BY_ID}?candidateId=${this.profile.id}&cvId=${id}`, AuthorizationMode.BEARER_TOKEN, {})
+      .then(res => {
+         if(res?.statusCode){
+            this.showSuccess()
+
+            getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
+            .then(res => {
+               this.listCVs = res?.data
+            })
+            .catch(data => {
+               console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
+            })
+         }
+      })  
+      .catch(data => {
+         this.showError()
+         console.log(data);
+       })
+
    }
 
    gotoDeleteCV(id:number){
