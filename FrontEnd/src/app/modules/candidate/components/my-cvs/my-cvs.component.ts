@@ -6,6 +6,7 @@ import { getProfile, isLogin } from 'src/app/service/localstorage';
 import { environment } from 'src/environments/environment';
 import { ViewCvComponent } from '../view-cv/view-cv.component';
 import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 declare var $: any; 
 
 @Component({
@@ -41,17 +42,34 @@ export class CandidateMyCvsComponent {
          getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             this.listCVs = res?.data
-            console.log(this.listCVs);
          })
          .catch(data => {
             console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
          })
-      }
-    
+      } 
    }
 
    gotoEditCV(id: number){
-     console.log(id); 
      this.router.navigate([`/candidate/update-cv/`]);
+   }
+
+   onClickDelete(id: number){
+      
+   }
+
+   gotoDeleteCV(id:number){
+
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+         width: '350px',
+         data: { title: 'Xác nhận', content: 'Bạn có xác nhận xóa hồ sơ không?' }
+       });
+   
+       dialogRef.afterClosed().subscribe((result: boolean) => {
+         if (result === true) {
+           this.onClickDelete(id);
+         } else if (result === false) {
+         } else {
+         }
+       });
    }
 }

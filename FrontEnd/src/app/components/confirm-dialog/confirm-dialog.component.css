@@ -7,8 +7,9 @@ button {
 
 .prm-btn{
     margin-right: 20px;
-    background-color: blueviolet;
+    background-color: var(--blueLight2);
     color: white;
+    outline: none;
 }
 
 .popup{

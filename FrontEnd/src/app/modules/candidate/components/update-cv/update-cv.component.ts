@@ -309,6 +309,13 @@ export class UpdateCvComponent {
     });
   }
 
+  showError() {
+    this.toastr.error('Thông báo!', 'Đã có lỗi xảy ra, xem lại trường dữ liệu!', {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
 
   SumbitCV(event: any) {
     const displayEmail = $(".inputEmail")[0].value;
@@ -387,6 +394,7 @@ export class UpdateCvComponent {
                   console.log(res);
                 })
                 .catch(data => {
+                  this.showError()
                   console.log(data);
                 })
             }
@@ -394,6 +402,7 @@ export class UpdateCvComponent {
           this.showSuccess()
         })
         .catch(data => {
+          this.showError()
           console.log(data);
         })
     }
