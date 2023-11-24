@@ -1,2 +1,14 @@
-<p>Đây là trang admin</p>
-<router-outlet></router-outlet>
+<div class="container-fluid h-100">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <div class="main-container">
+        <div class="side-nav col-2">
+            <app-side-nav></app-side-nav>
+        </div>
+        <div class="main col-10">
+            <!-- <app-main></app-main> -->
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

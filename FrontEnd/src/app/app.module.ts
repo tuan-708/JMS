@@ -6,7 +6,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-
+import { ChartModule } from 'angular-highcharts';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -20,7 +20,8 @@ import { ToastrModule } from 'ngx-toastr';
       CKEditorModule,
       BrowserAnimationsModule,
       FormsModule,
-      ToastrModule.forRoot()
+      ToastrModule.forRoot(),
+      ChartModule,
    ],
    providers: [],
    bootstrap: [AppComponent],

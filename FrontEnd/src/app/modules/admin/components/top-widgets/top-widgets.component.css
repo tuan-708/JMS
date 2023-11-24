@@ -1,0 +1,42 @@
+.widget-container {
+    display: flex;
+    align-items: space-between;
+    .widget {
+      height: 175px;
+      background-color: #fff;
+      color: #fff;
+      border-radius: 5px;
+      margin: 10px;
+      box-shadow: 5px 5px 5px #939393;
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      &.green {
+        background-color: rgb(4, 67, 66);
+      }
+      &.yellow {
+        background-color: rgb(237, 158, 32);
+      }
+      &.red {
+        background-color: rgb(126, 5, 5);
+      }
+      &.blue {
+        background-color: rgb(105, 32, 251);
+      }
+      
+      .icon {
+        font-size: 60px;
+        text-align: center;
+      }
+      .value {
+        text-align: center;
+        .top {
+          font-size: 30px;
+        }
+        .bottom {
+          font-size: 20px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
