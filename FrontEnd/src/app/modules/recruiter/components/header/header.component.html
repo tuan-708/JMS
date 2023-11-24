@@ -25,6 +25,7 @@
          </ul>
          <form class="d-flex">
             <div *ngIf="isLog">
+               <span class="align-center pr-3">Xin chào <span class="username">{{profile.userName}}</span></span>
                <button type="button" class="btn btn-success m-2" [routerLink]="['/recruiter/sign-out/']" (click)="signOut()">Đăng xuất</button>
             </div>
          </form>

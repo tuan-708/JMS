@@ -20,6 +20,7 @@ export enum apiRecruiter{
     MATCHING_JOB = "/api/Recuirter/matching-job",
     GET_ESTIMATE_TIME = "/api/Recuirter/get-estimate-date-to-matching/",
     UPDATE_CV_SELECTED_STATUS = "/api/Recuirter/update-cv-selected-status",
+    REJECT_CV = "/api/Recuirter/reject-cv",
     
     POST_CREATE_JD = "/api/JobDesc/new-post",
     GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",

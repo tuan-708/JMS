@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-md-2 block">
                     <div class="btn-grp float-end">
-                        <button class="pr-2" title="Loại khỏi danh sách"><i class="bi bi-person-dash h4"></i></button>
+                        <button class="pr-2" title="Loại khỏi danh sách" (click)="openConfirmDialog(candidate)"><i class="bi bi-person-dash h4"></i></button>
                         <button *ngIf="candidate?.isSelected == 0" (click)="onClickSelect(candidate)"
                             title="Yêu thích"><i class="bi bi-star h4"></i></button>
                         <button *ngIf="candidate?.isSelected == 1" (click)="onClickSelect(candidate)"
