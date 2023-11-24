@@ -89,14 +89,7 @@ export class JdDetailComponent {
 
   
   showSuccess() {
-    this.toastr.info('Thông báo!', 'Ứng tuyển thành công!',{
-       progressBar: true,
-       timeOut: 3000,
-    });
-  }
-
-  showInfo() {
-    this.toastr.info('Thông báo!', 'Xin lòng chờ đợi cho tới khi trạng thái ứng tuyển hoàn thành.',{
+    this.toastr.success('Thông báo!', 'Ứng tuyển thành công! Xin lòng chờ đợi cho tới khi trạng thái ứng tuyển hoàn thành.',{
        progressBar: true,
        timeOut: 3000,
     });
@@ -111,10 +104,6 @@ export class JdDetailComponent {
 
 
   submitCv(event:any){
-    // console.log(this.JDId);
-    // console.log(this.selectedCV);
-    
-    this.showInfo()
 
     postRequest(`${apiCandidate.CANDIDATE_APPLYJOB}?candidateId=${this.profile.id}&CVid=${this.selectedCV}&jobDescriptionId=${this.JDId}`, AuthorizationMode.PUBLIC,{})
     .then(res => {
