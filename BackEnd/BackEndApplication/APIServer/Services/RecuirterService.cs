@@ -224,7 +224,7 @@ namespace APIServer.Services
             return cVApply;
         }
 
-        public async Task<List<CVMatching>> GetCVFromMatchingJD(int recruiterId, int jobDescriptionId, int numberRequirement)
+        public async Task<List<CVMatching>> GetCVFromMatchingJD(int recruiterId, int jobDescriptionId, int matchingNumberRequirement)
         {
             try
             {
@@ -232,7 +232,7 @@ namespace APIServer.Services
                 {
                     JobDescription? jd1 = context.JobDescriptions.FirstOrDefault(x => x.JobId == jobDescriptionId);
                     if(jd1 != null)
-                        jd1.NumberRequirement = numberRequirement;
+                        jd1.MatchingNumberRequirement = matchingNumberRequirement;
                     context.SaveChanges();
                 }
                 var JDList = _jobContext.getAllByRecuirterId(recruiterId);
@@ -381,9 +381,9 @@ namespace APIServer.Services
             using (var context = new JMSDBContext())
             {
                 JobDescription? jobDescription = context.JobDescriptions.FirstOrDefault(x => x.RecuirterId == recruiterId && x.JobId == jobDescriptionId);
-                if(jobDescription != null && jobDescription.NumberRequirement != null)
+                if(jobDescription != null && jobDescription.MatchingNumberRequirement != null)
                 {
-                    return CVMatched.Skip((int)jobDescription.NumberRequirement).ToList();
+                    return CVMatched.Skip((int)jobDescription.MatchingNumberRequirement).ToList();
                 }
                 return null;
             }
@@ -395,9 +395,9 @@ namespace APIServer.Services
             using (var context = new JMSDBContext())
             {
                 JobDescription? jobDescription = context.JobDescriptions.FirstOrDefault(x => x.RecuirterId == recruiterId && x.JobId == jobDescriptionId);
-                if (jobDescription != null && jobDescription.NumberRequirement != null)
+                if (jobDescription != null && jobDescription.MatchingNumberRequirement != null)
                 {
-                    return CVMatched.Take((int)jobDescription.NumberRequirement).ToList();
+                    return CVMatched.Take((int)jobDescription.MatchingNumberRequirement).ToList();
                 }
                 return null;
             }
@@ -412,6 +412,11 @@ namespace APIServer.Services
         public int UpdateCVSelectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId)
         {
             return _cVMatchingRepository.UpdateSelectedStatus(recruiterId, jobDescriptionId, CVMatchingId);
+        }
+
+        public int UpdateCVRejectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            return _cVMatchingRepository.UpdateRejectedStatus(recruiterId, jobDescriptionId, CVMatchingId);
         }
 
         public RecuirterDTO getRecruiterInformationByToken(string? token)
@@ -444,5 +449,6 @@ namespace APIServer.Services
                 throw ex;
             }
         }
+
     }
 }

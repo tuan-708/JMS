@@ -22,5 +22,6 @@ namespace APIServer.IServices
         public RecuirterDTO getRecruiterInformationByToken(string? token);
         public List<CVMatching> GetCVApplied(int recruiterId, int jobDescriptionId);
         public int UpdateCVSelectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
+        public int UpdateCVRejectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
     }
 }

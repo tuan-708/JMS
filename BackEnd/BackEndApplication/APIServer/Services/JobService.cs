@@ -190,7 +190,7 @@ namespace APIServer.Services
             {
                 throw new Exception("job not completed yet");
             }
-
+            data.CompanyId = jobDTO.CompanyDTO == null ? null : jobDTO.CompanyDTO.CompanyId;
             data.IsDelete = false;
             data.CreatedAt = DateTime.Now;
             data.ExpiredDate = data.ExpiredDate == null ? DateTime.Now.AddDays(7) : data.ExpiredDate;
