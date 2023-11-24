@@ -91,7 +91,7 @@ export class CandidateCreateCvComponent {
       for (const input of inputs) { descriptionSkills.push($(input).val())}
 
       var skills = [];
-      for (var i = 0; i < titleSkills.length; i++) {
+      for (var i = 0; i < descriptionSkills.length; i++) {
          var dict:any = {}; dict["title"] = ""; dict["skillDescription"] = descriptionSkills[i];
          skills.push(dict);
       }
@@ -152,21 +152,6 @@ export class CandidateCreateCvComponent {
          awards.push(dict);
       }
       return awards
-   }
-
-   getValuesOtherSkills(){
-      var otherSkills: any[] = [];
-      var inputs = $(".otherSkillsDescription");
-      for (const input of inputs) { otherSkills.push($(input).val())}
-
-      var otherSkill = [];
-      for (var i = 0; i < otherSkills.length; i++) {
-         var dict:any = {}; 
-         dict["otherSkills"] = otherSkills[i];
-         otherSkill.push(dict);
-      }
-
-      return otherSkill
    }
 
    getValuesExperiences(){
@@ -302,7 +287,6 @@ export class CandidateCreateCvComponent {
       const skills =  this.getValueSkills()
       const certificates = this.getValueCertificates()
       const awards = this.getValueAwards()
-      const otherSkills = this.getValuesOtherSkills()
       const experiences =  this.getValuesExperiences()
       const projects = this.getValuesProjects()
       const educations = this.getValueEducation()
@@ -356,14 +340,14 @@ export class CandidateCreateCvComponent {
                   postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
                   .then(res => {
                      console.log(res);
-
-                     this.showSuccess()
                   })
                   .catch(data => {
                      console.log(data);
                   })
                }
             }
+
+            this.showSuccess()
          })
          .catch(data => {
             console.log(data);
