@@ -1,4 +1,17 @@
 <mat-dialog-content>
+    <div style="display: flex;" *ngIf="data.recruiterId">
+        <div class="col-10">
+        </div>
+        <div class="col-2 pb-2">
+            <div class="btn-option float-end">
+                <button class="pr-2" title="Loại khỏi danh sách"><i class="bi bi-person-dash h4"></i></button>
+                <button *ngIf="data.jd?.isSelected == 0" (click)="onClickSelect(data.jd)" title="Yêu thích"><i
+                        class="bi bi-star h4"></i></button>
+                <button *ngIf="data.jd?.isSelected == 1" (click)="onClickSelect(data.jd)" title="Bỏ yêu thích"><i
+                        class="bi bi-star-fill h4"></i></button>
+            </div>
+        </div>
+    </div>
     <div class="conten-detail-cv">
         <div class="col-4 p-3 block-left" [style.background-image]="'url('+ backgroudSelectedLink + ')'">
             <div class="avatar-candidate">
@@ -201,7 +214,8 @@
                 <!-- Header -->
                 <div>
                     <input type="text" placeholder="Vị trí công việc" class="form-right--header mt-2 positionTitleName"
-                        [style.color]="colorRightHeader" value="Vị trí: {{ data.jd.level.description }}" disabled [class]="ThemStyle">
+                        [style.color]="colorRightHeader" value="Vị trí: {{ data.jd.level.description }}" disabled
+                        [class]="ThemStyle">
                 </div>
             </div>
 
@@ -233,7 +247,7 @@
                     <!-- Header Experience  -->
                     <div class="mt-1">
                         <span *ngIf="ex.Position">
-                            <i class="fa-solid fa-suitcase"   [style.color]="colorRightHeader" [class]="ThemStyle"></i>
+                            <i class="fa-solid fa-suitcase" [style.color]="colorRightHeader" [class]="ThemStyle"></i>
                             <input type="text" placeholder="Vị trí công việc"
                                 class="form-info-input-right mt-2 positionOfCompany" value="{{ ex.Position}} " disabled
                                 [style.color]="colorRightHeader" [class]="ThemStyle">
@@ -255,7 +269,8 @@
 
                     <div *ngIf="ex.ComapanyName">
                         <input type="text" placeholder="Tên công ty " value="{{ ex.ComapanyName }}" disabled
-                            class="form-info-input-right mt-2 width100 companyName"  [style.color]="colorRightHeader" [class]="ThemStyle">
+                            class="form-info-input-right mt-2 width100 companyName" [style.color]="colorRightHeader"
+                            [class]="ThemStyle">
 
                     </div>
 
@@ -287,20 +302,20 @@
                     <div class="mt-1">
                         <div *ngIf="pr.ProjectName">
                             <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
-                            <input type="text" placeholder="Tên dự án" value="{{ pr.ProjectName }}" disabled class="form-info-input-right mt-2 projectName"
-                                [class]="ThemStyle">
+                            <input type="text" placeholder="Tên dự án" value="{{ pr.ProjectName }}" disabled
+                                class="form-info-input-right mt-2 projectName" [class]="ThemStyle">
                             <span>//</span>
                         </div>
-                     
+
                         <div *ngIf="pr.FromDate">
-                            <input type="text" placeholder="Bắt đầu" value="{{ pr.FromDate }}" disabled class="form-info-input-right mt-2 fromDateProject"
-                            [class]="ThemStyle">
+                            <input type="text" placeholder="Bắt đầu" value="{{ pr.FromDate }}" disabled
+                                class="form-info-input-right mt-2 fromDateProject" [class]="ThemStyle">
                         </div>
-                        
-                              
+
+
                         <div *ngIf="pr.ToDate">
-                            <input type="text" placeholder="Kết thúc" value="{{ pr.ToDate }}" disabled class="form-info-input-right mt-2 toDateProject"
-                            [class]="ThemStyle">
+                            <input type="text" placeholder="Kết thúc" value="{{ pr.ToDate }}" disabled
+                                class="form-info-input-right mt-2 toDateProject" [class]="ThemStyle">
                         </div>
                     </div>
                     <div>
@@ -310,7 +325,7 @@
                     </div>
                     <div>
                         <div *ngIf="pr.Description">
-                            <div style="text-align: justify;" [style.color]="colorRightHeader"  [class]="ThemStyle">
+                            <div style="text-align: justify;" [style.color]="colorRightHeader" [class]="ThemStyle">
                                 {{ pr.Description}}
                             </div>
                             <!-- <textarea rows="3" maxlength="300" value="{{ pr.Description}}" disabled placeholder="Mô tả kinh nghiệm trong dự án của bạn"
@@ -334,28 +349,32 @@
                     <div class="mt-1">
                         <span *ngIf="ed.MajorName">
                             <i class="fa-solid fa-school" [style.color]="colorRightHeader"></i>
-                            <input type="text" placeholder="Ngành học - môn học " value="{{ ed.MajorName }}" disabled 
-                                class="form-info-input-right mt-2 majorName" [style.color]="colorRightHeader" [class]="ThemStyle">
+                            <input type="text" placeholder="Ngành học - môn học " value="{{ ed.MajorName }}" disabled
+                                class="form-info-input-right mt-2 majorName" [style.color]="colorRightHeader"
+                                [class]="ThemStyle">
                             <span>//</span>
                         </span>
 
                         <span *ngIf="ed.FromYear">
-                            <input type="text" placeholder="Bắt đầu" [style.color]="colorRightHeader"  value="{{ ed.FromYear }}" disabled  class="form-info-input-right mt-2 fromYearEducation"
-                            [class]="ThemStyle">
+                            <input type="text" placeholder="Bắt đầu" [style.color]="colorRightHeader"
+                                value="{{ ed.FromYear }}" disabled class="form-info-input-right mt-2 fromYearEducation"
+                                [class]="ThemStyle">
                         </span>
-                     
+
                         <span *ngIf="ed.ToYear">
-                            <input type="text" placeholder="Kết thúc" [style.color]="colorRightHeader" value="{{ ed.ToYear }}" disabled class="form-info-input-right mt-2 toYearEducation"
-                            [class]="ThemStyle">
+                            <input type="text" placeholder="Kết thúc" [style.color]="colorRightHeader"
+                                value="{{ ed.ToYear }}" disabled class="form-info-input-right mt-2 toYearEducation"
+                                [class]="ThemStyle">
                         </span>
                     </div>
 
                     <div *ngIf="ed.SchoolName">
                         <div>
-                            <input type="text" placeholder="Tên trường học" value="Tên trường: {{ ed.SchoolName }}" disabled 
-                            class="form-info-input-right mt-2 schoolName width100" [style.color]="colorRightHeader" [class]="ThemStyle">
+                            <input type="text" placeholder="Tên trường học" value="Tên trường: {{ ed.SchoolName }}"
+                                disabled class="form-info-input-right mt-2 schoolName width100"
+                                [style.color]="colorRightHeader" [class]="ThemStyle">
                         </div>
-               
+
                     </div>
 
                     <div>
@@ -368,9 +387,10 @@
                     </div>
 
                     <div *ngIf="ed.Description">
-                        <textarea rows="3" maxlength="300" value="{{ ed.Description }}" disabled  placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
-                        class="form-info-input-right width100 mt-2 educationDescription"
-                        [class]="ThemStyle"></textarea>
+                        <textarea rows="3" maxlength="300" value="{{ ed.Description }}" disabled
+                            placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
+                            class="form-info-input-right width100 mt-2 educationDescription"
+                            [class]="ThemStyle"></textarea>
                     </div>
                 </div>
             </div>

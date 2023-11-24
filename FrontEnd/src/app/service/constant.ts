@@ -14,12 +14,13 @@ export enum apiRecruiter{
     GET_ALL_LEVEL_TITLE = "/api/RecuirterCommon/all-level-title",
     GET_ALL_EMPLOYMENT_TYPE = "/api/RecuirterCommon/all-employment-type",
 
-    GET_CV_MATCHED = "/api/Recuirter/get-all-cv-matched/",
-    GET_CV_SELECTED = "/api/Recuirter/get-all-cv-selected/",
-    GET_CV_APPLIED = "/api/Recuirter/get-all-cv-applied/",
+    GET_CV_MATCHED = "/api/Recuirter/get-all-cv-matched-by-number-requirement",
+    GET_CV_MATCHED_LEFT = "/api/Recuirter/get-all-cv-matched-left",
+    GET_CV_SELECTED = "/api/Recuirter/get-all-cv-selected",
     MATCHING_JOB = "/api/Recuirter/matching-job",
     GET_ESTIMATE_TIME = "/api/Recuirter/get-estimate-date-to-matching/",
     UPDATE_CV_SELECTED_STATUS = "/api/Recuirter/update-cv-selected-status",
+    REJECT_CV = "/api/Recuirter/reject-cv",
     
     POST_CREATE_JD = "/api/JobDesc/new-post",
     GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",

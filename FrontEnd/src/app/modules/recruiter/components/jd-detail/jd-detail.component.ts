@@ -77,9 +77,9 @@ export class JdDetailComponent {
 
   openCandidateDialog(type: any): void {
     // type 0: matched list 
-    // type 1: applied list 
-    // type 2: seelected list
-    const typeCandidate = type == 0 ? apiRecruiter.GET_CV_MATCHED : type == 1 ? apiRecruiter.GET_CV_APPLIED : apiRecruiter.GET_CV_SELECTED
+    // type 1: matched list left
+    // type 2: selected list
+    const typeCandidate = type == 0 ? apiRecruiter.GET_CV_MATCHED : type == 1 ? apiRecruiter.GET_CV_MATCHED_LEFT : apiRecruiter.GET_CV_SELECTED
     getRequest(typeCandidate, AuthorizationMode.PUBLIC, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: 1 })
       .then(res => {
         this.listCandidate = res.data
@@ -87,7 +87,7 @@ export class JdDetailComponent {
 
         this.dialog.open(ListCandidateComponent, {
           width: '60%',
-          data: {listType: type, recruiterId: this.jdDetail.recuirterId, content: this.listCandidate }
+          data: {listType: type, recruiterId: this.jdDetail.recuirterId, jdId:this.jdDetail.jobId, content: this.listCandidate }
         });
       })
       .catch(data => {

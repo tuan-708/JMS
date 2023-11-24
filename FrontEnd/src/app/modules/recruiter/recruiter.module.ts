@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -66,6 +66,9 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
       AutosizeModule,
       MatCheckboxModule,
       MatPaginatorModule,
+   ],
+   providers: [
+      DatePipe,
    ]
 })
 export class RecruiterModule { }

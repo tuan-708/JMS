@@ -79,3 +79,12 @@ button {
     padding-left: 10px;
     /* border-radius: 5px; */
 }
+
+a:hover {
+    cursor: pointer;
+}
+
+.candidate-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
