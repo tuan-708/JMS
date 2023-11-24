@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Exo", sans-serif;
+    background-color: #d8d8d8;
+}
+
+.main-container{
+    display: flex;
+    .side-nav{
+        background-color: #105fa0;
+        color: #fff;
+        box-shadow: 5px 5px 5px #939393;
+    }
+    .main{
+        padding: 30px;
+    }
+}
