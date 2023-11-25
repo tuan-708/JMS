@@ -9,12 +9,12 @@ import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
    styleUrls: ['./sign-up.component.css'],
 })
 export class CandidateRegisterComponent {
-   
-   FullName=""
-   UserName=""
-   Email=""
-   Password=""
-   rePassword=""
+
+   FullName = ""
+   UserName = ""
+   Email = ""
+   Password = ""
+   rePassword = ""
 
    showSuccess() {
       this.toastr.success('Thông báo!', 'Đăng ký tài khoản thành công!', {
@@ -23,7 +23,7 @@ export class CandidateRegisterComponent {
       });
    }
 
-   showFail() {
+   showError() {
       this.toastr.error('Thông báo!', 'Đăng ký tài khoản thất bại, vui lòng thử lại sau', {
          progressBar: true,
          timeOut: 3000,
@@ -31,28 +31,25 @@ export class CandidateRegisterComponent {
    }
 
 
-   constructor(private toastr: ToastrService){
+   constructor(private toastr: ToastrService) {
 
    }
 
-   Submit(){
-      const data = {
-         fullName: this.FullName,
-         UserName: this.UserName,
-         email: this.Email,
-         password: this.Password,
-         rePassword: this.rePassword
-      }
+   Submit() {
 
+      postRequest(`${apiCandidate.REGISTER_ACCOUNT_CANDIDATE}?email=${this.Email}
+      &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
+         .then(res => {
+            if (res.statusCode == 200) {
+               this.showSuccess()
+            } else {
+               this.showError()
+            }
+         })
+         .catch(res => {
+            this.showError()
+            console.warn(res);
 
-      postRequest(`${apiCandidate.REGISTER_ACCOUNT_CANDIDATE}`, AuthorizationMode.PUBLIC, data)
-      .then(res => {
-         console.log(res);
-         
-      }) 
-      .catch(res => {
-         console.warn(res);
-         
-      })
+         })
    }
 }
