@@ -23,5 +23,6 @@ namespace APIServer.IServices
         public List<CVMatching> GetCVApplied(int recruiterId, int jobDescriptionId);
         public int UpdateCVSelectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
         public int UpdateCVRejectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
+        public int ChangeFullName(int recruiterId, string fullName);
     }
 }

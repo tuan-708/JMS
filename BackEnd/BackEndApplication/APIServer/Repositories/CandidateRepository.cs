@@ -109,5 +109,16 @@ namespace APIServer.Repositories
             }
             return 0;
         }
+
+        public int UpdateFullName(int candidateId, string fullName)
+        {
+            Candidate candidate = context.Candidates.FirstOrDefault(x => x.Id == candidateId);
+            if (candidate != null)
+            {
+                candidate.FullName = fullName.Trim();
+                return context.SaveChanges();
+            }
+            return 0;
+        }
     }
 }

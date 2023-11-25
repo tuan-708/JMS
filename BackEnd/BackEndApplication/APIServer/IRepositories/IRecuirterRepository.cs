@@ -12,6 +12,7 @@ namespace APIServer.IRepositories
         public bool IsUsernameExist(string username);
         public int UpdatePassword(string email, string password);
         public int Register(string email, string fullName, string username, string password);
+        public int UpdateFullName(int recruiterId, string fullName);
 
     }
 }
