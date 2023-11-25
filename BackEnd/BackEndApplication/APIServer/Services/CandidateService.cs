@@ -301,5 +301,10 @@ namespace APIServer.Services
                 throw ex;
             }
         }
+
+        public int ChangeFullName(int candidateId, string fullName)
+        {
+            return _candidateRepository.UpdateFullName(candidateId, fullName);
+        }
     }
 }

@@ -138,5 +138,34 @@ namespace APIServer.Controllers.CandidateModule
             }
             
         }
+
+        [HttpPost("change-fullname")]
+        public BaseResponseBody<CVMatchingDTO> ChangeFullName(int candidateId, string fullName)
+        {
+            try
+            {
+                int n = _candidateService.ChangeFullName(candidateId, fullName);
+                if(n > 0)
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        message = "update fullname successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        message = "update fullname failed",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<CVMatchingDTO>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
     }
 }
