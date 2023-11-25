@@ -39,6 +39,7 @@
 	<ItemGroup>
 	  <Folder Include="wwwroot\defaults\" />
 	  <Folder Include="wwwroot\images\" />
+	  <Folder Include="wwwroot\images_clone\" />
 	</ItemGroup>
 
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
