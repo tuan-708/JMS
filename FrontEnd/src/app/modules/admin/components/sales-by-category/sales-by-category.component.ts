@@ -13,15 +13,15 @@ export class SalesByCategoryComponent {
       height: 325
     },
     title: {
-      text: 'Category wise sales'
+      text: 'Ngành Tuyển Dụng'
     },
     xAxis: {
       categories: [
-        'Electronics',
-        'Groceries',
-        'Cosmetics',
-        'Clothes',
-        'Appliances',
+        'IT - Phần Mềm',
+        'Truyền Thông - Marketing',
+        'Kế Toán - Kiểm Toán',
+        'Kinh Doanh - Bán Hàng',
+        'Giáo Dục',
       ]
     },
     yAxis: {
@@ -34,27 +34,27 @@ export class SalesByCategoryComponent {
       type: 'pie',
       data: [
         {
-          name: 'Electronics',
+          name: 'IT - Phần Mềm',
           y: 41.0,
           color: '#044342',
         },
         {
-          name: 'Groceries',
+          name: 'Truyền Thông - Marketing',
           y: 33.8,
           color: '#7e0505',
         },
         {
-          name: 'Cosmetics',
+          name: 'Kế Toán - Kiểm Toán',
           y: 6.5,
           color: '#ed9e20',
         },
         {
-          name: 'Clothes',
+          name: 'Kinh Doanh - Bán Hàng',
           y: 15.2,
           color: '#6920fb',
         },
         {
-          name: 'Appliances',
+          name: 'Khác',
           y: 3.5,
           color: '#121212',
         },

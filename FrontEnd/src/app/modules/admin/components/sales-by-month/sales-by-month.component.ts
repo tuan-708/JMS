@@ -14,7 +14,7 @@ export class SalesByMonthComponent{
       height: 325
     },
     title: {
-      text: 'Month wise sales'
+      text: 'Thống Kê Phát Triển'
     },
     xAxis: {
       categories: [
@@ -34,18 +34,18 @@ export class SalesByMonthComponent{
     },
     yAxis: {
       title: {
-        text: 'Revenue in $'
+        text: 'Số Lượt'
       }
     },
     series: [
       {
-        name: "Arizona",
+        name: "Đăng Ký Ứng Tuyển",
         type: "line",
         color: '#044342',
         data: [70, 69, 95, 145, 182, 215, 252, 265, 233, 183, 139, 196]
       },
       {
-        name: 'Connecticut',
+        name: 'CV Được Tạo',
         type: 'line',
         color: '#7e0505',
         data: [
@@ -53,7 +53,7 @@ export class SalesByMonthComponent{
         ]
       },
       {
-        name: 'Ohio',
+        name: 'Bài Tuyển Dụng Mới',
         type: 'line',
         color: '#ed9e20',
         data: [

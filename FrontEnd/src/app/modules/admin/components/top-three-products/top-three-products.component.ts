@@ -13,18 +13,18 @@ export class TopThreeProductsComponent {
       height: 225
     },
     title: {
-      text: 'Top 3 Products'
+      text: 'Top Nhà Tuyển Dụng'
     },
     xAxis: {
       categories: [
-        'Lenova Thinkpad E15',
-        'Nectar Orange Juice',
-        'Axe Deodarant',
+        'FPT EDUCATION',
+        'VIETTEL GROUP',
+        'VINAMILK',
       ]
     },
     yAxis: {
       title: {
-        text: ''
+        text: '(Bài Tuyển Dụng)'
       }
     },
     series: [
@@ -33,17 +33,17 @@ export class TopThreeProductsComponent {
       showInLegend: false,
       data: [
         {
-          name: 'Lenova Thinkpad E15',
+          name: 'FPT EDUCATION',
           y: 395,
           color: '#044342',
         },
         {
-          name: 'Nectar Orange Juice',
+          name: 'VIETTEL GROUP',
           y: 385,
           color: '#7e0505',
         },
         {
-          name: 'Axe Deodarant',
+          name: 'VINAMILK',
           y: 275,
           color: '#ed9e20',
         },

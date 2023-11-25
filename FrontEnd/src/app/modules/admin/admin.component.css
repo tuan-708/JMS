@@ -1,22 +1,28 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: "Exo", sans-serif;
     background-color: #d8d8d8;
 }
 
-.main-container{
+.main-container {
     display: flex;
-    .side-nav{
+    height: 90vh;
+    /* height: calc(100% - 70px); */
+    /* flex-direction: column; */
+    .side-nav {
         background-color: #105fa0;
         color: #fff;
         box-shadow: 5px 5px 5px #939393;
     }
-    .main{
+
+    .main {
         padding: 30px;
+        overflow-y: auto;
+        height: calc(100% - 70px);
     }
 }

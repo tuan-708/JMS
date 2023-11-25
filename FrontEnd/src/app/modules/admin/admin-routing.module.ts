@@ -13,7 +13,8 @@ const routes: Routes = [
    { path: "sign-in", component: AdminSignInComponent },
    { path: "sign-up", component: AdminSignUpComponent },
    { path: "company-page", component: CompanyComponent },
-   { path: "dashboard", component: MainComponent }
+   { path: "dashboard", component: MainComponent },
+   { path: "", component: MainComponent },
 ];
 
 @NgModule({
