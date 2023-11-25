@@ -7,8 +7,8 @@
          <p>Tìm hiểu văn hoá công ty và chọn cho bạn nơi làm việc phù hợp nhất.</p>
       </div>
       <div class="input-group formInputSearch">
-         <input type="text" class="form-control shadow-none customInput" placeholder="Nhập tên công ty">
-         <div class="input-group-append ">
+         <input type="text" [(ngModel)]="inputSearch"  class="form-control shadow-none customInput" placeholder="Nhập tên công ty">
+         <div class="input-group-append "  (click)="SubmitSearch()">
             <button class="btn btnBlueLight" type="button" style="border-radius: 22px; width: 44px;">
                <i class="fa fa-search"></i>
             </button>
@@ -24,12 +24,12 @@
             <div class="col-3">
 
             </div>
-            <div class="col-3 ">
+            <!-- <div class="col-3 ">
                <select class="form-select shadow-none">
                   <option selected value="0" disabled>Chọn lĩnh vực</option>
                   <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
                </select>
-            </div>
+            </div> -->
          </div>
 
          <div class="row d-flex listCompany">

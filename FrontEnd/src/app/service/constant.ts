@@ -38,7 +38,7 @@ export enum apiRecruiter {
     //Profile
     LOGIN_RECRUITER = "/api/Token/login-recuirter",
     GET_PROFILE_RECRUITER = "/api/Token/get-data-recruiter",
-    REGISTER_ACCOUNT_RECRUITER = "/api/Registers/register-for-recruiter",
+    REGISTER_ACCOUNT_RECRUITER = "/api/Registers/register-for-recuirter",
 
     //Company
     GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
@@ -47,6 +47,7 @@ export enum apiRecruiter {
     UPDATE_COMPANY = "/api/Companys/update-by-recuirter",
     GET_COMPANY_PAGING = "/api/Companys/get-all",
     GET_COMPANY_BY_ID = "/api/Companys/get-by-id",
+    SEARCH_COMPANY = "/api/Companys/search"
 
 }
 
