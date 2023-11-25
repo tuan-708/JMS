@@ -129,6 +129,7 @@ namespace APIServer.Repositories
             recuirter.FullName = fullName.Trim();
             recuirter.UserName = username.Trim();
             recuirter.CreatedDate = DateTime.Now;
+            recuirter.PhoneNumber = "";
             recuirter.IsActive = true;
             recuirter.IsDelete = false;
             context.Recuirters.Add(recuirter);
