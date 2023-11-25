@@ -423,7 +423,23 @@ option {
    outline: none;
    font-size: 1em;
    margin-left: 10px;
+   width: 350px;
 }
+
+.form-info-input-Right-Date {
+   color: var(--text-primary);
+   background-color: var(--gray-0);
+   outline: none;
+   font-size: 1em;
+   margin-left: 4px;
+   width: 100px;
+   text-align: center;
+}
+
+.form-info-input-Right-Date:hover{
+   border: 2px #ccc dotted;
+}
+
 
 .form-info-input-right:hover {
    border: 2px #ccc dotted;

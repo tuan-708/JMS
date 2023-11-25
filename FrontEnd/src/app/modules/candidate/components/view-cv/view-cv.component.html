@@ -312,8 +312,7 @@
                             <input type="text" placeholder="Bắt đầu" value="{{ pr.FromDate }}" disabled
                                 class="form-info-input-Right-Date mt-2 fromDateProject" [class]="ThemStyle">
                         </span>
-
-
+                        <span>-</span>
                         <span *ngIf="pr.ToDate">
                             <input type="text" placeholder="Kết thúc" value="{{ pr.ToDate }}" disabled
                                 class="form-info-input-Right-Date mt-2 toDateProject" [class]="ThemStyle">
@@ -361,7 +360,7 @@
                                 value="{{ ed.FromYear }}" disabled class="form-info-input-Right-Date mt-2 fromYearEducation"
                                 [class]="ThemStyle">
                         </span>
-
+                        <span>-</span>
                         <span *ngIf="ed.ToYear">
                             <input type="text" placeholder="Kết thúc" [style.color]="colorRightHeader"
                                 value="{{ ed.ToYear }}" disabled class="form-info-input-Right-Date mt-2 toYearEducation"
