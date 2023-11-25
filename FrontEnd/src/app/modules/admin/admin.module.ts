@@ -15,6 +15,13 @@ import { MainComponent } from './components/main/main.component';
 import { SalesByCategoryComponent } from './components/sales-by-category/sales-by-category.component';
 import { ChartModule } from 'angular-highcharts';
 import { CompanyComponent } from './components/company/company.component';
+import { MatListModule } from '@angular/material/list';
+import { AccountComponent } from './components/account/account.component';
+import { CandidateComponent } from './components/candidate/candidate.component';
+import { RecruiterComponent } from './components/recruiter/recruiter.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { CustomFilterPipe } from './custom-filter-pipe.pipe';
+import { FormsModule } from '@angular/forms';
 @NgModule({
    declarations: [
       AdminSettingComponent,
@@ -29,12 +36,18 @@ import { CompanyComponent } from './components/company/company.component';
       TopThreeProductsComponent,
       MainComponent,
       SalesByCategoryComponent,
-      CompanyComponent
+      CompanyComponent,
+      AccountComponent,
+      CandidateComponent,
+      RecruiterComponent,
+      CustomFilterPipe,
    ],
    imports: [
       CommonModule,
       AdminRoutingModule,
       ChartModule,
+      MatListModule,
+      FormsModule,
    ]
 })
 export class AdminModule { }

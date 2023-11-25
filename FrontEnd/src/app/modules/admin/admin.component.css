@@ -12,10 +12,11 @@ body {
 .main-container {
     display: flex;
     height: 90vh;
+
     /* height: calc(100% - 70px); */
     /* flex-direction: column; */
     .side-nav {
-        background-color: #105fa0;
+        background: linear-gradient(109.6deg, rgb(6, 84, 59) 11.2%, rgb(44, 51, 59) 91.3%);
         color: #fff;
         box-shadow: 5px 5px 5px #939393;
     }
@@ -23,6 +24,6 @@ body {
     .main {
         padding: 30px;
         overflow-y: auto;
-        height: calc(100% - 70px);
+        height: calc(100% - 30px);
     }
 }

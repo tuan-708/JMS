@@ -1,7 +1,7 @@
 .header {
     height: 70px;
     padding: 20px 50px;
-    background-color:  #105fa0;
+    background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%);
     color: #fff;
     display: flex;
     justify-content: space-between;
