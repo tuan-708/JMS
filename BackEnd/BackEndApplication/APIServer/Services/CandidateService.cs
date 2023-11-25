@@ -141,6 +141,20 @@ namespace APIServer.Services
                             CVApplied.IsReject = false;
                             CVApplied.JSONMatching = null;
                             CVApplied.PercentMatching = null;
+
+                            //clone avt img to another folder
+                            if(!Validation.checkStringIsEmpty(cv.AvatarURL))
+                            {
+                                string fileToCopy = Directory.GetCurrentDirectory()
+                                    + "/wwwroot" + cv.AvatarURL;
+                                var fileName = cv.AvatarURL.Replace("\\images\\", "");
+                                string destinationDirectory = Directory.GetCurrentDirectory()
+                                    + "/wwwroot/images_clone/";
+
+                                File.Copy(fileToCopy, destinationDirectory + fileName);
+                                CVApplied.AvatarURL = "/images_clone/" + fileName;
+                            }
+
                             return _CVMatchingRepository.Create(CVApplied);
                         }
 
@@ -148,6 +162,16 @@ namespace APIServer.Services
                     else throw new Exception("Your CV not exist");
                 }
                 else throw new Exception("Your CV not exist");
+            }
+            catch(DirectoryNotFoundException ex)
+            {
+                Console.WriteLine("Directory not found: " + ex.Message);
+                throw ex;
+            }
+            catch(FileNotFoundException ex)
+            {
+                Console.WriteLine("File not found: " + ex.Message);
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -276,6 +300,11 @@ namespace APIServer.Services
             {
                 throw ex;
             }
+        }
+
+        public int ChangeFullName(int candidateId, string fullName)
+        {
+            return _candidateRepository.UpdateFullName(candidateId, fullName);
         }
     }
 }

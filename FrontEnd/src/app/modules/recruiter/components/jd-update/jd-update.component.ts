@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile } from 'src/app/service/localstorage';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-jd-update',
@@ -21,8 +22,10 @@ export class JdUpdateComponent {
   jdDetail: any;
   id: any;
   profile: any;
+  startDate: any
+  endDate: any
 
-  constructor(private route: ActivatedRoute, private toastr: ToastrService) {
+  constructor(private route: ActivatedRoute, private toastr: ToastrService, public datePipe: DatePipe) {
     this.profile = getProfile();
 
     getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
@@ -66,7 +69,7 @@ export class JdUpdateComponent {
       .then(res => {
         this.jdDetail = res.data
         console.log(res);
-
+        this.formatDate();
         this.setValueInput()
       })
       .catch(data => {
@@ -93,13 +96,14 @@ export class JdUpdateComponent {
     const selectEmlementType = this.employmentTypes.find((elm: any) => elm?.title === this.jdDetail?.employmentTypeName)
     this.typeRq.setValue(selectEmlementType?.id.toString())
 
-    const createAt = this.converTringDateInput(this.jdDetail?.createdAt)
-    this.CreateAtRq.setValue(createAt)
+    // const createAt = this.converTringDateInput(this.jdDetail?.createdAt)
+    // this.CreateAtRq.setValue(createAt)
 
-    const expiredDate = this.converTringDateInput(this.jdDetail?.expiredDate)
-    this.expiredDateRq.setValue(expiredDate)
+    // const expiredDate = this.converTringDateInput(this.jdDetail?.expiredDate)
+    this.expiredDateRq.setValue(this.endDate)
 
     this.addressRq.setValue(this.jdDetail?.address)
+    console.log(this.addressRq.value)
     this.salaryRq.setValue(this.jdDetail?.salary)
     this.descriptionRq.setValue(this.jdDetail?.jobDetail)
     this.educationRq.setValue(this.jdDetail?.educationRequirement)
@@ -385,5 +389,27 @@ export class JdUpdateComponent {
     this.benefitRq.markAllAsTouched();
 
     return
+  }
+
+  formatDate(): void {
+    // Parse start date the string into a Date object
+    const dateParts = this.jdDetail.createdAt.split('/');
+    const year = +dateParts[2];
+    const month = +dateParts[1] - 1;
+    const day = +dateParts[0];
+
+    const date = new Date(year, month, day);
+
+    // Parse end date the string into a Date object
+    const dateParts2 = this.jdDetail.expiredDate.split('/');
+    const year2 = +dateParts2[2];
+    const month2 = +dateParts2[1] - 1;
+    const day2 = +dateParts2[0];
+
+    const date2 = new Date(year2, month2, day2);
+
+    // Format the date using DatePipe
+    this.startDate = this.datePipe.transform(date, 'yyyy-MM-dd');
+    this.endDate = this.datePipe.transform(date2, 'yyyy-MM-dd');
   }
 }

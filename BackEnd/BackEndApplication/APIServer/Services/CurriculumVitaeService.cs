@@ -59,6 +59,11 @@ namespace APIServer.Services
             throw new NotImplementedException();
         }
 
+        public int DeleteCV(int candidateId, int CVId)
+        {
+            return _CvContext.UpdateIsDeleteStatus(candidateId, CVId);
+        }
+
         public List<CurriculumVitae> getAll()
         {
             return _CvContext.GetAll();

@@ -53,24 +53,38 @@ namespace APIServer.Repositories
             return candidate != null;
         }
 
+        public bool IsUsernameExist(string username)
+        {
+            Candidate candidate = context.Candidates.FirstOrDefault(x => x.UserName.Trim().Equals(username.Trim()));
+            return candidate != null;
+        }
+
         public Candidate LoginCandidate(string username, string password)
         {
-            return context.Candidates
+            Candidate data = context.Candidates
                 .Include(x => x.CurriculumVitaes)
                 .Include(x => x.CVApplies)
                 .FirstOrDefaultAsync(x => 
-                x.UserName.ToLower() == username.ToLower() &&
-                x.Password == password)
+                x.UserName.ToLower() == username.ToLower())
                 .Result;
+            if (VerifyPassword(password, data.Password))
+                return data;
+            return null;
         }
 
-        public int Register(string email, string username, string password)
+        public bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+        }
+
+        public int Register(string email, string fullName, string username, string password)
         {
             Candidate candidate = new Candidate();
-            string hashPassword = BCrypt.Net.BCrypt.HashPassword(password);
-            candidate.Email = email;
+            string hashPassword = BCrypt.Net.BCrypt.HashPassword(password.Trim());
+            candidate.Email = email.Trim();
             candidate.Password = hashPassword;
-            candidate.UserName = username;
+            candidate.FullName = fullName.Trim();
+            candidate.UserName = username.Trim();
             candidate.CreatedDate = DateTime.Now;
             candidate.IsActive = true;
             candidate.IsDelete = false;
@@ -91,6 +105,17 @@ namespace APIServer.Repositories
             {
                 string hashPassword = BCrypt.Net.BCrypt.HashPassword(password);
                 candidate.Password = hashPassword;
+                return context.SaveChanges();
+            }
+            return 0;
+        }
+
+        public int UpdateFullName(int candidateId, string fullName)
+        {
+            Candidate candidate = context.Candidates.FirstOrDefault(x => x.Id == candidateId);
+            if (candidate != null)
+            {
+                candidate.FullName = fullName.Trim();
                 return context.SaveChanges();
             }
             return 0;

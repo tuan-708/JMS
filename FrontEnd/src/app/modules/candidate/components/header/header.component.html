@@ -21,12 +21,28 @@
          </ul>
          <form class="d-flex">
             <div *ngIf="isLog">
-               <button type="button" class="btn btn-success m-2 p-2" [routerLink]="['/candidate/sign-out/']" (click)="signOut()">Đăng xuất</button>
-             </div>
-             <div *ngIf="!isLog">
-               <button type="button" class="btn btn-outline-primary m-2 p-2" [routerLink]="['/candidate/sign-in/']">Đăng nhập</button>
-               <button type="button" class="btn btn-success m-2 p-2" [routerLink]="['/candidate/sign-up/']">Đăng ký</button>
-             </div>
+               <div class="blockUser">
+                  <img class="avatar" src="{{ profile?.avatarURL }}" alt="">
+                  <div style="align-self: center; margin-left: 15px;">Xin chào {{ profile?.fullName }} !</div>
+
+                  <div class="profile">
+                     <div class="itemProfile">
+                        <i class="fa-solid fa-user"></i>
+                        <span style="margin-left: 15px;">Thông tin cá nhân</span>
+                     </div>
+                     <div class="line"></div>
+                     <button type="button" class="btn btn-info w-100" [routerLink]="['/candidate/sign-out/']"
+                        (click)="signOut()">Đăng xuất</button>
+
+                  </div>
+               </div>
+            </div>
+            <div *ngIf="!isLog">
+               <button type="button" class="btn btn-outline-primary m-2 p-2" [routerLink]="['/candidate/sign-in/']">Đăng
+                  nhập</button>
+               <button type="button" class="btn btn-success m-2 p-2" [routerLink]="['/candidate/sign-up/']">Đăng
+                  ký</button>
+            </div>
          </form>
       </div>
    </div>

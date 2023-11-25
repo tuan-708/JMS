@@ -4,6 +4,7 @@ using APIServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIServer.Migrations
 {
     [DbContext(typeof(JMSDBContext))]
-    partial class JMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231123150500_add new field to JD")]
+    partial class addnewfieldtoJD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -400,9 +402,6 @@ namespace APIServer.Migrations
 
                     b.Property<DateTime>("ApplyDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("AvatarURL")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Award")
                         .HasColumnType("nvarchar(max)");

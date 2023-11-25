@@ -20,7 +20,7 @@ declare var $: any;
 
 
 export class CandidateCreateCvComponent {
-   categories:any
+   categories: any
    levels: any
    employmentTypes: any
 
@@ -38,7 +38,7 @@ export class CandidateCreateCvComponent {
    backgroundSelectedLink = `${environment.Url}/assets/images/theme6.jpg`
    id: any;
 
-   profile:any
+   profile: any
    onChangeAvatar = false
 
 
@@ -56,28 +56,28 @@ export class CandidateCreateCvComponent {
       this.backgroundSelectedLink = themeList[this.id].backgroundSelectedLink
 
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
-      .then(res => {
-         this.categories = res.data
-      })
-      .catch(data => {
-         console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
-      })
+         .then(res => {
+            this.categories = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+         })
 
       getRequest(apiRecruiter.GET_ALL_LEVEL_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
-      .then(res => {
-         this.levels = res.data
-      })
-      .catch(data => {
-         console.warn(apiRecruiter.GET_ALL_LEVEL_TITLE, data);
-      })
+         .then(res => {
+            this.levels = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_LEVEL_TITLE, data);
+         })
 
       getRequest(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, AuthorizationMode.PUBLIC, { page: 10 })
-      .then(res => {
-         this.employmentTypes = res.data
-      })
-      .catch(data => {
-         console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
-      })
+         .then(res => {
+            this.employmentTypes = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
+         })
    }
 
    getValueSkills() {
@@ -88,17 +88,17 @@ export class CandidateCreateCvComponent {
       // for (const input of inputs) { titleSkills.push($(input).val())}
 
       var inputs = $(".skillDescription");
-      for (const input of inputs) { descriptionSkills.push($(input).val())}
+      for (const input of inputs) { descriptionSkills.push($(input).val()) }
 
       var skills = [];
-      for (var i = 0; i < titleSkills.length; i++) {
-         var dict:any = {}; dict["title"] = ""; dict["skillDescription"] = descriptionSkills[i];
+      for (var i = 0; i < descriptionSkills.length; i++) {
+         var dict: any = {}; dict["title"] = ""; dict["skillDescription"] = descriptionSkills[i];
          skills.push(dict);
       }
       return skills
    }
 
-   getValueCertificates(){
+   getValueCertificates() {
       var certificateName: any[] = [];
       var certificateProvider: any[] = [];
       var issuedDate: any[] = [];
@@ -106,70 +106,55 @@ export class CandidateCreateCvComponent {
       var credentialURL: any[] = [];
 
       var inputs = $(".certificateName");
-      for (const input of inputs) { certificateName.push($(input).val())}
+      for (const input of inputs) { certificateName.push($(input).val()) }
 
       var inputs = $(".issuedDateCertificate");
-      for (const input of inputs) { issuedDate.push($(input).val())}
+      for (const input of inputs) { issuedDate.push($(input).val()) }
 
       var inputs = $(".expiredDateCertificate");
-      for (const input of inputs) { expiredDate.push($(input).val())}
+      for (const input of inputs) { expiredDate.push($(input).val()) }
 
       var inputs = $(".credentialURLCertificate");
-      for (const input of inputs) { credentialURL.push($(input).val())}
+      for (const input of inputs) { credentialURL.push($(input).val()) }
 
       var inputs = $(".certificateProvider");
-      for (const input of inputs) { certificateProvider.push($(input).val())}
+      for (const input of inputs) { certificateProvider.push($(input).val()) }
 
       var certificates = [];
       for (var i = 0; i < certificateName.length; i++) {
-         var dict:any = {}; 
-         dict["certificateName"] = certificateName[i]; dict["issuedDate"] = issuedDate[i]; 
+         var dict: any = {};
+         dict["certificateName"] = certificateName[i]; dict["issuedDate"] = issuedDate[i];
          dict["expiredDate"] = expiredDate[i]; dict["credentialURL"] = credentialURL[i]; dict["certificateProvider"] = certificateProvider[i];
          certificates.push(dict);
       }
-      return certificates 
+      return certificates
    }
 
-   getValueAwards(){
+   getValueAwards() {
       var fromYear: any[] = [];
       var awardName: any[] = [];
       var description: any[] = [];
 
       var inputs = $(".fromYearAwards");
-      for (const input of inputs) { fromYear.push($(input).val())}
+      for (const input of inputs) { fromYear.push($(input).val()) }
 
       var inputs = $(".awardName");
-      for (const input of inputs) { awardName.push($(input).val())}
+      for (const input of inputs) { awardName.push($(input).val()) }
 
       var inputs = $(".awardDescription");
-      for (const input of inputs) { description.push($(input).val())}
+      for (const input of inputs) { description.push($(input).val()) }
 
       var awards = [];
       for (var i = 0; i < fromYear.length; i++) {
-         var dict:any = {}; 
-         dict["fromYear"] = fromYear[i]; dict["awardName"] = awardName[i]; 
+         var dict: any = {};
+         dict["fromYear"] = fromYear[i]; dict["awardName"] = awardName[i];
          dict["description"] = description[i];
          awards.push(dict);
       }
       return awards
    }
 
-   getValuesOtherSkills(){
-      var otherSkills: any[] = [];
-      var inputs = $(".otherSkillsDescription");
-      for (const input of inputs) { otherSkills.push($(input).val())}
-
-      var otherSkill = [];
-      for (var i = 0; i < otherSkills.length; i++) {
-         var dict:any = {}; 
-         dict["otherSkills"] = otherSkills[i];
-         otherSkill.push(dict);
-      }
-
-      return otherSkill
-   }
-
-   getValuesExperiences(){
+   getValuesExperiences() {
       var companyName: any[] = [];
       var position: any[] = [];
       var fromDate: any[] = [];
@@ -177,23 +162,23 @@ export class CandidateCreateCvComponent {
       var description: any[] = [];
 
       var inputs = $(".companyName");
-      for (const input of inputs) { companyName.push($(input).val())}
+      for (const input of inputs) { companyName.push($(input).val()) }
 
       var inputs = $(".positionOfCompany");
-      for (const input of inputs) { position.push($(input).val())}
+      for (const input of inputs) { position.push($(input).val()) }
 
       var inputs = $(".fromDateExperience");
-      for (const input of inputs) { fromDate.push($(input).val())}
+      for (const input of inputs) { fromDate.push($(input).val()) }
 
       var inputs = $(".toDateExperience");
-      for (const input of inputs) { toDate.push($(input).val())}
+      for (const input of inputs) { toDate.push($(input).val()) }
 
       var inputs = $(".experienceDescription");
-      for (const input of inputs) { description.push($(input).val())}
+      for (const input of inputs) { description.push($(input).val()) }
 
       var experiences = [];
       for (var i = 0; i < companyName.length; i++) {
-         var dict:any = {}; 
+         var dict: any = {};
          dict["ComapanyName"] = companyName[i]; dict["position"] = position[i];
          dict["fromDate"] = fromDate[i]; dict["toDate"] = toDate[i];
          dict["description"] = description[i];
@@ -204,7 +189,7 @@ export class CandidateCreateCvComponent {
       return experiences
    }
 
-   getValuesProjects(){
+   getValuesProjects() {
       var projectName: any[] = [];
       var fromDate: any[] = [];
       var toDate: any[] = [];
@@ -212,24 +197,24 @@ export class CandidateCreateCvComponent {
       var isStillWorking: any[] = [];
 
       var inputs = $(".projectName");
-      for (const input of inputs) { projectName.push($(input).val())}
+      for (const input of inputs) { projectName.push($(input).val()) }
 
       var inputs = $(".fromDateProject");
-      for (const input of inputs) { fromDate.push($(input).val())}
+      for (const input of inputs) { fromDate.push($(input).val()) }
 
       var inputs = $(".toDateProject");
-      for (const input of inputs) { toDate.push($(input).val())}
+      for (const input of inputs) { toDate.push($(input).val()) }
 
       var inputs = $(".projectDescription");
-      for (const input of inputs) { description.push($(input).val())}
+      for (const input of inputs) { description.push($(input).val()) }
 
       var inputs = $(".isStillWorking");
-      for (const input of inputs) { isStillWorking.push($(input).prop('checked'))}
-      
+      for (const input of inputs) { isStillWorking.push($(input).prop('checked')) }
+
 
       var projects = [];
       for (var i = 0; i < projectName.length; i++) {
-         var dict:any = {}; 
+         var dict: any = {};
          dict["projectName"] = projectName[i]; dict["fromDate"] = fromDate[i]; dict["toDate"] = toDate[i];
          dict["description"] = description[i]; dict["isStillWorking"] = isStillWorking[i];
          projects.push(dict);
@@ -237,7 +222,7 @@ export class CandidateCreateCvComponent {
       return projects
    }
 
-   getValueEducation(){
+   getValueEducation() {
       var schoolName: any[] = [];
       var majorName: any[] = [];
       var description: any[] = [];
@@ -246,26 +231,26 @@ export class CandidateCreateCvComponent {
       var stillLearning: any[] = [];
 
       var inputs = $(".schoolName");
-      for (const input of inputs) { schoolName.push($(input).val())}
+      for (const input of inputs) { schoolName.push($(input).val()) }
 
       var inputs = $(".majorName");
-      for (const input of inputs) { majorName.push($(input).val())}
-      
+      for (const input of inputs) { majorName.push($(input).val()) }
+
       var inputs = $(".educationDescription");
-      for (const input of inputs) { description.push($(input).val())}
+      for (const input of inputs) { description.push($(input).val()) }
 
       var inputs = $(".fromYearEducation");
-      for (const input of inputs) { fromYear.push($(input).val())}
+      for (const input of inputs) { fromYear.push($(input).val()) }
 
       var inputs = $(".toYearEducation");
-      for (const input of inputs) { toYear.push($(input).val())}
+      for (const input of inputs) { toYear.push($(input).val()) }
 
       var inputs = $(".stillLearning");
-      for (const input of inputs) { stillLearning.push($(input).prop('checked'))}
+      for (const input of inputs) { stillLearning.push($(input).prop('checked')) }
 
       var educations = [];
       for (var i = 0; i < schoolName.length; i++) {
-         var dict:any = {}; 
+         var dict: any = {};
          dict["schoolName"] = schoolName[i]; dict["majorName"] = majorName[i]; dict["description"] = description[i];
          dict["fromYear"] = fromYear[i]; dict["toYear"] = toYear[i]; dict["stillLearning"] = stillLearning[i];
          educations.push(dict);
@@ -274,106 +259,162 @@ export class CandidateCreateCvComponent {
    }
 
    showSuccess() {
-      this.toastr.success('Thông báo!', 'Tạo hồ sơ thành công!',{
+      this.toastr.success('Thông báo!', 'Tạo hồ sơ thành công!', {
          progressBar: true,
          timeOut: 3000,
       });
-    }
+   }
+
+   showError() {
+      this.toastr.error('Thông báo!', 'Đã có lỗi xảy ra, xem lại trường dữ liệu!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   showErrorUploadImage() {
+      this.toastr.error('Thông báo!', 'Đăng ảnh hồ sơ lỗi!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+
+   showErrorInput(message: string) {
+      this.toastr.error(message, 'Thông báo!', {
+         progressBar: true,
+         timeOut: 3000,
+         enableHtml: true
+      });
+   }
+
+   validInput() {
+      var massage = ""
+      var valid = true;
+      if ($(".categoryId")[0].value == "0") {
+         massage += "- Lĩnh vực không được để trống <br/>"
+         var valid = false;
+      }
+
+      if ($(".levelId")[0].value == "0") {
+         massage += "- Cấp bậc không được để trống <br/>"
+         var valid = false;
+      }
+
+      if ($(".employmentTypeId")[0].value == "0") {
+         massage += "- loại việc làm không được để trống <br/>"
+         var valid = false;
+      }
+
+      if ($(".inputPhone")[0].value == "") {
+         massage += "- Số điện thoại không được để trống <br/>"
+         var valid = false;
+      }
+
+      if ($(".inputDob")[0].value == "") {
+         massage += "- Ngày sinh không được để trống <br/>"
+         var valid = false;
+      }
+
+      if (!valid) {
+         this.showErrorInput(massage)
+      }
+
+      return valid
+   }
 
 
    SumbitCV(event: any) {
-      const displayEmail = $(".inputEmail")[0].value;
-      const phone = $(".inputPhone")[0].value;
-      // const linkMedia = $(".inputLinkMedia")[0].value;
-      const address = $(".inputAddress")[0].value;
-      const dob =  $(".inputDob")[0].value;
-      const displayName = $(".displayName")[0].value;
-      const careerGoal = $(".careerGoal")[0].value;
-      const positionTitleName = $(".positionTitleName")[0].value;
-      const cvTitle = $(".cvTitle")[0].value;
-      const levelId = $(".levelId")[0].value;
-      const categoryId = $(".categoryId")[0].value;
-      const employmentTypeName = $(".employmentTypeId")[0].value;
-      const theme = this.id;
-      const font = this.fontCV;
-      const gender = $("input[name='gender']:checked").val();
-      
+      if (this.validInput()) {
+         const displayEmail = $(".inputEmail")[0].value;
+         const phone = $(".inputPhone")[0].value;
 
-      const skills =  this.getValueSkills()
-      const certificates = this.getValueCertificates()
-      const awards = this.getValueAwards()
-      const otherSkills = this.getValuesOtherSkills()
-      const experiences =  this.getValuesExperiences()
-      const projects = this.getValuesProjects()
-      const educations = this.getValueEducation()
+         const address = $(".inputAddress")[0].value;
+         const dob = $(".inputDob")[0].value;
+         const displayName = $(".displayName")[0].value;
+         const careerGoal = $(".careerGoal")[0].value;
+         const positionTitleName = $(".positionTitleName")[0].value;
+         const cvTitle = $(".cvTitle")[0].value;
+         const levelId = $(".levelId")[0].value;
+         const categoryId = $(".categoryId")[0].value;
+         const employmentTypeName = $(".employmentTypeId")[0].value;
+         const theme = this.id;
+         const font = this.fontCV;
+         const gender = $("input[name='gender']:checked").val();
 
-      const data = {
-         'id': 0,
-         'candidateId': 1,
-         'careerGoal': careerGoal,
-         'employmentTypeName': employmentTypeName.toString(),
-         'phone': phone,
-         'displayName': displayName,
-         'genderDisplay': gender,
-         'gender': gender,
-         'displayEmail': displayEmail,
-         'address': address,
-         'dob': dob,
-         "createdDateDisplay": null,
-         "lastUpdateDateDisplay": null,
-         'positionTitleName': positionTitleName,
-         'jobExperiences': experiences,
-         'skills': skills,
-         'educations': educations,
-         'projects': projects,
-         'certificates': certificates,
-         'awards': awards,
-         'avatarURL': "",
-         'categoryName': "",
-         'categoryId': categoryId,
-         'genderId': gender,
-         'isFindingJob': true,
-         'levelTitle': levelId.toString(),
-         'cvTitle': cvTitle,
-         'theme': theme,
-         'font': font
+
+         const skills = this.getValueSkills()
+         const certificates = this.getValueCertificates()
+         const awards = this.getValueAwards()
+         const experiences = this.getValuesExperiences()
+         const projects = this.getValuesProjects()
+         const educations = this.getValueEducation()
+
+         const data = {
+            'id': 0,
+            'candidateId': 1,
+            'careerGoal': careerGoal,
+            'employmentTypeName': employmentTypeName.toString(),
+            'phone': phone,
+            'displayName': displayName,
+            'genderDisplay': gender,
+            'gender': gender,
+            'displayEmail': displayEmail,
+            'address': address,
+            'dob': dob,
+            "createdDateDisplay": null,
+            "lastUpdateDateDisplay": null,
+            'positionTitleName': positionTitleName,
+            'jobExperiences': experiences,
+            'skills': skills,
+            'educations': educations,
+            'projects': projects,
+            'certificates': certificates,
+            'awards': awards,
+            'avatarURL': "",
+            'categoryName': "",
+            'categoryId': categoryId,
+            'genderId': gender,
+            'isFindingJob': true,
+            'levelTitle': levelId.toString(),
+            'cvTitle': cvTitle,
+            'theme': theme,
+            'font': font
+         }
+
+         const isLog = isLogin();
+         if (isLog) {
+            postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
+               .then(res => {
+
+                  const cvIdCreated = res?.data
+                  if (this.onChangeAvatar) {
+                     if ($('#avatarCv')[0].files[0]) {
+
+                        let formData: FormData = new FormData();
+                        let file: File = $('#avatarCv')[0].files[0];
+                        formData.append('file', file, file.name);
+                        console.log(formData);
+
+                        postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
+                           .then(res => {
+                              console.log(res);
+                           })
+                           .catch(data => {
+                              this.showErrorUploadImage()
+                              console.log(data);
+                           })
+                     }
+                  }
+
+                  this.showSuccess()
+               })
+               .catch(data => {
+                  this.showError()
+                  console.log(data);
+               })
+         }
       }
-
-      const isLog = isLogin();
-      if(isLog){
-         postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
-         .then(res => {
-         
-            const cvIdCreated =  res?.data
-            if(this.onChangeAvatar){
-               if($('#avatarCv')[0].files[0]){
-         
-                  let formData: FormData = new FormData();
-                  let file: File = $('#avatarCv')[0].files[0];
-                  formData.append('file', file, file.name);
-                  console.log(formData);
-
-                  postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
-                  .then(res => {
-                     console.log(res);
-
-                     this.showSuccess()
-                  })
-                  .catch(data => {
-                     console.log(data);
-                  })
-               }
-            }
-         })
-         .catch(data => {
-            console.log(data);
-         })
-      }
-
-
-
-      console.log(data);
-
    }
 
 

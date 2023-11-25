@@ -16,5 +16,6 @@ namespace APIServer.IRepositories
         public List<CVMatching> GetAllByIsMatchedLeft(int recruiterId, int jobDescriptionId);
         public List<CVMatching> GetAllByIsApplied(int recruiterId, int jobDescriptionId);
         public int UpdateSelectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
+        public int UpdateRejectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
     }
 }

@@ -163,5 +163,38 @@ namespace APIServer.Controllers.CandidateModule
             }
             
         }
+
+        [HttpPost]
+        [Route("delete-cv")]
+        public BaseResponseBody<string> DeleteCV(int candidateId, int cvId)
+        {
+            try
+            {
+                int n = cvService.DeleteCV(candidateId, cvId);
+                if (n > 0)
+                {
+                    return new BaseResponseBody<string>
+                    {
+                        message = "Delete successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                }
+                else
+                    return new BaseResponseBody<string>
+                    {
+                        message = "Delete failed",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<string>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+
+        }
     }
 }

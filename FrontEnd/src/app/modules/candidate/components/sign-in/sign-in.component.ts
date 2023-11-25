@@ -65,6 +65,7 @@ export class CandidateSignInComponent {
          })
          .catch(data => {
             this.showFail()
+            console.warn(apiCandidate.LOGIN_CANDIDATE);
          })
    }
 }

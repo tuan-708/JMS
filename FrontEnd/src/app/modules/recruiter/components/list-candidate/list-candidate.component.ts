@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { ToastrService } from 'ngx-toastr';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { ViewCvComponent } from 'src/app/modules/candidate/components/view-cv/view-cv.component';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AVATAR_DEFAULT_URL, AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
@@ -21,6 +23,7 @@ export class ListCandidateComponent {
     public dialogRef: MatDialogRef<ListCandidateComponent>,
     public dialogCvRef: MatDialogRef<ViewCvComponent>,
     public dialog: MatDialog,
+    private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     if (data.content != null) this.getPageRange()
   }
@@ -88,5 +91,50 @@ export class ListCandidateComponent {
     const start = this.pageIndex * this.pageSize;
     const end = Math.min((this.pageIndex + 1) * this.pageSize, this.data.content.length);
     this.listDisplay = this.data.content.slice(start, end)
+  }
+
+  onClickRejectCv(cv: any) {
+    //API handle delete JD
+    postRequest(`${apiRecruiter.REJECT_CV}?recruiterId=${this.data.recruiterId}&jobDescriptionId=${this.data.jdId}&CVMatchingId=${cv.id}`, AuthorizationMode.PUBLIC, {})
+      .then(res => {
+        if (res.statusCode == 200) {
+          this.showSuccess()
+          const index = this.listDisplay.indexOf(cv);
+          if (index !== -1) {
+            this.listDisplay.splice(index, 1);
+          }
+        }
+        this.showFail()
+      })
+      .catch(data => {
+        this.showFail()
+      })
+  }
+
+  openConfirmDialog(jd: any): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { title: 'Xác nhận', content: 'Bạn có xác nhận xóa CV khỏi danh sách không?' }
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result === true) {
+        this.onClickRejectCv(jd);
+      }
+    });
+  }
+
+  showSuccess() {
+    this.toastr.success('Thông báo!', 'Xoá thành công CV!', {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+  showFail() {
+    this.toastr.error('Thông báo!', 'Xoá thất bại CV, vui lòng thử lại sau!', {
+      progressBar: true,
+      timeOut: 3000,
+    });
   }
 }

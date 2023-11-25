@@ -99,66 +99,73 @@
                 <mat-tab label="Thông tin việc làm">
                     <div class="d-flex mt-3">
                         <div style="width: 65%; padding: 20px;" class="infomationLeft">
-                            <div class="textBold">
-                                Mô tả công việc
+                        
+                            <div *ngIf="jobDetail">
+                                <div class="textBold">
+                                    Mô tả công việc
+                                </div>
+                                <div [innerHTML]="jobDetail">
+                                </div>
                             </div>
 
-                            <div [innerHTML]="jobDetail">
+                            <div *ngIf="educationRequirement">
+                                <div class="textBold">
+                                    Trình độ học vấn
+                                </div>
+                                <div [innerHTML]="educationRequirement">
+                                </div>
                             </div>
-
-
-                            <div class="textBold">
-                                Trình độ học vấn
+                      
+                            <div *ngIf="experienceRequirement">
+                                <div class="textBold">
+                                    Kinh nghiệm
+                                </div>
+                                <div [innerHTML]="experienceRequirement">
+                                </div>
                             </div>
-                            <div [innerHTML]="educationRequirement">
+                     
+                            <div *ngIf="skillRequirement">
+                                <div class="textBold">
+                                    Yêu cầu kỹ năng
+                                </div>
+    
+                                <div [innerHTML]="skillRequirement">
+                                </div>
                             </div>
+          
 
-                            <div class="textBold">
-                                Kinh nghiệm
+                            <div *ngIf="certificateRequirement">
+                                <div class="textBold">
+                                    Yêu cầu chứng chỉ
+                                </div>
+                                <div [innerHTML]="certificateRequirement">
+                                </div>
                             </div>
-
-                            <div [innerHTML]="experienceRequirement">
+                
+                            <div *ngIf="projectRequirement">
+                                <div class="textBold">
+                                    Yêu cầu dự án
+                                </div>
+                                <div [innerHTML]="projectRequirement">
+                                </div>
                             </div>
-
-                            <div class="textBold">
-                                Yêu cầu kỹ năng
+                     
+                            <div *ngIf="candidateBenefit">
+                                <div class="textBold">
+                                    Quyền lợi
+                                </div>
+                                <div [innerHTML]="candidateBenefit">
+                                </div>
                             </div>
+               
 
-                            <div [innerHTML]="skillRequirement">
+                            <div *ngIf="otherInformation">
+                                <div class="textBold">
+                                    Yêu cầu khác
+                                </div>
+                                <div [innerHTML]="otherInformation">
+                                </div>
                             </div>
-
-
-                            <div class="textBold">
-                                Yêu cầu chứng chỉ
-                            </div>
-
-                            <div [innerHTML]="certificateRequirement">
-                            </div>
-
-                            <div class="textBold">
-                                Yêu cầu dự án
-                            </div>
-
-                            <div [innerHTML]="projectRequirement">
-                            </div>
-
-                            <div class="textBold">
-                                Quyền lợi
-                            </div>
-
-                            <div [innerHTML]="candidateBenefit">
-                            </div>
-
-
-                            <div class="textBold">
-                                Yêu cầu khác
-                            </div>
-
-                            <div [innerHTML]="otherInformation">
-                            </div>
-
-
-
                         </div>
                         <div style="width: 35%; padding: 20px;">
                             <div class="d-flex itemSmall">
@@ -232,7 +239,7 @@
                 </mat-tab>
                 <mat-tab label="Thông tin công ty">
                     <div class="d-flex mt-3">
-                        <div style="width: 65%; padding: 20px;">
+                        <div style="width: 65%; padding: 20px;" class="infomationLeft">
                             <div class="textBold">
                                 Miêu tả công ty
                             </div>

@@ -17,9 +17,11 @@ export class ListJobsComponent {
    constructor(private router: Router) {
       getRequest(apiCandidate.GET_ALL_JDS_PAGING + "/" + this.page, AuthorizationMode.PUBLIC)
          .then(res => {
-            this.listJds = res?.data
-            this.totalItems = res?.objectLength
-            console.log(this.listJds);
+            if(res?.statusCode == 200){
+               this.listJds = res?.data
+               this.totalItems = res?.objectLength
+               console.log(this.listJds);
+            }
          })
          .catch(data => {
             console.warn(apiCandidate.GET_ALL_JDS_PAGING + "/" + this.page, data);
@@ -30,9 +32,11 @@ export class ListJobsComponent {
       this.page = page
       getRequest(apiCandidate.GET_ALL_JDS_PAGING + "/" + this.page, AuthorizationMode.PUBLIC)
          .then(res => {
-            this.listJds = res?.data
-            this.totalItems = res?.objectLength
-            console.log(this.listJds);
+            if(res?.statusCode == 200){
+               this.listJds = res?.data
+               this.totalItems = res?.objectLength
+               console.log(this.listJds);
+            }
          })
          .catch(data => {
             console.warn(apiCandidate.GET_ALL_JDS_PAGING + "/" + this.page);

@@ -23,11 +23,11 @@ namespace APIServer.Controllers.UserModule
 
         [HttpPost]
         [Route("register-for-candidate")]
-        public BaseResponseBody<string> CreateCandidateAccount(string email, string username, string password, string confirmPassword)
+        public BaseResponseBody<string> CreateCandidateAccount(string email, string fullName, string username, string password, string confirmPassword)
         {
             try
             {
-                string registerMess = _registerService.RegisterForCandidate(email,username,password,confirmPassword);
+                string registerMess = _registerService.RegisterForCandidate(email,fullName,username,password,confirmPassword);
                 return new BaseResponseBody<string>
                 {
                     data = registerMess,
@@ -47,11 +47,11 @@ namespace APIServer.Controllers.UserModule
 
         [HttpPost]
         [Route("register-for-recuirter")]
-        public BaseResponseBody<string> CreateRecuirterAccount(string email, string username, string password, string confirmPassword)
+        public BaseResponseBody<string> CreateRecuirterAccount(string email, string fullName, string username, string password, string confirmPassword)
         {
             try
             {
-                string registerMess = _registerService.RegisterForRecruiter(email, username, password, confirmPassword);
+                string registerMess = _registerService.RegisterForRecruiter(email, fullName, username, password, confirmPassword);
                 return new BaseResponseBody<string>
                 {
                     data = registerMess,

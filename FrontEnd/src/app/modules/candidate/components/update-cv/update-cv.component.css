@@ -417,11 +417,26 @@
     background-color: var(--gray-0);
     outline: none;
     font-size: 1em;
-    margin-left: 10px;
+    margin-left: 4px;
+    min-width: 350px;
+ }
+
+ .form-info-input-Right-Date{
+   color: var(--text-primary);
+   background-color: var(--gray-0);
+   outline: none;
+   font-size: 1em;
+   margin-left: 4px;
+   width: 80px;
+   text-align: center;
  }
  
  .form-info-input-right:hover {
     border: 2px #ccc dotted;
+ }
+
+ .form-info-input-Right-Date:hover{
+   border: 2px #ccc dotted;
  }
  
  .width100 {

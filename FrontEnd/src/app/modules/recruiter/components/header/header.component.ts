@@ -18,9 +18,7 @@ export class HeaderComponent {
    auth(){
       this.isLog = isLogin();
       this.profile = getProfile();
-      if(this.profile.companyId === null){
-         this.hasCompany = false
-      }
+      
   
       if(!this.isLog){
          const token = getToken()
@@ -40,7 +38,10 @@ export class HeaderComponent {
    }
 
    constructor(private router: Router){
-      this.auth()
+      this.profile = getProfile();
+      if(this.profile.companyId === null){
+         this.hasCompany = false
+      }
    }
 
    signOut(){

@@ -123,6 +123,27 @@ namespace APIServer.Controllers.RecuirterModule
             };
         }
 
+        [HttpPost]
+        [Route("reject-cv")]
+        public BaseResponseBody<string> RejectCV(int recruiterId, int jobDescriptionId, int CVMatchingId)
+        {
+            int n = _recuirterService.UpdateCVRejectedStatus(recruiterId, jobDescriptionId, CVMatchingId);
+            if (n > 0)
+            {
+                return new BaseResponseBody<string>
+                {
+                    statusCode = HttpStatusCode.OK,
+                    message = "Reject successfully",
+                };
+            }
+
+            return new BaseResponseBody<string>
+            {
+                statusCode = HttpStatusCode.BadRequest,
+                message = "Reject failed",
+            };
+        }
+
         [HttpGet]
         [Route("get-cv-matching-detail")]
         public BaseResponseBody<CVMatchingDTO> GetCVMatchingDetail(int recruiterId, int jobDescriptionId, int CVMatchingId)
@@ -153,7 +174,35 @@ namespace APIServer.Controllers.RecuirterModule
                     message = ex.Message.ToString(),
                 };
             }
-            
+        }
+
+        [HttpPost("change-fullname")]
+        public BaseResponseBody<CVMatchingDTO> ChangeFullName(int recruiterId, string fullName)
+        {
+            try
+            {
+                int n = _recuirterService.ChangeFullName(recruiterId, fullName);
+                if (n > 0)
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        message = "update fullname successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        message = "update fullname failed",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<CVMatchingDTO>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
         }
 
         [HttpGet]
