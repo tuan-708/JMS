@@ -443,3 +443,11 @@ option {
 .mat-mdc-dialog-content {
     max-height: 120vh !important;
 }
+
+.bi {
+    color: coral;
+}
+
+.btn-option button{
+    background-color: white;
+}
