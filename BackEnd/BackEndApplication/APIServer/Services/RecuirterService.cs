@@ -483,5 +483,9 @@ namespace APIServer.Services
             }
         }
 
+        public int ChangeFullName(int recruiterId, string fullName)
+        {
+            return _recRepository.UpdateFullName(recruiterId, fullName);
+        }
     }
 }
