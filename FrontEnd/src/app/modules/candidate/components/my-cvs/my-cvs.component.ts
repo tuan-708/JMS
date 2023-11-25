@@ -20,6 +20,7 @@ export class CandidateMyCvsComponent {
    list = [1,2,3,4,5,6,7,8,9]
    listCVs:any; 
    profile: any
+   listJds:any
 
    ngAfterViewInit() {
       $('#prev').on('click', function () {
@@ -47,7 +48,21 @@ export class CandidateMyCvsComponent {
          .catch(data => {
             console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
          })
-      } 
+      }
+      
+      getRequest(apiCandidate.GET_ALL_JDS_PAGING + "/" + 1, AuthorizationMode.PUBLIC)
+      .then(res => {
+         if(res?.statusCode == 200){
+            this.listJds = res?.data
+         }
+      })
+      .catch(data => {
+         console.warn(apiCandidate.GET_ALL_JDS_PAGING + "/" + 1, data);
+      })
+   }
+
+   onClickJD(jd: any) {
+      this.router.navigate(['/candidate/jd-detail/', jd?.jobId]);
    }
 
    gotoEditCV(id: number){

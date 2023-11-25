@@ -39,23 +39,29 @@ export enum apiRecruiter{
 }
 
 export enum apiCandidate{
+    //Job
     GET_ALL_JDS_PAGING =  "/api/JobDesc/get-all-jd",
     GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",
+    CANDIDATE_APPLYJOB = "/api/Candidate/apply-cv",
+
+    //CV
     GET_ALL_CV_BY_RECRUITER_ID = "/api/CVs/all-cv",
     CREATE_CV_BY_CANDIDATE_ID= "/api/CVs/new-cv",
     UPDATE_CV_BY_CANDIDATE_ID="/api/CVs/update-cv",
-    UPLOAD_AVATAR_CV_ID= "/api/Images/upload-imge-cv",
     GET_ALL_CV_BY_ID = "/api/CVs/all-cv",
-    CANDIDATE_APPLYJOB = "/api/Candidate/apply-cv",
-
-    LOGIN_CANDIDATE = "/api/Token/login-candidate",
-    GET_PROFILE_USER = "/api/Token/get-data-candidate",
-
     GET_ALL_CV_APPLIED = "/api/Candidate/get-all-cv-applied",
+    GET_CV_CANDIDATE_BY_ID = "/api/CVs/getCV",
+    DELETE_CV_BY_ID = "/api/CVs/delete-cv",
+
+    //Image
+    UPLOAD_AVATAR_CV_ID= "/api/Images/upload-imge-cv",
     UPDATE_IMAGES_CV = "/api/Images/update-img-cv",
 
-    GET_CV_CANDIDATE_BY_ID = "/api/CVs/getCV",
 
-    DELETE_CV_BY_ID = "/api/CVs/delete-cv"
+    //Profile
+    LOGIN_CANDIDATE = "/api/Token/login-candidate",
+    GET_PROFILE_USER = "/api/Token/get-data-candidate",
+    FORGOT_PASSWORD_CANDIDATE = "/api/Email/forgot-candidate-password",
+    REGISTER_ACCOUNT_CANDIDATE = "/api/Registers/register-for-candidate"
 
 }

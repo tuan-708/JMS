@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { postRequest } from 'src/app/service/api-requests';
+import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 
 
 @Component({
@@ -7,5 +10,38 @@ import { Component } from '@angular/core';
    styleUrls: ['./forgot-password.component.css']
 })
 export class CandidateForgotPasswordComponent {
+   Email=""
 
+   showSuccess() {
+      this.toastr.success('Thông báo!', 'Thay đổi thành công, vui lòng kiểm tra Email!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   showFail() {
+      this.toastr.error('Thông báo!', 'Thay đổi mật khẩu thất bại, vui lòng thử lại sau!', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   constructor(private toastr: ToastrService){
+    
+   }
+
+   Submit(){
+
+  
+      
+      postRequest(`${apiCandidate.FORGOT_PASSWORD_CANDIDATE}?email=${this.Email}`, AuthorizationMode.PUBLIC, {Email: this.Email})
+      .then(res => {
+         console.log(res);
+         
+      }) 
+      .catch(res => {
+         console.warn(res);
+         
+      })
+   }
 }
