@@ -46,5 +46,6 @@ namespace APIServer.Models.Entity
         public bool? IsReject { get; set; }
         public int? Theme { get; set; }
         public string? Font { get; set; }
+        public string? AvatarURL { get; set; }
     }
 }
