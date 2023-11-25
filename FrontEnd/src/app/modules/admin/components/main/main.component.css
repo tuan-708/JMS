@@ -1,6 +1,7 @@
 
   .middle-section {
     display: flex;
+    width: 98%;
     justify-content: space-between;
     .widget {
       height: 350px;
@@ -15,6 +16,7 @@
   .bottom-section {
     display: flex;
     justify-content: space-between;
+    width: 98%;
     .widget {
       height: 250px;
       background-color: #fff;
