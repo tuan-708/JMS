@@ -302,9 +302,9 @@ namespace APIServer.Services
             }
         }
 
-        public int ChangeFullName(int candidateId, string fullName)
+        public int UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId)
         {
-            return _candidateRepository.UpdateFullName(candidateId, fullName);
+            return _candidateRepository.UpdateProfile(candidateId, fullName, phone, DOB, genderId);
         }
     }
 }

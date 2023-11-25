@@ -483,9 +483,10 @@ namespace APIServer.Services
             }
         }
 
-        public int ChangeFullName(int recruiterId, string fullName)
+        public int UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
+
         {
-            return _recRepository.UpdateFullName(recruiterId, fullName);
+            return _recRepository.UpdateProfile(recruiterId, fullName, phoneNumber, DOB, genderId, description);
         }
     }
 }
