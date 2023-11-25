@@ -33,20 +33,20 @@
             </div>
             <div class="header__title">
                 <select class="form-select shadow-none customSelect categoryId" [(ngModel)]="selectCategory" aria-label="Default select example">
-                    <option selected> Chọn Lĩnh Vực</option>
+                    <option value="0" selected> Chọn Lĩnh Vực</option>
                     <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
                 </select>
             </div>
 
             <div class="header__title">
-                <select class="form-select shadow-none customSelect levelId"  [(ngModel)]="selectLevel" aria-label="Default select example">
+                <select value="0" class="form-select shadow-none customSelect levelId"  [(ngModel)]="selectLevel" aria-label="Default select example">
                     <option selected>Chọn Cấp Bậc</option>
                     <option *ngFor="let elm of levels; index as i" value={{elm.id}}>{{elm.title}}</option>
                 </select>
             </div>
 
             <div class="header__title">
-                <select class="form-select shadow-none customSelect employmentTypeId"  [(ngModel)]="selectEmploymentTypes"
+                <select value="0" class="form-select shadow-none customSelect employmentTypeId"  [(ngModel)]="selectEmploymentTypes"
                     aria-label="Default select example">
                     <option selected>Chọn Loại việc làm</option>
                     <option *ngFor="let elm of employmentTypes; index as i" value={{elm.id}}>{{elm.title}}</option>
@@ -160,7 +160,7 @@
                     <!-- Input Dob  -->
                     <div class="mt-1">
                         <i class="fa-solid fa-calendar" [style.color]="colorLeftHeader"></i>
-                        <input type="date" data-date-format="DD/MM/YYYY" value="{{ cv.dob }}"
+                        <input type="date" data-date-format="DD/MM/YYYY" value="{{ cv?.dob }}"
                             class="form-info-input inputDob" [style.color]="colorLeftInput" [class]="ThemStyle">
                     </div>
                     <!-- Input Gender  -->
@@ -187,7 +187,7 @@
                     <div class="mt-1 d-flex">
                         <i class="fa-solid fa-location-dot" [style.color]="colorLeftHeader"></i>
                         <textarea rows="2" maxlength="60" placeholder="Địa chỉ" class="form-info-input inputAddress"
-                            [style.color]="colorLeftInput" value="{{ cv.address }}" [class]="ThemStyle"></textarea>
+                            [style.color]="colorLeftInput" value="{{ cv?.address }}" [class]="ThemStyle"></textarea>
                     </div>
                 </div>
 
@@ -211,7 +211,7 @@
                             <div *ngFor="let sk of cv.skills">
                                 <textarea rows="3" maxlength="300" placeholder="Mô tả kỹ năng"
                                     class="form-info-input inputDescripitonSkills skillDescription"
-                                    [style.color]="colorLeftInput" [class]="ThemStyle">{{ sk.skillDescription }}</textarea>
+                                    [style.color]="colorLeftInput" [class]="ThemStyle">{{ sk?.skillDescription }}</textarea>
                             </div>
 
                         </div>
@@ -232,25 +232,25 @@
                     <div class="certificates" *ngFor="let ce of cv.certificates">
                         <!-- Input Name Certificates  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Tên chứng chỉ" value="{{ ce.certificateName }}" class="form-info-input certificateName"
+                            <input type="text" placeholder="Tên chứng chỉ" value="{{ ce?.certificateName }}" class="form-info-input certificateName"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
 
                         <!-- Input Time Certificates  -->
                         <div class="mt-1 d-flex">
                             <input type="text" placeholder="Bắt đầu"
-                                class="form-info-input width50 issuedDateCertificate" value="{{ ce.issuedDate }}" [style.color]="colorLeftInput"
+                                class="form-info-input width50 issuedDateCertificate" value="{{ ce?.issuedDate }}" [style.color]="colorLeftInput"
                                 [class]="ThemStyle">
                             <div>-</div>
                             <input type="text" placeholder="Kết thúc"
-                                class="form-info-input width50 expiredDateCertificate" value="{{ ce.expiredDate }}" [style.color]="colorLeftInput"
+                                class="form-info-input width50 expiredDateCertificate" value="{{ ce?.expiredDate }}" [style.color]="colorLeftInput"
                                 [class]="ThemStyle">
                         </div>
 
                         <!-- Input Link Certificates  -->
                         <div class="mt-1">
                             <input type="text" placeholder="Link"
-                                class="form-info-input width50 credentialURLCertificate" value="{{ ce.credentialURL }}" [style.color]="colorLeftInput"
+                                class="form-info-input width50 credentialURLCertificate" value="{{ ce?.credentialURL }}" [style.color]="colorLeftInput"
                                 [class]="ThemStyle">
                         </div>
 
@@ -276,13 +276,13 @@
                     <div class="prizes" *ngFor="let aw of cv.awards">
                         <!-- Input Time Award  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Thời gian" value="{{ aw.fromYear }}" class="form-info-input fromYearAwards"
+                            <input type="text" placeholder="Thời gian" value="{{ aw?.fromYear }}" class="form-info-input fromYearAwards"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
 
                         <!-- Input Name Award  -->
                         <div class="mt-1">
-                            <input type="text" placeholder="Tên giải thưởng" value="{{ aw.awardName }}" class="form-info-input awardName"
+                            <input type="text" placeholder="Tên giải thưởng" value="{{ aw?.awardName }}" class="form-info-input awardName"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
 
@@ -290,7 +290,7 @@
                         <div class="mt-1">
                             <textarea rows="3" maxlength="300" type="text" placeholder="Miêu tả"
                                 class="form-info-input awardDescription" [style.color]="colorLeftInput"
-                                [class]="ThemStyle">{{ aw.description }}</textarea>
+                                [class]="ThemStyle">{{ aw?.description }}</textarea>
                         </div>
                     </div>
                     <i class="fa-solid fa-plus prizesAdd" (click)="prizesAdd($event)"></i>
@@ -304,13 +304,13 @@
                 <div class="form-position form-input-value">
                     <!-- Header  Title-->
                     <div>
-                        <input type="text" placeholder="Họ và tên" value="{{ cv.displayName }}" class="form-right--header mt-2 displayName"
+                        <input type="text" placeholder="Họ và tên" value="{{ cv?.displayName }}" class="form-right--header mt-2 displayName"
                             [style.color]="colorRightHeader" [class]="ThemStyle">
                     </div>
 
                     <!-- Header -->
                     <div>
-                        <input type="text" placeholder="Vị trí công việc"  value="{{ cv.categoryName }}"
+                        <input type="text" placeholder="Vị trí công việc"  value="{{ cv?.categoryName }}"
                             class="form-right--header mt-2 positionTitleName" [style.color]="colorRightHeader"
                             [class]="ThemStyle">
                     </div>
@@ -329,7 +329,7 @@
                         <textarea rows="3" maxlength="300"
                             placeholder="mục tiêu nghề nghiệp của bạn, bao gồm mục tiêu ngắn và dài hạn"
                             class="input-side-right mt-2 careerGoal" [style.color]="colorRightHeader"
-                            [class]="ThemStyle">{{ cv.careerGoal }}</textarea>
+                            [class]="ThemStyle">{{ cv?.careerGoal }}</textarea>
                     </div>
                 </div>
 
@@ -345,23 +345,24 @@
                         <!-- Header Experience  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-suitcase"></i>
-                            <input type="text" placeholder="Vị trí công việc" value="{{ ex.position }}"
+                            <input type="text" placeholder="Vị trí công việc" value="{{ ex?.position }}"
                                 class="form-info-input-right mt-2 positionOfCompany" [style.color]="colorRightHeader"
                                 [class]="ThemStyle">
                             <span>//</span>
-                            <input type="text" placeholder="Bắt đầu" value="{{ ex.toDate }}"
-                                class="form-info-input-right mt-2 fromDateExperience" [class]="ThemStyle">
-                            <input type="text" placeholder="Kết thúc" value="{{ ex.fromDate }}"
-                                class="form-info-input-right mt-2 toDateExperience" [class]="ThemStyle">
+                            <input type="text" placeholder="Bắt đầu" value="{{ ex?.fromDate}}"
+                                class="form-info-input-Right-Date mt-2 fromDateExperience" [class]="ThemStyle">
+                            <span>-</span>
+                            <input type="text" placeholder="Kết thúc" value="{{ ex?.toDate }}"
+                                class="form-info-input-Right-Date mt-2 toDateExperience" [class]="ThemStyle">
                         </div>
 
                         <div>
-                            <input type="text" placeholder="Tên công ty " value="{{ ex.comapanyName }}"
+                            <input type="text" placeholder="Tên công ty " value="{{ ex?.comapanyName }}"
                                 class="form-info-input-right mt-2 width100 companyName" [class]="ThemStyle">
                         </div>
 
                         <div>
-                            <textarea rows="4" maxlength="300" placeholder="Mô tả kinh nghiệm việc làm của bạn"
+                            <textarea rows="4" maxlength="600" placeholder="Mô tả kinh nghiệm việc làm của bạn"
                                 class="form-info-input-right width100 mt-2 experienceDescription"
                                 [class]="ThemStyle">{{ ex.description }}</textarea>
                         </div>
@@ -382,12 +383,13 @@
                         <!-- Header Project  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
-                            <input type="text" value="{{ pr.projectName }}" placeholder="Tên dự án" class="form-info-input-right mt-2 projectName"
+                            <input type="text" value="{{ pr?.projectName }}" placeholder="Tên dự án" class="form-info-input-right mt-2 projectName"
                                 [class]="ThemStyle">
                             <span>//</span>
-                            <input type="text" value="{{ pr.toDate }}" placeholder="Bắt đầu" class="form-info-input-right mt-2 fromDateProject"
+                            <input type="text" value="{{ pr?.fromDate}}" placeholder="Bắt đầu" class="form-info-input-Right-Date mt-2 fromDateProject"
                                 [class]="ThemStyle">
-                            <input type="text" value="{{ pr.fromDate }}"  placeholder="Kết thúc" class="form-info-input-right mt-2 toDateProject"
+                                <span>-</span>
+                            <input type="text" value="{{ pr?.toDate }}"  placeholder="Kết thúc" class="form-info-input-Right-Date mt-2 toDateProject"
                                 [class]="ThemStyle">
                         </div>
                         <div>
@@ -421,12 +423,13 @@
                         <!-- Header Educations  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-school" [style.color]="colorRightHeader"></i>
-                            <input type="text" placeholder="Ngành học - môn học " value="{{ ed.majorName}}"
+                            <input type="text" placeholder="Ngành học - môn học " value="{{ ed?.majorName}}"
                                 class="form-info-input-right mt-2 majorName" [class]="ThemStyle">
                             <span>//</span>
-                            <input type="text" placeholder="Bắt đầu" value="{{ ed.fromYear}}"
-                                class="form-info-input-right mt-2 fromYearEducation" [class]="ThemStyle">
-                            <input type="text" placeholder="Kết thúc"  value="{{ ed.toYear}}" class="form-info-input-right mt-2 toYearEducation"
+                            <input type="text" placeholder="Bắt đầu" value="{{ ed?.fromYear}}"
+                                class="form-info-input-Right-Date mt-2 fromYearEducation" [class]="ThemStyle">
+                                <span>-</span>
+                            <input type="text" placeholder="Kết thúc"  value="{{ ed.toYear}}" class="form-info-input-Right-Date mt-2 toYearEducation"
                                 [class]="ThemStyle">
                         </div>
 

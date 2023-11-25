@@ -39,13 +39,13 @@ export class UpdateCvComponent {
 
   selectedGender: string = '1'
   selectCategory: any
-  selectLevel:any
+  selectLevel: any
   selectEmploymentTypes: any
-  theme:any
+  theme: any
 
-  convertDate(date: string){
+  convertDate(date: string) {
     const d = date.split("/");
-    return d[2]+"-"+d[1]+"-"+d[0]
+    return d[2] + "-" + d[1] + "-" + d[0]
   }
 
 
@@ -84,14 +84,17 @@ export class UpdateCvComponent {
       .then(res => {
         this.cv = res.data
 
+        console.log(this.cv);
+
+
         this.cv.dob = this.convertDate(this.cv.dob)
         this.theme = this.cv.theme
 
         this.selectedGender = this.cv.genderId.toString();
-        this.selectCategory = this.categories.filter((item:any) => item.categoryName == this.cv.categoryName)[0].id
-        this.selectLevel = this.levels.filter((item:any) => item.title == this.cv.levelTitle)[0].id
-        this.selectEmploymentTypes = this.employmentTypes.filter((item:any) => item.title == this.cv.employmentTypeName)[0].id
-        
+        this.selectCategory = this.categories.filter((item: any) => item.categoryName == this.cv.categoryName)[0].id
+        this.selectLevel = this.levels.filter((item: any) => item.title == this.cv.levelTitle)[0].id
+        this.selectEmploymentTypes = this.employmentTypes.filter((item: any) => item.title == this.cv.employmentTypeName)[0].id
+
         this.colorLeftHeader = themeList[this.cv.theme].colorLeftHeader
         this.colorRightHeader = themeList[this.cv.theme].colorRightHeader
         this.colorLeftInput = themeList[this.cv.theme].colorLeftInput
@@ -113,15 +116,15 @@ export class UpdateCvComponent {
     var titleSkills: any[] = [];
     var descriptionSkills: any[] = [];
 
-    var inputs = $(".skillTitle");
-    for (const input of inputs) { titleSkills.push($(input).val()) }
+    // var inputs = $(".skillTitle");
+    // for (const input of inputs) { titleSkills.push($(input).val()) }
 
     var inputs = $(".skillDescription");
     for (const input of inputs) { descriptionSkills.push($(input).val()) }
 
     var skills = [];
-    for (var i = 0; i < titleSkills.length; i++) {
-      var dict: any = {}; dict["title"] = titleSkills[i]; dict["skillDescription"] = descriptionSkills[i];
+    for (var i = 0; i < descriptionSkills.length; i++) {
+      var dict: any = {}; dict["title"] = ""; dict["skillDescription"] = descriptionSkills[i];
       skills.push(dict);
     }
     return skills
@@ -181,21 +184,6 @@ export class UpdateCvComponent {
       awards.push(dict);
     }
     return awards
-  }
-
-  getValuesOtherSkills() {
-    var otherSkills: any[] = [];
-    var inputs = $(".otherSkillsDescription");
-    for (const input of inputs) { otherSkills.push($(input).val()) }
-
-    var otherSkill = [];
-    for (var i = 0; i < otherSkills.length; i++) {
-      var dict: any = {};
-      dict["otherSkills"] = otherSkills[i];
-      otherSkill.push(dict);
-    }
-
-    return otherSkill
   }
 
   getValuesExperiences() {
@@ -316,95 +304,145 @@ export class UpdateCvComponent {
     });
   }
 
-
-  SumbitCV(event: any) {
-    const displayEmail = $(".inputEmail")[0].value;
-    const phone = $(".inputPhone")[0].value;
-    // const linkMedia = $(".inputLinkMedia")[0].value;
-    const address = $(".inputAddress")[0].value;
-    const dob = $(".inputDob")[0].value;
-    const displayName = $(".displayName")[0].value;
-    const careerGoal = $(".careerGoal")[0].value;
-    const positionTitleName = $(".positionTitleName")[0].value;
-    const cvTitle = $(".cvTitle")[0].value;
-    const levelId = $(".levelId")[0].value;
-    const categoryId = $(".categoryId")[0].value;
-    const employmentTypeName = $(".employmentTypeId")[0].value;
-    const theme = this.theme;
-    const font = this.fontCV;
-    const gender = $("input[name='gender']:checked").val();
+  showErrorInput(message: string) {
+    this.toastr.error(message,'Thông báo!', {
+      progressBar: true,
+      timeOut: 3000,
+      enableHtml: true
+    });
+  }
 
 
-    const skills = this.getValueSkills()
-    const certificates = this.getValueCertificates()
-    const awards = this.getValueAwards()
-    const otherSkills = this.getValuesOtherSkills()
-    const experiences = this.getValuesExperiences()
-    const projects = this.getValuesProjects()
-    const educations = this.getValueEducation()
-
-    const data = {
-      'id': 0,
-      'candidateId': 1,
-      'careerGoal': careerGoal,
-      'employmentTypeName': employmentTypeName.toString(),
-      'phone': phone,
-      'displayName': displayName,
-      'genderDisplay': gender,
-      'gender': gender,
-      'displayEmail': displayEmail,
-      'address': address,
-      'dob': dob,
-      "createdDateDisplay": null,
-      "lastUpdateDateDisplay": null,
-      'positionTitleName': positionTitleName,
-      'jobExperiences': experiences,
-      'skills': skills,
-      'educations': educations,
-      'projects': projects,
-      'certificates': certificates,
-      'awards': awards,
-      'avatarURL': "",
-      'categoryName': "",
-      'categoryId': categoryId,
-      'genderId': gender,
-      'isFindingJob': true,
-      'levelTitle': levelId.toString(),
-      'cvTitle': cvTitle,
-      'theme': theme,
-      'font': font
+  validInput() {
+    var massage = ""
+    var valid = true;
+    if (this.selectCategory == "0") {
+      massage += "- Lĩnh vực không được để trống <br/>"
+      var valid = false;
     }
 
-    const isLog = isLogin();
-    if (isLog) {
-      console.log(this.id.toString())
-      postRequest(`${apiCandidate.UPDATE_CV_BY_CANDIDATE_ID}?candidateId=${this.profile.id}&cvId=${this.id}`, AuthorizationMode.BEARER_TOKEN, data)
-        .then(res => {
+    if (this.selectLevel == "0") {
+      massage += "- Cấp bậc không được để trống <br/>"
+      var valid = false;
+    }
 
-          const cvIdCreated = res?.data
-          if (this.onChangeAvatar) {
-            if ($('#avatarCv')[0].files[0]) {
+    if (this.selectEmploymentTypes == "0") {
+      massage += "- loại việc làm không được để trống <br/>"
+      var valid = false;
+    }
 
-              let formData: FormData = new FormData();
-              let file: File = $('#avatarCv')[0].files[0];
-              formData.append('file', file, file.name);
+    console.log($(".inputPhone")[0].value );
+    
 
-              postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
-                .then(res => {
-                  console.log(res);
-                })
-                .catch(data => {
-                  this.showError()
-                  console.log(data);
-                })
+    if ($(".inputPhone")[0].value == "") {
+      massage += "- Số điện thoại không được để trống <br/>"
+      var valid = false;
+    }
+
+    if ($(".inputDob")[0].value == "") {
+      massage += "- Ngày sinh không được để trống <br/>"
+      var valid = false;
+    }
+
+    if (!valid) {
+      this.showErrorInput(massage)
+    }
+
+    return valid
+  }
+
+  SumbitCV(event: any) {
+    if (this.validInput()) {
+      const displayEmail = $(".inputEmail")[0].value;
+      const phone = $(".inputPhone")[0].value;
+      // const linkMedia = $(".inputLinkMedia")[0].value;
+      const address = $(".inputAddress")[0].value;
+      const dob = $(".inputDob")[0].value;
+      const displayName = $(".displayName")[0].value;
+      const careerGoal = $(".careerGoal")[0].value;
+      const positionTitleName = $(".positionTitleName")[0].value;
+      const cvTitle = $(".cvTitle")[0].value;
+      const levelId = $(".levelId")[0].value;
+      const categoryId = $(".categoryId")[0].value;
+      const employmentTypeName = $(".employmentTypeId")[0].value;
+      const theme = this.theme;
+      const font = this.fontCV;
+      const gender = $("input[name='gender']:checked").val();
+
+
+      const skills = this.getValueSkills()
+      const certificates = this.getValueCertificates()
+      const awards = this.getValueAwards()
+      const experiences = this.getValuesExperiences()
+      const projects = this.getValuesProjects()
+      const educations = this.getValueEducation()
+
+      const data = {
+        'id': 0,
+        'candidateId': 1,
+        'careerGoal': careerGoal,
+        'employmentTypeName': employmentTypeName.toString(),
+        'phone': phone,
+        'displayName': displayName,
+        'genderDisplay': gender,
+        'gender': gender,
+        'displayEmail': displayEmail,
+        'address': address,
+        'dob': dob,
+        "createdDateDisplay": null,
+        "lastUpdateDateDisplay": null,
+        'positionTitleName': positionTitleName,
+        'jobExperiences': experiences,
+        'skills': skills,
+        'educations': educations,
+        'projects': projects,
+        'certificates': certificates,
+        'awards': awards,
+        'avatarURL': "",
+        'categoryName': "",
+        'categoryId': categoryId,
+        'genderId': gender,
+        'isFindingJob': true,
+        'levelTitle': levelId.toString(),
+        'cvTitle': cvTitle,
+        'theme': theme,
+        'font': font
+      }
+
+      console.log(data);
+
+
+      const isLog = isLogin();
+      if (isLog) {
+        console.log(this.id.toString())
+        postRequest(`${apiCandidate.UPDATE_CV_BY_CANDIDATE_ID}?candidateId=${this.profile.id}&cvId=${this.id}`, AuthorizationMode.BEARER_TOKEN, data)
+          .then(res => {
+
+            const cvIdCreated = res?.data
+            if (this.onChangeAvatar) {
+              if ($('#avatarCv')[0].files[0]) {
+
+                let formData: FormData = new FormData();
+                let file: File = $('#avatarCv')[0].files[0];
+                formData.append('file', file, file.name);
+
+                postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${this.id}`, AuthorizationMode.PUBLIC, formData)
+                  .then(res => {
+                    console.log(res);
+                  })
+                  .catch(data => {
+                    this.showError()
+                    console.log(data);
+                  })
+              }
             }
-          }
-          this.showSuccess()
-        })
-        .catch(data => {
-          this.showError()
-          console.log(data);
-        })
+            this.showSuccess()
+          })
+          .catch(data => {
+            this.showError()
+            console.log(data);
+          })
+      }
     }
   }
 
