@@ -371,7 +371,7 @@ export class CandidateCreateCvComponent {
             'projects': projects,
             'certificates': certificates,
             'awards': awards,
-            'avatarURL': "",
+            'avatarURL': null,
             'categoryName': "",
             'categoryId': categoryId,
             'genderId': gender,
