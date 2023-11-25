@@ -30,6 +30,7 @@ import { OptionMatchModalComponent } from './components/option-match-modal/optio
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { CompanyViewComponent } from './components/company-view/company-view.component';
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -45,6 +46,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
       ListCandidateComponent,
       OptionMatchModalComponent,
       LandingPageComponent,
+      CompanyViewComponent,
    ],
    imports: [
       CommonModule,

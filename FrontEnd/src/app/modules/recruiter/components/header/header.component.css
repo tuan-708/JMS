@@ -1,5 +1,5 @@
 .navbar-custom {
-   height: 80px;
+   height: 70px;
    padding-left: 50px;
    padding-right: 50px;
    position: fixed;
@@ -7,14 +7,23 @@
    top: 0;
    left: 0;
    z-index: 100;
-   background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+   background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%);
+   font-family: 'Helvetica';
+   font-weight: bold;
+   font-size: medium;
 }
 
 body{
    background-color: white;
 }
 
+.username-bound{
+   color: white;
+   font-weight: normal;
+}
 .username{
+   font-style: italic;
    text-decoration: underline;
-   color: red;
+   color: white;
+   font-weight: lighter;
 }

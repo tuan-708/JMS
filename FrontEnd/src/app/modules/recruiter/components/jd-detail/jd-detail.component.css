@@ -1,6 +1,16 @@
 .formCompanyRegister {
    padding-top: 80px;
-   background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%);
+   /* background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%); */
+   /* background-image: linear-gradient(to right, #141e30, #243b55); */
+   /* background: linear-gradient(to right, #44a08d, #093637);  */
+   /* background: linear-gradient(to right, #c0c0aa, #1cefff); */
+   /* background: linear-gradient(to right, #11998e, #38ef7d); */
+   /* background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff); */
+   /* background: linear-gradient(to right, #007991, #78ffd6); */
+   background: white;
+   /* background: linear-gradient(to top, #134e5e, #71b280); */
+   /* background: linear-gradient(to right, #232526, #414345); */
+
 }
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
