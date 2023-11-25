@@ -64,7 +64,7 @@ export class MyApplyJobComponent {
   openViewCVDialog(jd:any){
       
       this.dialog.open(ViewCvComponent, {
-        width: '55%',
+        width: '50%',
         height: '100%',
         data: {jd}
       });

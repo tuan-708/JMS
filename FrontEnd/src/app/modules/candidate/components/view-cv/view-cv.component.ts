@@ -43,12 +43,20 @@ export class ViewCvComponent {
       this.dob = this.convertDate(data.jd.dob.split("T")[0]);
     }
 
+    console.log(data);
+    
+
     this.colorLeftHeader = themeList[data.jd.theme].colorLeftHeader
     this.colorRightHeader = themeList[data.jd.theme].colorRightHeader
     this.colorLeftInput = themeList[data.jd.theme].colorLeftInput
     this.ThemStyle = themeList[data.jd.theme].ThemStyle
     this.backgroudSelectedLink = themeList[data.jd.theme].backgroudSelectedLink
     this.fontCV = data.jd.font
+
+    // this.hideImage = "none"
+    // this.displayImage = "block"
+    // this.displayChange = "block"
+    // this.fileSrc = this.cv.avatarURL
   }
 
   // function for recruiter

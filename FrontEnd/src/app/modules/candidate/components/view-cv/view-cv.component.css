@@ -309,7 +309,7 @@ option {
     outline: none;
     font-size: 1em;
     margin-left: 10px;
-    min-width: 300px;
+    min-width: 280px;
     overflow: hidden;
 }
 
@@ -336,6 +336,7 @@ option {
     outline: none;
     font-size: 1em;
     margin-left: 10px;
+    min-width: 300px;
 }
 
 .width100 {
@@ -350,11 +351,23 @@ option {
 
 /* File Upload */
 
+.avatar-candidate{
+    height: 140px;
+    margin-bottom: 20px;
+}
 
 .file-upload {
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
+    width: 90px;
+    height: 120px;
+    margin: auto;
+}
+
+.file-upload img{
+    width: 100px;
+    height: 140px;
+    object-fit: cover;
+    align-self: center;
+   
 }
 
 .file-upload-btn {
@@ -448,6 +461,16 @@ option {
     color: coral;
 }
 
-.btn-option button{
+.btn-option button {
     background-color: white;
+}
+
+.form-info-input-Right-Date {
+    color: var(--text-primary);
+    background-color: var(--gray-0);
+    outline: none;
+    font-size: 1em;
+    margin-left: 4px;
+    width: 80px;
+    text-align: center;
 }
