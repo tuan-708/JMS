@@ -1,6 +1,17 @@
 .formCompanyRegister {
    padding-top: 80px;
-   background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%);
+   /* background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%); */
+   /* background-image: linear-gradient(to right, #141e30, #243b55); */
+   /* background: linear-gradient(to right, #44a08d, #093637);  */
+   /* background: linear-gradient(to right, #c0c0aa, #1cefff); */
+   /* background: linear-gradient(to right, #11998e, #38ef7d); */
+   /* background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff); */
+   /* background: linear-gradient(to right, #007991, #78ffd6); */
+   background: white;
+}
+
+.card-top {
+   /* background: linear-gradient(120deg, #ccd9ef 0%, #c2e9fb 100%); */
 }
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -36,7 +47,7 @@ input {
    color: white;
    /* background-color: cornflowerblue; */
    background: linear-gradient(109.6deg, rgb(0, 0, 0) 11.2%, rgb(11, 132, 145) 91.1%);
-
+   /* background: linear-gradient(120deg, #5c759d 0%, #1274a1 100%); */
 }
 
 .btnSnd {
@@ -44,7 +55,8 @@ input {
 }
 
 .bi {
-   color:   rgb(10, 112, 123);
+   color: rgb(10, 112, 123);
+   /* color:   coral; */
 }
 
 .p-parent {
@@ -104,4 +116,11 @@ input {
    height: 18px;
    object-fit: contain;
    /* border-radius: 5px; */
+}
+
+.backgroundGradient img {
+   width: 100%;
+   height: 50px;
+   border-radius: 15px 15px 0px 0px;
+   overflow: hidden;
 }

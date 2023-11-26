@@ -11,11 +11,16 @@ import { getProfile, getToken, isLogin, saveItem, signOut } from 'src/app/servic
    encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent {
-   isLog:boolean = true;
+   isLog: boolean = true;
    hasCompany: boolean = true;
    profile: any;
+   headerTitle = [{ title: 'baiDang', router: '/recruiter/list-jds', value: false },
+   { title: 'congTy', router: '/recruiter/view-company', value: false },
+   { title: 'taoCty', router: '/recruiter/company-register', value: false },
+   { title: 'dangTuyen', router: '/recruiter/jd-register', value: false }];
+   currentRouter: any;
 
-   auth(){
+   auth() {
       this.isLog = isLogin();
       this.profile = getProfile();
       
@@ -23,17 +28,17 @@ export class HeaderComponent {
       if(!this.isLog){
          const token = getToken()
          postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
-         .then(res => {
-           if (res.statusCode == 200) {
-             saveItem("profile", res.data);
-             this.isLog = true;
-           }
-         })
-         .catch(data => {
-           signOut();
-           this.router.navigate(['/recruiter/sign-in']);
-           console.log("Lỗi", apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token);
-         })
+            .then(res => {
+               if (res.statusCode == 200) {
+                  saveItem("profile", res.data);
+                  this.isLog = true;
+               }
+            })
+            .catch(data => {
+               signOut();
+               this.router.navigate(['/recruiter/sign-in']);
+               console.log("Lỗi", apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token);
+            })
       }
    }
 
@@ -42,11 +47,24 @@ export class HeaderComponent {
       if(this.profile.companyId === null){
          this.hasCompany = false
       }
+      this.changeHeader();
    }
 
-   signOut(){
+   signOut() {
       signOut();
       this.isLog = false
-      this.router.navigate(['/recruiter/sign-in']);
+      this.router.navigate(['/recruiter/landing-page']);
+   }
+
+   changeHeader() {
+      this.currentRouter = this.router.url;
+
+      for (let i = 0; i < this.headerTitle.length; i++) {
+         if (this.currentRouter == this.headerTitle[i].router) {
+            this.headerTitle[i].value = true
+         } else {
+            this.headerTitle[i].value = false
+         }
+      }
    }
 }

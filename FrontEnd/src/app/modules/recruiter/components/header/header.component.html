@@ -1,53 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-light navbar-custom shadow-sm">
-   <div class="container-fluid">
-      <a class="navbar-brand" [routerLink]="['/recruiter/list-jds']">Bài viết</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<header class="p-3 mb-3 border-bottom header">
+   <div class="container">
+     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none" previewlistener="true">
+         <!-- <img src="https://i.postimg.cc/XqdV5QNT/JOB-MATCHING-1-removebg-preview.png" alt="mdo" width="52" height="52" class="rounded-circle bg"> -->
+       </a>
 
-            <div *ngIf="hasCompany">
-               <li class="nav-item">
-                  <a class="nav-link" [routerLink]="['/recruiter/company-update']">Công ty</a>
-               </li>
-            </div>
+       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 header-title">
+         <li [class.tabSelect]="headerTitle[0].value"><a [routerLink]="['/recruiter/list-jds']" class="nav-link px-2 link-body-emphasis text-white">Bài Đăng</a></li>
+         <li *ngIf="hasCompany" [class.tabSelect]="headerTitle[1].value"><a [routerLink]="['/recruiter/view-company']" class="nav-link px-2 link-body-emphasis text-white">Công Ty</a></li>
+         <li *ngIf="!hasCompany" [class.tabSelect]="headerTitle[2].value"><a [routerLink]="['/recruiter/company-register']" class="nav-link px-2 link-body-emphasis text-white">Tạo Công Ty</a></li>
+         <li [class.tabSelect]="headerTitle[3].value"><a [routerLink]="['/recruiter/jd-register']" class="nav-link px-2 link-body-emphasis text-white">Đăng Tuyển Dụng</a></li>
+       </ul>
 
-            <div *ngIf="!hasCompany">
-               <li class="nav-item">
-                  <a class="nav-link" [routerLink]="['/recruiter/create-company']">Tạo công ty</a>
-               </li>
-            </div>
-            <li class="nav-item">
-               <a class="nav-link" [routerLink]="['/recruiter/create-jd']" tabindex="-1" aria-disabled="true">Đăng tuyển dụng</a>
-            </li>
+       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+         <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+       </form>
+
+       <div class="dropdown text-end">
+         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+           <img src={{profile?.avatarURL}} alt="mdo" width="32" height="32" class="rounded-circle"> {{profile?.fullName}}
+         </a>
+         <ul class="dropdown-menu text-small">
+           <li><a class="dropdown-item" href="">Thông tin cá nhân</a></li>
+           <li><a class="dropdown-item" href="">Cài đặt</a></li>
+           <li><hr class="dropdown-divider"></li>
+           <li><a class="dropdown-item" (click)="signOut()">Đăng xuất</a></li>
          </ul>
-         <form class="d-flex">
-            <div *ngIf="isLog">
-               <div class="blockUser">
-                  <img class="avatar" src="{{ profile?.avatarURL }}" alt="">
-                  <div style="align-self: center; margin-left: 15px;">Xin chào {{ profile?.fullName }} !</div>
-
-                  <div class="profile">
-                     <div class="itemProfile">
-                        <i class="fa-solid fa-user"></i>
-                        <span style="margin-left: 15px;">Thông tin cá nhân</span>
-                     </div>
-                     <div class="line"></div>
-                     <button type="button" class="btn btn-info w-100" [routerLink]="['/candidate/sign-out/']"
-                        (click)="signOut()">Đăng xuất</button>
-
-                  </div>
-               </div>
-            </div>
-            <div *ngIf="!isLog">
-               <button type="button" class="btn btn-outline-primary m-2 p-2" [routerLink]="['/candidate/sign-in/']">Đăng
-                  nhập</button>
-               <button type="button" class="btn btn-success m-2 p-2" [routerLink]="['/candidate/sign-up/']">Đăng
-                  ký</button>
-            </div>
-         </form>
-      </div>
+       </div>
+     </div>
    </div>
-</nav>
+ </header>

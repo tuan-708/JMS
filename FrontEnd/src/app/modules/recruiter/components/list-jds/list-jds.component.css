@@ -1,9 +1,10 @@
-body{
+body {
     background-color: white;
+    /* background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%); */
 }
 
 .formListJds {
-    padding-top: 80px;
+    padding-top: 140px;
 }
 
 .listJobs {
@@ -21,7 +22,7 @@ body{
     background-color: white;
 }
 
-.itemJob:hover{
+.itemJob:hover {
     transition: 0.3s;
     box-shadow: var(--boxShadow1);
     cursor: pointer;
@@ -74,16 +75,16 @@ body{
     margin: auto;
 }
 
-.textOver{
+.textOver {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
- 
+
 }
 
-button{
+button {
     margin: 5px 0;
     cursor: pointer;
     background-color: white;
@@ -96,21 +97,37 @@ button{
 
 .pagination li a[aria-label="Previous"],
 .pagination li a[aria-label="Next"] {
-  /* Hide the text but keep the functionality */
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+    /* Hide the text but keep the functionality */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
-.bi{
+.bi {
     color: coral;
 }
 
 .hidden {
     display: none;
-  }
+}
+
+.tab-group {
+    
+}
+
+.mat-mdc-tab-header{
+    z-index: 99;
+    padding-top: 80px;
+    width: 100%;
+    position: fixed !important;
+    background-color: rgb(234, 250, 255);
+}
+
+.mdc-tab__text-label{
+    font-weight: 500 !important;
+}

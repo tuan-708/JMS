@@ -6,6 +6,7 @@ import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { ActivatedRoute } from '@angular/router';
 import { OptionMatchModalComponent } from '../option-match-modal/option-match-modal.component';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-jd-detail',
@@ -27,6 +28,7 @@ export class JdDetailComponent {
   educationRequirementJd: any
   candidateBenefitJd: any
   isMatching: boolean = false;
+  Url = environment.Url;
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private toastr: ToastrService) {
     this.route.params.subscribe(params => {
