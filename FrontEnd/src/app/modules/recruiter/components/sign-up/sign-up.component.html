@@ -23,7 +23,7 @@
                   <label class="form-label" for="username">Tên đăng nhập</label><span class="link-danger"> *</span>
                   <input type="text" id="username" (ngModelChange)="validateUserName($event)" [(ngModel)]="UserName"
                      class="form-control form-control-md shadow-none" placeholder="" />
-                  <span *ngIf="invalidUserNam" class="link-danger">
+                  <span *ngIf="invalidUserName" class="link-danger">
                      Tên đăng nhập phải chứa ít nhất 6 ký tự
                   </span>
                </div>

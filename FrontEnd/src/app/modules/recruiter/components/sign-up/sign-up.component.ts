@@ -17,7 +17,7 @@ export class RegisterRecruiterComponent {
    rePassword = ""
 
    invalidFullName: boolean = false;
-   invalidUserNam: boolean = false;
+   invalidUserName: boolean = false;
    invalidEmail: boolean = false;
    invalidPassword: boolean = false;
    invalidRePassword: boolean = false
@@ -33,7 +33,7 @@ export class RegisterRecruiterComponent {
       this.UserName = event
 
       const usernameRegex: RegExp = /^[^\s]{6,}$/;
-      this.invalidUserNam = !usernameRegex.test(this.UserName);
+      this.invalidUserName = !usernameRegex.test(this.UserName);
    }
 
    validateEmail(event: any) {
@@ -85,8 +85,18 @@ export class RegisterRecruiterComponent {
 
    }
 
+   validAllFiled() {
+      if (!this.invalidFullName && !this.invalidUserName && !this.invalidEmail
+         && !this.invalidPassword && !this.invalidRePassword &&
+         this.Email !== "" && this.FullName !== "" && this.UserName !== ""
+         && this.Password !== "" && this.rePassword !== "") {
+         return true
+      }
+      return false
+   }
+
    Submit() {
-      if (this.invalidFullName && this.invalidUserNam && this.invalidEmail && this.invalidPassword && this.invalidRePassword) {
+      if (this.validAllFiled()) {
          postRequest(`${apiRecruiter.REGISTER_ACCOUNT_RECRUITER}?email=${this.Email}
          &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
             .then(res => {
