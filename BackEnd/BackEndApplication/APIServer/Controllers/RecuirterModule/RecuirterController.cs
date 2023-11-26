@@ -174,7 +174,35 @@ namespace APIServer.Controllers.RecuirterModule
                     message = ex.Message.ToString(),
                 };
             }
-            
+        }
+
+        [HttpPost("update-profile")]
+        public BaseResponseBody<CVMatchingDTO> UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
+        {
+            try
+            {
+                int n = _recuirterService.UpdateProfile(recruiterId, fullName, phoneNumber, DOB, genderId, description);
+                if (n > 0)
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        message = "update profile successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        message = "update profile failed",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<CVMatchingDTO>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
         }
 
         [HttpGet]

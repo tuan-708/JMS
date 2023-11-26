@@ -38,7 +38,7 @@ namespace APIServer.Services
         public string RegisterForRecruiter(string email, string fullName, string username, string password, string confirmPassword)
         {
             bool isEmailExist = _recruiterRepository.IsEmailExist(email);
-            bool isUsernameExist = _recruiterRepository.IsEmailExist(username);
+            bool isUsernameExist = _recruiterRepository.IsUsernameExist(username);
             if (!isEmailExist && !isUsernameExist)
             {
                 if (password.Equals(confirmPassword))

@@ -135,12 +135,27 @@ namespace APIServer.Services
                             CVApplied.Theme = curriculumVitae.Theme;
                             CVApplied.LevelId = cv.LevelId;
                             CVApplied.Font = curriculumVitae.Font;
-                            CVApplied.IsMatched = false;
+                            CVApplied.IsMatched = true;
                             CVApplied.IsApplied = true;
                             CVApplied.IsSelected = false;
                             CVApplied.IsReject = false;
-                            CVApplied.JSONMatching = null;
-                            CVApplied.PercentMatching = null;
+
+                            //clone avt img to another folder
+                            if(!Validation.checkStringIsEmpty(cv.AvatarURL))
+                            {
+                                string fileToCopy = Directory.GetCurrentDirectory()
+                                    + "/wwwroot" + cv.AvatarURL;
+                                var fileName = cv.AvatarURL.Replace("\\images\\", "");
+                                string destinationDirectory = Directory.GetCurrentDirectory()
+                                    + "/wwwroot/images_clone/";
+
+                                File.Copy(fileToCopy, destinationDirectory + fileName);
+                                CVApplied.AvatarURL = "/images_clone/" + fileName;
+                            }
+                            string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv));
+                            CVApplied.JSONMatching = JSONrs;
+                            CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs);
+
                             return _CVMatchingRepository.Create(CVApplied);
                         }
 
@@ -148,6 +163,16 @@ namespace APIServer.Services
                     else throw new Exception("Your CV not exist");
                 }
                 else throw new Exception("Your CV not exist");
+            }
+            catch(DirectoryNotFoundException ex)
+            {
+                Console.WriteLine("Directory not found: " + ex.Message);
+                throw ex;
+            }
+            catch(FileNotFoundException ex)
+            {
+                Console.WriteLine("File not found: " + ex.Message);
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -276,6 +301,11 @@ namespace APIServer.Services
             {
                 throw ex;
             }
+        }
+
+        public int UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId)
+        {
+            return _candidateRepository.UpdateProfile(candidateId, fullName, phone, DOB, genderId);
         }
     }
 }

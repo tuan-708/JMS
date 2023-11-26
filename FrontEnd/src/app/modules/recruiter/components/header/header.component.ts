@@ -23,11 +23,9 @@ export class HeaderComponent {
    auth() {
       this.isLog = isLogin();
       this.profile = getProfile();
-      if (this.profile.companyId === null) {
-         this.hasCompany = false
-      }
-
-      if (!this.isLog) {
+      
+  
+      if(!this.isLog){
          const token = getToken()
          postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
@@ -44,9 +42,12 @@ export class HeaderComponent {
       }
    }
 
-   constructor(public router: Router) {
-      this.auth()
-      this.changeHeader()
+   constructor(private router: Router){
+      this.profile = getProfile();
+      if(this.profile.companyId === null){
+         this.hasCompany = false
+      }
+      this.changeHeader();
    }
 
    signOut() {

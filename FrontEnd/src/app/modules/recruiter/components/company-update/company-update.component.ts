@@ -55,8 +55,6 @@ export class CompanyUpdateComponent {
             this.addressRq.setValue(this.company?.address)
             this.descriptionRq.setValue(this.company?.description)
 
-   
-
             this.imageAvatarSrc = this.company?.avatarURL
             this.imageBackgroundSrc = this.company?.backGroundURL
             this.displayImageAvatar = "block"
@@ -125,7 +123,6 @@ export class CompanyUpdateComponent {
       return
    }
 
-
    getErrorMessageDescriptionRequirement() {
       if (this.descriptionRq.hasError('required')) {
          return 'Miêu cả không được để trống!'
@@ -133,25 +130,21 @@ export class CompanyUpdateComponent {
       return
    }
 
-
-
    checkReq: any = false;
 
-   
    showUpdateCompanySuccess() {
-      this.toastr.info('Thông báo!', 'Cập nhật thành công công ty!', {
+      this.toastr.success('Cập nhật thành công công ty', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showUpdateCompanyFail() {
-      this.toastr.error('Thông báo!', 'Cập nhật công ty thất bại!', {
+      this.toastr.error('Cập nhật công ty thất bại', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });
    }
-
 
    submitButtonClicked() {
 
@@ -212,14 +205,14 @@ export class CompanyUpdateComponent {
    }
 
    showChangeAvatarSuccess() {
-      this.toastr.info('Thông báo!', 'Cập nhật logo thành công!', {
+      this.toastr.success( 'Cập nhật logo thành công', 'Thành công',{
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showChangeAvatarCompanyFail() {
-      this.toastr.error('Thông báo!', 'Cập nhật logo thất bại!', {
+      this.toastr.error('Cập nhật logo thất bại', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });
@@ -260,14 +253,14 @@ export class CompanyUpdateComponent {
 
    
    showChangeBackgroundSuccess() {
-      this.toastr.info('Thông báo!', 'Cập nhật ảnh nền thành công!', {
+      this.toastr.success('Cập nhật ảnh nền thành công', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showChangeBackgroundCompanyFail() {
-      this.toastr.error('Thông báo!', 'Cập nhật ảnh nền thất bại!', {
+      this.toastr.error('Cập nhật ảnh nền thất bại', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });

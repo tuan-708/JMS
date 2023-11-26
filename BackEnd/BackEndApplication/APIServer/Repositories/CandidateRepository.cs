@@ -109,5 +109,19 @@ namespace APIServer.Repositories
             }
             return 0;
         }
+
+        public int UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId)
+        {
+            Candidate candidate = context.Candidates.FirstOrDefault(x => x.Id == candidateId);
+            if (candidate != null)
+            {
+                candidate.FullName = fullName.Trim();
+                candidate.PhoneNumber = phone.Trim();
+                candidate.DOB = DOB;
+                candidate.GenderId = genderId;
+                return context.SaveChanges();
+            }
+            return 0;
+        }
     }
 }

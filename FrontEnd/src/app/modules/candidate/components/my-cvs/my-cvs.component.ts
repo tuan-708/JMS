@@ -20,6 +20,7 @@ export class CandidateMyCvsComponent {
    list = [1,2,3,4,5,6,7,8,9]
    listCVs:any; 
    profile: any
+   listJds:any
 
    ngAfterViewInit() {
       $('#prev').on('click', function () {
@@ -43,11 +44,26 @@ export class CandidateMyCvsComponent {
          getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             this.listCVs = res?.data
+            console.log(this.listCVs);
          })
          .catch(data => {
             console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
          })
-      } 
+      }
+      
+      getRequest(apiCandidate.GET_ALL_JDS_PAGING + "/" + 1, AuthorizationMode.PUBLIC)
+      .then(res => {
+         if(res?.statusCode == 200){
+            this.listJds = res?.data
+         }
+      })
+      .catch(data => {
+         console.warn(apiCandidate.GET_ALL_JDS_PAGING + "/" + 1, data);
+      })
+   }
+
+   onClickJD(jd: any) {
+      this.router.navigate(['/candidate/jd-detail/', jd?.jobId]);
    }
 
    gotoEditCV(id: number){
@@ -55,14 +71,14 @@ export class CandidateMyCvsComponent {
    }
 
    showSuccess() {
-      this.toastr.success('Thông báo!', 'Xoá hồ sơ thành công!', {
+      this.toastr.success('Xoá hồ sơ thành công','Thành công',  {
         progressBar: true,
         timeOut: 3000,
       });
     }
   
     showError() {
-      this.toastr.error('Thông báo!', 'Xoá thất bại,Vui lòng thử lại sau !', {
+      this.toastr.error('Xoá hồ sơ thất bại', 'Thất bại',  {
         progressBar: true,
         timeOut: 3000,
       });
@@ -78,6 +94,8 @@ export class CandidateMyCvsComponent {
             getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
                this.listCVs = res?.data
+          
+               
             })
             .catch(data => {
                console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
@@ -105,5 +123,10 @@ export class CandidateMyCvsComponent {
          } else {
          }
        });
+   }
+
+   gotoUpdateCurrentCv(id: number){
+      console.log(id);
+      
    }
 }

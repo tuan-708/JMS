@@ -110,11 +110,11 @@ namespace APIServer.Repositories
 
         public int UpdatePassword(string email, string password)
         {
-            Recuirter candidate = context.Recuirters.FirstOrDefault(x => x.Email.Equals(email));
-            if (candidate != null)
+            Recuirter recruiter = context.Recuirters.FirstOrDefault(x => x.Email.Equals(email));
+            if (recruiter != null)
             {
                 string hashPassword = BCrypt.Net.BCrypt.HashPassword(password);
-                candidate.Password = hashPassword;
+                recruiter.Password = hashPassword;
                 return context.SaveChanges();
             }
             return 0;
@@ -129,6 +129,7 @@ namespace APIServer.Repositories
             recuirter.FullName = fullName.Trim();
             recuirter.UserName = username.Trim();
             recuirter.CreatedDate = DateTime.Now;
+            recuirter.PhoneNumber = "";
             recuirter.IsActive = true;
             recuirter.IsDelete = false;
             context.Recuirters.Add(recuirter);
@@ -139,6 +140,21 @@ namespace APIServer.Repositories
         {
             Recuirter recuirter = context.Recuirters.FirstOrDefault(x => x.UserName.Trim().Equals(username.Trim()));
             return recuirter != null;
+        }
+
+        public int UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
+        {
+            Recuirter recruiter = context.Recuirters.FirstOrDefault(x => x.Id == recruiterId);
+            if (recruiter != null)
+            {
+                recruiter.FullName = fullName.Trim();
+                recruiter.PhoneNumber = phoneNumber.Trim();
+                recruiter.DOB = DOB;
+                recruiter.GenderId = genderId;
+                recruiter.Description = description;
+                return context.SaveChanges();
+            }
+            return 0;
         }
     }
 }

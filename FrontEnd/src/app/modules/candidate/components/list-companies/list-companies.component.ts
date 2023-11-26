@@ -16,6 +16,7 @@ export class CandidateListCompaniesComponent {
    itemsPerPage = 9;
    totalItems = 0;
    categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
+   inputSearch = ""
 
    constructor(private router: Router) {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { })
@@ -53,5 +54,29 @@ export class CandidateListCompaniesComponent {
          .catch(data => {
             console.warn(apiRecruiter.GET_COMPANY_PAGING);
          })
+   }
+
+   SubmitSearch(){
+      if(this.inputSearch === ""){
+         getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 1})
+         .then(res => {
+            this.companies = res?.data
+            this.totalItems = res?.objectLength
+            console.log(this.totalItems);
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+         })
+      }else{
+         getRequest(`${apiRecruiter.SEARCH_COMPANY}/${this.inputSearch}/${this.page}`, AuthorizationMode.PUBLIC, {page: 1})
+         .then(res => {
+            this.companies = res?.data
+       
+            
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_COMPANY_PAGING);
+         })
+      }
    }
 }

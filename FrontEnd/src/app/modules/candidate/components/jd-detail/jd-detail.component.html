@@ -4,8 +4,11 @@
         <section>
             <div class="row header">
                 <div class="col-3 header1">
-                    <img class="logoCompany" src="{{jd?.companyDTO?.avatarURL }}" alt="">
+                    <a href="/candidate/company-detail/{{jd?.companyDTO?.companyId}}" style="text-decoration: none;">
+                        <img class="logoCompany" src="{{jd?.companyDTO?.avatarURL }}" alt="">
+                    </a>
                 </div>
+
                 <div class="col-6 header2">
                     <div class="textHeader">{{ jd?.title }}</div>
                     <div class="textNomarl">Công ty: {{ jd?.companyDTO?.companyName }}</div>
@@ -25,8 +28,8 @@
                                     <select [(ngModel)]="selectedCV" class="form-select shadow-none p-2 mt-2"
                                         aria-label="Default select example">
                                         <option value="0" selected>Chọn CV ứng tuyển</option>
-                                        <option *ngFor="let cv of listCvs; index as i"
-                                        value={{cv.id}}>{{cv.cvTitle}}</option>
+                                        <option *ngFor="let cv of listCvs; index as i" value={{cv.id}}>{{cv.cvTitle}}
+                                        </option>
                                     </select>
 
                                     <div class="text-left d-flex mt-3" id="box-note-modal-apply">
@@ -75,7 +78,8 @@
                                     <div class="d-flex mt-3">
                                         <a type="button" rel="modal:close" class="btn btn-light">Huỷ</a>
                                         <button type="button" class="btn btnBlueLight btn-block"
-                                            style="margin-left: 15px;" (click)="submitCv($event)">Ứng tuyển ngay</button>
+                                            style="margin-left: 15px;" (click)="submitCv($event)">Ứng tuyển
+                                            ngay</button>
                                     </div>
                                 </div>
                             </div>
@@ -99,66 +103,73 @@
                 <mat-tab label="Thông tin việc làm">
                     <div class="d-flex mt-3">
                         <div style="width: 65%; padding: 20px;" class="infomationLeft">
-                            <div class="textBold">
-                                Mô tả công việc
+
+                            <div *ngIf="jobDetail">
+                                <div class="textBold">
+                                    Mô tả công việc
+                                </div>
+                                <div [innerHTML]="jobDetail">
+                                </div>
                             </div>
 
-                            <div [innerHTML]="jobDetail">
+                            <div *ngIf="educationRequirement">
+                                <div class="textBold">
+                                    Trình độ học vấn
+                                </div>
+                                <div [innerHTML]="educationRequirement">
+                                </div>
                             </div>
 
-
-                            <div class="textBold">
-                                Trình độ học vấn
-                            </div>
-                            <div [innerHTML]="educationRequirement">
-                            </div>
-
-                            <div class="textBold">
-                                Kinh nghiệm
+                            <div *ngIf="experienceRequirement">
+                                <div class="textBold">
+                                    Kinh nghiệm
+                                </div>
+                                <div [innerHTML]="experienceRequirement">
+                                </div>
                             </div>
 
-                            <div [innerHTML]="experienceRequirement">
-                            </div>
+                            <div *ngIf="skillRequirement">
+                                <div class="textBold">
+                                    Yêu cầu kỹ năng
+                                </div>
 
-                            <div class="textBold">
-                                Yêu cầu kỹ năng
-                            </div>
-
-                            <div [innerHTML]="skillRequirement">
-                            </div>
-
-
-                            <div class="textBold">
-                                Yêu cầu chứng chỉ
-                            </div>
-
-                            <div [innerHTML]="certificateRequirement">
-                            </div>
-
-                            <div class="textBold">
-                                Yêu cầu dự án
-                            </div>
-
-                            <div [innerHTML]="projectRequirement">
-                            </div>
-
-                            <div class="textBold">
-                                Quyền lợi
-                            </div>
-
-                            <div [innerHTML]="candidateBenefit">
+                                <div [innerHTML]="skillRequirement">
+                                </div>
                             </div>
 
 
-                            <div class="textBold">
-                                Yêu cầu khác
+                            <div *ngIf="certificateRequirement">
+                                <div class="textBold">
+                                    Yêu cầu chứng chỉ
+                                </div>
+                                <div [innerHTML]="certificateRequirement">
+                                </div>
                             </div>
 
-                            <div [innerHTML]="otherInformation">
+                            <div *ngIf="projectRequirement">
+                                <div class="textBold">
+                                    Yêu cầu dự án
+                                </div>
+                                <div [innerHTML]="projectRequirement">
+                                </div>
+                            </div>
+
+                            <div *ngIf="candidateBenefit">
+                                <div class="textBold">
+                                    Quyền lợi
+                                </div>
+                                <div [innerHTML]="candidateBenefit">
+                                </div>
                             </div>
 
 
-
+                            <div *ngIf="otherInformation">
+                                <div class="textBold">
+                                    Yêu cầu khác
+                                </div>
+                                <div [innerHTML]="otherInformation">
+                                </div>
+                            </div>
                         </div>
                         <div style="width: 35%; padding: 20px;">
                             <div class="d-flex itemSmall">
@@ -232,7 +243,7 @@
                 </mat-tab>
                 <mat-tab label="Thông tin công ty">
                     <div class="d-flex mt-3">
-                        <div style="width: 65%; padding: 20px;">
+                        <div style="width: 65%; padding: 20px;" class="infomationLeft">
                             <div class="textBold">
                                 Miêu tả công ty
                             </div>

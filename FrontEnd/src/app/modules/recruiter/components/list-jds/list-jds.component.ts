@@ -83,16 +83,17 @@ export class ListJdsComponent {
   }
 
   showSuccess() {
-    this.toastr.success('Thông báo!', 'Xoá thành công CV!', {
-      progressBar: true,
-      timeOut: 3000,
+    this.toastr.success('Xoá công việc thành công', 'Thành công',  {
+       progressBar: true,
+       timeOut: 3000,
     });
   }
 
-  showFail() {
-    this.toastr.error('Thông báo!', 'Xoá thất bại CV, vui lòng thử lại sau!', {
-      progressBar: true,
-      timeOut: 3000,
+ showFail() {
+    this.toastr.error('Xoá công việc thất bại <br/> Vui lòng thử lại sau', 'Thất bại', {
+       progressBar: true,
+       timeOut: 3000,
+       enableHtml: true
     });
   }
 
@@ -104,7 +105,6 @@ export class ListJdsComponent {
           this.showSuccess()
           jd.isShow = false;
         }
-        this.showFail()
       })
       .catch(data => {
         this.showFail()

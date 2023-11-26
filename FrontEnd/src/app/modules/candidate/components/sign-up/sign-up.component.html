@@ -6,36 +6,61 @@
                <div class="textHeader1">Hãy đăng ký tài khoản mới</div>
                <p>Tìm kiếm công việc phù hợp cùng nhiều cơ hội sự nghiệp lý tưởng</p>
             </div>
-   
+
             <div>
                <!-- Full name input -->
                <div class="form-label-group mb-4 mt-3">
-                  <label class="form-label" for="form3Example3">Họ và Tên</label><span class="link-danger"> *</span>
-                  <input type="text" id="form3Example3" class="form-control form-control-md shadow-none" placeholder="" />
+                  <label class="form-label" for="name">Họ và Tên</label><span class="link-danger"> *</span>
+                  <input type="text" id="name" (ngModelChange)="validateFullName($event)" [(ngModel)]="FullName"
+                     class="form-control form-control-md shadow-none" placeholder="" />
+                  <span *ngIf="invalidFullName" class="link-danger">
+                     Vui lòng nhập tên hợp lệ.
+                  </span>
                </div>
-   
+
+               <!-- UserNam input -->
+               <div class="form-label-group mb-4 mt-3">
+                  <label class="form-label" for="username">Tên đăng nhập</label><span class="link-danger"> *</span>
+                  <input type="text" id="username" (ngModelChange)="validateUserName($event)" [(ngModel)]="UserName"
+                     class="form-control form-control-md shadow-none" placeholder="" />
+                  <span *ngIf="invalidUserName" class="link-danger">
+                     Tên đăng nhập phải chứa ít nhất 6 ký tự
+                  </span>
+               </div>
+
                <!-- Email input -->
                <div class="form-label-group mb-4 mt-3">
-                  <label class="form-label" for="form3Example3">Email</label><span class="link-danger"> *</span>
-                  <input type="email" id="form3Example3" class="form-control form-control-md shadow-none" placeholder="" />
+                  <label class="form-label" for="email">Email</label><span class="link-danger"> *</span>
+                  <input type="email" id="email" (ngModelChange)="validateEmail($event)" [(ngModel)]="Email"
+                     class="form-control form-control-md shadow-none" placeholder="" />
+                  <span *ngIf="invalidEmail" class="link-danger">
+                     Email không hợp lệ
+                  </span>
                </div>
-   
-   
+
                <!-- Password input -->
                <div class="form-label-group mb-4 mt-3">
-                  <label class="form-label" for="form3Example3">Mật khẩu</label><span class="link-danger"> *</span>
-                  <input type="password" id="form3Example3" class="form-control form-control-md shadow-none"
-                     placeholder="" />
+                  <label class="form-label" for="password">Mật khẩu</label><span class="link-danger"> *</span>
+                  <input type="password" id="password" (ngModelChange)="validatePassword($event)" [(ngModel)]="Password"
+                     class="form-control form-control-md shadow-none" placeholder="" />
+
+                  <span *ngIf="invalidPassword" class="link-danger">
+                     Mật khẩu phải chứ ít nhất 6 ký tự, Trong đó phải có ít nhất 1 ký tự viết hoa và ký tự đặc biệt
+                  </span>
                </div>
-   
+
                <!-- Re-Password input -->
                <div class="form-label-group mb-4 mt-3">
-                  <label class="form-label" for="form3Example3">Xác nhận mật khẩu</label><span class="link-danger">
+                  <label class="form-label" for="rePassword">Xác nhận mật khẩu</label><span class="link-danger">
                      *</span>
-                  <input type="password" id="form3Example3" class="form-control form-control-md shadow-none"
-                     placeholder="" />
+                  <input type="password" id="rePassword" (ngModelChange)="validateRePassword($event)" [(ngModel)]="rePassword"
+                     class="form-control form-control-md shadow-none" placeholder="" />
+
+                  <span *ngIf="invalidRePassword" class="link-danger">
+                     Mật khẩu không trùng khớp
+                  </span>
                </div>
-   
+
                <div class="d-flex justify-content-between align-items-center">
                   <!-- Checkbox -->
                   <div class="form-check mb-0">
@@ -43,18 +68,18 @@
                      <label class="form-check-label" for="form2Example3">
                         Tôi đồng ý
                      </label>
-                     <a href="#!" class="text-decoration-none"> Điều khoản</a>
+                     <a [routerLink]="['/candidate/sign-up']" class="text-decoration-none"> Điều khoản</a>
                   </div>
                   <a [routerLink]="['/candidate/sign-in']" class="link-danger fw-normal text-decoration-none">Đăng
                      nhập</a>
                </div>
-   
-   
+
+
                <div class="text-center text-lg-start mt-4 pt-2 mb-4">
-                  <button type="button" class="btn btn-primary btn-lg col-12">Đăng ký</button>
+                  <button type="button" (click)="Submit()" class="btn btn-primary btn-lg col-12">Đăng ký</button>
                </div>
-   
-   <!-- 
+
+               <!-- 
                <div class="align-items-center justify-content-lg-start text-center mt-3 mb-5">
                   <p class="lead fw-normal mb-0 me-3">Đăng ký theo cách khác</p>
                   <div class="mt-3 col-12 d-flex justify-content-between">
@@ -72,8 +97,8 @@
                   </div>
                </div>
             </div> -->
-   
+
+            </div>
          </div>
       </div>
    </div>
-</div>

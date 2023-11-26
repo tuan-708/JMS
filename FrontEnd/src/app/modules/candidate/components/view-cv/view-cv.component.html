@@ -16,7 +16,7 @@
         <div class="col-4 p-3 block-left" [style.background-image]="'url('+ backgroudSelectedLink + ')'">
             <div class="avatar-candidate">
                 <div class="file-upload">
-                    <img src="{{ data.jd.phone }}" alt="">
+                    <img src="{{ data.jd.avatarURL }}" onerror="this.src='https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png'" alt="">
                 </div>
             </div>
             <!-- Form Infor  -->
@@ -28,7 +28,7 @@
                 </div>
                 <!-- Input Email  -->
                 <div *ngIf="data.jd.displayEmail">
-                    <div class="mt-1">
+                    <div class="mt-1" style="display: flex;">
                         <i class="fa-solid fa-envelope" [style.color]="colorLeftHeader"></i>
                         <input type="text" placeholder="Email" class="form-info-input inputEmail"
                             [style.color]="colorLeftInput" value="{{ data.jd.displayEmail }}" disabled
@@ -38,7 +38,7 @@
 
                 <!-- Input Phone  -->
                 <div *ngIf="data.jd.phone">
-                    <div class="mt-1">
+                    <div class="mt-1" style="display: flex;">
                         <i class="fa-solid fa-phone" [style.color]="colorLeftHeader"></i>
                         <input type="text" placeholder="Số điện thoại" class="form-info-input inputPhone"
                             [style.color]="colorLeftInput" value="{{ data.jd.phone }}" disabled [class]="ThemStyle">
@@ -47,7 +47,7 @@
 
                 <!-- Input Dob  -->
                 <div *ngIf="data.jd.dob">
-                    <div class="mt-1">
+                    <div class="mt-1" style="display: flex;">
                         <i class="fa-solid fa-calendar" [style.color]="colorLeftHeader"></i>
                         <input type="text" id="dateInput" name="dateInput" pattern="\d{2}-\d{2}-\d{4}"
                             placeholder="dd/mm/yyyy" class="form-info-input inputDob" [style.color]="colorLeftInput"
@@ -255,13 +255,14 @@
                         </span>
                         <span *ngIf="ex.FromDate">
                             <input type="text" placeholder="Bắt đầu"
-                                class="form-info-input-right mt-2 fromDateExperience" value="{{ ex.FromDate  }}"
+                                class="form-info-input-Right-Date mt-2 fromDateExperience" value="{{ ex.FromDate  }}"
                                 disabled [class]="ThemStyle">
                         </span>
+                        <span>-</span>
 
                         <span *ngIf="ex.ToDate">
                             <input type="text" placeholder="Kết thúc"
-                                class="form-info-input-right mt-2 toDateExperience" value="{{ ex.ToDate }}" disabled
+                                class="form-info-input-Right-Date mt-2 toDateExperience" value="{{ ex.ToDate }}" disabled
                                 [class]="ThemStyle">
                         </span>
 
@@ -300,23 +301,22 @@
                 <div class="project" *ngFor="let pr of data.jd.project">
                     <!-- Header Project  -->
                     <div class="mt-1">
-                        <div *ngIf="pr.ProjectName">
+                        <span *ngIf="pr.ProjectName">
                             <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
                             <input type="text" placeholder="Tên dự án" value="{{ pr.ProjectName }}" disabled
                                 class="form-info-input-right mt-2 projectName" [class]="ThemStyle">
                             <span>//</span>
-                        </div>
+                        </span>
 
-                        <div *ngIf="pr.FromDate">
+                        <span *ngIf="pr.FromDate">
                             <input type="text" placeholder="Bắt đầu" value="{{ pr.FromDate }}" disabled
-                                class="form-info-input-right mt-2 fromDateProject" [class]="ThemStyle">
-                        </div>
-
-
-                        <div *ngIf="pr.ToDate">
+                                class="form-info-input-Right-Date mt-2 fromDateProject" [class]="ThemStyle">
+                        </span>
+                        <span>-</span>
+                        <span *ngIf="pr.ToDate">
                             <input type="text" placeholder="Kết thúc" value="{{ pr.ToDate }}" disabled
-                                class="form-info-input-right mt-2 toDateProject" [class]="ThemStyle">
-                        </div>
+                                class="form-info-input-Right-Date mt-2 toDateProject" [class]="ThemStyle">
+                        </span>
                     </div>
                     <div>
                         <div *ngIf="pr.IsStillWorking">
@@ -357,13 +357,13 @@
 
                         <span *ngIf="ed.FromYear">
                             <input type="text" placeholder="Bắt đầu" [style.color]="colorRightHeader"
-                                value="{{ ed.FromYear }}" disabled class="form-info-input-right mt-2 fromYearEducation"
+                                value="{{ ed.FromYear }}" disabled class="form-info-input-Right-Date mt-2 fromYearEducation"
                                 [class]="ThemStyle">
                         </span>
-
+                        <span>-</span>
                         <span *ngIf="ed.ToYear">
                             <input type="text" placeholder="Kết thúc" [style.color]="colorRightHeader"
-                                value="{{ ed.ToYear }}" disabled class="form-info-input-right mt-2 toYearEducation"
+                                value="{{ ed.ToYear }}" disabled class="form-info-input-Right-Date mt-2 toYearEducation"
                                 [class]="ThemStyle">
                         </span>
                     </div>

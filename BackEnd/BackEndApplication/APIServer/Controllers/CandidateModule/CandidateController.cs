@@ -138,5 +138,34 @@ namespace APIServer.Controllers.CandidateModule
             }
             
         }
+
+        [HttpPost("update-profile")]
+        public BaseResponseBody<CVMatchingDTO> UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId)
+        {
+            try
+            {
+                int n = _candidateService.UpdateProfile(candidateId, fullName, phone, DOB, genderId);
+                if(n > 0)
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        message = "update profile successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else
+                    return new BaseResponseBody<CVMatchingDTO>
+                    {
+                        message = "update profile failed",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<CVMatchingDTO>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
     }
 }

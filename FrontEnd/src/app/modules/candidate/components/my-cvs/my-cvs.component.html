@@ -47,13 +47,18 @@
                            "Chưa cập nhật" }}</div>
                         <div class="textStyle">- Cập nhật gần nhất {{ cv?.lastUpdateDateDisplay}} </div>
                      </div>
+
+                   
                   </div>
                   <a href="/candidate/update-cv/{{ cv.id }}">
                      <i class="fa-solid fa-pen-to-square btnEdit" (click)="gotoEditCV(cv.id)"></i>
                   </a>
           
-
                   <i class="fa-solid fa-trash btnTrash" (click)="gotoDeleteCV(cv.id)"></i>
+                  <div class="form-check form-switch btnswitch"  (click)="gotoUpdateCurrentCv(cv.id)">
+                     <input class="form-check-input" type="checkbox" role="switch"  [checked]="cv?.isFindingJob">
+                   </div>
+                
                </div>
             </div>
 
@@ -80,7 +85,27 @@
             </div>
          </div>
 
-         <div class="mb-4">
+         <div style="height: 700px; overflow: hidden;">
+            <div class="itemJob" *ngFor="let jd of listJds" (click)="onClickJD(jd)">
+               <div style="display: flex;">
+                  <div class="imgJob">
+                     <img
+                        src="{{ jd?.companyDTO?.avatarURL }}"
+                        alt="...">
+                  </div>
+                  <div class="detailJob">
+                     <div class="textOver fontBold">{{jd?.title}}</div>
+                     <div class="textOver">{{jd?.companyName}}</div>
+                     <div class="textOver colorOrange">{{jd?.salary}}</div>
+                     <div class="textOver">{{jd?.address}}</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+
+         <!-- <div class="mb-4">
             <div class="form-check">
                <input class="form-check-input shadow-none" type="checkbox" value="" id="flexCheckDefault">
                <label class="form-check-label fontOff" for="flexCheckDefault">
@@ -103,7 +128,7 @@
                Bật tìm việc giúp hồ sơ của bạn nổi bật hơn và được chú ý nhiều hơn trong danh sách tìm kiếm của NTD.
                Khi có cơ hội việc làm phù hợp.
             </span>
-         </div>
+         </div> -->
       </div>
    </section>
 </div>

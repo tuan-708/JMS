@@ -38,6 +38,19 @@
    font-weight: 600;
    color: black;
    font-size: 1.1em;
+   width: 200px;
+   -webkit-line-clamp: 2;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+}
+
+.textStyle{
+   width: 200px;
+   -webkit-line-clamp: 2;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
 }
 
 .fontOff{
@@ -52,11 +65,6 @@
    font-size: 0.8em;
    text-align: justify;
 }
-
-
-
-
-
 
 .list {
    width: 200px;
@@ -241,6 +249,14 @@
    color: #777777;
 }
 
+.btnswitch{
+   position: absolute;
+   top: 65px;
+   right: -4px;
+   cursor: pointer;
+}
+
+
 .btnTrash:hover,
 .btnEdit:hover{
    cursor: pointer;
@@ -274,3 +290,55 @@
    top: 10px !important;
    right: 10px !important;
 }
+
+
+.itemJob {
+   height: 120px;
+   border-radius: 15px;
+   border: 1px solid #ccc;
+   width: 100%;
+   margin-top: 20px;
+   padding: 10px;
+   box-shadow: var(--boxShadow);
+   font-size: 1em;
+}
+
+.itemJob:hover {
+   cursor: pointer;
+}
+
+.imgJob {
+   height: 95px;
+}
+
+.imgJob img {
+   width: 70px;
+   height: 70px;
+   object-fit: contain;
+   border-radius: 5px;
+   align-self: center;
+}
+
+.detailJob {
+   margin-left: 10px;
+   padding: 0;
+   width: 70%;
+}
+
+.textOver {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   font-size: 0.9em;
+}
+
+.fontBold {
+   font-weight: 600;
+   font-size: 1em;
+}
+
+.colorOrange {
+   color: orange;
+}
+
+

@@ -33,21 +33,21 @@
             </div>
             <div class="header__title">
                 <select class="form-select shadow-none customSelect categoryId" aria-label="Default select example">
-                    <option selected> Chọn Lĩnh Vực</option>
+                    <option value="0" selected> Chọn Lĩnh Vực</option>
                     <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
                 </select>
             </div>
 
             <div class="header__title">
                 <select class="form-select shadow-none customSelect levelId" aria-label="Default select example">
-                    <option selected>Chọn Cấp Bậc</option>
+                    <option value="0" selected>Chọn Cấp Bậc</option>
                     <option *ngFor="let elm of levels; index as i" value={{elm.id}}>{{elm.title}}</option>
                 </select>
             </div>
 
             <div class="header__title">
                 <select class="form-select shadow-none customSelect employmentTypeId" aria-label="Default select example">
-                    <option selected>Chọn Loại việc làm</option>
+                    <option value="0" selected>Chọn Loại việc làm</option>
                     <option *ngFor="let elm of employmentTypes; index as i" value={{elm.id}}>{{elm.title}}</option>
                 </select>
             </div>
@@ -334,10 +334,6 @@
                             class="form-right--header mt-2 positionTitleName" [style.color]="colorRightHeader"
                             [class]="ThemStyle">
                     </div>
-
-
-
-
                 </div>
 
                 <!-- Form careerGoal  -->
@@ -374,9 +370,9 @@
                                 [class]="ThemStyle">
                             <span>//</span>
                             <input type="text" placeholder="Bắt đầu"
-                                class="form-info-input-right mt-2 fromDateExperience" [class]="ThemStyle">
+                                class="form-info-input-Right-Date mt-2 fromDateExperience" [class]="ThemStyle">
                             <input type="text" placeholder="Kết thúc"
-                                class="form-info-input-right mt-2 toDateExperience" [class]="ThemStyle">
+                                class="form-info-input-Right-Date mt-2 toDateExperience" [class]="ThemStyle">
                         </div>
 
                         <div>
@@ -385,7 +381,7 @@
                         </div>
 
                         <div>
-                            <textarea rows="3" maxlength="300" placeholder="Mô tả kinh nghiệm việc làm của bạn"
+                            <textarea rows="3" maxlength="600" placeholder="Mô tả kinh nghiệm việc làm của bạn"
                                 class="form-info-input-right width100 mt-2 experienceDescription"
                                 [class]="ThemStyle"></textarea>
                         </div>
@@ -409,9 +405,9 @@
                             <input type="text" placeholder="Tên dự án" class="form-info-input-right mt-2 projectName"
                                 [class]="ThemStyle">
                             <span>//</span>
-                            <input type="text" placeholder="Bắt đầu" class="form-info-input-right mt-2 fromDateProject"
+                            <input type="text" placeholder="Bắt đầu" class="form-info-input-Right-Date mt-2 fromDateProject"
                                 [class]="ThemStyle">
-                            <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2 toDateProject"
+                            <input type="text" placeholder="Kết thúc" class="form-info-input-Right-Date mt-2 toDateProject"
                                 [class]="ThemStyle">
                         </div>
                         <div>
@@ -449,8 +445,8 @@
                                 class="form-info-input-right mt-2 majorName" [class]="ThemStyle">
                             <span>//</span>
                             <input type="text" placeholder="Bắt đầu"
-                                class="form-info-input-right mt-2 fromYearEducation" [class]="ThemStyle">
-                            <input type="text" placeholder="Kết thúc" class="form-info-input-right mt-2 toYearEducation"
+                                class="form-info-input-Right-Date mt-2 fromYearEducation" [class]="ThemStyle">
+                            <input type="text" placeholder="Kết thúc" class="form-info-input-Right-Date mt-2 toYearEducation"
                                 [class]="ThemStyle">
                         </div>
 
