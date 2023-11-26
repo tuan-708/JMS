@@ -12,10 +12,10 @@ import { RecruiterRoutingModule } from './recruiter-routing.module';
 import { RecruiterSignInComponent } from './components/sign-in/sign-in.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RecruiterComponent } from './recruiter.component';
-import { CompanyRegisterComponent } from './components/company-register/company-register.component';
+import { CreateCompanyComponent } from './components/create-company/create-company.component';
 import { CompanyUpdateComponent } from './components/company-update/company-update.component';
 import { RegisterRecruiterComponent } from './components/sign-up/sign-up.component';
-import { JdRegisterComponent } from './components/jd-register/jd-register.component';
+import { CreateJdComponent } from './components/create-jd/create-jd.component';
 import { ListJdsComponent } from './components/list-jds/list-jds.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { JdUpdateComponent } from './components/jd-update/jd-update.component';
@@ -35,10 +35,10 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
       RecruiterSignInComponent,
       HeaderComponent,
       RecruiterComponent,
-      CompanyRegisterComponent,
+      CreateCompanyComponent,
       RegisterRecruiterComponent,
       CompanyUpdateComponent,
-      JdRegisterComponent,
+      CreateJdComponent,
       ListJdsComponent,
       JdUpdateComponent,
       JdDetailComponent,

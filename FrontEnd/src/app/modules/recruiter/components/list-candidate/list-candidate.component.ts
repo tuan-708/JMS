@@ -71,8 +71,8 @@ export class ListCandidateComponent {
     }
 
     const dialogRef = this.dialog.open(ViewCvComponent, {
-      width: '55%',
-      height: '85%',
+      width: '50%',
+      height: '100%',
       data: { jd: jd, recruiterId: this.data.recruiterId }
     });
 
@@ -125,16 +125,17 @@ export class ListCandidateComponent {
   }
 
   showSuccess() {
-    this.toastr.success('Thông báo!', 'Xoá thành công CV!', {
+    this.toastr.success('Xoá thành công hồ sơ', 'Thành công',  {
       progressBar: true,
       timeOut: 3000,
     });
   }
 
   showFail() {
-    this.toastr.error('Thông báo!', 'Xoá thất bại CV, vui lòng thử lại sau!', {
+    this.toastr.error('Xoá thất bại hồ sơ <br/> Vui lòng thử lại sau!', 'Thất bại',  {
       progressBar: true,
       timeOut: 3000,
+      enableHtml: true
     });
   }
 }

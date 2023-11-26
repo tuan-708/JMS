@@ -31,11 +31,9 @@ export class CandidateForgotPasswordComponent {
    }
 
    Submit(){
-
-  
-      
       postRequest(`${apiCandidate.FORGOT_PASSWORD_CANDIDATE}?email=${this.Email}`, AuthorizationMode.PUBLIC, {Email: this.Email})
       .then(res => {
+         
          console.log(res);
          
       }) 

@@ -24,10 +24,11 @@ export class CompanyDetailComponent {
 
     getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC)
       .then(res => {
-        this.company = res?.data
-        this.countJob = this.company?.jDs.length
-        this.htmlContent = this.company?.description;
- 
+        if (res?.statusCode == 200) {
+          this.company = res?.data
+          this.countJob = this.company?.jDs.length
+          this.htmlContent = this.company?.description;
+        }
       })
       .catch(data => {
         console.warn(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC);

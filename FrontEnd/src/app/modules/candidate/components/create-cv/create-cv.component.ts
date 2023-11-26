@@ -391,28 +391,29 @@ export class CandidateCreateCvComponent {
          if (isLog) {
             postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
                .then(res => {
-
-                  const cvIdCreated = res?.data
-                  if (this.onChangeAvatar) {
-                     if ($('#avatarCv')[0].files[0]) {
-
-                        let formData: FormData = new FormData();
-                        let file: File = $('#avatarCv')[0].files[0];
-                        formData.append('file', file, file.name);
-                        console.log(formData);
-
-                        postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
-                           .then(res => {
-                              console.log(res);
-                           })
-                           .catch(data => {
-                              this.showErrorUploadImage()
-                              console.log(data);
-                           })
+                  if(res?.statusCode == 200){
+                     const cvIdCreated = res?.data
+                     
+                     if (this.onChangeAvatar) {
+                        if ($('#avatarCv')[0].files[0]) {
+   
+                           let formData: FormData = new FormData();
+                           let file: File = $('#avatarCv')[0].files[0];
+                           formData.append('file', file, file.name);
+   
+                           postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
+                              .then(res => {
+                                 console.log(res);
+                              })
+                              .catch(data => {
+                                 this.showErrorUploadImage()
+                                 console.log(data);
+                              })
+                        }
                      }
-                  }
 
-                  this.showSuccess()
+                     this.showSuccess()
+                  }
                })
                .catch(data => {
                   this.showError()

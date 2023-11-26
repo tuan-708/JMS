@@ -112,23 +112,26 @@ export class JdDetailComponent {
   }
 
   showSuccess() {
-    this.toastr.success('Xác nhận thành công, hệ thống đang tìm ứng viên phù hợp...', 'Thông báo!' ,{
+    this.toastr.success('Xác nhận thành công <br/> Hệ thống đang tìm ứng viên phù hợp', 'Thành công' ,{
        progressBar: true,
        timeOut: 3000,
+       enableHtml: true
     });
   }
 
   showInfo() {
-    this.toastr.success('Đề xuất thành công! Vui lòng xem chi tiết tại danh sách đề xuất.', 'Thông báo!',{
+    this.toastr.success('Đề xuất thành công <br/> Vui lòng xem chi tiết tại danh sách đề xuất', 'Thành công',{
        progressBar: true,
        timeOut: 3000,
+       enableHtml: true
     });
   }
 
   showError() {
-    this.toastr.error('Đề xuất thất bại. Vui lòng thử lại sau!', 'Thông báo!',{
+    this.toastr.error('Đề xuất thất bại <br/> Vui lòng thử lại sau', 'Thất bại',{
        progressBar: true,
        timeOut: 3000,
+       enableHtml: true
     });
   }
 }

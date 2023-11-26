@@ -452,7 +452,7 @@ option {
 }
 
 .mat-mdc-dialog-content {
-    max-height: 120vh !important;
+    max-height: 100vh !important;
 }
 
 .bi {
