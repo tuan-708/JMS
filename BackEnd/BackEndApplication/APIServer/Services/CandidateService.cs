@@ -135,12 +135,10 @@ namespace APIServer.Services
                             CVApplied.Theme = curriculumVitae.Theme;
                             CVApplied.LevelId = cv.LevelId;
                             CVApplied.Font = curriculumVitae.Font;
-                            CVApplied.IsMatched = false;
+                            CVApplied.IsMatched = true;
                             CVApplied.IsApplied = true;
                             CVApplied.IsSelected = false;
                             CVApplied.IsReject = false;
-                            CVApplied.JSONMatching = null;
-                            CVApplied.PercentMatching = null;
 
                             //clone avt img to another folder
                             if(!Validation.checkStringIsEmpty(cv.AvatarURL))
@@ -154,6 +152,9 @@ namespace APIServer.Services
                                 File.Copy(fileToCopy, destinationDirectory + fileName);
                                 CVApplied.AvatarURL = "/images_clone/" + fileName;
                             }
+                            string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv));
+                            CVApplied.JSONMatching = JSONrs;
+                            CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs);
 
                             return _CVMatchingRepository.Create(CVApplied);
                         }
