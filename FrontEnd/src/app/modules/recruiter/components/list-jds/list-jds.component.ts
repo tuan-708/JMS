@@ -23,7 +23,13 @@ export class ListJdsComponent {
   itemsPerPage = 8;
   totalItems = 0;
   isDivHidden: boolean = false;
-  profile:any;
+  profile: any;
+  tabSelected: any = 0
+  listRunning: any = []
+  listExpired: any = []
+  listDraft: any = []
+  firstTabTitle: any
+  secondTabTitle: any
 
   getListPage(totalPage: number) {
     let list = []
@@ -36,22 +42,24 @@ export class ListJdsComponent {
 
   constructor(private router: Router, public dialog: MatDialog, private toastr: ToastrService) {
     this.profile = getProfile()
-    console.log(this.profile);
-    
 
     getRequest(`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, AuthorizationMode.PUBLIC)
       .then(res => {
         console.log(res?.data);
-        this.listJds = res?.data
+        this.listRunning = res?.data
         this.totalItems = res?.objectLength
 
-        for (let i = 0; i < this.listJds.length; i++) {
-          this.listJds[i]['isShow'] = true;
+        for (let i = 0; i < this.listRunning.length; i++) {
+          this.listRunning[i]['isShow'] = true;
         }
+        this.firstTabTitle = 'ĐANG TUYỂN DỤNG (' + res.data.length + ')'
+        this.listJds = this.listRunning
       })
       .catch(data => {
-        console.warn('Lỗi',`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, data);
+        console.warn('Lỗi', `${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, data);
       })
+
+      this.getListExpired()
   }
 
   pageChanged(page: any) {
@@ -62,7 +70,7 @@ export class ListJdsComponent {
         this.totalItems = res?.objectLength
       })
       .catch(data => {
-        console.warn('Lỗi',`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, data);
+        console.warn('Lỗi', `${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, data);
       })
   }
 
@@ -76,30 +84,30 @@ export class ListJdsComponent {
 
   showSuccess() {
     this.toastr.success('Thông báo!', 'Xoá thành công CV!', {
-       progressBar: true,
-       timeOut: 3000,
+      progressBar: true,
+      timeOut: 3000,
     });
- }
+  }
 
- showFail() {
+  showFail() {
     this.toastr.error('Thông báo!', 'Xoá thất bại CV, vui lòng thử lại sau!', {
-       progressBar: true,
-       timeOut: 3000,
+      progressBar: true,
+      timeOut: 3000,
     });
- }
+  }
 
   onClickDelete(jd: any) {
     //API handle delete JD
     postRequest(`${apiRecruiter.DELETE_JD_BY_ID}/${this.profile.id}/${jd?.jobId}`, AuthorizationMode.PUBLIC, {})
       .then(res => {
-        if(res.statusCode == 200){
+        if (res.statusCode == 200) {
           this.showSuccess()
           jd.isShow = false;
         }
         this.showFail()
       })
       .catch(data => {
-         this.showFail()
+        this.showFail()
       })
   }
 
@@ -116,5 +124,14 @@ export class ListJdsComponent {
       } else {
       }
     });
+  }
+
+  getListExpired(){
+    this.secondTabTitle = 'ĐÃ HẾT HẠN (' + this.listExpired.length + ')'
+  }
+
+  setTabIndexValue(evt: any) {
+    this.tabSelected = evt
+    this.listJds = this.tabSelected == 0 ? this.listRunning : (evt == 1 ? this.listExpired : this.listDraft) 
   }
 }

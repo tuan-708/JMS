@@ -31,6 +31,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { CompanyViewComponent } from './components/company-view/company-view.component';
+import { MatMenuModule } from '@angular/material/menu';
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -68,6 +69,7 @@ import { CompanyViewComponent } from './components/company-view/company-view.com
       AutosizeModule,
       MatCheckboxModule,
       MatPaginatorModule,
+      MatMenuModule,
    ],
    providers: [
       DatePipe,

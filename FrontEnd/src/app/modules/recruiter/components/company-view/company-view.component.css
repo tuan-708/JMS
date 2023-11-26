@@ -1,15 +1,15 @@
-.Content{
-    padding-top: 130px;
+.Content {
+    padding-top: 120px;
 }
 
-.coverImage{
+.coverImage {
     overflow: hidden;
     position: relative;
     box-shadow: var(--boxShadow);
     border-radius: 20px 20px 20px 20px;
 }
 
-.backgroundImage img{
+.backgroundImage img {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -17,21 +17,21 @@
     overflow: hidden;
 }
 
-.backgroundGradient img{
+.backgroundGradient img {
     width: 100%;
     height: 100px;
     object-fit: cover;
     border-radius: 0px 00px 20px 20px;
 }
 
-.Header{
+.Header {
     position: absolute;
     top: 210px;
     left: 220px;
     width: 75%;
 }
 
-.avatar{
+.avatar {
     width: 150px;
     height: 150px;
     border-radius: 5px;
@@ -42,26 +42,26 @@
     background-color: #fff;
 }
 
-.avatar img{
+.avatar img {
     width: 100%;
     height: 100%;
     padding: auto;
     object-fit: cover;
 }
 
-.categoryCompany{
+.categoryCompany {
     width: 300px;
 }
 
-.itemCompanyHeader{
+.itemCompanyHeader {
     width: 300px;
 }
 
-.amountJobs{
+.amountJobs {
     width: 300px;
 }
 
-.Header .textHeader{
+.Header .textHeader {
     max-height: 50px;
     font-size: 1.4em;
     font-weight: 700;
@@ -69,14 +69,14 @@
     color: var(--textColor1);
 }
 
-.contentMoreHeader img{
+.contentMoreHeader img {
     width: 100%;
     height: 50px;
     border-radius: 20px 20px 0px 0px;
     overflow: hidden;
 }
 
-.texHeaderLeft{
+.texHeaderLeft {
     position: absolute;
     max-height: 50px;
     font-size: 1.2em;
@@ -86,7 +86,7 @@
     color: var(--textColor1);
 }
 
-.contentMoreLeft{
+.contentMoreLeft {
     background-color: #fffc;
     box-shadow: var(--boxShadow1);
     height: 700px;
@@ -96,7 +96,7 @@
     position: relative;
 }
 
-.contentMoreLeftSecond{
+.contentMoreLeftSecond {
     background-color: #fffc;
     box-shadow: var(--boxShadow1);
     height: fit-content;
@@ -107,7 +107,7 @@
     margin-bottom: 40px;
 }
 
-.contentMoreRight{
+.contentMoreRight {
     background-color: #fffc;
     box-shadow: var(--boxShadow1);
     height: 700px;
@@ -119,7 +119,7 @@
     position: relative;
 }
 
-.texHeaderRight{
+.texHeaderRight {
     position: absolute;
     max-height: 50px;
     font-size: 1.2em;
@@ -129,20 +129,20 @@
     color: var(--textColor1);
 }
 
-.contentDetailLeft{
+.contentDetailLeft {
     padding: 15px 20px 15px 20px;
 }
 
-.contentDetailRight{
+.contentDetailRight {
     padding: 15px 20px 15px 20px;
 }
 
-.contentMore{
+.contentMore {
     display: flex;
     margin-bottom: 20px;
 }
 
-.item{
+.item {
     margin-bottom: 15px;
 }
 
@@ -152,13 +152,13 @@
 
 
 
-body{
+body {
     background-color: white;
     /* background: linear-gradient(109.6deg, rgb(72, 200, 160) 11.2%, rgb(32, 40, 48) 91.3%); */
 }
 
 .formListJds {
-    /* padding-top: 80px; */
+    padding-top: 10px !important;
 }
 
 .listJobs {
@@ -176,7 +176,7 @@ body{
     background-color: white;
 }
 
-.itemJob:hover{
+.itemJob:hover {
     transition: 0.3s;
     box-shadow: var(--boxShadow1);
     cursor: pointer;
@@ -229,16 +229,16 @@ body{
     margin: auto;
 }
 
-.textOver{
+.textOver {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
- 
+
 }
 
-button{
+button {
     margin: 5px 0;
     cursor: pointer;
     background-color: white;
@@ -251,4 +251,25 @@ button{
 
 .hidden {
     display: none;
-  }
+}
+
+.btn-update:hover {
+    /* color: red; */
+    text-decoration: underline;
+}
+
+.btn-update {
+    color: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.bi {
+    color: black;
+}
+
+.btnMenu {
+    background-color: transparent;
+    background: linear-gradient(120deg, #9dbcf2 0%, #2fafeb 100%);
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    color: white;
+}
