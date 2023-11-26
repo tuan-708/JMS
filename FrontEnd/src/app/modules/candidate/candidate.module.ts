@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CadidateRoutingModule } from './candidate-routing.module';
 import { CandidateComponent } from './candidate.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { CandidateSignInComponent } from './components/sign-in/sign-in.component';
 import { CandidateRegisterComponent } from './components/sign-up/sign-up.component';
 import { CandidateHomeComponent } from './components/home/home.component';
@@ -30,7 +29,6 @@ import { MatDialogModule } from '@angular/material/dialog';
    declarations: [
       CandidateComponent,
       HeaderComponent,
-      FooterComponent,
       CandidateSignInComponent,
       CandidateRegisterComponent,
       CandidateHomeComponent,

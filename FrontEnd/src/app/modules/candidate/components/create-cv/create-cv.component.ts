@@ -259,21 +259,21 @@ export class CandidateCreateCvComponent {
    }
 
    showSuccess() {
-      this.toastr.success('Thông báo!', 'Tạo hồ sơ thành công!', {
+      this.toastr.success('Tạo hồ sơ thành công', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showError() {
-      this.toastr.error('Thông báo!', 'Đã có lỗi xảy ra, xem lại trường dữ liệu!', {
+      this.toastr.error('Đã có lỗi xảy ra, xem lại trường dữ liệu', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showErrorUploadImage() {
-      this.toastr.error('Thông báo!', 'Đăng ảnh hồ sơ lỗi!', {
+      this.toastr.error('Đăng ảnh hồ sơ lỗi', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });
@@ -281,7 +281,7 @@ export class CandidateCreateCvComponent {
 
 
    showErrorInput(message: string) {
-      this.toastr.error(message, 'Thông báo!', {
+      this.toastr.error(message, 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
          enableHtml: true
@@ -313,6 +313,11 @@ export class CandidateCreateCvComponent {
 
       if ($(".inputDob")[0].value == "") {
          massage += "- Ngày sinh không được để trống <br/>"
+         var valid = false;
+      }
+
+      if ($(".cvTitle")[0].value == ""){
+         massage += "- Tên hồ sơ không được để trống <br/>"
          var valid = false;
       }
 

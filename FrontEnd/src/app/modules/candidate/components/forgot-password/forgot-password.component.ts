@@ -13,14 +13,14 @@ export class CandidateForgotPasswordComponent {
    Email=""
 
    showSuccess() {
-      this.toastr.success('Thông báo!', 'Thay đổi thành công, vui lòng kiểm tra Email!', {
+      this.toastr.success('Thay đổi thành công, vui lòng kiểm tra Email!', 'Thành công',  {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showFail() {
-      this.toastr.error('Thông báo!', 'Thay đổi mật khẩu thất bại, vui lòng thử lại sau!', {
+      this.toastr.error('Thay đổi mật khẩu thất bại, vui lòng thử lại sau!', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });

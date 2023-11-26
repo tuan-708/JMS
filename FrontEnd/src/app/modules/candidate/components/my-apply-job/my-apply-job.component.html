@@ -8,9 +8,12 @@
                 currentPage: page,
                 totalItems: totalItems
               }">
-                <div class="col-2" >
-                    <img src="{{jd.jobDescription.companyDTO.avatarURL}}" alt="">
-                </div>
+                <a href="/candidate/company-detail/{{jd?.jobDescription?.companyDTO?.companyId}}" style="text-decoration: none;">
+                    <div class="col-2">
+                        <img src="{{jd.jobDescription.companyDTO.avatarURL}}" alt="">
+                    </div>
+                </a>
+
                 <div class="col-9">
                     <div class="textHeader col-11" (click)="onClickViewJD(jd)">{{jd.jobDescription.title}}</div>
                     <div class="row time">
@@ -21,14 +24,14 @@
                             0}}</div>
                     </div>
 
-                   
+
 
                     <div class="row more">
-                  
+
                         <div class="col-4 textOver">
                             Vị trí tuyển: {{jd.jobDescription.positionTitle}}
                         </div>
-                      
+
                         <div class="col-4 textOver">
                             Chức danh: {{jd.jobDescription.levelTitle}}
                         </div>
@@ -38,7 +41,7 @@
                     </div>
                 </div>
 
-                <i class="fa-regular fa-eye btnEdit" (click)="openViewCVDialog(jd)" ></i>
+                <i class="fa-regular fa-eye btnEdit" (click)="openViewCVDialog(jd)"></i>
                 <div class="aplied" *ngIf="jd.isSelected">Đã ứng tuyển</div>
                 <div class="notApplied" *ngIf="jd.isReject">Đang đợi duyệt</div>
                 <div class="notApplied" *ngIf="!jd.isSelected && !jd.isReject">Đang đợi duyệt</div>

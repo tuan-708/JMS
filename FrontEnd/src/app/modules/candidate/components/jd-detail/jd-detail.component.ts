@@ -47,9 +47,22 @@ export class JdDetailComponent {
       id = params['id'];
     });
 
+    getRequest(`${apiCandidate.GET_ALL_CV_BY_RECRUITER_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, {})
+    .then(res => {
+
+      this.listCvs = res?.data;
+      console.log(this.listCvs);
+
+    })
+    .catch(data => {
+      console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
+    })
+
     getRequest(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, { jdId: id })
       .then(res => {
         this.jd = res?.data;
+        console.log(this.jd);
+        
         this.JDId = this.jd.jobId
         this.jobDetail = this.jd?.jobDetail
         this.educationRequirement = this.jd?.educationRequirement
@@ -61,22 +74,11 @@ export class JdDetailComponent {
         this.otherInformation = this.jd?.otherInformation
         this.descriptionCompany = this.jd?.companyDTO?.description
 
-        const currenDate = new Date()
+        const currentDate = new Date()
         const expiredDate = this.converTringDateInput(this.jd?.expiredDate)
-        if (expiredDate < currenDate) {
+        if (expiredDate < currentDate) {
           this.isExpiredDate = true
         }
-      })
-      .catch(data => {
-        console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
-      })
-
-    getRequest(`${apiCandidate.GET_ALL_CV_BY_RECRUITER_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, {})
-      .then(res => {
-
-        this.listCvs = res?.data;
-        console.log(this.listCvs);
-
       })
       .catch(data => {
         console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
@@ -85,29 +87,37 @@ export class JdDetailComponent {
 
 
   showSuccess() {
-    this.toastr.success('Thông báo!', 'Ứng tuyển thành công! Xin lòng chờ đợi cho tới khi trạng thái ứng tuyển hoàn thành.', {
+    this.toastr.success('Nhà tuyển dụng sẽ duyệt hồ sơ của bạn', 'Thành công', {
       progressBar: true,
-      timeOut: 3000,
+      timeOut: 5000,
+      enableHtml: true
     });
   }
 
   showError() {
-    this.toastr.error('Thông báo!', 'Ứng tuyển thất bại vui lòng thứ lại sau.', {
+    this.toastr.error('Ứng tuyển thất bại vui lòng thứ lại sau', 'Thất bại', {
       progressBar: true,
-      timeOut: 3000,
+      timeOut: 5000,
     });
   }
 
-  showErrorChooseCv() {
-    this.toastr.error('Thông báo!', 'Vui lòng chọn hồ sơ ứng tuyển.', {
+  showErrorDuplicate() {
+    this.toastr.error('Hồ sơ của bạn đã ứng tuyển', 'Thất bại', {
       progressBar: true,
-      timeOut: 3000,
+      timeOut: 5000,
+    });
+  }
+
+  showInfoChooseCv() {
+    this.toastr.info('Vui lòng chọn hồ sơ ứng tuyển', 'Thông báo', {
+      progressBar: true,
+      timeOut: 5000,
     });
   }
 
   validateSubmitCv() {
     if (this.selectedCV == "0") {
-      this.showErrorChooseCv()
+      this.showInfoChooseCv()
       return false
     }
     return true
@@ -121,9 +131,12 @@ export class JdDetailComponent {
           if (res?.statusCode == 200) {
             this.showSuccess()
             console.log(res);
-          } else {
-            this.showError()
+          }
+          if (res?.statusCode == 204){
+            this.showErrorDuplicate()
             console.log(res);
+          }else{
+            this.showError()
           }
         })
         .catch(data => {

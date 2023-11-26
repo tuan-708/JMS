@@ -352,22 +352,20 @@ option {
 /* File Upload */
 
 .avatar-candidate{
-    height: 140px;
+    height: 200px;
     margin-bottom: 20px;
 }
 
 .file-upload {
-    width: 90px;
-    height: 120px;
+    width: 170px;
+    height: 210px;
     margin: auto;
 }
 
 .file-upload img{
-    width: 100px;
-    height: 140px;
-    object-fit: cover;
-    align-self: center;
-   
+    width: 170px;
+    height: 210px;
+    object-fit: contain;
 }
 
 .file-upload-btn {

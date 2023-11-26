@@ -47,13 +47,18 @@
                            "Chưa cập nhật" }}</div>
                         <div class="textStyle">- Cập nhật gần nhất {{ cv?.lastUpdateDateDisplay}} </div>
                      </div>
+
+                   
                   </div>
                   <a href="/candidate/update-cv/{{ cv.id }}">
                      <i class="fa-solid fa-pen-to-square btnEdit" (click)="gotoEditCV(cv.id)"></i>
                   </a>
           
-
                   <i class="fa-solid fa-trash btnTrash" (click)="gotoDeleteCV(cv.id)"></i>
+                  <div class="form-check form-switch btnswitch"  (click)="gotoUpdateCurrentCv(cv.id)">
+                     <input class="form-check-input" type="checkbox" role="switch"  [checked]="cv?.isFindingJob">
+                   </div>
+                
                </div>
             </div>
 

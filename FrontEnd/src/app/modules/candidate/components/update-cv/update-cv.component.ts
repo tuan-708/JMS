@@ -291,21 +291,21 @@ export class UpdateCvComponent {
   }
 
   showSuccess() {
-    this.toastr.success('Thông báo!', 'Chỉnh sửa hồ sơ thành công!', {
+    this.toastr.success('Chỉnh sửa hồ sơ thành công!', 'Thành công',  {
       progressBar: true,
       timeOut: 3000,
     });
   }
 
   showError() {
-    this.toastr.error('Thông báo!', 'Đã có lỗi xảy ra, xem lại trường dữ liệu!', {
+    this.toastr.error('Đã có lỗi xảy ra, xem lại trường dữ liệu!', 'Thất bại',{
       progressBar: true,
       timeOut: 3000,
     });
   }
 
   showErrorInput(message: string) {
-    this.toastr.error(message,'Thông báo!', {
+    this.toastr.error(message, 'Thông báo!', {
       progressBar: true,
       timeOut: 3000,
       enableHtml: true
@@ -331,8 +331,8 @@ export class UpdateCvComponent {
       var valid = false;
     }
 
-    console.log($(".inputPhone")[0].value );
-    
+    console.log($(".inputPhone")[0].value);
+
 
     if ($(".inputPhone")[0].value == "") {
       massage += "- Số điện thoại không được để trống <br/>"
@@ -341,6 +341,11 @@ export class UpdateCvComponent {
 
     if ($(".inputDob")[0].value == "") {
       massage += "- Ngày sinh không được để trống <br/>"
+      var valid = false;
+    }
+
+    if ($(".cvTitle")[0].value == "") {
+      massage += "- Tên hồ sơ không được để trống <br/>"
       var valid = false;
     }
 

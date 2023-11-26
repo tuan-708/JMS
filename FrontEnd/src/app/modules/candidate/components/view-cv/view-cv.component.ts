@@ -52,11 +52,6 @@ export class ViewCvComponent {
     this.ThemStyle = themeList[data.jd.theme].ThemStyle
     this.backgroudSelectedLink = themeList[data.jd.theme].backgroudSelectedLink
     this.fontCV = data.jd.font
-
-    // this.hideImage = "none"
-    // this.displayImage = "block"
-    // this.displayChange = "block"
-    // this.fileSrc = this.cv.avatarURL
   }
 
   // function for recruiter
