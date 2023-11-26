@@ -9,11 +9,56 @@ import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/c
    styleUrls: ['./sign-up.component.css']
 })
 export class RegisterRecruiterComponent {
+
    FullName = ""
    UserName = ""
    Email = ""
    Password = ""
    rePassword = ""
+
+   invalidFullName: boolean = false;
+   invalidUserNam: boolean = false;
+   invalidEmail: boolean = false;
+   invalidPassword: boolean = false;
+   invalidRePassword: boolean = false
+
+   validateFullName(event: any) {
+      this.FullName = event
+
+      const vietnameseNameRegex: RegExp = /^[\p{L} ]+$/u;
+      this.invalidFullName = !vietnameseNameRegex.test(this.FullName);
+   }
+
+   validateUserName(event: any) {
+      this.UserName = event
+
+      const usernameRegex: RegExp = /^[^\s]{6,}$/;
+      this.invalidUserNam = !usernameRegex.test(this.UserName);
+   }
+
+   validateEmail(event: any) {
+      this.Email = event
+
+      const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      this.invalidEmail = !emailRegex.test(this.Email);
+   }
+
+   validatePassword(event: any) {
+      this.Password = event
+
+      const passwordRegex: RegExp = /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/;
+      this.invalidPassword = !passwordRegex.test(this.Password);
+   }
+
+   validateRePassword(event: any) {
+      this.rePassword = event
+
+      if (!(this.Password === this.rePassword)) {
+         this.invalidRePassword = true
+      } else {
+         this.invalidRePassword = false
+      }
+   }
 
    showSuccess() {
       this.toastr.success('Thông báo!', 'Đăng ký tài khoản thành công!', {
@@ -29,26 +74,35 @@ export class RegisterRecruiterComponent {
       });
    }
 
+   showInfoInput() {
+      this.toastr.info('Điền các trường ở bên dưới', 'Thông báo', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
 
    constructor(private toastr: ToastrService) {
 
    }
 
    Submit() {
-
-      postRequest(`${apiRecruiter.REGISTER_ACCOUNT_RECRUITER}?email=${this.Email}
-      &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
-         .then(res => {
-            if (res.statusCode == 200) {
-               this.showSuccess()
-            } else {
+      if (this.invalidFullName && this.invalidUserNam && this.invalidEmail && this.invalidPassword && this.invalidRePassword) {
+         postRequest(`${apiRecruiter.REGISTER_ACCOUNT_RECRUITER}?email=${this.Email}
+         &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
+            .then(res => {
+               if (res.statusCode == 200) {
+                  this.showSuccess()
+               } else {
+                  this.showError()
+               }
+            })
+            .catch(data => {
                this.showError()
-            }
-         })
-         .catch(res => {
-            this.showError()
-            console.warn(res);
+               console.warn(data);
 
-         })
+            })
+      }else{
+         this.showInfoInput()
+      }
    }
 }

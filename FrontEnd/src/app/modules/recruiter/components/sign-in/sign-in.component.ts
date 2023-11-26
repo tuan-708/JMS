@@ -19,16 +19,17 @@ export class RecruiterSignInComponent {
    password: any;
 
    showSuccess() {
-      this.toastr.success('Thông báo!', 'Đăng nhập thành công!', {
+      this.toastr.success('Đăng nhập thành công','Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
-   showFail() {
-      this.toastr.error('Thông báo!', 'Đăng nhập thất bại!', {
+   showError() {
+      this.toastr.error('Tài khoản mật khẩu không chính xác','Thất bại', {
          progressBar: true,
          timeOut: 3000,
+         enableHtml: true
       });
    }
 
@@ -43,32 +44,36 @@ export class RecruiterSignInComponent {
       }
        postRequest(apiRecruiter.LOGIN_RECRUITER, AuthorizationMode.PUBLIC, data)
          .then(res => {
-            if (res?.statusCode == 401) {
-               this.showFail()
-            }
             if (res?.statusCode == 200) {
                saveToken(res.data)
 
                postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data, AuthorizationMode.BEARER_TOKEN, {})
                .then(res => {
+
                  if (res.statusCode == 200) {
+
                   setTimeout(() => {
                      saveItem("profile", res.data);
                    }, 1000);
+
                    setTimeout(() => {
                      this.showSuccess()
                      this.router.navigate(['/recruiter/list-jds']);
                    }, 1000);
+                   
                  }
                })
                .catch(data => {
-                 console.log("Lỗi", apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data);
+                 console.log(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data, data );
                })
-            
+            }else{
+               this.showError()
             }
          })
          .catch(data => {
-            this.showFail()
+            this.showError()
+            console.error(apiRecruiter.LOGIN_RECRUITER, data);
+            
          })
    }
 
