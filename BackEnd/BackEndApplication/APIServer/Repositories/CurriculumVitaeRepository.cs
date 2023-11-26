@@ -31,7 +31,7 @@ namespace APIServer.Repositories
         public int Delete(int id)
         {
             CurriculumVitae? curriculumVitae = _context.CurriculumVitaes.FirstOrDefault(x => x.Id == id);
-            if(curriculumVitae != null)
+            if (curriculumVitae != null)
             {
                 _context.Remove(curriculumVitae);
                 return _context.SaveChanges();
@@ -107,7 +107,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Category)
                 .Include(x => x.Gender)
                 .FirstOrDefault(x => x.Id == id);
-            if( curriculumVitae != null )
+            if (curriculumVitae != null)
                 return curriculumVitae;
             return null;
         }
@@ -132,7 +132,7 @@ namespace APIServer.Repositories
                             .Include(x => x.EmploymentType)
                             .Include(x => x.Category)
                             .Include(x => x.Gender).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVId);
-            if( curriculumVitae != null)
+            if (curriculumVitae != null)
             {
                 curriculumVitae.IsDelete = true;
                 return _context.SaveChanges();
@@ -142,7 +142,7 @@ namespace APIServer.Repositories
 
         public int UpdateIsFindingJobStatus(int candidateId, int CVId)
         {
-            CurriculumVitae? curriculumVitae = _context.CurriculumVitaes
+            List<CurriculumVitae> curriculumVitaes = _context.CurriculumVitaes
                 .Include(x => x.Candidate)
                 .Include(x => x.Awards)
                 .Include(x => x.JobExperiences)
@@ -153,13 +153,35 @@ namespace APIServer.Repositories
                 .Include(x => x.Certificates)
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Category)
-                .Include(x => x.Gender).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVId);
-            if( curriculumVitae != null)
+                .Include(x => x.Gender).Where(x => x.CandidateId == candidateId && x.Id != CVId && x.IsFindingJob == true).ToList();
+            if (curriculumVitaes != null && curriculumVitaes.Count > 0)
             {
-                if(curriculumVitae.IsFindingJob == true) curriculumVitae.IsFindingJob = false;
+                foreach (var curriculumVitae1 in curriculumVitaes)
+                {
+                    curriculumVitae1.IsFindingJob = false;
+                    _context.SaveChanges();
+                }
+            }
+            CurriculumVitae? curriculumVitae = _context.CurriculumVitaes
+            .Include(x => x.Candidate)
+            .Include(x => x.Awards)
+            .Include(x => x.JobExperiences)
+            .Include(x => x.Educations)
+            .Include(x => x.Level)
+            .Include(x => x.Skills)
+            .Include(x => x.Projects)
+            .Include(x => x.Certificates)
+            .Include(x => x.EmploymentType)
+            .Include(x => x.Category)
+            .Include(x => x.Gender).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVId);
+            if (curriculumVitae != null)
+            {
+                if (curriculumVitae.IsFindingJob == true) curriculumVitae.IsFindingJob = false;
                 else curriculumVitae.IsFindingJob = true;
                 return _context.SaveChanges();
             }
+
+
             return 0;
         }
     }

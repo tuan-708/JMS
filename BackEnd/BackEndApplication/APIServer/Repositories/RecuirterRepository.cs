@@ -142,12 +142,16 @@ namespace APIServer.Repositories
             return recuirter != null;
         }
 
-        public int UpdateFullName(int recruiterId, string fullName)
+        public int UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
         {
             Recuirter recruiter = context.Recuirters.FirstOrDefault(x => x.Id == recruiterId);
             if (recruiter != null)
             {
                 recruiter.FullName = fullName.Trim();
+                recruiter.PhoneNumber = phoneNumber.Trim();
+                recruiter.DOB = DOB;
+                recruiter.GenderId = genderId;
+                recruiter.Description = description;
                 return context.SaveChanges();
             }
             return 0;
