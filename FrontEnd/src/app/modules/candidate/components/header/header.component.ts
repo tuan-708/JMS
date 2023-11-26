@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { postRequest } from 'src/app/service/api-requests';
-import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { getProfile, getToken, isLogin, saveItem, signOut } from 'src/app/service/localstorage';
 import { environment } from 'src/environments/environment';
 

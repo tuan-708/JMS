@@ -7,12 +7,12 @@ import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile } from 'src/app/service/localstorage';
 
 @Component({
-   selector: 'app-jd-register',
-   templateUrl: './jd-register.component.html',
-   styleUrls: ['./jd-register.component.css']
+   selector: 'app-create-jd',
+   templateUrl: './create-jd.component.html',
+   styleUrls: ['./create-jd.component.css']
 })
 
-export class JdRegisterComponent {
+export class CreateJdComponent {
    public Editor = ClassicEditor;
    datas: any[] = [];
    categories: any;
@@ -219,14 +219,14 @@ export class JdRegisterComponent {
 
       
    showCreateJDSuccess() {
-      this.toastr.info('Thông báo!', 'Tạo bài viết thành công!', {
+      this.toastr.success('Tạo bài viết thành công', 'Thành công',  {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showCreateJDFail() {
-      this.toastr.error('Thông báo!', 'Tạo bài viết thất bại!', {
+      this.toastr.error('Tạo bài viết thất bại', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });

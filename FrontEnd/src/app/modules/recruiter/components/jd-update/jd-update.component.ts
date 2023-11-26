@@ -286,14 +286,14 @@ export class JdUpdateComponent {
   checkBen: any = false;
 
   showUpdateJDSuccess() {
-    this.toastr.info('Thông báo!', 'Cập nhật bài viết thành công!', {
+    this.toastr.success('Cập nhật bài viết thành công', 'Thành công',  {
        progressBar: true,
        timeOut: 3000,
     });
  }
 
  showUpdateJDFail() {
-    this.toastr.error('Thông báo!', 'Cập nhật bài viết thất bại!', {
+    this.toastr.error('Cập nhật bài viết thất bại','Thất bại',  {
        progressBar: true,
        timeOut: 3000,
     });

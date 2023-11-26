@@ -44,6 +44,7 @@ export class CandidateMyCvsComponent {
          getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             this.listCVs = res?.data
+            console.log(this.listCVs);
          })
          .catch(data => {
             console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
@@ -70,14 +71,14 @@ export class CandidateMyCvsComponent {
    }
 
    showSuccess() {
-      this.toastr.success('Thông báo!', 'Xoá hồ sơ thành công!', {
+      this.toastr.success('Xoá hồ sơ thành công','Thành công',  {
         progressBar: true,
         timeOut: 3000,
       });
     }
   
     showError() {
-      this.toastr.error('Thông báo!', 'Xoá thất bại,Vui lòng thử lại sau !', {
+      this.toastr.error('Xoá hồ sơ thất bại', 'Thất bại',  {
         progressBar: true,
         timeOut: 3000,
       });
@@ -93,6 +94,8 @@ export class CandidateMyCvsComponent {
             getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
                this.listCVs = res?.data
+          
+               
             })
             .catch(data => {
                console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
@@ -120,5 +123,10 @@ export class CandidateMyCvsComponent {
          } else {
          }
        });
+   }
+
+   gotoUpdateCurrentCv(id: number){
+      console.log(id);
+      
    }
 }

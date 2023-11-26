@@ -6,6 +6,7 @@
             <mat-list-item style="height: fit-content;">
                 <div class="col-md-2 block">
                     <img class=" item-img" *ngIf="candidate.avatarURL" src={{candidate?.avatarURL}}
+                    onerror="this.src='https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png'" 
                         alt={{candidate.displayName}}>
                     <img class=" item-img" *ngIf="!candidate.avatarURL" src={{avatar}} alt={{candidate.displayName}}>
                 </div>

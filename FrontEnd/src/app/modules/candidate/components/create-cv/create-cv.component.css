@@ -198,11 +198,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
    margin-left: auto;
 }
 
-.btn-cv--success.is-plain {
-   background-color: #e5f7ed;
-   color: #00b14f;
-}
-
 .btn-cv--fix-size {
    height: 40px;
    min-width: 142px;
@@ -212,21 +207,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
    margin-right: 8px;
 }
 
-.btn-cv--success.is-plain {
-   background-color: #e5f7ed;
-   color: #00b14f;
-}
-
-.btn-cv--success {
-   background-color: #00b14f;
-   color: #fff;
-}
-
 .btn-cv--fix-size {
    height: 40px;
    min-width: 142px;
 }
-
 
 .btn-cv {
    padding: 9px 19px;
@@ -423,7 +407,23 @@ option {
    outline: none;
    font-size: 1em;
    margin-left: 10px;
+   width: 350px;
 }
+
+.form-info-input-Right-Date {
+   color: var(--text-primary);
+   background-color: var(--gray-0);
+   outline: none;
+   font-size: 1em;
+   margin-left: 4px;
+   width: 100px;
+   text-align: center;
+}
+
+.form-info-input-Right-Date:hover{
+   border: 2px #ccc dotted;
+}
+
 
 .form-info-input-right:hover {
    border: 2px #ccc dotted;
@@ -820,4 +820,14 @@ option {
 
 .form-education:hover .form-educationSub {
    display: block;
+}
+
+.btn-cv--success.is-plain {
+   background-color: rgb(229, 243, 247);
+   color: #007bff;
+}
+
+.btn-cv--success {
+   background-color: #007bff;
+   color: #fff;
 }

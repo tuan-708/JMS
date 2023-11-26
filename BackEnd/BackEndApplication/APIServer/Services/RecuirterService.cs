@@ -293,15 +293,8 @@ namespace APIServer.Services
                         var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
                         CVMatching CVApplied = new CVMatching();
 
-                        if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsApplied == true && x.IsMatched == false && x.IsReject == false))
+                        if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsApplied == true && x.IsMatched == true && x.IsReject == false))
                         {
-                            CVApplied = context.CVMatchings.FirstOrDefault(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsApplied == true && x.IsMatched == false && x.IsReject == false);
-                            string JSONrs1 = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jd, cv));
-                            CVApplied.JSONMatching = JSONrs1;
-                            CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs1);
-                            CVApplied.IsMatched = true;
-                            context.SaveChanges();
-                            await Task.Delay(12000);
                             return null;
                         }
                         if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsReject == false))
@@ -483,9 +476,10 @@ namespace APIServer.Services
             }
         }
 
-        public int ChangeFullName(int recruiterId, string fullName)
+        public int UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
+
         {
-            return _recRepository.UpdateFullName(recruiterId, fullName);
+            return _recRepository.UpdateProfile(recruiterId, fullName, phoneNumber, DOB, genderId, description);
         }
     }
 }

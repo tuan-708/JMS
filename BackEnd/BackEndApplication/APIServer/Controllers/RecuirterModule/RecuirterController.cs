@@ -176,22 +176,22 @@ namespace APIServer.Controllers.RecuirterModule
             }
         }
 
-        [HttpPost("change-fullname")]
-        public BaseResponseBody<CVMatchingDTO> ChangeFullName(int recruiterId, string fullName)
+        [HttpPost("update-profile")]
+        public BaseResponseBody<CVMatchingDTO> UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
         {
             try
             {
-                int n = _recuirterService.ChangeFullName(recruiterId, fullName);
+                int n = _recuirterService.UpdateProfile(recruiterId, fullName, phoneNumber, DOB, genderId, description);
                 if (n > 0)
                     return new BaseResponseBody<CVMatchingDTO>
                     {
-                        message = "update fullname successfully",
+                        message = "update profile successfully",
                         statusCode = HttpStatusCode.OK,
                     };
                 else
                     return new BaseResponseBody<CVMatchingDTO>
                     {
-                        message = "update fullname failed",
+                        message = "update profile failed",
                         statusCode = HttpStatusCode.BadRequest,
                     };
             }

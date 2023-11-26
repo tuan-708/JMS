@@ -259,21 +259,21 @@ export class CandidateCreateCvComponent {
    }
 
    showSuccess() {
-      this.toastr.success('Thông báo!', 'Tạo hồ sơ thành công!', {
+      this.toastr.success('Tạo hồ sơ thành công', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showError() {
-      this.toastr.error('Thông báo!', 'Đã có lỗi xảy ra, xem lại trường dữ liệu!', {
+      this.toastr.error('Đã có lỗi xảy ra, xem lại trường dữ liệu', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showErrorUploadImage() {
-      this.toastr.error('Thông báo!', 'Đăng ảnh hồ sơ lỗi!', {
+      this.toastr.error('Đăng ảnh hồ sơ lỗi', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });
@@ -281,7 +281,7 @@ export class CandidateCreateCvComponent {
 
 
    showErrorInput(message: string) {
-      this.toastr.error(message, 'Thông báo!', {
+      this.toastr.error(message, 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
          enableHtml: true
@@ -313,6 +313,11 @@ export class CandidateCreateCvComponent {
 
       if ($(".inputDob")[0].value == "") {
          massage += "- Ngày sinh không được để trống <br/>"
+         var valid = false;
+      }
+
+      if ($(".cvTitle")[0].value == ""){
+         massage += "- Tên hồ sơ không được để trống <br/>"
          var valid = false;
       }
 
@@ -371,7 +376,7 @@ export class CandidateCreateCvComponent {
             'projects': projects,
             'certificates': certificates,
             'awards': awards,
-            'avatarURL': "",
+            'avatarURL': null,
             'categoryName': "",
             'categoryId': categoryId,
             'genderId': gender,
@@ -386,28 +391,29 @@ export class CandidateCreateCvComponent {
          if (isLog) {
             postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
                .then(res => {
-
-                  const cvIdCreated = res?.data
-                  if (this.onChangeAvatar) {
-                     if ($('#avatarCv')[0].files[0]) {
-
-                        let formData: FormData = new FormData();
-                        let file: File = $('#avatarCv')[0].files[0];
-                        formData.append('file', file, file.name);
-                        console.log(formData);
-
-                        postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
-                           .then(res => {
-                              console.log(res);
-                           })
-                           .catch(data => {
-                              this.showErrorUploadImage()
-                              console.log(data);
-                           })
+                  if(res?.statusCode == 200){
+                     const cvIdCreated = res?.data
+                     
+                     if (this.onChangeAvatar) {
+                        if ($('#avatarCv')[0].files[0]) {
+   
+                           let formData: FormData = new FormData();
+                           let file: File = $('#avatarCv')[0].files[0];
+                           formData.append('file', file, file.name);
+   
+                           postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
+                              .then(res => {
+                                 console.log(res);
+                              })
+                              .catch(data => {
+                                 this.showErrorUploadImage()
+                                 console.log(data);
+                              })
+                        }
                      }
-                  }
 
-                  this.showSuccess()
+                     this.showSuccess()
+                  }
                })
                .catch(data => {
                   this.showError()

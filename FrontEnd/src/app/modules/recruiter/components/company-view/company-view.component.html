@@ -1,6 +1,24 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<app-header-recruiter></app-header-recruiter>
 <div>
-    <candidate-header></candidate-header>
     <div class="Content container">
+        <div class="float-end">
+                <span class="pr-2">
+                    <button  [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="btnMenu">
+                        <h6><mat-icon class="pt-1">menu</mat-icon><span>  MENU</span></h6>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item [routerLink]="['/recruiter/company-update']">
+                            <mat-icon>create</mat-icon>
+                            <span>Cập Nhật Thông Tin</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>lock</mat-icon>
+                            <span>Khóa Trang Công Ty</span>
+                        </button>
+                    </mat-menu>
+                </span>
+        </div>
         <div class="coverImage container p-0">
             <div class="backgroundImage">
                 <img src="{{ company?.backGroundURL }}" alt="">
@@ -38,15 +56,15 @@
                                 </svg> {{company?.size}} người</div>
                         </div>
 
-
                         <div style="color: var(--textColor1);" class="amountJobs">
                             <svg width="20" height="20" style="margin-right: 10px;" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M11.2 2.40002C10.316 2.40002 9.59998 3.11602 9.59998 4.00002H3.19998C2.31598 4.00002 1.59998 4.71602 1.59998 5.60002V12.8C1.59998 13.684 2.31598 14.4 3.19998 14.4H20.8C21.684 14.4 22.4 13.684 22.4 12.8V5.60002C22.4 4.71602 21.684 4.00002 20.8 4.00002H14.4C14.4 3.11602 13.684 2.40002 12.8 2.40002H11.2ZM12 11.2C12.4416 11.2 12.8 11.5584 12.8 12C12.8 12.4416 12.4416 12.8 12 12.8C11.5584 12.8 11.2 12.4416 11.2 12C11.2 11.5584 11.5584 11.2 12 11.2ZM1.59998 15.5547V18.4C1.59998 19.284 2.31598 20 3.19998 20H20.8C21.684 20 22.4 19.284 22.4 18.4V15.5547C21.9272 15.8299 21.3856 16 20.8 16H3.19998C2.61438 16 2.07278 15.8299 1.59998 15.5547Z"
                                     fill="#fffe"></path>
-                            </svg>Công việc hiện tại đăng tuyển {{this.countJob}}
+                            </svg>{{company?.jDs ? company.jDs?.length: 0}} bài tuyển dụng
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -59,11 +77,10 @@
             <div class="contentMoreLeft">
                 <div class="contentMoreHeader">
                     <img src="{{Url}}/assets/background-gradients/gradients-backgrounds-sexy-blue.png" alt="">
-                    <div class="texHeaderLeft">Gới thiệu công ty</div>
+                    <div class="texHeaderLeft">Giới thiệu công ty</div>
                 </div>
                 <div class="contentDetailLeft">
                     <div [innerHTML]="htmlContent">
-
                     </div>
                 </div>
             </div>
@@ -76,36 +93,43 @@
                 <div class="contentDetailRight">
                     <div class="item">
                         <i class="fa-solid fa-user-group"></i>
-                        <span>Nhà sáng lập: {{company?.recuirterFounder? company?.recuirterFounder : "Không công
+                        <span>Quản Trị Viên: {{company?.recuirterFounder? company?.recuirterFounder : "Không công
                             khai"}}</span>
                     </div>
 
                     <div class="item">
-                        <i class="fa-solid fa-calendar-days"></i>
+                        <i class="bi bi-building-fill"></i>
                         <span>
-                            Năm thành lập: {{company?.dateCreatedDisplay? company?.dateCreatedDisplay : "Không công
+                            Năm Thành Lập: {{company?.yearOfEstablishment ? company?.yearOfEstablishment : "Không công
                             khai"}}
                         </span>
                     </div>
 
                     <div class="item">
-                        <i class="fa-solid fa-briefcase"></i>
-                        <span>Số lượng công việc đã đăng: {{ this.countJob }} </span>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>
+                            Số điện thoại: {{company?.phone ? company?.phone : "Không công khai"}}
+                        </span>
                     </div>
 
                     <div class="item">
-                        <i class="fa-solid fa-envelope"></i>
+                        <i class="bi bi-envelope-fill"></i>
                         <span>
                             Email: {{company?.email ? company?.email : "Không công khai"}}
                         </span>
                     </div>
 
-                    
                     <div class="item">
-                        <i class="fa-solid fa-calendar-days"></i>
+                        <i class="bi bi-gear-fill"></i>
                         <span>
-                            Năm thành lập: {{company?.dateCreatedDisplay? company?.dateCreatedDisplay : "Không công
-                            khai"}}
+                            Mã Số Thuế: {{company?.tax ? company?.tax : "Không công khai"}}
+                        </span>
+                    </div>
+
+                    <div class="item">
+                        <i class="bi bi-share-fill"></i>
+                        <span>
+                            Website: {{company?.webURL ? company?.webURL : "Không công khai"}}
                         </span>
                     </div>
 
@@ -119,7 +143,54 @@
                         src="https://maps.google.com/maps?width=100%&amp;height=300&amp;hl=en&amp;q=14 Trần Kim Xuyến, Phường Yên Hoà, Quận Cầu Giấy, Thành phố Hà Nội, Việt Nam&amp;ie=UTF8&amp;t=&amp;z=18&amp;iwloc=B&amp;output=embed"
                         frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                 </div>
+            </div>
+        </div>
+        <div>
+            <div class="contentMoreLeftSecond" *ngIf="company?.jDs && company.jDs != 0">
+                <div class="contentMoreHeader">
+                    <img src="{{Url}}/assets/background-gradients/gradients-backgrounds-sexy-blue.png" alt="">
+                    <div class="texHeaderLeft">Danh sách tuyển dụng</div>
+                </div>
+                <div class="contentDetailLeft">
+                    <section class="formListJds container">
+                        <div class="listJobs">
+                            <div class="itemJob" *ngFor="let jd of company.jDs">
+                                <div class="col-2">
+                                    <img src="https://cdn.pixabay.com/photo/2017/03/01/18/06/satisfaction-guarantee-2109235_1280.png"
+                                        alt="">
+                                </div>
+                                <div class="col-9">
+                                    <div class="textHeader" (click)="onClickView(jd)">{{jd?.title}}</div>
+                                    <div class="row time">
+                                        <div class="col-4 textOver">Thời gian đăng bài: 11-2-2023</div>
+                                        <div class="col-4 textOver">Thời gian hạn bài đăng: 12-2-2023</div>
+                                        <div class="col-4 textOver">Số lượng tuyển dụng: {{jd?.numberRequirement ?
+                                            jd?.numberRequirement :
+                                            0}}</div>
+                                    </div>
 
+                                    <div class="row more">
+                                        <div class="col-4 textOver">
+                                            Vị trí tuyển: {{jd?.positionTitle}}
+                                        </div>
+                                        <div class="col-4 textOver">
+                                            Chức danh: {{jd?.levelTitle}}
+                                        </div>
+                                        <div class="col-4 textOver">
+                                            Mức lương: {{jd?.salary}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <div class="btn-grp">
+                                        <i class="fa-solid fa-circle status"></i>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </div>

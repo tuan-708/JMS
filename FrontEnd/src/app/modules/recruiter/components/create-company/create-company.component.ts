@@ -9,10 +9,10 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
    selector: 'app-company-register',
-   templateUrl: './company-register.component.html',
-   styleUrls: ['./company-register.component.css']
+   templateUrl: './create-company.component.html',
+   styleUrls: ['./create-company.component.css']
 })
-export class CompanyRegisterComponent {
+export class CreateCompanyComponent {
    //upload img
    displayImage = "none"
    fileSrc: any;
@@ -38,7 +38,7 @@ export class CompanyRegisterComponent {
    sizeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    addressRq = new FormControl('', [Validators.required]);
    yearOfEstablishmentRq = new FormControl('');
-   phoneRq = new FormControl('', [Validators.required]);
+   phoneRq = new FormControl('', [Validators.required, Validators.pattern(/^\d{10,}$/)]);
    descriptionRq = new FormControl('', [Validators.required]);
 
    getErrorMessageName() {
@@ -87,6 +87,12 @@ export class CompanyRegisterComponent {
       return
    }
 
+   getErrorMessagePhone(){
+      if (this.phoneRq.hasError('required')) {
+         return 'Số điện thoại không hợp lệ!'
+      }
+      return
+   }
 
    getErrorMessageDescriptionRequirement() {
       if (this.descriptionRq.hasError('required')) {
@@ -100,14 +106,14 @@ export class CompanyRegisterComponent {
    checkReq: any = false;
 
    showSuccess() {
-      this.toastr.info('Thông báo!', 'Đăng ký thành công công ty!', {
+      this.toastr.success('Đăng ký công ty thành công', 'Thành công',  {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showFail() {
-      this.toastr.error('Thông báo!', 'Đăng ký công ty thất bại!', {
+      this.toastr.error('Đăng ký công ty thất bại', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });
@@ -118,7 +124,8 @@ export class CompanyRegisterComponent {
    submitButtonClicked() {
 
       if (this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid
-         && this.categoryRq.valid && this.sizeRq.valid && this.addressRq.valid) {
+         && this.categoryRq.valid && this.sizeRq.valid && this.addressRq.valid
+         && this.phoneRq.valid) {
          const companyName = this.nameRq.value;
          const email = this.emailRq.value;
          const phone = this.phoneRq.value;
@@ -129,7 +136,6 @@ export class CompanyRegisterComponent {
          const categoryName = this.categoryRq.value;
          const size = this.sizeRq.value;
          const yearOfEstablishment = this.yearOfEstablishmentRq.value;
-
 
          const profile = getProfile();
 
