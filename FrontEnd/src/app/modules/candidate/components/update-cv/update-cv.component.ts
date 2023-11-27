@@ -14,6 +14,7 @@ declare var $: any;
   templateUrl: './update-cv.component.html',
   styleUrls: ['./update-cv.component.css']
 })
+
 export class UpdateCvComponent {
   categories: any
   levels: any

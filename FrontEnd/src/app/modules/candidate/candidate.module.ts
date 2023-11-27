@@ -25,6 +25,8 @@ import { UpdateCvComponent } from './components/update-cv/update-cv.component';
 import { MyApplyJobComponent } from './components/my-apply-job/my-apply-job.component';
 import { ViewCvComponent } from './components/view-cv/view-cv.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ProfileComponent } from './components/profile/profile.component';
+
 @NgModule({
    declarations: [
       CandidateComponent,
@@ -43,6 +45,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       UpdateCvComponent,
       MyApplyJobComponent,
       ViewCvComponent,
+      ProfileComponent
    ],
    imports: [
       CommonModule,

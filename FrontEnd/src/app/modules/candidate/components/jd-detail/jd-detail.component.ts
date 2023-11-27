@@ -135,8 +135,6 @@ export class JdDetailComponent {
           if (res?.statusCode == 204){
             this.showErrorDuplicate()
             console.log(res);
-          }else{
-            this.showError()
           }
         })
         .catch(data => {

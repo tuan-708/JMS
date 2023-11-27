@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { ToastrService } from 'ngx-toastr';
-import { signOut, saveToken, saveItem, isLogin } from 'src/app/service/localstorage';
+import { saveToken, saveItem } from 'src/app/service/localstorage';
 import { Router } from '@angular/router';
 
 declare var $: any;

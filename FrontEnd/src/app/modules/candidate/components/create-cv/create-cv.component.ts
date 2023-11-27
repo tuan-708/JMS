@@ -391,7 +391,7 @@ export class CandidateCreateCvComponent {
          if (isLog) {
             postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
                .then(res => {
-                  if(res?.statusCode == 200){
+                  if(res?.statusCode == 201){
                      const cvIdCreated = res?.data
                      
                      if (this.onChangeAvatar) {
