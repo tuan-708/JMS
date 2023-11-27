@@ -71,6 +71,14 @@ body {
     right: 20px;
 }
 
+.status-red {
+    width: 10px;
+    height: 10px;
+    color: rgb(255, 4, 13);
+    position: absolute;
+    right: 20px;
+}
+
 .pagi {
     margin: auto;
 }

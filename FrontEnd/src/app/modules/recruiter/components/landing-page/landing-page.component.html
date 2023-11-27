@@ -35,19 +35,19 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#features">Tính Năng</a>
+                        <a class="nav-link page-scroll" [routerLink]="['/recruiter/sign-in']">Tính Năng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#pricing">Nổi Bật</a>
+                        <a class="nav-link page-scroll" [routerLink]="['/recruiter/sign-in']">Nổi Bật</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#faq">FAQ</a>
+                        <a class="nav-link page-scroll" [routerLink]="['/recruiter/sign-in']">FAQ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="#blog">Blog</a>
+                        <a class="nav-link page-scroll" [routerLink]="['/recruiter/sign-in']">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll d-flex flex-row align-items-center text-primary" href="#">
+                        <a class="nav-link page-scroll d-flex flex-row align-items-center text-primary" [routerLink]="['/recruiter/sign-up']">
                             <em data-feather="layout" width="18" height="18" class="mr-2"></em>
                             Đăng Ký Ngay
                         </a>
@@ -65,7 +65,7 @@
             <div class="col-md-8 col-sm-10 col-12 mx-auto my-auto text-center">
                 <h1 class="heading-black text-capitalize">Tuyển Dụng Hiệu Quả Với JMS</h1>
                 <p class="lead py-3">JMS là hệ thống tuyển dụng thông minh giúp việc tuyển dụng trở nên dễ dàng hơn bao giờ hết. Hãy trải nghiệm ngay!</p>
-                <button class="btn btn-primary d-inline-flex flex-row align-items-center">
+                <button class="btn btn-primary d-inline-flex flex-row align-items-center" [routerLink]="['/recruiter/sign-up']">
                     ĐĂNG KÝ NGAY
                     <em class="ml-2" data-feather="arrow-right"></em>
                 </button>
@@ -129,7 +129,7 @@
             <div class="col-md-6 mr-auto">
                 <h2>Tuyển Dụng Thông Minh</h2>
                 <p class="mb-5">Bằng việc bắt kịp xu thế phát triển của toàn cầu, hệ thống JMS ứng dụng sức mạnh của trí tuệ nhân tạo phục vụ cho bài toán tuyển dụng. Nhờ sự mạnh mẽ, chính xác và vượt trội của trí tuệ nhân tạo, công việc tuyển dụng tiêu tốn thời gian, tiền bạc sẽ được rút ngắn đáng kể. Hãy tham gia cùng chúng tôi!</p>
-                <a href="#" class="btn btn-light">
+                <a [routerLink]="['/recruiter/sign-in']" class="btn btn-light">
                     Tham Gia Ngay
                 </a>
             </div>
@@ -167,7 +167,7 @@
                                     <img src="{{URL}}/assets/images/blog2.png" class="img-fluid rounded d-block mx-auto" alt="Work 1"/>
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-primary">
+                            <a [routerLink]="['/recruiter/sign-in']" class="btn btn-primary">
                                 Đăng Tin
                             </a>
                         </div>
@@ -182,7 +182,7 @@
                                     <img src="{{URL}}/assets/images/blog3.jpeg" class="img-fluid rounded d-block mx-auto" alt="Work 1"/>
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-info">
+                            <a [routerLink]="['/recruiter/sign-in']" class="btn btn-info">
                                 Tìm Đề Xuất
                             </a>
                         </div>
@@ -197,7 +197,7 @@
                                     <img src="{{URL}}/assets/images/blog4.jpg" class="img-fluid rounded d-block mx-auto" alt="Work 1"/>
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-primary">
+                            <a [routerLink]="['/recruiter/sign-in']" class="btn btn-primary">
                                 Bắt Đầu
                             </a>
                         </div>

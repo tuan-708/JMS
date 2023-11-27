@@ -10,6 +10,7 @@ import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 import { RegisterRecruiterComponent } from './components/sign-up/sign-up.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { CompanyViewComponent } from './components/company-view/company-view.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
    { path: "sign-in", title: "Nhà tuyển dụng - Đăng nhập", component: RecruiterSignInComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
    { path: "view-jd-detail/:id", title: "Nhà tuyển dụng - Chi tiết bài tuyển dụng", component: JdDetailComponent },
    { path: "landing-page", title: "Landing Page", component: LandingPageComponent },
    { path: "view-company", title: "Nhà tuyển dụng - Thông Tin Công Ty", component: CompanyViewComponent },
+   { path: "profile", title: "Nhà tuyển dụng - Thông Tin Cá Nhân", component: ProfileComponent },
 ];
 
 @NgModule({

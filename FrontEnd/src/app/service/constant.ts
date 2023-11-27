@@ -25,7 +25,7 @@ export enum apiRecruiter {
     POST_CREATE_JD = "/api/JobDesc/new-post",
     GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",
     UPDATE_JD_BY_RECRUITER = "/api/JobDesc/update-jd",
-   
+    GET_LIST_JD_EXPIRED = "/api/Recuirter/get-all-expired-jd",
 
     //CV
     UPDATE_CV_SELECTED_STATUS = "/api/Recuirter/update-cv-selected-status",
@@ -39,6 +39,7 @@ export enum apiRecruiter {
     LOGIN_RECRUITER = "/api/Token/login-recuirter",
     GET_PROFILE_RECRUITER = "/api/Token/get-data-recruiter",
     REGISTER_ACCOUNT_RECRUITER = "/api/Registers/register-for-recuirter",
+    UPDATE_PROFILE = "/api/Recuirter/update-profile",
 
     //Company
     GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",
@@ -47,7 +48,7 @@ export enum apiRecruiter {
     UPDATE_COMPANY = "/api/Companys/update-by-recuirter",
     GET_COMPANY_PAGING = "/api/Companys/get-all",
     GET_COMPANY_BY_ID = "/api/Companys/get-by-id",
-    SEARCH_COMPANY = "/api/Companys/search"
+    SEARCH_COMPANY = "/api/Companys/search",
 
 }
 
