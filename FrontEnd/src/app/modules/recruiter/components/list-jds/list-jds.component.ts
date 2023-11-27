@@ -127,7 +127,21 @@ export class ListJdsComponent {
   }
 
   getListExpired(){
-    this.secondTabTitle = 'ĐÃ HẾT HẠN (' + this.listExpired.length + ')'
+    const recruiterId = getProfile().id;
+
+    getRequest(`${apiRecruiter.GET_LIST_JD_EXPIRED}/${recruiterId}`, AuthorizationMode.PUBLIC)
+      .then(res => {
+        console.log(res?.data);
+        this.listExpired = res?.data
+
+        for (let i = 0; i < this.listExpired.length; i++) {
+          this.listExpired[i]['isShow'] = true;
+        }
+        this.secondTabTitle = 'ĐÃ HẾT HẠN (' + this.listExpired.length + ')'
+      })
+      .catch(data => {
+        console.warn('Fail to get api list expired jd', data);
+      })
   }
 
   setTabIndexValue(evt: any) {

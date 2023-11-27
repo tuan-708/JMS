@@ -293,7 +293,11 @@ export class CreateJdComponent {
 
          postRequest(`${apiRecruiter.POST_CREATE_JD}/${this.profile.id}`, AuthorizationMode.PUBLIC, data)
             .then(res => {
-               this.showCreateJDSuccess()
+               if(res.stausCode == 201){
+                  this.showCreateJDSuccess()
+               }else{
+                  this.showCreateJDFail()
+               }
                console.log(res);
             })
             .catch(data => {

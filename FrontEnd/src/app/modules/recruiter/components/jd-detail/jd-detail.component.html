@@ -15,11 +15,13 @@
                   </div>
                   <div class="row pt-5">
                      <div class="grp-btn">
+                        <span *ngIf="!jdDetail?.isExpired">
                         <button *ngIf="!isMatching" type="button" class="btn btn-info" (click)="openMatchingDialog()">Đề
                            xuất ứng
                            viên</button>
                         <button *ngIf="isMatching" type="button" class="btn btn-info" (click)="openMatchingDialog()"
                            disabled>Đang tìm ứng viên...</button>
+                        </span>
                         <button type="button" class="btn btn-info btnSnd" (click)="openCandidateDialog(0)">Danh sách ứng viên</button>
                         <!-- <button type="button" class="btn btn-info btnSnd" (click)="openCandidateDialog(1)">Danh sách
                            người ứng tuyển</button> -->
@@ -128,12 +130,12 @@
                <div class="card-body">
                   <h5 class="mb-4 pb-2 pb-md-0 mb-md-4 info">Thông Tin Chi Tiết</h5>
                  
-                  <h6 class="content">Mô Tả Công việc</h6>
+                  <h6 class="content text-decoration-underline">Mô Tả Công việc</h6>
                   <div [innerHTML]="descriptionJd"></div>
                   <!-- <div>
                      <textarea class="rq-area" autosize readonly>{{jobDescription}}</textarea>
                   </div> -->
-                  <h6 class="content">Yêu Cầu Ứng Viên</h6>
+                  <h6 class="content text-decoration-underline">Yêu Cầu Ứng Viên</h6>
 
                   <div [innerHTML]="educationRequirementJd"></div>
 
@@ -144,7 +146,7 @@
                   <!-- <div>
                      <textarea class="rq-area" autosize readonly>{{jobRequirement}}</textarea>
                   </div> -->
-                  <h6 class="content">Quyền Lợi</h6>
+                  <h6 class="content text-decoration-underline">Quyền Lợi</h6>
 
                   <div [innerHTML]="candidateBenefitJd">
                    
