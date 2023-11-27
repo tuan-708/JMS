@@ -25,9 +25,9 @@
                 <div class="col-9">
                     <div class="textHeader" (click)="onClickView(jd)">{{jd?.title | uppercase}}</div>
                     <div class="row time">
-                        <div class="col-4 textOver">Thời gian đăng bài: 11-2-2023</div>
-                        <div class="col-4 textOver">Thời gian hạn bài đăng: 12-2-2023</div>
-                        <div class="col-4 textOver">Số lượng tuyển dụng: {{jd?.numberRequirement ? jd?.numberRequirement
+                        <div class="col-4 textOver">Ngày tạo bài: {{jd?.createdAt}}</div>
+                        <div class="col-4 textOver">Ngày hết hạn: {{jd?.expiredDate}}</div>
+                        <div class="col-4 textOver">Số lượng tuyển: {{jd?.numberRequirement ? jd?.numberRequirement
                             :
                             0}}</div>
                     </div>
@@ -46,7 +46,8 @@
                 </div>
                 <div class="col-1">
                     <div class="btn-grp">
-                        <i class="fa-solid fa-circle status"></i>
+                        <i *ngIf="!jd?.isExpired" class="fa-solid fa-circle status"></i>
+                        <i *ngIf="jd?.isExpired" class="fa-solid fa-circle status-red"></i>
                         <button style="padding-top: 40px;" (click)="onClickUpdate(jd)">
                             <i class="bi bi-pencil-square h3 " title="Chỉnh sửa bài tuyển dụng"></i>
                         </button>
