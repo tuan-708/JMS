@@ -75,6 +75,7 @@ export enum apiCandidate {
     LOGIN_CANDIDATE = "/api/Token/login-candidate",
     GET_PROFILE_USER = "/api/Token/get-data-candidate",
     FORGOT_PASSWORD_CANDIDATE = "/api/Email/forgot-candidate-password",
-    REGISTER_ACCOUNT_CANDIDATE = "/api/Registers/register-for-candidate"
+    REGISTER_ACCOUNT_CANDIDATE = "/api/Registers/register-for-candidate",
+    UPDATE_PROFILE_CANDIDATE = "/api/Candidate/update-profile"
 
 }

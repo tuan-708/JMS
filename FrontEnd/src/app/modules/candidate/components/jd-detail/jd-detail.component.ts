@@ -31,7 +31,7 @@ export class JdDetailComponent {
   profile: any
   selectedCV = "0"
 
-  converTringDateInput(str: string) {
+  convertStringDateInput(str: string) {
     const dateStr: string = str;
     const item = dateStr.split("/")
     const newDateString = item[1] + "-" + item[0] + "-" + item[2]
@@ -47,18 +47,8 @@ export class JdDetailComponent {
       id = params['id'];
     });
 
-    getRequest(`${apiCandidate.GET_ALL_CV_BY_RECRUITER_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, {})
-    .then(res => {
 
-      this.listCvs = res?.data;
-      console.log(this.listCvs);
-
-    })
-    .catch(data => {
-      console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
-    })
-
-    getRequest(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, { jdId: id })
+    getRequest(apiCandidate.GET_JD_BY_ID, AuthorizationMode.BEARER_TOKEN, { jdId: id })
       .then(res => {
         this.jd = res?.data;
         console.log(this.jd);
@@ -75,7 +65,7 @@ export class JdDetailComponent {
         this.descriptionCompany = this.jd?.companyDTO?.description
 
         const currentDate = new Date()
-        const expiredDate = this.converTringDateInput(this.jd?.expiredDate)
+        const expiredDate = this.convertStringDateInput(this.jd?.expiredDate)
         if (expiredDate < currentDate) {
           this.isExpiredDate = true
         }
@@ -83,6 +73,18 @@ export class JdDetailComponent {
       .catch(data => {
         console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
       })
+
+      getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, {})
+      .then(res => {
+  
+        this.listCvs = res?.data;
+        console.log(this.listCvs);
+  
+      })
+      .catch(data => {
+        console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
+      })
+      
   }
 
 
@@ -134,6 +136,10 @@ export class JdDetailComponent {
           }
           if (res?.statusCode == 204){
             this.showErrorDuplicate()
+            console.log(res);
+          }
+          if (res?.statusCode == 400){
+            this.showError()
             console.log(res);
           }
         })
