@@ -481,5 +481,10 @@ namespace APIServer.Services
         {
             return _recRepository.UpdateProfile(recruiterId, fullName, phoneNumber, DOB, genderId, description);
         }
+
+        public List<JobDescription> getAllExpiredJD(int? recruiterId)
+        {
+            return _jobContext.getAllExpiredJD(recruiterId);
+        }
     }
 }

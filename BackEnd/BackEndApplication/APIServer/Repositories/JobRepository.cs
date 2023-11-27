@@ -97,6 +97,18 @@ namespace APIServer.Repositories
             return rs;
         }
 
+        public List<JobDescription> getAllExpiredJD(int? recruiterId)
+        {
+            return _context.JobDescriptions
+                .Include(x => x.Recuirter)
+                .Include(x => x.Level)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.Company)
+                .Include(x => x.Category)
+                .Include(x => x.Gender)
+                .Where(x => x.RecuirterId == recruiterId && x.ExpiredDate < DateTime.Now && x.IsDelete == false).ToList();
+        }
+
         public JobDescription GetById(int id)
         {
             var rs = _context.JobDescriptions

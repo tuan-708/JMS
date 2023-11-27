@@ -6,5 +6,6 @@ namespace APIServer.IRepositories
     {
         public List<JobDescription> getAllByRecuirterId(int? recuirterId);
         public List<JobDescription> getAllByCompanyId(int? companyId);
+        public List<JobDescription> getAllExpiredJD(int? recruiterId);
     }
 }
