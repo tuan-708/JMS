@@ -218,5 +218,19 @@ namespace APIServer.Controllers.RecuirterModule
                 data = rs,
             };
         }
+
+        [HttpGet]
+        [Route("get-all-expired-jd/{recruiterId}")]
+        public BaseResponseBody<List<JobDTO>> GetAllExpiredJD(int recruiterId)
+        {
+            List<JobDescription> jobDescriptions = _recuirterService.getAllExpiredJD(recruiterId);
+            var JD = _mapper.Map<List<JobDTO>>(jobDescriptions);
+            return new BaseResponseBody<List<JobDTO>>
+            {
+                statusCode = HttpStatusCode.OK,
+                message = GlobalStrings.SUCCESSFULLY,
+                data = JD,
+            };
+        }
     }
 }
