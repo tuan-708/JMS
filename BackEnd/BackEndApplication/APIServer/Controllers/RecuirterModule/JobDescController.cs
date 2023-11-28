@@ -6,6 +6,7 @@ using APIServer.Models;
 using APIServer.Models.Entity;
 using APIServer.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("new-post/{recuirterId}")]
         public async Task<BaseResponseBody<string>> createNewJD(int recuirterId, JobDTO jobDTO)
         {
@@ -79,6 +81,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("delete-jd/{recuirterId}/{jobId}")]
         public BaseResponseBody<int> deleteJDByRecuirter(int recuirterId, int jobId)
         {
@@ -102,6 +105,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("update-jd/{recuirterId}")]
         public BaseResponseBody<int> updateByRecuirter(int recuirterId,
             [FromBody] JobDTO jobDTO)

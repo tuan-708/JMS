@@ -35,15 +35,15 @@ namespace APIServer.Common
         }
         public static DateTime ParseDateString(string dateString)
         {
-            if (DateTime.TryParseExact(dateString, "MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime result))
+            if (DateTime.TryParseExact(dateString.Trim(), "MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime result))
             {
                 return result;
             }
-            else if (DateTime.TryParseExact(dateString, "yyyy", null, System.Globalization.DateTimeStyles.None, out result))
+            else if (DateTime.TryParseExact(dateString.Trim(), "yyyy", null, System.Globalization.DateTimeStyles.None, out result))
             {
                 return result;
             }
-            else if (DateTime.TryParseExact(dateString, "M/yyyy", null, System.Globalization.DateTimeStyles.None, out result))
+            else if (DateTime.TryParseExact(dateString.Trim(), "M/yyyy", null, System.Globalization.DateTimeStyles.None, out result))
             {
                 return result;
             }
