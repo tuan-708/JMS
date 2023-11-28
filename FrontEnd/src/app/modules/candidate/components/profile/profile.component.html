@@ -41,7 +41,7 @@
             <input type="text" name="phone" value="{{ profile?.phoneNumber }}" [(ngModel)]="Phone" (ngModelChange)="validatePhone($event)"
                class="form-control form-control-md shadow-none" />
             <span *ngIf="invalidPhone" class="link-danger">
-               Tên không hợp lệ
+               Số điện thoại không hợp lệ
             </span>
          </div>
 
@@ -57,14 +57,14 @@
 
          <div class="d-flex">
             <div class="form-check ml-2">
-               <input class="form-check-input shadow-none" value="true" [checked]="profile?.isMale" type="radio" name="gender"
+               <input class="form-check-input shadow-none" [checked]="profile?.isMale === true" type="radio" name="gender" value="1"
                   id="nam">
                <label class="form-check-label" for="nam">
                   Nam
                </label>
             </div>
             <div class="form-check  ml-2">
-               <input class="form-check-input shadow-none" value="false" [checked]="!profile?.isMale" type="radio" name="gender"
+               <input class="form-check-input shadow-none" [checked]="profile?.isMale  === false" type="radio" name="gender" value="2"
                   id="nu">
                <label class="form-check-label" for="nu">
                   Nữ

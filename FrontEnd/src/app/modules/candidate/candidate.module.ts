@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CadidateRoutingModule } from './candidate-routing.module';
+import { CandidateRoutingModule } from './candidate-routing.module';
 import { CandidateComponent } from './candidate.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CandidateSignInComponent } from './components/sign-in/sign-in.component';
@@ -26,6 +26,9 @@ import { MyApplyJobComponent } from './components/my-apply-job/my-apply-job.comp
 import { ViewCvComponent } from './components/view-cv/view-cv.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileComponent } from './components/profile/profile.component';
+import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
+import { ViewNullComponent } from 'src/app/components/view-null/view-null.component';
+import { ViewLoadingComponent } from 'src/app/components/view-loading/view-loading.component';
 
 @NgModule({
    declarations: [
@@ -45,11 +48,14 @@ import { ProfileComponent } from './components/profile/profile.component';
       UpdateCvComponent,
       MyApplyJobComponent,
       ViewCvComponent,
-      ProfileComponent
+      ProfileComponent,
+      NotFoundComponent,
+      ViewNullComponent,
+      ViewLoadingComponent
    ],
    imports: [
       CommonModule,
-      CadidateRoutingModule,
+      CandidateRoutingModule,
       CKEditorModule,
       FormsModule,
       MatFormFieldModule,

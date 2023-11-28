@@ -38,6 +38,9 @@
             </div>
          </div>
          <ul id="cards">
+            <div *ngIf="!companies" style="height: 400px;">
+               <app-view-loading></app-view-loading>
+           </div>
             <li id="box1" class="list" *ngFor="let com of companies">
                <a href="/candidate/company-detail/{{com?.companyId}}" style="text-decoration: none;">
                   <div class="imageSize">

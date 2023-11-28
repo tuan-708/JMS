@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
-import { getProfile, getToken } from 'src/app/service/localstorage';
+import { getProfile, getToken, signOut } from 'src/app/service/localstorage';
 
 declare var $: any;
 @Component({
    selector: 'app-candidate-profile',
    templateUrl: './profile.component.html',
    styleUrls: ['./profile.component.css']
- })
+})
 
 export class ProfileComponent {
    profile: any
 
    FullName: any
-   Phone:any
-   Dob:any
-   Male: boolean  = true
+   Phone: any
+   Dob: any
+   Male: boolean = true
    Female: any
 
 
@@ -75,49 +76,57 @@ export class ProfileComponent {
       });
    }
 
-
-
-   constructor(private toastr: ToastrService){
-      var token = getToken()
-
-      postRequest(apiCandidate.GET_PROFILE_USER+"?token="+token, AuthorizationMode.BEARER_TOKEN, {})
-      .then(res => {
-         if(res.statusCode == 200){
-            this.profile =  res.data
-            console.log( this.profile );
-            
-            this.FullName = this.profile.fullName
-            this.Dob = this.profile.dob.split('T')[0] 
-            this.Phone = this.profile.phoneNumber
-         }
-      })
-      .catch(data => {
-         console.error(apiCandidate.GET_PROFILE_USER+"?token="+token, data);
-      })
+   showTokenExpiration() {
+      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
+         progressBar: true,
+         timeOut: 3000,
+      });
    }
 
-   SubmitForm(){
-      if(this.validAllFiled()){
-         var gender = $('input[name="gender"]').val() == true ? 1: 2
-         console.log( $('input[name="gender"]').val());
-         
-         postRequest(`${apiCandidate.UPDATE_PROFILE_CANDIDATE}?candidateId=${this.profile.id}
-         &fullName=${this.FullName}&phone=${this.Phone}&DOB=${this.Dob}&genderId=${gender}`, AuthorizationMode.BEARER_TOKEN, {})
-         .then(res => {
-            if(res.statusCode == 200){
-               this.showSuccess()
-            }
-            if(res.statusCode == 400){
-               this.showError()
-            }
-         })
-         .catch(res => {
-            this.showError()
-            console.warn(res);
 
+
+   constructor(private toastr: ToastrService, private router: Router) {
+      var token = getToken()
+
+      postRequest(apiCandidate.GET_PROFILE_USER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
+         .then(res => {
+            if (res.statusCode == 200) {
+               this.profile = res.data
+               console.log(this.profile);
+
+               this.FullName = this.profile.fullName
+               this.Dob = this.profile.dob.split('T')[0]
+               this.Phone = this.profile.phoneNumber
+            }
          })
-      }else {
+         .catch(error => {
+            this.router.navigate(['/candidate/sign-in']);
+            this.showTokenExpiration()
+            signOut()
+         })
+   }
+
+   SubmitForm() {
+      if (this.validAllFiled()) {
+         console.log($('input[name="gender"]:checked').val());
+
+         postRequest(`${apiCandidate.UPDATE_PROFILE_CANDIDATE}?candidateId=${this.profile.id}
+         &fullName=${this.FullName}&phone=${this.Phone}&DOB=${this.Dob}&genderId=${$('input[name="gender"]:checked').val()}`, AuthorizationMode.BEARER_TOKEN, {})
+            .then(res => {
+               if (res.statusCode == 200) {
+                  this.showSuccess()
+               }
+               if (res.statusCode == 400) {
+                  this.showError()
+               }
+            })
+            .catch(res => {
+               this.showError()
+               console.warn(res);
+
+            })
+      } else {
          this.showInfoInput()
-      } 
+      }
    }
 }

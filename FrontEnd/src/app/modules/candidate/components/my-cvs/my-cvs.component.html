@@ -36,6 +36,10 @@
             </div>
 
             <div class="row mt-4 d-flex blockCV">
+               <div *ngIf="!listCVs" style="height: 400px;">
+                  <app-view-loading></app-view-loading>
+               </div>
+
                <div class="col-5 itemCv" *ngFor="let cv of listCVs">
                   <div class="d-flex">
                      <div class="imageCV">

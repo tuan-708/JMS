@@ -38,4 +38,4 @@ const routes: Routes = [
    ],
    exports: [RouterModule]
 })
-export class CadidateRoutingModule { }
+export class CandidateRoutingModule { }
