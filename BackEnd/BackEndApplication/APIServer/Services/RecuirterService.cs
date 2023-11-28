@@ -254,15 +254,6 @@ namespace APIServer.Services
 
                         }
                         matchedList = matchedList.OrderByDescending(cv => cv.PercentMatching).ToList();
-                        for (int i = 0; i < matchedList.Count; i++)
-                        {
-                            using (var context = new JMSDBContext())
-                            {
-                                matchedList[i].IsMatched = true;
-                                context.CVMatchings.Add(matchedList[i]);
-                                context.SaveChanges();
-                            }
-                        }
                     }
                     return matchedList;
                 }
@@ -341,10 +332,12 @@ namespace APIServer.Services
                         CVApplied.JSONMatching = JSONrs;
                         CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs);
                         CVApplied.CurriculumVitaeId = curriculumVitae.Id;
-                        CVApplied.IsMatched = false;
+                        CVApplied.IsMatched = true;
                         CVApplied.IsApplied = false;
                         CVApplied.IsSelected = false;
                         CVApplied.IsReject = false;
+                        context.CVMatchings.Add(CVApplied);
+                        context.SaveChanges();
                         await Task.Delay(12000);
                         return CVApplied;
 

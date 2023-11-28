@@ -5,6 +5,7 @@ using APIServer.IServices;
 using APIServer.Models.Entity;
 using APIServer.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -31,6 +32,7 @@ namespace APIServer.Controllers.CandidateModule
         }
 
         [HttpGet("get-cv-by-id")]
+        [Authorize(Roles = GlobalStrings.ROLE_CANDIDATE)]
         public PagingResponseBody<List<CurriculumVitaeDTO>> getAllCV(int userId)
         {
             var rs = _mapper.Map<List<CurriculumVitaeDTO>>(_curriculumVitaeService.getAllById(userId));
@@ -45,6 +47,7 @@ namespace APIServer.Controllers.CandidateModule
         }
 
         [HttpPost("apply-cv")]
+        [Authorize(Roles = GlobalStrings.ROLE_CANDIDATE)]
         public async Task<BaseResponseBody<string>> ApplyCV(int candidateId, int CVid, int jobDescriptionId)
         {
             try
@@ -101,6 +104,7 @@ namespace APIServer.Controllers.CandidateModule
         //}
 
         [HttpGet("get-all-cv-applied")]
+        [Authorize(Roles = GlobalStrings.ROLE_CANDIDATE)]
         public PagingResponseBody<List<CVMatchingDTO>> GetCVAppliedHistory(int candidateId, int? pageIndex)
         {
             List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_candidateService.GetCVApplied(candidateId));
@@ -108,6 +112,7 @@ namespace APIServer.Controllers.CandidateModule
         }
 
         [HttpGet("get-cv-applied-detail")]
+        [Authorize(Roles = GlobalStrings.ROLE_CANDIDATE)]
         public BaseResponseBody<CVMatchingDTO> GetCVAppliedDetail(int candidateId, int CVAppliedId)
         {
             try
@@ -140,6 +145,7 @@ namespace APIServer.Controllers.CandidateModule
         }
 
         [HttpPost("update-profile")]
+        [Authorize(Roles = GlobalStrings.ROLE_CANDIDATE)]
         public BaseResponseBody<CVMatchingDTO> UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId)
         {
             try

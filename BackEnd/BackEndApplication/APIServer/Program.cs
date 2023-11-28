@@ -145,6 +145,8 @@ namespace APIServer
             builder.Services.AddTransient<IBaseRepository<Slider>, SliderRepository>();
             builder.Services.AddTransient<IEmailService, EmailService>();
             builder.Services.AddTransient<IRegisterService, RegisterService>();
+            builder.Services.AddTransient<IAdminRepository, AdminRepository>();
+            builder.Services.AddTransient<IAdminService, AdminService>();
         }
     }
 }
