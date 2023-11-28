@@ -4,9 +4,12 @@
       <div class="formUpdate">
          <h4>Chỉnh sửa thông tin cá nhân</h4>
          <div class="avatar">
-            <img src="https://ss-images.saostar.vn/wp700/pc/1655895094264/saostar-zemx7kpv9n1wnysy.jpg" alt="">
-            <div class="blockCamera">
-               <i class="fa-solid fa-camera-retro iconCamera"></i>
+            <img src="{{ profile?.avatarURL }}" alt="">
+            <div class="blockCamera" id="blockCamera">
+               <label for="avatarCv" class="iconCamera">
+                  <i class="fa-solid fa-camera-retro "></i>
+               </label>
+               <input class="file-upload-input" style="display: none;" type='file' id="avatarCv" multiple=false (change)="getFile($event);"/>
             </div>
          </div>
 

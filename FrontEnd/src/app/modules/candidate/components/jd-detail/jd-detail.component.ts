@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
-import { getProfile } from 'src/app/service/localstorage';
+import { getProfile, signOut } from 'src/app/service/localstorage';
 @Component({
   selector: 'app-jd-detail',
   templateUrl: './jd-detail.component.html',
@@ -39,7 +39,16 @@ export class JdDetailComponent {
     return originalDate
   }
 
-  constructor(private route: ActivatedRoute, private toastr: ToastrService) {
+
+  showTokenExpiration() {
+    this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+
+  constructor(private route: ActivatedRoute, private toastr: ToastrService, private router: Router) {
     this.profile = getProfile();
 
     let id: any;
@@ -47,12 +56,11 @@ export class JdDetailComponent {
       id = params['id'];
     });
 
-
     getRequest(apiCandidate.GET_JD_BY_ID, AuthorizationMode.BEARER_TOKEN, { jdId: id })
       .then(res => {
         this.jd = res?.data;
         console.log(this.jd);
-        
+
         this.JDId = this.jd.jobId
         this.jobDetail = this.jd?.jobDetail
         this.educationRequirement = this.jd?.educationRequirement
@@ -71,20 +79,24 @@ export class JdDetailComponent {
         }
       })
       .catch(data => {
-        console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
+        this.router.navigate(['/candidate/sign-in']);
+        this.showTokenExpiration()
+        signOut()
       })
 
-      getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, {})
+    getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, {})
       .then(res => {
-  
+
         this.listCvs = res?.data;
         console.log(this.listCvs);
-  
+
       })
       .catch(data => {
-        console.warn(apiCandidate.GET_JD_BY_ID, AuthorizationMode.PUBLIC, data);
+        this.router.navigate(['/candidate/sign-in']);
+        this.showTokenExpiration()
+        signOut()
       })
-      
+
   }
 
 
@@ -134,11 +146,11 @@ export class JdDetailComponent {
             this.showSuccess()
             console.log(res);
           }
-          if (res?.statusCode == 204){
+          if (res?.statusCode == 204) {
             this.showErrorDuplicate()
             console.log(res);
           }
-          if (res?.statusCode == 400){
+          if (res?.statusCode == 400) {
             this.showError()
             console.log(res);
           }

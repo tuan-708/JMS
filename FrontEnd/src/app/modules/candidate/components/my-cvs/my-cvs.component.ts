@@ -104,8 +104,6 @@ export class CandidateMyCvsComponent {
                getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
                   .then(res => {
                      this.listCVs = res?.data
-
-
                   })
                   .catch(data => {
                      console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);

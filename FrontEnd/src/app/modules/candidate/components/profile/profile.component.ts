@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { postRequest } from 'src/app/service/api-requests';
+import { postFileRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { getProfile, getToken, signOut } from 'src/app/service/localstorage';
 
@@ -83,9 +83,15 @@ export class ProfileComponent {
       });
    }
 
+   showUploadAvatarSuccess() {
+      this.toastr.success('Chỉnh sửa ảnh thành công', 'Thành công', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
 
 
-   constructor(private toastr: ToastrService, private router: Router) {
+   getProfile = () =>{
       var token = getToken()
 
       postRequest(apiCandidate.GET_PROFILE_USER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
@@ -104,6 +110,32 @@ export class ProfileComponent {
             this.showTokenExpiration()
             signOut()
          })
+   }
+
+   constructor(private toastr: ToastrService, private router: Router) {
+      this.getProfile()
+   
+   }
+
+   getFile(event: any) {
+      if ($('#avatarCv')[0].files[0]) {
+
+         let formData: FormData = new FormData();
+         let file: File = $('#avatarCv')[0].files[0];
+         formData.append('file', file, file.name);
+
+         postFileRequest(`${apiCandidate.UPDATE_AVATAR_CANDIDATE}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, formData)
+           .then(res => {
+             if(res.statusCode == 200){
+               this.showUploadAvatarSuccess()
+               this.getProfile()
+             }
+           })
+           .catch(data => {
+             this.showError()
+             console.log(data);
+           })
+       }
    }
 
    SubmitForm() {

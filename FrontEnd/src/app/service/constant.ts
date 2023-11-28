@@ -68,9 +68,9 @@ export enum apiCandidate {
     DELETE_CV_BY_ID = "/api/CVs/delete-cv",
 
     //Image
-    UPLOAD_AVATAR_CV_ID = "/api/Images/upload-imge-cv",
+    UPLOAD_AVATAR_CV_ID = "/api/Images/upload-img-cv",
     UPDATE_IMAGES_CV = "/api/Images/update-img-cv",
-
+    UPDATE_AVATAR_CANDIDATE = "/api/Images/update-img-candidate",
 
     //Profile
     LOGIN_CANDIDATE = "/api/Token/login-candidate",

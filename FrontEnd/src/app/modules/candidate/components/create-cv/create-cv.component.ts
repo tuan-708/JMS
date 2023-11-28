@@ -329,7 +329,7 @@ export class CandidateCreateCvComponent {
    }
 
 
-   SumbitCV(event: any) {
+   SubmitCV(event: any) {
       if (this.validInput()) {
          const displayEmail = $(".inputEmail")[0].value;
          const phone = $(".inputPhone")[0].value;
@@ -401,7 +401,7 @@ export class CandidateCreateCvComponent {
                            let file: File = $('#avatarCv')[0].files[0];
                            formData.append('file', file, file.name);
    
-                           postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
+                           postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.BEARER_TOKEN, formData)
                               .then(res => {
                                  console.log(res);
                               })
