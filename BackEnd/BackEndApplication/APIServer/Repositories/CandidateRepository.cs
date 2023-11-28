@@ -110,6 +110,20 @@ namespace APIServer.Repositories
             return 0;
         }
 
+        private int CalculateAge(DateTime dob)
+        {
+            DateTime currentDate = DateTime.Now;
+            int age = currentDate.Year - dob.Year;
+
+            // Kiểm tra xem đã qua sinh nhật chưa trong năm nay
+            if (currentDate.Month < dob.Month || (currentDate.Month == dob.Month && currentDate.Day < dob.Day))
+            {
+                age--;
+            }
+
+            return age;
+        }
+
         public int UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId)
         {
             Candidate candidate = context.Candidates.FirstOrDefault(x => x.Id == candidateId);
@@ -117,8 +131,11 @@ namespace APIServer.Repositories
             {
                 candidate.FullName = fullName.Trim();
                 candidate.PhoneNumber = phone.Trim();
-                candidate.DOB = DOB;
+                if (DOB != null && CalculateAge(DOB) >= 18 && CalculateAge(DOB) < 100)
+                    candidate.DOB = DOB;
+                else throw new Exception("DOB not valid");
                 candidate.GenderId = genderId;
+                candidate.LastUpdateDate = DateTime.Now;
                 return context.SaveChanges();
             }
             return 0;
