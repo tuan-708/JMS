@@ -93,7 +93,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
+        //[Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("matching-job")]
         public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId, int numberRequirement)
         {
