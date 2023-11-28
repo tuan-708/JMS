@@ -154,6 +154,10 @@
                 <div class="contentDetailLeft">
                     <section class="formListJds container">
                         <div class="listJobs">
+                            <div *ngIf="!company.jDs" style="height: 500px;">
+                                <app-view-loading></app-view-loading>
+                             </div>
+
                             <div class="itemJob" *ngFor="let jd of company.jDs">
                                 <div class="col-2">
                                     <img src="https://cdn.pixabay.com/photo/2017/03/01/18/06/satisfaction-guarantee-2109235_1280.png"
@@ -183,8 +187,7 @@
                                 </div>
                                 <div class="col-1">
                                     <div class="btn-grp">
-                                        <i class="fa-solid fa-circle status"></i>
-
+                                        <i class="fa-solid fa-circle statusActive"></i>
                                     </div>
                                 </div>
                             </div>

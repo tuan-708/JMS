@@ -217,7 +217,7 @@ body {
     padding-top: 10px;
 }
 
-.status {
+.statusActive {
     width: 10px;
     height: 10px;
     color: limegreen;

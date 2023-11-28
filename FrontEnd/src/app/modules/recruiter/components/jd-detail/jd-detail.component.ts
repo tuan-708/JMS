@@ -30,13 +30,20 @@ export class JdDetailComponent {
   isMatching: boolean = false;
   Url = environment.Url;
 
+  showTokenExpiration() {
+    this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
+       progressBar: true,
+       timeOut: 3000,
+    });
+ }
+
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private toastr: ToastrService) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
 
     //get jd detail
-    getRequest(apiRecruiter.GET_JD_BY_ID, AuthorizationMode.PUBLIC, { jdId: this.id })
+    getRequest(apiRecruiter.GET_JD_BY_ID, AuthorizationMode.BEARER_TOKEN, { jdId: this.id })
       .then(res => {
         this.jdDetail = res.data
         console.log(res);
@@ -59,7 +66,7 @@ export class JdDetailComponent {
         this.isMatching = true;
         this.showSuccess();
         // call matching api
-        postRequest(apiRecruiter.MATCHING_JOB + "?recruiterId=" + this.jdDetail.recuirterId + "&jobDescriptionId=" + this.jdDetail.jobId + "&numberRequirement=" + this.matchOption.quantity, AuthorizationMode.PUBLIC, {})
+        postRequest(apiRecruiter.MATCHING_JOB + "?recruiterId=" + this.jdDetail.recuirterId + "&jobDescriptionId=" + this.jdDetail.jobId + "&numberRequirement=" + this.matchOption.quantity, AuthorizationMode.BEARER_TOKEN, {})
           .then(res => {
             if (res.statusCode == 200) {
               this.isMatching = false;

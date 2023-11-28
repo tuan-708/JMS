@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-   backgroudSelectedLink = `${environment.Url}/assets/background-gradients/gradients-backgrounds-sexy-blue1.png`
+   backgroundSelectedLink = `${environment.Url}/assets/background-gradients/gradients-backgrounds-sexy-blue1.png`
 
    isLog:boolean = true;
    profile:any

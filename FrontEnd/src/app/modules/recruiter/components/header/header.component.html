@@ -7,9 +7,9 @@
 
        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 header-title">
          <li [class.tabSelect]="headerTitle[0].value"><a [routerLink]="['/recruiter/list-jds']" class="nav-link px-2 link-body-emphasis text-white">Bài Đăng</a></li>
-         <li *ngIf="hasCompany" [class.tabSelect]="headerTitle[1].value"><a [routerLink]="['/recruiter/view-company']" class="nav-link px-2 link-body-emphasis text-white">Công Ty</a></li>
-         <li *ngIf="!hasCompany" [class.tabSelect]="headerTitle[2].value"><a [routerLink]="['/recruiter/company-register']" class="nav-link px-2 link-body-emphasis text-white">Tạo Công Ty</a></li>
          <li [class.tabSelect]="headerTitle[3].value"><a [routerLink]="['/recruiter/create-jd']" class="nav-link px-2 link-body-emphasis text-white">Đăng Tuyển Dụng</a></li>
+         <li *ngIf="!hasCompany" [class.tabSelect]="headerTitle[2].value"><a [routerLink]="['/recruiter/company-register']" class="nav-link px-2 link-body-emphasis text-white">Tạo Công Ty</a></li>
+         <li *ngIf="hasCompany" [class.tabSelect]="headerTitle[1].value"><a [routerLink]="['/recruiter/view-company']" class="nav-link px-2 link-body-emphasis text-white">Công Ty</a></li>
        </ul>
 
        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">

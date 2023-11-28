@@ -16,12 +16,7 @@ export class CompanyDetailComponent {
   htmlContent: any;
   countJob: number = 0
 
-  constructor(private route: ActivatedRoute) {
-    let id: any;
-    this.route.params.subscribe(params => {
-      id = params['id'];
-    });
-
+  getCompanyById(id: any){
     getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC)
       .then(res => {
         if (res?.statusCode == 400) {
@@ -35,5 +30,14 @@ export class CompanyDetailComponent {
       .catch(data => {
         console.warn(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC);
       })
+  }
+
+  constructor(private route: ActivatedRoute) {
+    let id: any;
+    this.route.params.subscribe(params => {
+      id = params['id'];
+    });
+
+    this.getCompanyById(id);
   }
 }
