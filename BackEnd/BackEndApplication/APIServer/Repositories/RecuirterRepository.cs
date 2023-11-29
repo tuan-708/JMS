@@ -173,5 +173,17 @@ namespace APIServer.Repositories
             }
             return 0;
         }
+
+        public int UpdatePassword(int recruiterId, string newPassword)
+        {
+            Recuirter recruiter = context.Recuirters.FirstOrDefault(x => x.Id == recruiterId);
+            if (recruiter != null)
+            {
+                string hashPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                recruiter.Password = hashPassword;
+                return context.SaveChanges();
+            }
+            return 0;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace APIServer.IRepositories
         public int UpdatePassword(string email, string password);
         public int Register(string email, string fullName, string username, string password);
         public int UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description);
+        public int UpdatePassword(int recruiterId, string newPassword);
 
     }
 }

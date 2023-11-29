@@ -14,5 +14,6 @@ namespace APIServer.IServices
         public List<CVMatching> GetCVApplied(int candaidateId);
         public CandidateDTO getCandidateInformationByToken(string? token);
         public int UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId);
+        public int UpdatePassword(int candidateId, string oldPassword, string newPassword, string confirmPassword);
     }
 }

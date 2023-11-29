@@ -25,5 +25,6 @@ namespace APIServer.IServices
         public int UpdateCVRejectedStatus(int recruiterId, int jobDescriptionId, int CVMatchingId);
         public int UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description);
         public List<JobDescription> getAllExpiredJD(int? recruiterId);
+        public int UpdatePassword(int recruiterId, string oldPassword, string newPassword, string confirmPassword);
     }
 }
