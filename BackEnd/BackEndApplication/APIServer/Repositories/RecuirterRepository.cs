@@ -165,7 +165,7 @@ namespace APIServer.Repositories
                 recruiter.PhoneNumber = phoneNumber.Trim();
                 if (DOB != null && CalculateAge(DOB) >= 18 && CalculateAge(DOB) < 100)
                     recruiter.DOB = DOB;
-                else throw new Exception("DOB not valid");
+                else throw new Exception("DOB have to >= 18 and < 100");
                 recruiter.GenderId = genderId;
                 recruiter.Description = description;
                 recruiter.LastUpdate = DateTime.Now;
