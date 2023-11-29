@@ -94,6 +94,7 @@ namespace APIServer.Repositories
                             .Include(x => x.Role)
                             .Include(x => x.EmployeeInCompanies)
                             .Include(x => x.Company)
+                            .Include(x => x.Gender)
                             .OrderBy(x => x.FullName)
                             .ToList();
             return rs;

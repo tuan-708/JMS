@@ -22,6 +22,7 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CreatedDateDisplay, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.LastUpdateDisplay, src => src.MapFrom(src => src.LastUpdate.ToString(GlobalStrings.FORMAT_DATE)))
                 .ForMember(x => x.RoleTitle, src => src.MapFrom(src => src.Role.Name))
+                .ForMember(x => x.GenderTitle, src => src.MapFrom(src => src.Gender.Title))
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
                 host + "\\defaults\\default_avt.jpg" :
                 host + src.AvatarURL))
