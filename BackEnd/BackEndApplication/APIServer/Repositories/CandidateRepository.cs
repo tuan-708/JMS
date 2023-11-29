@@ -133,7 +133,7 @@ namespace APIServer.Repositories
                 candidate.PhoneNumber = phone.Trim();
                 if (DOB != null && CalculateAge(DOB) >= 18 && CalculateAge(DOB) < 100)
                     candidate.DOB = DOB;
-                else throw new Exception("DOB not valid");
+                else throw new Exception("DOB have to >= 18 and < 100");
                 candidate.GenderId = genderId;
                 candidate.LastUpdateDate = DateTime.Now;
                 return context.SaveChanges();
