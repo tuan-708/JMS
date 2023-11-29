@@ -479,5 +479,23 @@ namespace APIServer.Services
         {
             return _jobContext.getAllExpiredJD(recruiterId);
         }
+
+        public int UpdatePassword(int recruiterId, string oldPassword, string newPassword, string confirmPassword)
+        {
+            Recuirter recruiter = _recRepository.GetById(recruiterId);
+            if (VerifyPassword(oldPassword, recruiter.Password))
+            {
+                if (newPassword.Length < 8 || newPassword.Length > 20) return -1;
+                if (newPassword.Equals(confirmPassword))
+                    return _recRepository.UpdatePassword(recruiterId, newPassword);
+                else return -2;
+            }
+            return 0;
+        }
+
+        public bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+        }
     }
 }

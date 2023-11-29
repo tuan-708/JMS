@@ -22,6 +22,7 @@ namespace APIServer.Services
             bool isUsernameExist = _candidateRepository.IsUsernameExist(username);
             if (!isEmailExist && !isUsernameExist)
             {
+                if (password.Length < 8 || password.Length > 20) return "Password have to have number of characters >= 8 and <= 20";
                 if (password.Equals(confirmPassword))
                 {
                     int register = _candidateRepository.Register(email, fullName, username, password);
@@ -41,6 +42,7 @@ namespace APIServer.Services
             bool isUsernameExist = _recruiterRepository.IsUsernameExist(username);
             if (!isEmailExist && !isUsernameExist)
             {
+                if (password.Length < 8 || password.Length > 20) return "Password have to have number of characters >= 8 and <= 20";
                 if (password.Equals(confirmPassword))
                 {
                     int register = _recruiterRepository.Register(email, fullName, username, password);

@@ -307,5 +307,22 @@ namespace APIServer.Services
         {
             return _candidateRepository.UpdateProfile(candidateId, fullName, phone, DOB, genderId);
         }
+
+        public int UpdatePassword(int candidateId, string oldPassword, string newPassword, string confirmPassword)
+        {
+            Candidate candidate = _candidateRepository.GetById(candidateId);
+            if(VerifyPassword(oldPassword, candidate.Password))
+            {
+                if (newPassword.Length < 8 || newPassword.Length > 20) return -1;
+                if (newPassword.Equals(confirmPassword))
+                    return _candidateRepository.UpdatePassword(candidateId, newPassword);
+                else return -2;
+            }
+            return 0;
+        }
+        public bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+        }
     }
 }

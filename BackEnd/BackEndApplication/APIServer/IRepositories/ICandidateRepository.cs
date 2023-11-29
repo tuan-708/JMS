@@ -10,5 +10,6 @@ namespace APIServer.IRepositories
         public int UpdatePassword(string email, string password);
         public int Register(string email, string fullName, string username, string password);
         public int UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId);
+        public int UpdatePassword(int candidateId, string newPassword);
     }
 }

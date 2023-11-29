@@ -173,5 +173,52 @@ namespace APIServer.Controllers.CandidateModule
                 };
             }
         }
+
+        [HttpPost("change-password")]
+        [Authorize(Roles = GlobalStrings.ROLE_CANDIDATE)]
+        public BaseResponseBody<int> ChangePassword(int candidateId, string oldPassword, string newPassword, string confirmPassword)
+        {
+            try
+            {
+                int n = _candidateService.UpdatePassword(candidateId, oldPassword, newPassword, confirmPassword);
+                if (n > 0)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Change password successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else if(n == 0)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Old password is not correct",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+                else if(n == -1)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Password have to have number of characters >= 8 and <= 20",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+                else
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Password and confirmPassword are not matching",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
     }
 }
