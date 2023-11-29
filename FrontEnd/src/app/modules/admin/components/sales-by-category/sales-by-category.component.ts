@@ -36,27 +36,27 @@ export class SalesByCategoryComponent {
         {
           name: 'IT - Phần Mềm',
           y: 41.0,
-          color: '#044342',
+          color: '#1640D6',
         },
         {
           name: 'Truyền Thông - Marketing',
           y: 33.8,
-          color: '#7e0505',
+          color: '#D83F31',
         },
         {
           name: 'Kế Toán - Kiểm Toán',
           y: 6.5,
-          color: '#ed9e20',
+          color: '#FF6C22',
         },
         {
           name: 'Kinh Doanh - Bán Hàng',
           y: 15.2,
-          color: '#6920fb',
+          color: '#F266AB',
         },
         {
           name: 'Khác',
           y: 3.5,
-          color: '#121212',
+          color: '#7ED7C1',
         },
       ]
      }

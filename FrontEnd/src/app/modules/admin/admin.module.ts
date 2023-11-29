@@ -22,6 +22,10 @@ import { RecruiterComponent } from './components/recruiter/recruiter.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CustomFilterPipe } from './custom-filter-pipe.pipe';
 import { FormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CompanyViewComponent } from './components/company-view/company-view.component';
+import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 @NgModule({
    declarations: [
       AdminSettingComponent,
@@ -41,6 +45,8 @@ import { FormsModule } from '@angular/forms';
       CandidateComponent,
       RecruiterComponent,
       CustomFilterPipe,
+      CompanyViewComponent,
+      JdDetailComponent,
    ],
    imports: [
       CommonModule,
@@ -48,6 +54,8 @@ import { FormsModule } from '@angular/forms';
       ChartModule,
       MatListModule,
       FormsModule,
+      MatPaginatorModule,
+      MatDialogModule,
    ]
 })
 export class AdminModule { }

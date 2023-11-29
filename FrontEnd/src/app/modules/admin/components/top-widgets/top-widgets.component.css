@@ -13,20 +13,20 @@
       align-items: center;
       padding: 20px;
       &.green {
-        /* background-color: rgb(4, 67, 66); */
-        background: linear-gradient(109.6deg, rgb(13, 107, 76) 11.2%, rgb(44, 51, 59) 91.3%);
+        background-color: #59CE8F;
+        /* background: linear-gradient(109.6deg, rgb(13, 107, 76) 11.2%, rgb(44, 51, 59) 91.3%); */
       }
       &.yellow {
-        /* background-color: rgb(237, 158, 32); */
-        background: linear-gradient(109.6deg, rgb(199, 140, 72) 11.2%, rgb(255, 176, 17) 91.3%);
+        background-color: #F8485E;
+        /* background: linear-gradient(109.6deg, rgb(199, 140, 72) 11.2%, rgb(255, 176, 17) 91.3%); */
       }
       &.red {
-        /* background-color: rgb(126, 5, 5); */
-        background: linear-gradient(109.6deg, rgb(193, 34, 68) 11.2%, rgb(143, 10, 10) 91.3%);
+        background-color: #FFC947;
+        /* background: linear-gradient(109.6deg, rgb(193, 34, 68) 11.2%, rgb(143, 10, 10) 91.3%); */
       }
       &.blue {
-        /* background-color: rgb(105, 32, 251); */
-        background: linear-gradient(109.6deg, rgb(98, 122, 200) 11.2%, rgb(51, 5, 178) 91.3%);
+        background-color: #3AB0FF;
+        /* background: linear-gradient(109.6deg, rgb(98, 122, 200) 11.2%, rgb(51, 5, 178) 91.3%); */
       }
       
       .icon {

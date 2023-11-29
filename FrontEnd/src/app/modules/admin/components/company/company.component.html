@@ -2,23 +2,25 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="input-group mb-3">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      Filter
+                <!-- <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Filter
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                </div> -->
+                <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       <li><a class="dropdown-item">Tên Công ty</a></li>
                       <li><a class="dropdown-item">Địa Chỉ</a></li>
                       <li><a class="dropdown-item">Lĩnh Vực</a></li>
                       <li><a class="dropdown-item">Quản Trị Viên</a></li>
-                    </ul>
-                  </div>
-                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText">
+                    </ul> -->
+                <input type="text" class="form-control" placeholder="Nhập thông tin công ty..." [(ngModel)]="searchText"
+                    (input)="onInputChange()">
                 <!-- <div class="search-hero">
                     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Start searching for a hero by id or name or country">
                   </div> -->
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">Search</button>
+                    <button class="btn btn-primary" type="button">Tìm kiếm</button>
                 </div>
             </div>
         </div>
@@ -41,7 +43,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let elm of companies | CustomFilterPipePipe: searchText;  let i = index">
+            <tr *ngFor="let elm of listDisplay | CustomFilterPipePipe: searchText;  let i = index">
                 <td>{{i+1}}</td>
                 <td>{{elm.companyId}}</td>
                 <td>{{elm.companyName}}</td>
@@ -49,13 +51,18 @@
                 <td>{{elm.categoryName}}</td>
                 <td>{{elm.dateCreatedDisplay}}</td>
                 <td>{{elm.recuirterFounder}}</td>
-                <td><button [ngClass]="{ 'btn': true, 'btn-success': elm.totalPost }" >Active</button></td>
+                <td><button [ngClass]="{ 'btn': true, 'btn-success': elm.totalPost }">Active</button></td>
                 <td>
-                    <button class="btn" title="Xem Chi Tiết"><i class="bi bi-eye"></i></button>
-                    <button class="btn" title="Chỉnh Sửa"><i class="bi bi-pencil-square"></i></button>
-                    <button class="btn" title="Xóa"><i class="bi bi-person-x"></i></button>
+                    <button class="btn" title="Xem Chi Tiết" (click)="openCompanyDialog(elm.companyId)"><i class="bi bi-eye"></i></button>
+                    <!-- <button class="btn" title="Chỉnh Sửa"><i class="bi bi-pencil-square"></i></button> -->
+                    <!-- <button class="btn" title="Xóa"><i class="bi bi-person-x"></i></button> -->
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+<div>
+    <mat-paginator class="col-7" *ngIf="companies != null" [length]="companies?.length" [pageSize]="pageSize"
+        [showFirstLastButtons]="true" [hidePageSize]="true" [pageIndex]="pageIndex"
+        (page)="handlePage($event)"></mat-paginator>
 </div>
