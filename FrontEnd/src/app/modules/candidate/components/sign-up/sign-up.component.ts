@@ -45,6 +45,10 @@ export class CandidateRegisterComponent {
 
    validatePassword(event: any) {
       this.Password = event
+      if(this.Password.length < 8){
+         this.invalidPassword = true
+         return
+      }
 
       const passwordRegex: RegExp = /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/;
       this.invalidPassword = !passwordRegex.test(this.Password);

@@ -78,13 +78,10 @@ export class JdDetailComponent {
           this.isExpiredDate = true
         }
       })
-      .catch(data => {
-        this.router.navigate(['/candidate/sign-in']);
-        this.showTokenExpiration()
-        signOut()
+      .catch(error => {
       })
 
-    getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, {})
+    getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
       .then(res => {
 
         this.listCvs = res?.data;
@@ -92,9 +89,6 @@ export class JdDetailComponent {
 
       })
       .catch(data => {
-        this.router.navigate(['/candidate/sign-in']);
-        this.showTokenExpiration()
-        signOut()
       })
 
   }
@@ -140,7 +134,7 @@ export class JdDetailComponent {
 
   submitCv(event: any) {
     if (this.validateSubmitCv()) {
-      postRequest(`${apiCandidate.CANDIDATE_APPLYJOB}?candidateId=${this.profile.id}&CVid=${this.selectedCV}&jobDescriptionId=${this.JDId}`, AuthorizationMode.PUBLIC, {})
+      postRequest(`${apiCandidate.CANDIDATE_APPLYJOB}?candidateId=${this.profile.id}&CVid=${this.selectedCV}&jobDescriptionId=${this.JDId}`, AuthorizationMode.BEARER_TOKEN, {})
         .then(res => {
           if (res?.statusCode == 200) {
             this.showSuccess()

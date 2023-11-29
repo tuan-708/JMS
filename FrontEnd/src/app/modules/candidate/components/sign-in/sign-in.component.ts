@@ -18,14 +18,14 @@ export class CandidateSignInComponent {
    password: any;
 
    showSuccess() {
-      this.toastr.success('Đăng nhập thành công', 'Thành công',  {
+      this.toastr.success('Đăng nhập thành công', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showError() {
-      this.toastr.error('Tài khoản hoặc mật khẩu không chính xác','Thất bại',  {
+      this.toastr.error('Tài khoản hoặc mật khẩu không chính xác', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
       });
@@ -33,44 +33,54 @@ export class CandidateSignInComponent {
 
 
    constructor(private toastr: ToastrService, private router: Router) {
-      // deleteToken()
    }
 
    signIn(even: any) {
+      this.loginAccount()
+   }
+
+   loginAccount() {
       const data = {
          username: this.username,
          password: this.password
       }
+
       postRequest(apiCandidate.LOGIN_CANDIDATE, AuthorizationMode.PUBLIC, data)
          .then(res => {
             if (res?.statusCode == 200) {
                saveToken(res.data)
 
-               postRequest(apiCandidate.GET_PROFILE_USER+"?token="+res.data, AuthorizationMode.BEARER_TOKEN, {})
-               .then(res => {
-                  if(res.statusCode == 200){
-
-                     setTimeout(() => {
-                        saveItem("profile", res.data);
-                      }, 1000);
-                      
-                      setTimeout(() => {
-                        this.showSuccess()
-                        this.router.navigate(['/candidate/']);
-                      }, 1000);
-                  }
-               })
-               .catch(data => {
-                  this.showError()
-                  console.error(apiCandidate.GET_PROFILE_USER+"?token="+res.data, data);
-               })
-            }else{
+               this.getProfileUser(res?.data)
+          
+            }else {
                this.showError()
             }
          })
          .catch(data => {
             this.showError()
-            console.error(apiCandidate.LOGIN_CANDIDATE, data);
+            console.error(apiCandidate.LOGIN_CANDIDATE);
          })
    }
+
+   getProfileUser(token: string){
+      postRequest(apiCandidate.GET_PROFILE_USER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
+      .then(res => {
+         if (res.statusCode == 200) {
+
+            setTimeout(() => {
+               saveItem("profile", res.data);
+            }, 1000);
+
+            setTimeout(() => {
+               this.showSuccess()
+               this.router.navigate(['/candidate/']);
+            }, 1000);
+         }
+      })
+      .catch(data => {
+         this.showError()
+         console.error(apiCandidate.GET_PROFILE_USER);
+      })
+   }
+
 }

@@ -92,6 +92,7 @@ export class UpdateCvComponent {
         this.cv = res.data
 
         console.log(this.cv);
+        
 
         this.hideImage = "none"
         this.displayImage = "block"
@@ -103,20 +104,22 @@ export class UpdateCvComponent {
         this.theme = this.cv.theme
 
         this.selectedGender = this.cv.genderId.toString();
-        this.selectCategory = this.categories.filter((item: any) => item.categoryName == this.cv.categoryName)[0].id
-        this.selectLevel = this.levels.filter((item: any) => item.title == this.cv.levelTitle)[0].id
-        this.selectEmploymentTypes = this.employmentTypes.filter((item: any) => item.title == this.cv.employmentTypeName)[0].id
-
         this.colorLeftHeader = themeList[this.cv.theme].colorLeftHeader
         this.colorRightHeader = themeList[this.cv.theme].colorRightHeader
         this.colorLeftInput = themeList[this.cv.theme].colorLeftInput
         this.ThemStyle = themeList[this.cv.theme].ThemStyle
         this.backgroundSelectedLink = themeList[this.cv.theme].backgroundSelectedLink
+
+        this.selectCategory = this.cv.categoryName != null ? this.categories.filter((item: any) => item.categoryName == this.cv.categoryName)[0]?.id : this.selectCategory = "0"
+        this.selectLevel = this.cv.levelTitle != null ? this.levels.filter((item: any) => item.title == this.cv.levelTitle)[0]?.id : this.selectLevel = "0"
+        this.selectEmploymentTypes = this.cv.employmentTypeName != null ? this.employmentTypes.filter((item: any) => item.title == this.cv.employmentTypeName)[0]?.id : this.selectEmploymentTypes = "0"
       })
       .catch(data => {
-        this.router.navigate(['/candidate/sign-in']);
-        this.showTokenExpiration()
-        signOut()
+        console.log(data);
+
+        // this.router.navigate(['/candidate/sign-in']);
+        // this.showTokenExpiration()
+        // signOut()
       })
   }
 

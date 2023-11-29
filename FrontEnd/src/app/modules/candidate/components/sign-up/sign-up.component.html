@@ -11,27 +11,27 @@
                <!-- Full name input -->
                <div class="form-label-group mb-4 mt-3">
                   <label class="form-label" for="name">Họ và Tên</label><span class="link-danger"> *</span>
-                  <input type="text" id="name" (ngModelChange)="validateFullName($event)" [(ngModel)]="FullName"
+                  <input type="text" id="name" required maxlength="35" (ngModelChange)="validateFullName($event)" [(ngModel)]="FullName"
                      class="form-control form-control-md shadow-none" placeholder="" />
                   <span *ngIf="invalidFullName" class="link-danger">
                      Vui lòng nhập tên hợp lệ.
                   </span>
                </div>
 
-               <!-- UserNam input -->
+               <!-- UserName input -->
                <div class="form-label-group mb-4 mt-3">
                   <label class="form-label" for="username">Tên đăng nhập</label><span class="link-danger"> *</span>
-                  <input type="text" id="username" (ngModelChange)="validateUserName($event)" [(ngModel)]="UserName"
+                  <input type="text" id="username" maxlength="35" (ngModelChange)="validateUserName($event)" [(ngModel)]="UserName"
                      class="form-control form-control-md shadow-none" placeholder="" />
                   <span *ngIf="invalidUserName" class="link-danger">
-                     Tên đăng nhập phải chứa ít nhất 6 ký tự
+                     Tên đăng nhập phải chứa ít nhất 6 ký tự và không chứa khoảng trắng
                   </span>
                </div>
 
                <!-- Email input -->
                <div class="form-label-group mb-4 mt-3">
                   <label class="form-label" for="email">Email</label><span class="link-danger"> *</span>
-                  <input type="email" id="email" (ngModelChange)="validateEmail($event)" [(ngModel)]="Email"
+                  <input type="email" id="email" maxlength="35" (ngModelChange)="validateEmail($event)" [(ngModel)]="Email"
                      class="form-control form-control-md shadow-none" placeholder="" />
                   <span *ngIf="invalidEmail" class="link-danger">
                      Email không hợp lệ
@@ -41,11 +41,11 @@
                <!-- Password input -->
                <div class="form-label-group mb-4 mt-3">
                   <label class="form-label" for="password">Mật khẩu</label><span class="link-danger"> *</span>
-                  <input type="password" id="password" (ngModelChange)="validatePassword($event)" [(ngModel)]="Password"
+                  <input type="password" id="password" required maxlength="35" (ngModelChange)="validatePassword($event)" [(ngModel)]="Password"
                      class="form-control form-control-md shadow-none" placeholder="" />
 
                   <span *ngIf="invalidPassword" class="link-danger">
-                     Mật khẩu phải chứ ít nhất 6 ký tự, Trong đó phải có ít nhất 1 ký tự viết hoa và ký tự đặc biệt
+                     Mật khẩu phải chứ ít nhất 8 ký tự, Trong đó phải có ít nhất 1 ký tự viết hoa và ký tự đặc biệt
                   </span>
                </div>
 
@@ -53,7 +53,7 @@
                <div class="form-label-group mb-4 mt-3">
                   <label class="form-label" for="rePassword">Xác nhận mật khẩu</label><span class="link-danger">
                      *</span>
-                  <input type="password" id="rePassword" (ngModelChange)="validateRePassword($event)" [(ngModel)]="rePassword"
+                  <input type="password" id="rePassword" maxlength="35" (ngModelChange)="validateRePassword($event)" [(ngModel)]="rePassword"
                      class="form-control form-control-md shadow-none" placeholder="" />
 
                   <span *ngIf="invalidRePassword" class="link-danger">

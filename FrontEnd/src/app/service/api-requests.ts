@@ -15,14 +15,14 @@ export const convertPayloadToQueryString = (payload: any) => {
     }).join('&');
 };
 
-async function getHeader(authorizationMode: AuthorizationMode, customHeaders?: Record<string, unknown>){
+async function getHeader(authorizationMode: AuthorizationMode, customHeaders?: Record<string, unknown>) {
     const header = customHeaders || {};
 
     if (authorizationMode === AuthorizationMode.BEARER_TOKEN) {
-        try{
+        try {
             var accessToken = localStorage.getItem("token");
             header['Authorization'] = `Bearer ${accessToken}`;
-        }catch{
+        } catch {
         }
     }
     return {
@@ -40,18 +40,25 @@ export async function getRequest(url: string, authorizationMode: AuthorizationMo
 
     const headers = await getHeader(authorizationMode)
 
-    const response = await fetch(fullUrl, {
-        method: "GET",
-        cache: "no-cache",
-        headers: headers,
-    })
-    const res = await response.json();
-    return res
+    try {
+        const response = await fetch(fullUrl, {
+            method: "GET",
+            cache: "no-cache",
+            headers: headers,
+        })
+        const res = await response.json();
+        return res
+    } catch (ex) {
+        console.log(ex);
+
+    }
+
 }
 
-export async function postRequest(url: string, authorizationMode: AuthorizationMode, data: any)  {
-    
+export async function postRequest(url: string, authorizationMode: AuthorizationMode, data: any) {
+
     const headers = await getHeader(authorizationMode)
+
 
     const response = await fetch(`${apiURL}${url}`, {
         method: "POST",
@@ -59,8 +66,11 @@ export async function postRequest(url: string, authorizationMode: AuthorizationM
         headers: headers,
         body: JSON.stringify(data),
     })
+    
     const res = await response.json();
     return res
+
+
 }
 
 export async function postFileRequest(url: string, authorizationMode: AuthorizationMode, data: FormData) {
