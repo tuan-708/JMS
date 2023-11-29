@@ -245,11 +245,11 @@ namespace APIServer.Controllers.RecuirterModule
 
         [HttpPost("change-password")]
         [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
-        public BaseResponseBody<int> ChangePassword(int candidateId, string oldPassword, string newPassword, string confirmPassword)
+        public BaseResponseBody<int> ChangePassword(int recruiterId, string oldPassword, string newPassword, string confirmPassword)
         {
             try
             {
-                int n = _recuirterService.UpdatePassword(candidateId, oldPassword, newPassword, confirmPassword);
+                int n = _recuirterService.UpdatePassword(recruiterId, oldPassword, newPassword, confirmPassword);
                 if (n > 0)
                     return new BaseResponseBody<int>
                     {
