@@ -1,7 +1,18 @@
 <div class="header">
     <div class="logo">JOB MATCHING SYSTEM</div>
-    <div class="user">
+    <!-- <div class="user">
         <div class="user-name">Nguyen Hoa</div>
         <div class="user-image">NH</div>
-    </div>
+    </div> -->
+    <div class="dropdown text-end">
+        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src={{profile?.avatarURL}} alt="mdo" width="32" height="32" class="rounded-circle"> Nguyen Hoa
+        </a>
+        <ul class="dropdown-menu text-small">
+          <li><a class="dropdown-item" [routerLink]="['/recruiter/profile']">Thông tin cá nhân</a></li>
+          <li><a class="dropdown-item" href="">Cài đặt</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" (click)="signOut()">Đăng xuất</a></li>
+        </ul>
+      </div>
 </div>

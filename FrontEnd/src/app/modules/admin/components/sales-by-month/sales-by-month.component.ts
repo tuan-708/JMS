@@ -41,13 +41,13 @@ export class SalesByMonthComponent{
       {
         name: "Đăng Ký Ứng Tuyển",
         type: "line",
-        color: '#044342',
+        color: '#525FE1',
         data: [70, 69, 95, 145, 182, 215, 252, 265, 233, 183, 139, 196]
       },
       {
         name: 'CV Được Tạo',
         type: 'line',
-        color: '#7e0505',
+        color: '#FE0000',
         data: [
           47, 52, 44, 35, 58, 69, 32, 53, 71, 82, 99, 159
         ]
@@ -55,7 +55,7 @@ export class SalesByMonthComponent{
       {
         name: 'Bài Tuyển Dụng Mới',
         type: 'line',
-        color: '#ed9e20',
+        color: '#F07DEA',
         data: [
           17, 22, 14, 25, 18, 19, 22, 43, 11, 32, 29, 59
         ]

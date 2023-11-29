@@ -80,3 +80,14 @@ export enum apiCandidate {
     UPDATE_PROFILE_CANDIDATE = "/api/Candidate/update-profile"
 
 }
+
+export enum apiAdmin{
+    GET_ALL_COMPANY = '/api/Admin/get-all-companies',
+    GET_ALL_RECRUITER = '/api/Admin/get-all-recruiters',
+    GET_ALL_CANDIDATE = '/api/Admin/get-all-candidates',
+    GET_COMPANY_BY_ID = '/api/Admin/get-company-by-id',
+    GET_RECRUITER_BY_ID = '/api/Admin/get-recruiter-by-id',
+    GET_CANDIDATE_BY_ID = '/api/Admin/get-candidate-by-id',
+    GET_JD_BY_ID = '/api/Admin/get-jd-by-id',
+    GET_ALL_CV_BY_ID = '/api/Admin/get-all-cv-by-candidateid?candidateId=',
+}
