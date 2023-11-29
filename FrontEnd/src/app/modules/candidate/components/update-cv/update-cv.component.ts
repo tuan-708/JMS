@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { themeList } from './constant';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { getRequest, postFileRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/constant';
 import { ToastrService } from 'ngx-toastr';
-import { getProfile, isLogin } from 'src/app/service/localstorage';
+import { getProfile, isLogin, signOut } from 'src/app/service/localstorage';
 
 declare var $: any;
 
@@ -14,6 +14,7 @@ declare var $: any;
   templateUrl: './update-cv.component.html',
   styleUrls: ['./update-cv.component.css']
 })
+
 export class UpdateCvComponent {
   categories: any
   levels: any
@@ -48,8 +49,14 @@ export class UpdateCvComponent {
     return d[2] + "-" + d[1] + "-" + d[0]
   }
 
+  showTokenExpiration() {
+    this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
 
-  constructor(private route: ActivatedRoute, private toastr: ToastrService) {
+  constructor(private route: ActivatedRoute, private toastr: ToastrService, private router: Router) {
     this.profile = getProfile()
 
     this.route.params.subscribe(params => {
@@ -86,6 +93,11 @@ export class UpdateCvComponent {
 
         console.log(this.cv);
 
+        this.hideImage = "none"
+        this.displayImage = "block"
+        this.displayChange = "block"
+        this.fileSrc = this.cv.avatarURL
+
 
         this.cv.dob = this.convertDate(this.cv.dob)
         this.theme = this.cv.theme
@@ -100,15 +112,11 @@ export class UpdateCvComponent {
         this.colorLeftInput = themeList[this.cv.theme].colorLeftInput
         this.ThemStyle = themeList[this.cv.theme].ThemStyle
         this.backgroundSelectedLink = themeList[this.cv.theme].backgroundSelectedLink
-
-        this.hideImage = "none"
-        this.displayImage = "block"
-        this.displayChange = "block"
-        this.fileSrc = this.cv.avatarURL
-
       })
       .catch(data => {
-        console.warn(apiCandidate.GET_CV_CANDIDATE_BY_ID, data);
+        this.router.navigate(['/candidate/sign-in']);
+        this.showTokenExpiration()
+        signOut()
       })
   }
 
@@ -291,14 +299,14 @@ export class UpdateCvComponent {
   }
 
   showSuccess() {
-    this.toastr.success('Chỉnh sửa hồ sơ thành công!', 'Thành công',  {
+    this.toastr.success('Chỉnh sửa hồ sơ thành công!', 'Thành công', {
       progressBar: true,
       timeOut: 3000,
     });
   }
 
   showError() {
-    this.toastr.error('Đã có lỗi xảy ra, xem lại trường dữ liệu!', 'Thất bại',{
+    this.toastr.error('Đã có lỗi xảy ra, xem lại trường dữ liệu!', 'Thất bại', {
       progressBar: true,
       timeOut: 3000,
     });
@@ -356,7 +364,7 @@ export class UpdateCvComponent {
     return valid
   }
 
-  SumbitCV(event: any) {
+  SubmitCV(event: any) {
     if (this.validInput()) {
       const displayEmail = $(".inputEmail")[0].value;
       const phone = $(".inputPhone")[0].value;
@@ -416,38 +424,34 @@ export class UpdateCvComponent {
 
       console.log(data);
 
+      postRequest(`${apiCandidate.UPDATE_CV_BY_CANDIDATE_ID}?candidateId=${this.profile.id}&cvId=${this.id}`, AuthorizationMode.BEARER_TOKEN, data)
+        .then(res => {
 
-      const isLog = isLogin();
-      if (isLog) {
-        console.log(this.id.toString())
-        postRequest(`${apiCandidate.UPDATE_CV_BY_CANDIDATE_ID}?candidateId=${this.profile.id}&cvId=${this.id}`, AuthorizationMode.BEARER_TOKEN, data)
-          .then(res => {
+          const cvIdCreated = res?.data
+          if (this.onChangeAvatar) {
+            if ($('#avatarCv')[0].files[0]) {
 
-            const cvIdCreated = res?.data
-            if (this.onChangeAvatar) {
-              if ($('#avatarCv')[0].files[0]) {
+              let formData: FormData = new FormData();
+              let file: File = $('#avatarCv')[0].files[0];
+              formData.append('file', file, file.name);
 
-                let formData: FormData = new FormData();
-                let file: File = $('#avatarCv')[0].files[0];
-                formData.append('file', file, file.name);
-
-                postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${this.id}`, AuthorizationMode.PUBLIC, formData)
-                  .then(res => {
-                    console.log(res);
-                  })
-                  .catch(data => {
-                    this.showError()
-                    console.log(data);
-                  })
-              }
+              postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${this.id}`, AuthorizationMode.BEARER_TOKEN, formData)
+                .then(res => {
+                  console.log(res);
+                })
+                .catch(data => {
+                  this.showError()
+                  console.log(data);
+                })
             }
-            this.showSuccess()
-          })
-          .catch(data => {
-            this.showError()
-            console.log(data);
-          })
-      }
+          }
+          this.showSuccess()
+        })
+        .catch(data => {
+          this.showError()
+          console.log(data);
+        })
+
     }
   }
 

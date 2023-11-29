@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { getProfile } from 'src/app/service/localstorage';
+import { getProfile, signOut } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'app-create-jd',
@@ -21,7 +22,7 @@ export class CreateJdComponent {
    genders: any;
    profile: any;
 
-   constructor(private toastr: ToastrService) {
+   constructor(private toastr: ToastrService, private router: Router) {
       this.profile = getProfile();
 
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
@@ -232,6 +233,13 @@ export class CreateJdComponent {
       });
    }
 
+   showTokenExpiration() {
+      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
 
    submitButtonClicked() {
       if (this.titleRq.valid && this.numberRequiredRq.valid &&
@@ -291,14 +299,19 @@ export class CreateJdComponent {
             },
          }
 
-         postRequest(`${apiRecruiter.POST_CREATE_JD}/${this.profile.id}`, AuthorizationMode.PUBLIC, data)
+         postRequest(`${apiRecruiter.POST_CREATE_JD}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
-               this.showCreateJDSuccess()
+               if(res.stausCode == 201){
+                  this.showCreateJDSuccess()
+               }else{
+                  this.showCreateJDFail()
+               }
                console.log(res);
             })
             .catch(data => {
-               this.showCreateJDFail()
-               console.log(data);
+               this.router.navigate(['/recruiter/sign-in']);
+               this.showTokenExpiration()
+               signOut()
             })
 
 

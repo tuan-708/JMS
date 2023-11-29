@@ -16,22 +16,28 @@ export class CompanyDetailComponent {
   htmlContent: any;
   countJob: number = 0
 
+  getCompanyById(id: any){
+    getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC)
+      .then(res => {
+        if (res?.statusCode == 400) {
+          this.company = res?.data
+          this.countJob = this.company?.jDs.length
+          this.htmlContent = this.company?.description;
+        }
+        console.log(res);
+        
+      })
+      .catch(data => {
+        console.warn(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC);
+      })
+  }
+
   constructor(private route: ActivatedRoute) {
     let id: any;
     this.route.params.subscribe(params => {
       id = params['id'];
     });
 
-    getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC)
-      .then(res => {
-        if (res?.statusCode == 200) {
-          this.company = res?.data
-          this.countJob = this.company?.jDs.length
-          this.htmlContent = this.company?.description;
-        }
-      })
-      .catch(data => {
-        console.warn(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC);
-      })
+    this.getCompanyById(id);
   }
 }

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormControl, Validators } from '@angular/forms';
-import { getRequest, postRequest, postFileRequest} from 'src/app/service/api-requests';
+import { getRequest, postRequest, postFileRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { getProfile } from 'src/app/service/localstorage';
+import { getProfile, signOut } from 'src/app/service/localstorage';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'app-company-update',
@@ -17,15 +18,17 @@ export class CompanyUpdateComponent {
    displayImageBackground = "none"
    imageAvatarSrc: any;
    imageBackgroundSrc: any;
-   fileSrc:any;
+   fileSrc: any;
    public Editor = ClassicEditor;
    categories: any;
-   sizes = ["1 - 100 người","101 - 500 người","Trên 500 người"]
+   sizes = ["1 - 100 người", "101 - 500 người", "Trên 500 người"]
    company: any;
    companyName: any
    profile: any
 
-   constructor(private toastr: ToastrService) {
+
+
+   constructor(private toastr: ToastrService, private router: Router) {
       this.profile = getProfile();
 
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
@@ -40,16 +43,16 @@ export class CompanyUpdateComponent {
          .then(res => {
             this.company = res?.data
             console.log(this.company);
-            
+
             this.nameRq.setValue(this.company?.companyName)
             this.emailRq.setValue(this.company?.email)
             this.taxNumRq.setValue(this.company?.tax)
             this.taxNumRq.setValue(this.company?.tax)
             this.websiteRq.setValue(this.company?.webURL)
-            const selectCategoty =  this.categories.find((cate:any) => cate?.categoryName === this.company?.categoryName)
+            const selectCategoty = this.categories.find((cate: any) => cate?.categoryName === this.company?.categoryName)
             this.categoryRq.setValue(selectCategoty?.id.toString())
-            const selectSize =  this.sizes.find((e:any) => e == this.company?.size)
-            this.sizeRq.setValue(selectSize?selectSize:"")
+            const selectSize = this.sizes.find((e: any) => e == this.company?.size)
+            this.sizeRq.setValue(selectSize ? selectSize : "")
             this.yearOfEstablishmentRq.setValue(this.company?.yearOfEstablishment)
             this.phoneRq.setValue(this.company?.phone)
             this.addressRq.setValue(this.company?.address)
@@ -62,7 +65,8 @@ export class CompanyUpdateComponent {
 
          })
          .catch(data => {
-            console.warn(apiRecruiter.GET_COMPANY_BY_ID, data);
+            console.log(data);
+
          })
    }
 
@@ -70,7 +74,7 @@ export class CompanyUpdateComponent {
    emailRq = new FormControl('', [Validators.required, Validators.email]);
    taxNumRq = new FormControl('', [Validators.required]);
    websiteRq = new FormControl('');
-   categoryRq = new FormControl('',[Validators.required, Validators.min(1)]);
+   categoryRq = new FormControl('', [Validators.required, Validators.min(1)]);
    sizeRq = new FormControl('', [Validators.required, Validators.min(1)]);
    addressRq = new FormControl('', [Validators.required]);
    yearOfEstablishmentRq = new FormControl('');
@@ -146,6 +150,14 @@ export class CompanyUpdateComponent {
       });
    }
 
+   showTokenExpiration() {
+      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+
    submitButtonClicked() {
 
       if (this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid
@@ -179,14 +191,16 @@ export class CompanyUpdateComponent {
             yearOfEstablishment: yearOfEstablishment
          }
 
-         postRequest(apiRecruiter.UPDATE_COMPANY + "/" + recuirterFounder, AuthorizationMode.PUBLIC, data)
+         postRequest(apiRecruiter.UPDATE_COMPANY + "/" + recuirterFounder, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
                this.showUpdateCompanySuccess()
                console.log(res);
             })
             .catch(data => {
                this.showUpdateCompanyFail()
-               console.log(data);
+               this.router.navigate(['/recruiter/sign-in']);
+               this.showTokenExpiration()
+               signOut()
             })
       }
 
@@ -205,7 +219,7 @@ export class CompanyUpdateComponent {
    }
 
    showChangeAvatarSuccess() {
-      this.toastr.success( 'Cập nhật logo thành công', 'Thành công',{
+      this.toastr.success('Cập nhật logo thành công', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
@@ -228,7 +242,7 @@ export class CompanyUpdateComponent {
          }
 
          console.log(formData);
-         
+
 
          postFileRequest(`${apiRecruiter.UPDATE_IMAGE_COMPANY_AVATAR}/${this.profile.id}/${this.profile.companyId}`, AuthorizationMode.PUBLIC, formData)
             .then(res => {
@@ -237,7 +251,7 @@ export class CompanyUpdateComponent {
             .catch(data => {
                console.log(data);
             })
-         
+
 
          this.displayImageAvatar = "block"
 
@@ -251,7 +265,7 @@ export class CompanyUpdateComponent {
       }
    }
 
-   
+
    showChangeBackgroundSuccess() {
       this.toastr.success('Cập nhật ảnh nền thành công', 'Thành công', {
          progressBar: true,

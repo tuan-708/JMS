@@ -26,10 +26,13 @@
                   <div style="align-self: center; margin-left: 15px;">Xin chào {{ profile?.fullName }} !</div>
 
                   <div class="profile">
-                     <div class="itemProfile">
+
+                     <div class="itemProfile" [routerLink]="['/candidate/profile']">
                         <i class="fa-solid fa-user"></i>
                         <span style="margin-left: 15px;">Thông tin cá nhân</span>
                      </div>
+
+
                      <div class="line"></div>
                      <button type="button" class="btn btn-info w-100" [routerLink]="['/candidate/sign-out/']"
                         (click)="signOut()">Đăng xuất</button>

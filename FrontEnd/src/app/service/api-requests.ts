@@ -38,16 +38,15 @@ export async function getRequest(url: string, authorizationMode: AuthorizationMo
 
     const fullUrl = query ? `${apiURL}${url}?${query}` : `${apiURL}${url}`;
 
+    const headers = await getHeader(authorizationMode)
+
     const response = await fetch(fullUrl, {
         method: "GET",
         cache: "no-cache",
-        headers: {
-            'Accept': 'text/plain',
-            'Content-Type': 'application/json',
-        }
+        headers: headers,
     })
-    const datas = await response.json();
-    return datas
+    const res = await response.json();
+    return res
 }
 
 export async function postRequest(url: string, authorizationMode: AuthorizationMode, data: any)  {
@@ -60,8 +59,8 @@ export async function postRequest(url: string, authorizationMode: AuthorizationM
         headers: headers,
         body: JSON.stringify(data),
     })
-    const datas = await response.json();
-    return datas
+    const res = await response.json();
+    return res
 }
 
 export async function postFileRequest(url: string, authorizationMode: AuthorizationMode, data: FormData) {
@@ -70,6 +69,6 @@ export async function postFileRequest(url: string, authorizationMode: Authorizat
         cache: "no-cache",
         body: data
     })
-    const datas = await response.json();
-    return datas
+    const res = await response.json();
+    return res
 }

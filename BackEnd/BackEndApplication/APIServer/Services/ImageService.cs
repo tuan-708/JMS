@@ -201,9 +201,9 @@ namespace APIServer.Services
                 {
                     throw new Exception("Only allow img file");
                 }
-                if (!IsImageFileSizeValid(file, 25))
+                if (!IsImageFileSizeValid(file, 5))
                 {
-                    throw new Exception("Only allow img size under 25mb");
+                    throw new Exception("Only allow img size under 5mb");
                 }
                 var absoluthPath = Directory.GetCurrentDirectory();
                 var imagePath = absoluthPath + "\\wwwroot\\images\\" + fileName;

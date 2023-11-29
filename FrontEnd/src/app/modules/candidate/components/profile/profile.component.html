@@ -1,3 +1,84 @@
-<div>
-   Test
+<div class="container-fluid">
+   <candidate-header></candidate-header>
+   <div class="container header__container">
+      <div class="formUpdate">
+         <h4>Chỉnh sửa thông tin cá nhân</h4>
+         <div class="avatar">
+            <img src="{{ profile?.avatarURL }}" alt="">
+            <div class="blockCamera" id="blockCamera">
+               <label for="avatarCv" class="iconCamera">
+                  <i class="fa-solid fa-camera-retro "></i>
+               </label>
+               <input class="file-upload-input" style="display: none;" type='file' id="avatarCv" multiple=false (change)="getFile($event);"/>
+            </div>
+         </div>
+
+         <!-- Username input -->
+         <div class="form-label-group mb-4 mt-3">
+            <label class="form-label" for="username">Tên đăng nhập</label>
+            <input type="text" disabled value="{{ profile?.userName }}" name="username"
+               class="form-control form-control-md shadow-none" />
+
+         </div>
+
+         <!-- Email input -->
+         <div class="form-label-group mb-4 mt-3">
+            <label class="form-label" for="form3Example3">Email</label>
+            <input type="email" disabled value="{{ profile?.email }}" name="email"
+               class="form-control form-control-md shadow-none" />
+         </div>
+
+         <!-- FullName input -->
+         <div class="form-label-group mb-4 mt-3">
+            <label class="form-label" for="form3Example3">Họ và tên</label><span class="link-danger"> *</span>
+            <input type="text" name="fullName" value="{{ profile?.fullName }}" [(ngModel)]="FullName" (ngModelChange)="validateFullName($event)"
+               class="form-control form-control-md shadow-none" />
+            <span *ngIf="invalidFullName" class="link-danger">
+               Tên không hợp lệ
+            </span>
+         </div>
+
+         <!-- Phone input -->
+         <div class="form-label-group mb-4 mt-3">
+            <label class="form-label" for="form3Example3">Số điện thoại</label><span class="link-danger"> *</span>
+            <input type="text" name="phone" value="{{ profile?.phoneNumber }}" [(ngModel)]="Phone" (ngModelChange)="validatePhone($event)"
+               class="form-control form-control-md shadow-none" />
+            <span *ngIf="invalidPhone" class="link-danger">
+               Số điện thoại không hợp lệ
+            </span>
+         </div>
+
+         <!-- Email input -->
+         <div class="form-label-group mb-4 mt-3">
+            <label class="form-label" for="form3Example3">Ngày sinh</label><span class="link-danger"> *</span>
+            <input type="date" name="fullName" (ngModelChange)="validateDob($event)" [(ngModel)]="Dob" value="{{ profile?.dob.split('T')[0] }}"
+               class="form-control form-control-md shadow-none" />
+            <span *ngIf="invalidDob" class="link-danger">
+               Ngày sinh không hợp lệ
+            </span>
+         </div>
+
+         <div class="d-flex">
+            <div class="form-check ml-2">
+               <input class="form-check-input shadow-none" [checked]="profile?.isMale === true" type="radio" name="gender" value="1"
+                  id="nam">
+               <label class="form-check-label" for="nam">
+                  Nam
+               </label>
+            </div>
+            <div class="form-check  ml-2">
+               <input class="form-check-input shadow-none" [checked]="profile?.isMale  === false" type="radio" name="gender" value="2"
+                  id="nu">
+               <label class="form-check-label" for="nu">
+                  Nữ
+               </label>
+            </div>
+         </div>
+
+         <div class="col-12 p-0 mt-5">
+            <button type="button" class="btn btnBlueLight btn-block" (click)="SubmitForm()">Thay đổi</button>
+         </div>
+      </div>
+
+   </div>
 </div>

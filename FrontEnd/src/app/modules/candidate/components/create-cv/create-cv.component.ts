@@ -41,6 +41,36 @@ export class CandidateCreateCvComponent {
    profile: any
    onChangeAvatar = false
 
+   getAllCategory() {
+      getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.categories = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+         })
+   }
+
+   getAllTitle(){
+      getRequest(apiRecruiter.GET_ALL_LEVEL_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.levels = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_LEVEL_TITLE, data);
+         })
+   }
+
+   getAllEmploymentType(){
+      getRequest(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            this.employmentTypes = res.data
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
+         })
+   }
+
 
    constructor(private route: ActivatedRoute, private toastr: ToastrService) {
       this.profile = getProfile()
@@ -55,29 +85,9 @@ export class CandidateCreateCvComponent {
       this.ThemStyle = themeList[this.id].ThemStyle
       this.backgroundSelectedLink = themeList[this.id].backgroundSelectedLink
 
-      getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
-         .then(res => {
-            this.categories = res.data
-         })
-         .catch(data => {
-            console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
-         })
-
-      getRequest(apiRecruiter.GET_ALL_LEVEL_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
-         .then(res => {
-            this.levels = res.data
-         })
-         .catch(data => {
-            console.warn(apiRecruiter.GET_ALL_LEVEL_TITLE, data);
-         })
-
-      getRequest(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, AuthorizationMode.PUBLIC, { page: 10 })
-         .then(res => {
-            this.employmentTypes = res.data
-         })
-         .catch(data => {
-            console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
-         })
+      this.getAllCategory()
+      this.getAllTitle()
+      this.getAllEmploymentType()
    }
 
    getValueSkills() {
@@ -316,7 +326,7 @@ export class CandidateCreateCvComponent {
          var valid = false;
       }
 
-      if ($(".cvTitle")[0].value == ""){
+      if ($(".cvTitle")[0].value == "") {
          massage += "- Tên hồ sơ không được để trống <br/>"
          var valid = false;
       }
@@ -329,7 +339,7 @@ export class CandidateCreateCvComponent {
    }
 
 
-   SumbitCV(event: any) {
+   SubmitCV(event: any) {
       if (this.validInput()) {
          const displayEmail = $(".inputEmail")[0].value;
          const phone = $(".inputPhone")[0].value;
@@ -391,17 +401,17 @@ export class CandidateCreateCvComponent {
          if (isLog) {
             postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
                .then(res => {
-                  if(res?.statusCode == 200){
+                  if (res?.statusCode == 201) {
                      const cvIdCreated = res?.data
-                     
+
                      if (this.onChangeAvatar) {
                         if ($('#avatarCv')[0].files[0]) {
-   
+
                            let formData: FormData = new FormData();
                            let file: File = $('#avatarCv')[0].files[0];
                            formData.append('file', file, file.name);
-   
-                           postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.PUBLIC, formData)
+
+                           postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.BEARER_TOKEN, formData)
                               .then(res => {
                                  console.log(res);
                               })

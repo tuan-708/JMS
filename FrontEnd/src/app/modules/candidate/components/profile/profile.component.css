@@ -1,0 +1,40 @@
+.header__container {
+    position: relative;
+    margin-top: 100px;
+}
+
+.formUpdate {
+    padding-top: 50px;
+    width: 60%;
+    margin: auto;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.avatar img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.blockCamera{
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.iconCamera{
+    font-size: 25px;
+}

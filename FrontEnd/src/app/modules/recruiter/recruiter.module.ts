@@ -32,6 +32,10 @@ import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { CompanyViewComponent } from './components/company-view/company-view.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ViewNullComponent } from 'src/app/components/view-null/view-null.component';
+import { ViewLoadingComponent } from 'src/app/components/view-loading/view-loading.component';
+
 @NgModule({
    declarations: [
       RecruiterSignInComponent,
@@ -48,6 +52,9 @@ import { MatMenuModule } from '@angular/material/menu';
       OptionMatchModalComponent,
       LandingPageComponent,
       CompanyViewComponent,
+      ProfileComponent,
+      ViewNullComponent,
+      ViewLoadingComponent
    ],
    imports: [
       CommonModule,

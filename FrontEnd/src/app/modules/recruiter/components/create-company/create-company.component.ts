@@ -101,8 +101,6 @@ export class CreateCompanyComponent {
       return
    }
 
-
-
    checkReq: any = false;
 
    showSuccess() {
@@ -119,6 +117,12 @@ export class CreateCompanyComponent {
       });
    }
 
+   showTokenExpiration() {
+      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
 
 
    submitButtonClicked() {

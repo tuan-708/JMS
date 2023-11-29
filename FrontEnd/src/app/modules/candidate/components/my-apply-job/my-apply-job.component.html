@@ -2,6 +2,9 @@
     <candidate-header></candidate-header>
     <div class="Content container">
         <div class="listJobs">
+            <div *ngIf="!listJds" style="height: 800px;">
+                <app-view-null></app-view-null>
+            </div>
             <div class="itemJob" *ngFor="let jd of listJds | paginate
             : {
                 itemsPerPage: itemsPerPage,
@@ -23,8 +26,6 @@
                             jd.jobDescription.numberRequirement :
                             0}}</div>
                     </div>
-
-
 
                     <div class="row more">
 
@@ -48,11 +49,14 @@
 
             </div>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <pagination-controls class="pagi" previousLabel="" nextLabel=""
-                    (pageChange)="pageChanged((page = $event))"></pagination-controls>
-            </ul>
-        </nav>
+        <div *ngIf="listJds">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <pagination-controls class="pagi" previousLabel="" nextLabel=""
+                        (pageChange)="pageChanged((page = $event))"></pagination-controls>
+                </ul>
+            </nav>
+        </div>
+  
     </div>
 </div>

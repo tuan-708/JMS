@@ -1,71 +1,75 @@
 <app-header-recruiter></app-header-recruiter>
 <mat-tab-group (selectedIndexChange)="setTabIndexValue($event)" class="tab-group primary">
-    [ <mat-tab [label]="firstTabTitle">
-        ] <div class="tab-content">
-            <ng-container *ngTemplateOutlet="externalContent"></ng-container>
-        </div>
-    </mat-tab>
-    <mat-tab [label]="secondTabTitle"> <ng-container *ngTemplateOutlet="externalContent"></ng-container> </mat-tab>
-    <mat-tab label="BẢN NHÁP (0)"> <ng-container *ngTemplateOutlet="externalContent"></ng-container> </mat-tab>
+   [ <mat-tab [label]="firstTabTitle">
+      ] <div class="tab-content">
+         <ng-container *ngTemplateOutlet="externalContent"></ng-container>
+      </div>
+   </mat-tab>
+   <mat-tab [label]="secondTabTitle"> <ng-container *ngTemplateOutlet="externalContent"></ng-container> </mat-tab>
+   <mat-tab label="BẢN NHÁP (0)"> <ng-container *ngTemplateOutlet="externalContent"></ng-container> </mat-tab>
 </mat-tab-group>
 
 <ng-template #externalContent>
 
-    <section class="formListJds container">
-        <div class="listJobs">
-            <div class="itemJob" *ngFor="let jd of listJds | paginate
+   <section class="formListJds container">
+      <div class="listJobs">
+         <div *ngIf="!listJds" style="height: 500px;">
+            <app-view-loading></app-view-loading>
+         </div>
+         <div class="itemJob" *ngFor="let jd of listJds | paginate
         : {
             itemsPerPage: itemsPerPage,
             currentPage: page,
             totalItems: totalItems
           }" [class.hidden]="!jd.isShow">
-                <div class="col-2">
-                    <img src="https://i.postimg.cc/7ZscYqHR/JOB-MATCHING.png" alt="">
-                </div>
-                <div class="col-9">
-                    <div class="textHeader" (click)="onClickView(jd)">{{jd?.title | uppercase}}</div>
-                    <div class="row time">
-                        <div class="col-4 textOver">Thời gian đăng bài: 11-2-2023</div>
-                        <div class="col-4 textOver">Thời gian hạn bài đăng: 12-2-2023</div>
-                        <div class="col-4 textOver">Số lượng tuyển dụng: {{jd?.numberRequirement ? jd?.numberRequirement
-                            :
-                            0}}</div>
-                    </div>
-
-                    <div class="row more">
-                        <div class="col-4 textOver">
-                            Vị trí tuyển: {{jd?.positionTitle}}
-                        </div>
-                        <div class="col-4 textOver">
-                            Chức danh: {{jd?.levelTitle}}
-                        </div>
-                        <div class="col-4 textOver">
-                            Mức lương: {{jd?.salary}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-1">
-                    <div class="btn-grp">
-                        <i class="fa-solid fa-circle status"></i>
-                        <button style="padding-top: 40px;" (click)="onClickUpdate(jd)">
-                            <i class="bi bi-pencil-square h3 " title="Chỉnh sửa bài tuyển dụng"></i>
-                        </button>
-                        <button (click)="openDialog(jd)">
-                            <i class="bi bi-trash h3" title="Hủy bỏ bài tuyển dụng"></i>
-                        </button>
-                    </div>
-                </div>
+            <div class="col-2">
+               <img src="https://i.postimg.cc/7ZscYqHR/JOB-MATCHING.png" alt="">
             </div>
-        </div>
-        <nav *ngIf="listJds?.length > 0" aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <pagination-controls class="pagi" previousLabel="" nextLabel=""
-                    (pageChange)="pageChanged((page = $event))"></pagination-controls>
-            </ul>
-        </nav>
-    </section>
-    <div *ngIf="listJds?.length == 0" class="text-center" style="padding-top: 250px;">
-        <p>Không có bài viết nào trong mục này!</p>
-    </div>
+            <div class="col-9">
+               <div class="textHeader" (click)="onClickView(jd)">{{jd?.title | uppercase}}</div>
+               <div class="row time">
+                  <div class="col-4 textOver">Ngày tạo bài: {{jd?.createdAt}}</div>
+                  <div class="col-4 textOver">Ngày hết hạn: {{jd?.expiredDate}}</div>
+                  <div class="col-4 textOver">Số lượng tuyển: {{jd?.numberRequirement ? jd?.numberRequirement
+                     :
+                     0}}</div>
+               </div>
+
+               <div class="row more">
+                  <div class="col-4 textOver">
+                     Vị trí tuyển: {{jd?.positionTitle}}
+                  </div>
+                  <div class="col-4 textOver">
+                     Chức danh: {{jd?.levelTitle}}
+                  </div>
+                  <div class="col-4 textOver">
+                     Mức lương: {{jd?.salary}}
+                  </div>
+               </div>
+            </div>
+            <div class="col-1">
+               <div class="btn-grp">
+                  <i *ngIf="!jd?.isExpired" class="fa-solid fa-circle status"></i>
+                  <i *ngIf="jd?.isExpired" class="fa-solid fa-circle status-red"></i>
+                  <button style="padding-top: 40px;" (click)="onClickUpdate(jd)">
+                     <i class="bi bi-pencil-square h3 " title="Chỉnh sửa bài tuyển dụng"></i>
+                  </button>
+                  <button (click)="openDialog(jd)">
+                     <i class="bi bi-trash h3" title="Hủy bỏ bài tuyển dụng"></i>
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <nav *ngIf="listJds?.length > 0" aria-label="Page navigation example">
+         <ul class="pagination justify-content-center">
+            <pagination-controls class="pagi" previousLabel="" nextLabel=""
+               (pageChange)="pageChanged((page = $event))"></pagination-controls>
+         </ul>
+      </nav>
+   </section>
+   <div *ngIf="listJds?.length == 0" class="text-center" style="padding-top: 250px;">
+      <p>Không có bài viết nào trong mục này!</p>
+   </div>
 
 </ng-template>

@@ -65,7 +65,7 @@ export class JdUpdateComponent {
       this.id = params['id'];
     });
 
-    getRequest(apiRecruiter.GET_JD_BY_ID, AuthorizationMode.PUBLIC, { jdId: this.id })
+    getRequest(apiRecruiter.GET_JD_BY_ID, AuthorizationMode.BEARER_TOKEN, { jdId: this.id })
       .then(res => {
         this.jdDetail = res.data
         console.log(res);
@@ -356,7 +356,7 @@ export class JdUpdateComponent {
         positionTitle: positionTitle
       }
 
-      postRequest(`${apiRecruiter.UPDATE_JD_BY_RECRUITER}/${this.profile.id}`, AuthorizationMode.PUBLIC, data)
+      postRequest(`${apiRecruiter.UPDATE_JD_BY_RECRUITER}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
         .then(res => {
           this.showUpdateJDSuccess()
           console.log(res);

@@ -6,6 +6,7 @@ using APIServer.Models;
 using APIServer.Models.Entity;
 using APIServer.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +66,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("get-all-cv-matched-by-number-requirement")]
         public PagingResponseBody<List<CVMatchingDTO>> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId, int? pageIndex)
         {
@@ -73,6 +75,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("get-all-cv-matched-left")]
         public PagingResponseBody<List<CVMatchingDTO>> GetCVMatchedLeft(int recruiterId, int jobDescriptionId, int? pageIndex)
         {
@@ -81,6 +84,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("get-all-cv-selected")]
         public PagingResponseBody<List<CVMatchingDTO>> GetCVSelected(int recruiterId, int jobDescriptionId, int? pageIndex)
         {
@@ -89,6 +93,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost]
+        //[Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("matching-job")]
         public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId, int numberRequirement)
         {
@@ -103,6 +108,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("update-cv-selected-status")]
         public BaseResponseBody<string> UpdateCVSelectedStatusd(int recruiterId, int jobDescriptionId, int CVMatchingId)
         {
@@ -124,6 +130,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("reject-cv")]
         public BaseResponseBody<string> RejectCV(int recruiterId, int jobDescriptionId, int CVMatchingId)
         {
@@ -145,6 +152,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("get-cv-matching-detail")]
         public BaseResponseBody<CVMatchingDTO> GetCVMatchingDetail(int recruiterId, int jobDescriptionId, int CVMatchingId)
         {
@@ -177,6 +185,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost("update-profile")]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         public BaseResponseBody<CVMatchingDTO> UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
         {
             try
@@ -216,6 +225,21 @@ namespace APIServer.Controllers.RecuirterModule
                 statusCode = HttpStatusCode.OK,
                 message = GlobalStrings.SUCCESSFULLY,
                 data = rs,
+            };
+        }
+
+        [HttpGet]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
+        [Route("get-all-expired-jd/{recruiterId}")]
+        public BaseResponseBody<List<JobDTO>> GetAllExpiredJD(int recruiterId)
+        {
+            List<JobDescription> jobDescriptions = _recuirterService.getAllExpiredJD(recruiterId);
+            var JD = _mapper.Map<List<JobDTO>>(jobDescriptions);
+            return new BaseResponseBody<List<JobDTO>>
+            {
+                statusCode = HttpStatusCode.OK,
+                message = GlobalStrings.SUCCESSFULLY,
+                data = JD,
             };
         }
     }
