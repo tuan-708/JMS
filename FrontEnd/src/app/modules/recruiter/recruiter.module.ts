@@ -53,8 +53,8 @@ import { ProfileComponent } from './components/profile/profile.component';
       LandingPageComponent,
       CompanyViewComponent,
       ProfileComponent,
-      ViewNullComponent,
-      ViewLoadingComponent
+      // ViewNullComponent,
+      // ViewLoadingComponent
    ],
    imports: [
       CommonModule,
