@@ -467,9 +467,20 @@ namespace APIServer.Services
             }
         }
 
+        private bool IsInputValid(string? fullname)
+        {
+            if (fullname != null)
+            {
+                string fullnamePattern = @"^[a-zA-Z ]{8,35}$";
+                return Regex.IsMatch(fullname, fullnamePattern);
+            }
+            return false;
+        }
+
         public int UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
 
         {
+            if (!IsInputValid(fullName)) throw new Exception("Full name have no special character and number, and at least 8 - 35 characters");
             return _recRepository.UpdateProfile(recruiterId, fullName, phoneNumber, DOB, genderId, description);
         }
 
