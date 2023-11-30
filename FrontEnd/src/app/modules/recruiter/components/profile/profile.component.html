@@ -19,7 +19,7 @@
                 <div class="card-header">Ảnh Đại Diện</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src={{profile?.avatarURL}} alt="">
+                    <img class="img-account-profile rounded-circle mb-2" onerror="this.src='https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png'" src={{profile?.avatarURL}} alt="">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG hoặc PNG không vượt quá 5 MB</div>
                     <!-- Profile picture upload button-->

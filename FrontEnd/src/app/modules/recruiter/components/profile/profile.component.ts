@@ -201,7 +201,10 @@ export class ProfileComponent {
       .then(res => {
         if (res.statusCode == 200) {
           this.profile = res.data
-          console.log(this.profile);
+          
+          setTimeout(() => {
+            saveItem("profile", res.data);
+          }, 1000);
         }
       })
       .catch(error => {
@@ -229,8 +232,9 @@ export class ProfileComponent {
       postFileRequest(`${apiRecruiter.UPDATE_IMAGE_RECRUITER}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, formData)
         .then(res => {
           if (res.statusCode == 200) {
-            this.showUploadAvatarSuccess()
+          
             this.getProfile()
+            this.showUploadAvatarSuccess()
           }
         })
         .catch(data => {
