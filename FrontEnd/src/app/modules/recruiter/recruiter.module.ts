@@ -33,8 +33,9 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { CompanyViewComponent } from './components/company-view/company-view.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ViewNullComponent } from 'src/app/components/view-null/view-null.component';
-import { ViewLoadingComponent } from 'src/app/components/view-loading/view-loading.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+// import { ViewNullComponent } from 'src/app/components/view-null/view-null.component';
+// import { ViewLoadingComponent } from 'src/app/components/view-loading/view-loading.component';
 
 @NgModule({
    declarations: [
@@ -53,8 +54,9 @@ import { ViewLoadingComponent } from 'src/app/components/view-loading/view-loadi
       LandingPageComponent,
       CompanyViewComponent,
       ProfileComponent,
-      ViewNullComponent,
-      ViewLoadingComponent
+      ForgotPasswordComponent,
+      // ViewNullComponent,
+      // ViewLoadingComponent
    ],
    imports: [
       CommonModule,

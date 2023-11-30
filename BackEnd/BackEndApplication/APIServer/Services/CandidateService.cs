@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using X.PagedList;
 
 namespace APIServer.Services
@@ -303,9 +304,37 @@ namespace APIServer.Services
             }
         }
 
+        private bool IsInputValid(string? fullname)
+        {
+            if (fullname != null)
+            {
+                string fullnamePattern = @"^[a-zA-Z ]{8,35}$";
+                return Regex.IsMatch(fullname, fullnamePattern);
+            }
+            return false;
+        }
+
         public int UpdateProfile(int candidateId, string fullName, string phone, DateTime DOB, int genderId)
         {
+            if (!IsInputValid(fullName)) throw new Exception("Full name have no special character and number, and at least 8 - 35 characters");
             return _candidateRepository.UpdateProfile(candidateId, fullName, phone, DOB, genderId);
+        }
+
+        public int UpdatePassword(int candidateId, string oldPassword, string newPassword, string confirmPassword)
+        {
+            Candidate candidate = _candidateRepository.GetById(candidateId);
+            if(VerifyPassword(oldPassword, candidate.Password))
+            {
+                if (newPassword.Length < 8 || newPassword.Length > 20) return -1;
+                if (newPassword.Equals(confirmPassword))
+                    return _candidateRepository.UpdatePassword(candidateId, newPassword);
+                else return -2;
+            }
+            return 0;
+        }
+        public bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
     }
 }

@@ -296,5 +296,29 @@ namespace APIServer.Controllers.AdminModule
                 };
             }
         }
+
+        [HttpGet("get-admin-by-id/{id}")]
+        public BaseResponseBody<AdminDTO> GetAdminById(int id)
+        {
+            try
+            {
+                var rs = _mapper.Map<AdminDTO>(_adminService.GetById(id));
+                return new BaseResponseBody<AdminDTO>
+                {
+                    data = rs,
+                    statusCode = HttpStatusCode.OK,
+                    message = GlobalStrings.SUCCESSFULLY,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<AdminDTO>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
+                };
+            }
+        }
     }
 }

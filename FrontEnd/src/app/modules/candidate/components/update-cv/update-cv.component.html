@@ -39,16 +39,16 @@
             </div>
 
             <div class="header__title">
-                <select value="0" class="form-select shadow-none customSelect levelId"  [(ngModel)]="selectLevel" aria-label="Default select example">
-                    <option selected>Chọn Cấp Bậc</option>
+                <select class="form-select shadow-none customSelect levelId"  [(ngModel)]="selectLevel" aria-label="Default select example">
+                    <option  value="0" selected>Chọn Cấp Bậc</option>
                     <option *ngFor="let elm of levels; index as i" value={{elm.id}}>{{elm.title}}</option>
                 </select>
             </div>
 
             <div class="header__title">
-                <select value="0" class="form-select shadow-none customSelect employmentTypeId"  [(ngModel)]="selectEmploymentTypes"
+                <select class="form-select shadow-none customSelect employmentTypeId"  [(ngModel)]="selectEmploymentTypes"
                     aria-label="Default select example">
-                    <option selected>Chọn Loại việc làm</option>
+                    <option  value="0" selected>Chọn Loại việc làm</option>
                     <option *ngFor="let elm of employmentTypes; index as i" value={{elm.id}}>{{elm.title}}</option>
                 </select>
             </div>
@@ -129,7 +129,7 @@
                             </div>
                         </div>
                         <div class="file-upload-content" [style.display]="displayImage">
-                            <img class="file-upload-image" [src]="fileSrc" alt="your image" onerror="this.src='https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png'" />
+                            <img class="file-upload-image" [src]="fileSrc" alt="your image" onerror="this.src='https://cdn1.iconfinder.com/data/icons/main-ui-elements-with-colour-bg/512/male_avatar-512.png'" />
                             <div class="btn-Change-Image">
                                 <i class="fa-solid fa-plus file-upload-btn"
                                     onclick="$('.file-upload-input').trigger( 'click' )"
@@ -208,7 +208,7 @@
 
                         <!-- Input Describe Skills  -->
                         <div class="mt-1">
-                            <div *ngFor="let sk of cv.skills">
+                            <div *ngFor="let sk of cv?.skills">
                                 <textarea rows="3" maxlength="300" placeholder="Mô tả kỹ năng"
                                     class="form-info-input inputDescripitonSkills skillDescription"
                                     [style.color]="colorLeftInput" [class]="ThemStyle">{{ sk?.skillDescription }}</textarea>
@@ -229,7 +229,7 @@
                             class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
                     </div>
 
-                    <div class="certificates" *ngFor="let ce of cv.certificates">
+                    <div class="certificates" *ngFor="let ce of cv?.certificates">
                         <!-- Input Name Certificates  -->
                         <div class="mt-1">
                             <input type="text" placeholder="Tên chứng chỉ" value="{{ ce?.certificateName }}" class="form-info-input certificateName"
@@ -273,7 +273,7 @@
                             class="form-left--header width100" [style.color]="colorLeftHeader">
                     </div>
 
-                    <div class="prizes" *ngFor="let aw of cv.awards">
+                    <div class="prizes" *ngFor="let aw of cv?.awards">
                         <!-- Input Time Award  -->
                         <div class="mt-1">
                             <input type="text" placeholder="Thời gian" value="{{ aw?.fromYear }}" class="form-info-input fromYearAwards"
@@ -341,7 +341,7 @@
                             class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
                     </div>
 
-                    <div class="experience" *ngFor="let ex of cv.jobExperiences">
+                    <div class="experience" *ngFor="let ex of cv?.jobExperiences">
                         <!-- Header Experience  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-suitcase"></i>
@@ -379,7 +379,7 @@
                             [style.color]="colorRightHeader">
                     </div>
 
-                    <div class="project" *ngFor="let pr of cv.projects">
+                    <div class="project" *ngFor="let pr of cv?.projects">
                         <!-- Header Project  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
@@ -419,7 +419,7 @@
                             class="form-right--header mt-2" [style.color]="colorRightHeader">
                     </div>
 
-                    <div class="education" *ngFor="let ed of cv.educations">
+                    <div class="education" *ngFor="let ed of cv?.educations">
                         <!-- Header Educations  -->
                         <div class="mt-1">
                             <i class="fa-solid fa-school" [style.color]="colorRightHeader"></i>

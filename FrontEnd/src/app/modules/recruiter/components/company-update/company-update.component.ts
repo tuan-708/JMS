@@ -197,10 +197,10 @@ export class CompanyUpdateComponent {
                console.log(res);
             })
             .catch(data => {
-               this.showUpdateCompanyFail()
-               this.router.navigate(['/recruiter/sign-in']);
-               this.showTokenExpiration()
-               signOut()
+               // this.showUpdateCompanyFail()
+               // this.router.navigate(['/recruiter/sign-in']);
+               // this.showTokenExpiration()
+               // signOut()
             })
       }
 

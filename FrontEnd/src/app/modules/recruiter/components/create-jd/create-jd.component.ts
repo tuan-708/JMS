@@ -309,9 +309,9 @@ export class CreateJdComponent {
                console.log(res);
             })
             .catch(data => {
-               this.router.navigate(['/recruiter/sign-in']);
-               this.showTokenExpiration()
-               signOut()
+               // this.router.navigate(['/recruiter/sign-in']);
+               // this.showTokenExpiration()
+               // signOut()
             })
 
 

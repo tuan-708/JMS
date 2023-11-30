@@ -94,6 +94,7 @@ namespace APIServer.Repositories
                             .Include(x => x.Role)
                             .Include(x => x.EmployeeInCompanies)
                             .Include(x => x.Company)
+                            .Include(x => x.Gender)
                             .OrderBy(x => x.FullName)
                             .ToList();
             return rs;
@@ -101,7 +102,7 @@ namespace APIServer.Repositories
 
         public Admin GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Admins.FirstOrDefault(x => x.Id == id && !x.IsDelete);
         }
 
         public Candidate GetCandidateById(int id)
@@ -184,6 +185,19 @@ namespace APIServer.Repositories
                 return _context.SaveChanges();
             }
             return 0;
+        }
+
+        public Admin Login(string? username, string? password)
+        {
+            var data = _context.Admins
+                .FirstOrDefault(x => x.UserName.ToLower() == username.ToLower() && !x.IsDelete && x.IsActive);
+            if (VerifyPassword(password, data.Password))
+                return data;
+            return null;
+        }
+        private bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
     }
 }

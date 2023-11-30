@@ -16,8 +16,8 @@ export class HeaderComponent {
    profile: any;
    headerTitle = [{ title: 'baiDang', router: '/recruiter/list-jds', value: false },
    { title: 'congTy', router: '/recruiter/view-company', value: false },
-   { title: 'taoCty', router: '/recruiter/company-register', value: false },
-   { title: 'dangTuyen', router: '/recruiter/jd-register', value: false }];
+   { title: 'taoCty', router: '/recruiter/create-company', value: false },
+   { title: 'dangTuyen', router: '/recruiter/create-jd', value: false }];
    currentRouter: any;
 
    auth() {

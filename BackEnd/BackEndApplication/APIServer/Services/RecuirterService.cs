@@ -258,12 +258,10 @@ namespace APIServer.Services
                     return matchedList;
                 }
                 return matchedList;
-
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -469,15 +467,44 @@ namespace APIServer.Services
             }
         }
 
+        private bool IsInputValid(string? fullname)
+        {
+            if (fullname != null)
+            {
+                string fullnamePattern = @"^[a-zA-Z ]{8,35}$";
+                return Regex.IsMatch(fullname, fullnamePattern);
+            }
+            return false;
+        }
+
         public int UpdateProfile(int recruiterId, string fullName, string phoneNumber, DateTime DOB, int genderId, string description)
 
         {
+            if (!IsInputValid(fullName)) throw new Exception("Full name have no special character and number, and at least 8 - 35 characters");
             return _recRepository.UpdateProfile(recruiterId, fullName, phoneNumber, DOB, genderId, description);
         }
 
         public List<JobDescription> getAllExpiredJD(int? recruiterId)
         {
             return _jobContext.getAllExpiredJD(recruiterId);
+        }
+
+        public int UpdatePassword(int recruiterId, string oldPassword, string newPassword, string confirmPassword)
+        {
+            Recuirter recruiter = _recRepository.GetById(recruiterId);
+            if (VerifyPassword(oldPassword, recruiter.Password))
+            {
+                if (newPassword.Length < 8 || newPassword.Length > 20) return -1;
+                if (newPassword.Equals(confirmPassword))
+                    return _recRepository.UpdatePassword(recruiterId, newPassword);
+                else return -2;
+            }
+            return 0;
+        }
+
+        public bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
     }
 }

@@ -525,7 +525,7 @@ option {
    max-width: 200px;
    height: 250px;
    margin: auto;
-   object-fit: cover;
+   object-fit: contain;
 }
 
 .file-upload-content {

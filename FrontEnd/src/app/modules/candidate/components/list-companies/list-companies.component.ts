@@ -19,20 +19,11 @@ export class CandidateListCompaniesComponent {
    inputSearch = ""
 
    constructor(private router: Router) {
-      getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { })
-      .then(res => {
-         this.categories = res?.data
-   
-      })
-      .catch(data => {
-         console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
-      })
-
       getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page:this.page})
       .then(res => {
          this.companies = res?.data
          this.totalItems = res?.objectLength
-         console.log(this.totalItems);
+         console.log(this.companies);
       })
       .catch(data => {
          console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
@@ -62,7 +53,7 @@ export class CandidateListCompaniesComponent {
          .then(res => {
             this.companies = res?.data
             this.totalItems = res?.objectLength
-            console.log(this.totalItems);
+            console.log(this.companies);
          })
          .catch(data => {
             console.warn(apiRecruiter.GET_ALL_CATEGORY, data);

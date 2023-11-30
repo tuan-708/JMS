@@ -43,7 +43,7 @@ export class ListJdsComponent {
   constructor(private router: Router, public dialog: MatDialog, private toastr: ToastrService) {
     this.profile = getProfile()
 
-    getRequest(`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, AuthorizationMode.PUBLIC)
+    getRequest(`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, AuthorizationMode.BEARER_TOKEN)
       .then(res => {
         console.log(res?.data);
         this.listRunning = res?.data
@@ -64,7 +64,7 @@ export class ListJdsComponent {
 
   pageChanged(page: any) {
     this.page = page
-    getRequest(`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, AuthorizationMode.PUBLIC)
+    getRequest(`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, AuthorizationMode.BEARER_TOKEN)
       .then(res => {
         this.listJds = res?.data
         this.totalItems = res?.objectLength
@@ -99,7 +99,7 @@ export class ListJdsComponent {
 
   onClickDelete(jd: any) {
     //API handle delete JD
-    postRequest(`${apiRecruiter.DELETE_JD_BY_ID}/${this.profile.id}/${jd?.jobId}`, AuthorizationMode.PUBLIC, {})
+    postRequest(`${apiRecruiter.DELETE_JD_BY_ID}/${this.profile.id}/${jd?.jobId}`, AuthorizationMode.BEARER_TOKEN, {})
       .then(res => {
         if (res.statusCode == 200) {
           this.showSuccess()
@@ -129,7 +129,7 @@ export class ListJdsComponent {
   getListExpired(){
     const recruiterId = getProfile().id;
 
-    getRequest(`${apiRecruiter.GET_LIST_JD_EXPIRED}/${recruiterId}`, AuthorizationMode.PUBLIC)
+    getRequest(`${apiRecruiter.GET_LIST_JD_EXPIRED}/${recruiterId}`, AuthorizationMode.BEARER_TOKEN)
       .then(res => {
         console.log(res?.data);
         this.listExpired = res?.data

@@ -21,9 +21,9 @@
                     <!-- Profile picture image-->
                     <img class="img-account-profile rounded-circle mb-2" src={{profile?.avatarURL}} alt="">
                     <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <div class="small font-italic text-muted mb-4">JPG hoặc PNG không vượt quá 5 MB</div>
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Upload new image</button>
+                    <button class="btn btn-primary" type="button">Đăng Ảnh Mới</button>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Họ và tên</label>
-                            <input #fullname class="form-control" type="text" placeholder="Enter your username"
+                            <input #fullname class="form-control" type="text" placeholder="Nhập tên của bạn"
                                 [value]="profile?.fullName">
                         </div>
                         <!-- Form Row-->
@@ -45,7 +45,7 @@
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName">Tài khoản</label>
                                 <input class="form-control" id="inputFirstName" type="text"
-                                    placeholder="Enter your first name" value={{profile?.userName}} disabled>
+                                    placeholder="Tài khoản của bạn" value={{profile?.userName}} disabled>
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
@@ -62,23 +62,23 @@
                         <!-- Form Row        -->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (organization name)-->
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label class="small mb-1" for="inputOrgName">Email</label>
                                 <input class="form-control" id="inputOrgName" type="email"
-                                    placeholder="Enter your organization name" value={{profile?.email}} disabled>
+                                    placeholder="Bạn chưa có email" value={{profile?.email}} disabled>
                             </div>
                             <!-- Form Group (location)-->
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <label class="small mb-1" for="inputLocation">Ngày tạo:</label>
                                 <input class="form-control" id="inputLocation" type="text"
                                     placeholder="Enter your location" value={{profile?.createdDateDisplay}} disabled>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputEmailAddress">Tổ chức</label>
                             <input class="form-control" id="inputEmailAddress" type="email"
-                                placeholder="Enter your email address" value={{company?.companyName}} disabled>
+                                placeholder="Bạn chưa có công ty" value={{company?.companyName}} disabled>
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
@@ -86,17 +86,44 @@
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Số điện thoại</label>
                                 <input #phone class="form-control" id="inputPhone" type="tel"
-                                    placeholder="Enter your phone number" [value]="profile?.phoneNumber">
+                                    placeholder="Nhập số điện thoại" [value]="profile?.phoneNumber">
                             </div>
                             <!-- Form Group (birthday)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputBirthday">Ngày sinh</label>
                                 <input #dob class="form-control" id="inputBirthday" type="text" name="birthday"
-                                    placeholder="Enter your birthday" [value]="profile?.doB_Display">
+                                    placeholder="Nhập ngày sinh" [value]="profile?.doB_Display">
                             </div>
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-primary" type="button" (click)="updateProfile(fullname, gender, phone, dob)">Save changes</button>
+                        <button class="btn btn-primary" type="button" (click)="updateProfile(fullname, gender, phone, dob)">Cập Nhật</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">Thay Đổi Mật Khẩu</div>
+                <div class="card-body">
+                    <form class="form" role="form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="inputPasswordOld">Mật Khẩu Hiện Tại</label>
+                            <input #oldPass type="password" class="form-control" id="inputPasswordOld" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPasswordNew">Mật khẩu mới</label>
+                            <input #newPass type="password" class="form-control" id="inputPasswordNew" required="">
+                            <span class="form-text small text-muted">
+                                    Mật khẩu mới phải từ 8 - 20 ký tự, không được chứa khoảng trắng.
+                                </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPasswordNewVerify">Xác nhận mật khẩu</label>
+                            <input #rePass type="password" class="form-control" id="inputPasswordNewVerify" required="">
+                            <span class="form-text small text-muted">
+                                    Hãy nhập lại mật khẩu để xác nhận.
+                                </span>
+                        </div>
+                            <button class="btn btn-primary" type="button" (click)="changePassword(oldPass, newPass, rePass)">Cập Nhật</button>
                     </form>
                 </div>
             </div>

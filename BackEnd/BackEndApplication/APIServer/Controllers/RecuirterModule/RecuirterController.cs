@@ -93,7 +93,7 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpPost]
-        //[Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("matching-job")]
         public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId, int numberRequirement)
         {
@@ -241,6 +241,53 @@ namespace APIServer.Controllers.RecuirterModule
                 message = GlobalStrings.SUCCESSFULLY,
                 data = JD,
             };
+        }
+
+        [HttpPost("change-password")]
+        [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
+        public BaseResponseBody<int> ChangePassword(int recruiterId, string oldPassword, string newPassword, string confirmPassword)
+        {
+            try
+            {
+                int n = _recuirterService.UpdatePassword(recruiterId, oldPassword, newPassword, confirmPassword);
+                if (n > 0)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Change password successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else if (n == 0)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Old password is not correct",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+                else if (n == -1)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Password have to have number of characters >= 8 and <= 20",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+                else
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Password and confirmPassword are not matching",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
         }
     }
 }

@@ -15,5 +15,7 @@ namespace APIServer.IServices
         public Recuirter GetRecruiterById(int id);
         public Company GetCompanyById(int id);
         public int UpdateActiveStatus(int? recruiterId, int? candidateId);
+        public string generateToken(Admin? admin);
+        public Admin Login(string? username, string? password);
     }
 }

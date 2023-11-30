@@ -32,13 +32,21 @@ export class ProfileComponent {
   }
 
   updateProfile(fullname: HTMLInputElement, gender: HTMLSelectElement, phone: HTMLInputElement, dob: HTMLInputElement) {
-    this.newProfile.fullname = fullname.value == "" ? this.profile.fullName : fullname.value
-    this.newProfile.phone = this.validatePhoneNumber(phone.value.trim()) ? phone.value : this.profile.phoneNumber
-    this.newProfile.dob = this.validateDate(dob.value.trim()) ? dob.value : this.profile.doB_Display
-    this.newProfile.gender = gender.value == "" ? this.profile.genderTitle : gender.value
+    if (this.validatePhoneNumber(phone.value.trim()) && this.validateDate(dob.value.trim()) && this.validateString(fullname.value)) {
+      this.newProfile.fullname = fullname.value == "" ? this.profile.fullName : fullname.value
+      this.newProfile.phone = this.validatePhoneNumber(phone.value.trim()) ? phone.value : this.profile.phoneNumber
+      this.newProfile.dob = this.validateDate(dob.value.trim()) ? dob.value : this.profile.doB_Display
+      this.newProfile.gender = gender.value == "" ? this.profile.genderTitle : gender.value
+    } else {
+      return
+    }
+    // this.newProfile.fullname = fullname.value == "" ? this.profile.fullName : fullname.value
+    // this.newProfile.phone = this.validatePhoneNumber(phone.value.trim()) ? phone.value : this.profile.phoneNumber
+    // this.newProfile.dob = this.validateDate(dob.value.trim()) ? dob.value : this.profile.doB_Display
+    // this.newProfile.gender = gender.value == "" ? this.profile.genderTitle : gender.value
     console.log(this.newProfile)
 
-    postRequest(apiRecruiter.UPDATE_PROFILE + "?recruiterId=" + this.profile.id + "&fullName=" + this.newProfile.fullname +"&phoneNumber=" + this.newProfile.phone + "&DOB=" + this.newProfile.dob + "&genderId=1&description=" + this.newProfile.desc, AuthorizationMode.BEARER_TOKEN, {})
+    postRequest(apiRecruiter.UPDATE_PROFILE + "?recruiterId=" + this.profile.id + "&fullName=" + this.newProfile.fullname + "&phoneNumber=" + this.newProfile.phone + "&DOB=" + this.newProfile.dob + "&genderId=1&description=" + this.newProfile.desc, AuthorizationMode.BEARER_TOKEN, {})
       .then(res => {
         console.log(res)
         if (res.statusCode == 200) {
@@ -49,22 +57,24 @@ export class ProfileComponent {
           console.log(this.profile)
           saveItem("profile", this.profile);
           showSuccess(this.toastr, "Cập nhật thông tin thành công!")
-        }else{
-          showError(this.toastr, "Cập nhật thất bại! Vui lòng xem lại thông tin.")
+        } else {
+          showError(this.toastr, "Cập nhật thất bại! Vui lòng thử lại.")
         }
       })
       .catch(data => {
         console.log("Update fail", data);
-        showError(this.toastr, "Cập nhật thất bại! Vui lòng xem lại thông tin.")
+        showError(this.toastr, "Cập nhật thất bại! Vui lòng thử lại.")
       })
   }
 
   validatePhoneNumber(phoneNumber: string): boolean {
     if (phoneNumber.length < 9 || phoneNumber.length > 10) {
+      showError(this.toastr, "Cập nhật thất bại! Độ dài số điện thoại không hợp lệ.")
       return false;
     }
 
     if (!/^\d+$/.test(phoneNumber)) {
+      showError(this.toastr, "Cập nhật thất bại! Số điện thoại không hợp lệ.")
       return false;
     }
 
@@ -75,6 +85,7 @@ export class ProfileComponent {
     const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
     if (!regex.test(dateString)) {
+      showError(this.toastr, "Cập nhật thất bại! Định dạng ngày tháng không hợp lệ (dd/MM/yyyy).")
       return false; // Không khớp định dạng
     }
 
@@ -84,15 +95,85 @@ export class ProfileComponent {
     const year = parseInt(parts[2], 10);
 
     if (isNaN(day) || isNaN(month) || isNaN(year)) {
+      showError(this.toastr, "Cập nhật thất bại! Ngày tháng không hợp lệ.")
       return false; // Không phải là số
     }
 
     const maxDays = new Date(year, month, 0).getDate();
 
     if (day < 1 || day > maxDays || month < 1 || month > 12) {
+      showError(this.toastr, "Cập nhật thất bại! Ngày tháng không hợp lệ.")
       return false; // Ngày tháng không hợp lệ
     }
 
     return true;
+  }
+
+  validateString(string: any) {
+    if (string == null || string.trim().length == 0) {
+      showError(this.toastr, "Cập nhật thất bại! Tên không được để trống.")
+      return false
+    }
+    return true
+  }
+
+  changePassword(oldPass: HTMLInputElement, newPass: HTMLInputElement, rePass: HTMLInputElement) {
+    console.log(oldPass.value + " = " + newPass.value + " = " + rePass.value)
+    if (this.isOldPassValid(oldPass.value) && this.isPasswordValid(newPass.value) && this.isRePassMatch(newPass.value, rePass.value)) {
+      postRequest(apiRecruiter.CHANGE_PASSWORD + "?recruiterId=" + this.profile.id + "&fullName=" + this.newProfile.fullname + "&oldPassword=" + oldPass.value + "&newPassword=" + newPass.value + "&confirmPassword=" + rePass.value, AuthorizationMode.BEARER_TOKEN, {})
+        .then(res => {
+          console.log(res)
+          if (res.statusCode == 200) {
+            showSuccess(this.toastr, "Thay đổi mật khẩu thành công!")
+          } else {
+            showError(this.toastr, "Thay đổi thất bại! Vui lòng thử lại sau.")
+          }
+        })
+        .catch(data => {
+          console.log("Update fail", data);
+          showError(this.toastr, "Thay đổi thất bại! Vui lòng thử lại sau.")
+        })
+    }
+  }
+
+  isOldPassValid(oldPass:any){
+    if (oldPass.trim().length == 0) {
+      showError(this.toastr, "Hãy nhập mật khẩu!")      
+      return false
+    }
+    return true
+  }
+
+  isPasswordValid(password: string): boolean {
+    if (password.trim().length == 0) {
+      showError(this.toastr, "Hãy nhập mật khẩu mới!")      
+      return false
+    }
+
+    if (password.length < 8 || password.length > 20) {
+      showError(this.toastr, "Độ dài mật khẩu không hợp lệ!")
+      return false;
+    }
+
+    if (password.includes(' ')) {
+      showError(this.toastr, "Mật khẩu chứa khoảng trắng!")
+      return false;
+    }
+
+    return true;
+  }
+
+  isRePassMatch(newPass: any, rePass: any) {
+    if (rePass.trim().length == 0) {
+      showError(this.toastr, "Hãy xác nhận mật khẩu!")
+      return false
+    }
+
+    if (newPass !== rePass) {
+      showError(this.toastr, "Mật khẩu xác nhận không trùng khớp!")
+      return false
+    }
+
+    return true
   }
 }
