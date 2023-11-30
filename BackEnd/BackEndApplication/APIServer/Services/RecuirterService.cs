@@ -246,12 +246,19 @@ namespace APIServer.Services
                         for (int i = 0; i < curriculumVitaes.Count; i++)
                         {
                             CurriculumVitae cv = _cVRepository.GetById(curriculumVitaes[i].Id);
-                            CVMatching cvAfterMatching = await MatchingCV(cv.Id, jobDescriptionId, cv, jd);
-                            if (cvAfterMatching != null)
+                            try
                             {
-                                matchedList.Add(cvAfterMatching);
+                                CVMatching cvAfterMatching = await MatchingCV(cv.Id, jobDescriptionId, cv, jd);
+                                if (cvAfterMatching != null)
+                                {
+                                    matchedList.Add(cvAfterMatching);
+                                }
                             }
-
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                                continue;
+                            }
                         }
                         matchedList = matchedList.OrderByDescending(cv => cv.PercentMatching).ToList();
                     }
