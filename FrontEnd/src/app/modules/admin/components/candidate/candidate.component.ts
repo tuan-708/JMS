@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { ViewCvComponent } from 'src/app/modules/candidate/components/view-cv/view-cv.component';
-import { getRequest } from 'src/app/service/api-requests';
+import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { showInfo } from 'src/app/service/common';
 import { AuthorizationMode, apiAdmin } from 'src/app/service/constant';
 
@@ -63,6 +63,8 @@ export class CandidateComponent {
       .then(res => {
         this.candidates = res?.data
         this.getPageRange()
+        console.log(this.candidates);
+        
       })
       .catch(data => {
         console.warn("Call API GET COMPANY Fail:" + data)
@@ -186,5 +188,23 @@ export class CandidateComponent {
     let formattedDate = `${dateObject.getDate().toString().padStart(2, '0')}-${(dateObject.getMonth() + 1).toString().padStart(2, '0')}-${dateObject.getFullYear()}`;
 
     return formattedDate;
+  }
+
+  changeActive(id: any, isActive: any){
+    postRequest(apiAdmin.CHANGE_ACTIVE_CANDIDATE + id, AuthorizationMode.PUBLIC, {})
+      .then(res => {
+        if(res.statusCode === 200){
+          console.log('success')
+          for (let i = 0; i < this.listDisplay.length; i++) {
+            const e = this.listDisplay[i];
+            if(e.id === id){
+              this.listDisplay[i].isActive = !isActive
+            }
+          }
+        }
+      })
+      .catch(data => {
+        console.warn("Call API GET COMPANY Fail:" + data)
+      })
   }
 }

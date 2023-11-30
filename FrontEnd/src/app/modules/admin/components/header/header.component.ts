@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ADMIN_PROFILE, ADMIN_TOKEN } from 'src/app/service/constant';
-import { getItem, removeItem, saveItem } from 'src/app/service/localstorage';
+import { getItem, removeItem, saveItem, signOut } from 'src/app/service/localstorage';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +18,7 @@ export class HeaderComponent {
   signOut(){
     removeItem(ADMIN_TOKEN);
     removeItem(ADMIN_PROFILE);
+    signOut()
     this.router.navigate(['/admin/sign-in'])
   }
 }

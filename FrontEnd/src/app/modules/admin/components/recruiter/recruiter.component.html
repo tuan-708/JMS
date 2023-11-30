@@ -40,7 +40,7 @@
                 <td>{{elm.phoneNumber}}</td>
                 <td>{{elm.genderTitle == true ? 'Nam' : elm.genderTitle == false ? 'Nữ' : 'Không'}}</td>
                 <td>{{elm.companyId}}</td>
-                <td><button [ngClass]="{ 'btn': true, 'btn-success': elm.isActive }">Active</button></td>
+                <td><button [ngClass]="{ 'btn': true, 'btn-success': elm.isActive, 'btn-danger': !elm.isActive }" (click)="changeActive(elm?.id, elm.isActive)">{{elm.isActive ? 'Active' : 'Locked'}}</button></td>
                 <!-- <td> -->
                     <!-- <button class="btn" title="Xem Chi Tiết" (click)="openCVDialog(elm.id)"><i
                             class="bi bi-eye"></i></button> -->
