@@ -243,6 +243,10 @@ namespace APIServer.Services
             var path = dir + "\\wwwroot\\" + url;
             if (File.Exists(path))
                 File.Delete(path);
+            else
+            {
+                Console.WriteLine("Path not exist: " + path);
+            }
         }
 
         public string addImgSlider(IFormFile file, Slider slider)

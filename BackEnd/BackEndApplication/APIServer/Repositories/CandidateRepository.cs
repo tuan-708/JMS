@@ -65,8 +65,12 @@ namespace APIServer.Repositories
                 .Include(x => x.CurriculumVitaes)
                 .Include(x => x.CVApplies)
                 .FirstOrDefaultAsync(x => 
-                x.UserName.ToLower() == username.ToLower())
+                x.UserName.ToLower() == username.ToLower() && x.IsDelete)
                 .Result;
+            if (data == null)
+                throw new Exception("Not found");
+            if(!data.IsActive)
+                throw new Exception("Account cannot access");
             if (VerifyPassword(password, data.Password))
                 return data;
             return null;

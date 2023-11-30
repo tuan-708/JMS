@@ -109,6 +109,7 @@ namespace APIServer.Repositories
         {
             return _context.Candidates
                 .Include(x => x.CurriculumVitaes)
+                .Include(x => x.Gender)
                 .Include(x => x.CVApplies).FirstOrDefault(x => x.Id == id);
         }
 
@@ -159,6 +160,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Role)
                 .Include(x => x.EmployeeInCompanies)
                 .Include(x => x.Company)
+                .Include(x => x.Gender)
                 .FirstOrDefault(x => x.Id == id);
             return rs;
         }
@@ -172,15 +174,18 @@ namespace APIServer.Repositories
         {
             if(recruiterId > 0)
             {
-                Recuirter recruiter = _context.Recuirters.FirstOrDefault(x => x.Id == recruiterId);
-                if(recruiter.IsActive) recruiter.IsActive = false;
-                else recruiter.IsActive = true;
+                Recuirter recruiter = _context.Recuirters.FirstOrDefault(x => x.Id == recruiterId && !x.IsDelete);
+                if (recruiter == null)
+                    throw new Exception("recruiter not valid");
+                recruiter.IsActive = !recruiter.IsActive;
                 return _context.SaveChanges();
             }
             if(candidateId > 0)
             {
-                Candidate candidate = _context.Candidates.FirstOrDefault(x => x.Id == candidateId);
-                if(candidate.IsActive) candidate.IsActive = false;
+                Candidate candidate = _context.Candidates.FirstOrDefault(x => x.Id == candidateId && !x.IsDelete);
+                if (candidate == null)
+                    throw new Exception("recruiter not valid");
+                if (candidate.IsActive) candidate.IsActive = false;
                 else candidate.IsActive = true;
                 return _context.SaveChanges();
             }
@@ -195,6 +200,7 @@ namespace APIServer.Repositories
                 return data;
             return null;
         }
+
         private bool VerifyPassword(string password, string hashedPassword)
         {
             return BCrypt.Net.BCrypt.Verify(password, hashedPassword);

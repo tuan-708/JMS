@@ -73,24 +73,24 @@ namespace APIServer.Services
             }
             if (!Validation.IsPhoneNumberValid(com.Phone))
                 throw new Exception("data phone not valid");
-            var listEmp = new List<EmployeeInCompany>();
-            if (data.RecuirtersInCompany.Any())
-            {
-                foreach (var o in data.RecuirtersInCompany)
-                {
-                    var re = _recuirterRepository.GetById((int)o.RecuirterId);
-                    if (re == null)
-                        throw new Exception("Employee in company not exist");
-                    var emp = _mapper.Map<EmployeeInCompany>(o);
-                    emp.CompanyId = com.CompanyId;
-                    if (emp.IsWorking)
-                        emp.EndDate = null;
-                    if (emp.IsWorking && emp.EndDate == null)
-                        throw new Exception("Employee information not correct at working information");
-                    listEmp.Add(emp);
-                }
-            }
-            com.EmployeeInCompanies = listEmp;
+            //var listEmp = new List<EmployeeInCompany>();
+            //if (data.RecuirtersInCompany != null && data.RecuirtersInCompany.Any())
+            //{
+            //    foreach (var o in data.RecuirtersInCompany)
+            //    {
+            //        var re = _recuirterRepository.GetById((int)o.RecuirterId);
+            //        if (re == null)
+            //            throw new Exception("Employee in company not exist");
+            //        var emp = _mapper.Map<EmployeeInCompany>(o);
+            //        emp.CompanyId = com.CompanyId;
+            //        if (emp.IsWorking)
+            //            emp.EndDate = null;
+            //        if (emp.IsWorking && emp.EndDate == null)
+            //            throw new Exception("Employee information not correct at working information");
+            //        listEmp.Add(emp);
+            //    }
+            //}
+            //com.EmployeeInCompanies = listEmp;
             com.RecuirterId = id;
             com.JobDescriptions = null;
             com.IsDelete = false;
@@ -116,8 +116,9 @@ namespace APIServer.Services
         {
             if (recuirterId <= 0 || companyId <= 0)
                 throw new Exception("Data not valid");
+            var rec = _recuirterRepository.GetById(recuirterId);
             var com = _companyRepository.GetById(companyId);
-            if (com == null)
+            if (rec == null || com == null)
                 throw new Exception("Not found");
             if (com.RecuirterId != recuirterId)
                 throw new Exception("Permission denied");
@@ -179,6 +180,8 @@ namespace APIServer.Services
 
         public CompanyDTO? GetById(int id)
         {
+            if (id <= 0 || id == null)
+                throw new Exception("Data not valid");
             var data = _companyRepository.GetById(id);
             if (data == null)
                 throw new Exception("Not found");
@@ -198,6 +201,7 @@ namespace APIServer.Services
                 {
                     message = GlobalStrings.SUCCESSFULLY,
                     statusCode = System.Net.HttpStatusCode.OK,
+                    data = new List<CompanyDTO>(),
                 };
             }
             var numberInOnePage = int.Parse(_configuration["PageSize"]);
@@ -223,6 +227,8 @@ namespace APIServer.Services
 
         public int UpdateByRecuirterId(CompanyDTO data, int recuirterId)
         {
+            if (data == null || recuirterId == null || recuirterId < 1)
+                throw new Exception("Data not valid");
             var com = _companyRepository.GetById(data.CompanyId);
             if (com == null)
                 throw new Exception("Not found");

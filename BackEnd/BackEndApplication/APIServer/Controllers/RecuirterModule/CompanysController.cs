@@ -56,6 +56,14 @@ namespace APIServer.Controllers.RecuirterModule
                     data = com,
                 };
             }
+            catch(OverflowException ex)
+            {
+                return new BaseResponseBody<CompanyDTO>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
             catch (Exception ex)
             {
                 return new BaseResponseBody<CompanyDTO>
@@ -67,13 +75,21 @@ namespace APIServer.Controllers.RecuirterModule
         }
 
         [HttpGet]
-        [Route("search/{search}/{page}")]
+        [Route("search")]
         public PagingResponseBody<List<CompanyDTO>> getAllCompanyByName(string? search, int? page)
         {
             try
             {
                 var list = _companyService.GetAllByName(search);
                 return _companyService.GetListPaging(page, list);
+            }
+            catch(OverflowException ex)
+            {
+                return new PagingResponseBody<List<CompanyDTO>>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
             }
             catch (Exception ex)
             {
@@ -88,7 +104,7 @@ namespace APIServer.Controllers.RecuirterModule
         [HttpPost]
         [Route("create-by-recuirter/{id}")]
         [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
-        public BaseResponseBody<int> createByRecuirterId(int id, CompanyDTO companyDTO)
+        public BaseResponseBody<int> createByRecuirterId(int id, CompanyDTO? companyDTO)
         {
             try
             {
@@ -97,6 +113,14 @@ namespace APIServer.Controllers.RecuirterModule
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
                     statusCode = HttpStatusCode.Created,
                     data = _companyService.CreateById(companyDTO, id),
+                };
+            }
+            catch(OverflowException ex)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
                 };
             }
             catch (Exception ex)
@@ -121,6 +145,14 @@ namespace APIServer.Controllers.RecuirterModule
                     message = GlobalStrings.SUCCESSFULLY_SAVED,
                     statusCode = HttpStatusCode.OK,
                     data = _companyService.UpdateByRecuirterId(companyDTO, id),
+                };
+            }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
                 };
             }
             catch (Exception ex)

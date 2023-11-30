@@ -31,6 +31,8 @@ namespace APIServer.Services
 
         public int ChangeCVStatus(int candidateId, int CVId)
         {
+            if (candidateId < 1 || CVId < 1)
+                throw new Exception("Input not valid");
             return _CvContext.UpdateIsFindingJobStatus(candidateId, CVId);
         }
 
@@ -47,6 +49,7 @@ namespace APIServer.Services
             {
                 throw new ArgumentNullException("cv not finished yet");
             }
+            cv.IsFindingJob = false;
             cv.IsActive = true;
             cv.IsDelete = false;
             cv.CreatedDate = DateTime.Now;
@@ -61,6 +64,8 @@ namespace APIServer.Services
 
         public int DeleteCV(int candidateId, int CVId)
         {
+            if (candidateId < 1 || CVId < 1)
+                throw new Exception("Input not valid");
             return _CvContext.UpdateIsDeleteStatus(candidateId, CVId);
         }
 

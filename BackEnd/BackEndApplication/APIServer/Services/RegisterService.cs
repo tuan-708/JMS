@@ -76,7 +76,7 @@ namespace APIServer.Services
             }
             else if (fullname != null)
             {
-                string fullnamePattern = @"^[a-zA-Z ]{8,35}$";
+                string fullnamePattern = @"^[\p{L} ]{8,35}$";
                 return Regex.IsMatch(fullname, fullnamePattern);
             }
             else

@@ -70,13 +70,13 @@ namespace APIServer.Controllers.UserModule
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
-            catch
+            catch(Exception ex)
             {
                 return new BaseResponseBody<string>
                 {
                     statusCode = HttpStatusCode.Unauthorized,
                     data = null,
-                    message = GlobalStrings.LOGIN_ERROR,
+                    message = ex.Message,
                 };
             }
         }
@@ -102,7 +102,7 @@ namespace APIServer.Controllers.UserModule
             {
                 return new BaseResponseBody<string>
                 {
-                    message = GlobalStrings.LOGIN_ERROR,
+                    message = ex.Message,
                     statusCode = HttpStatusCode.Unauthorized,
                 };
             }

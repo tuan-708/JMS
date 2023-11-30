@@ -154,14 +154,7 @@ namespace APIServer.Repositories
                 .Include(x => x.EmploymentType)
                 .Include(x => x.Category)
                 .Include(x => x.Gender).Where(x => x.CandidateId == candidateId && x.Id != CVId && x.IsFindingJob == true).ToList();
-            if (curriculumVitaes != null && curriculumVitaes.Count > 0)
-            {
-                foreach (var curriculumVitae1 in curriculumVitaes)
-                {
-                    curriculumVitae1.IsFindingJob = false;
-                    _context.SaveChanges();
-                }
-            }
+
             CurriculumVitae? curriculumVitae = _context.CurriculumVitaes
             .Include(x => x.Candidate)
             .Include(x => x.Awards)
@@ -174,14 +167,25 @@ namespace APIServer.Repositories
             .Include(x => x.EmploymentType)
             .Include(x => x.Category)
             .Include(x => x.Gender).FirstOrDefault(x => x.CandidateId == candidateId && x.Id == CVId);
+
+            if (curriculumVitae == null)
+                throw new Exception("CV not exist");
+
+            if (curriculumVitaes != null && curriculumVitaes.Count > 0)
+            {
+                foreach (var curriculumVitae1 in curriculumVitaes)
+                {
+                    curriculumVitae1.IsFindingJob = false;
+                    _context.SaveChanges();
+                }
+            }
+            
             if (curriculumVitae != null)
             {
                 if (curriculumVitae.IsFindingJob == true) curriculumVitae.IsFindingJob = false;
                 else curriculumVitae.IsFindingJob = true;
                 return _context.SaveChanges();
             }
-
-
             return 0;
         }
     }
