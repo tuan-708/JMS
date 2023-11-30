@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { showError, showSuccess } from 'src/app/service/common';
 import { ADMIN_PROFILE, ADMIN_TOKEN, AuthorizationMode, apiAdmin } from 'src/app/service/constant';
-import { getItem, saveItem, saveToken } from 'src/app/service/localstorage';
+import { getItem, saveItem, saveToken, setItem } from 'src/app/service/localstorage';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +20,7 @@ export class AdminSignInComponent {
     postRequest(apiAdmin.LOGIN_ADMIN, AuthorizationMode.PUBLIC, data)
       .then(res => {
         if (res?.statusCode == 200) {
-          saveItem(ADMIN_TOKEN, res.data)
+          setItem(ADMIN_TOKEN, res.data)
           saveToken(res.data)
           this.getAdminProfile(res.data)
           showSuccess(this.toarst, "Đăng nhập thành công!")
@@ -38,10 +38,10 @@ export class AdminSignInComponent {
   getAdminProfile(token: any) {
     console.log('here');
     
-    getRequest(apiAdmin.GET_ADMIN_PROFILE + token, AuthorizationMode.BEARER_TOKEN, {})
+    postRequest(apiAdmin.GET_ADMIN_PROFILE + token, AuthorizationMode.BEARER_TOKEN, {})
       .then(res => {
         if (res?.statusCode == 200) {
-          saveItem(ADMIN_PROFILE, res.data)
+          setItem(ADMIN_PROFILE, res.data)
         }
       })
       .catch(data => {
