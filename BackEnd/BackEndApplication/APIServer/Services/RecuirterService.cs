@@ -139,23 +139,6 @@ namespace APIServer.Services
             return _recRepository.Update(data);
         }
 
-        private string GetUserFromExpiredToken(string token)
-        {
-            try
-            {
-                token = token.Trim();
-                if (token == null)
-                    throw new NullReferenceException(GlobalStrings.LOGIN_ERROR);
-                var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
-                string user = jwt.Claims.First(c => c.Type == "UserName").Value;
-                return user;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
         private bool checkEmail(string? email)
         {
             string pattern = @"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$";
@@ -411,8 +394,8 @@ namespace APIServer.Services
                 }
                 return null;
             }
-
         }
+
         public List<CVMatching> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId)
         {
             List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatchedByNumberRequirement(recruiterId, jobDescriptionId);
@@ -478,7 +461,7 @@ namespace APIServer.Services
         {
             if (fullname != null)
             {
-                string fullnamePattern = @"^[a-zA-Z ]{8,35}$";
+                string fullnamePattern = @"^[\p{L} ]{8,35}$";
                 return Regex.IsMatch(fullname, fullnamePattern);
             }
             return false;

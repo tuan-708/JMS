@@ -62,11 +62,15 @@ namespace APIServer.Services
 
         public List<CurriculumVitae> GetAllCVsByCandidateId(int candidateId)
         {
+            if (candidateId < 1)
+                throw new Exception("Data not valid");
             return _adminContext.GetAllCVsByCandidateId(candidateId);
         }
 
         public List<JobDescription> GetAllJobsByRecruiterId(int recruiterId)
         {
+            if (recruiterId < 1)
+                throw new Exception("Data not valid");
             return _adminContext.GetAllJobsByRecruiterId(recruiterId);
         }
 
@@ -82,26 +86,36 @@ namespace APIServer.Services
 
         public Candidate GetCandidateById(int id)
         {
+            if (id < 1)
+                throw new Exception("Data not valid");
             return _adminContext.GetCandidateById(id);
         }
 
         public Company GetCompanyById(int id)
         {
+            if (id < 1)
+                throw new Exception("Data not valid");
             return _adminContext.GetCompanyById(id);
         }
 
         public CurriculumVitae GetCVById(int id)
         {
+            if (id < 1)
+                throw new Exception("Data not valid");
             return _adminContext.GetCVById(id);
         }
 
         public JobDescription GetJDById(int id)
         {
+            if (id < 1)
+                throw new Exception("Data not valid");
             return _adminContext.GetJDById(id);
         }
 
         public Recuirter GetRecruiterById(int id)
         {
+            if (id < 1)
+                throw new Exception("Data not valid");
             return _adminContext.GetRecruiterById(id);
         }
 
@@ -112,6 +126,10 @@ namespace APIServer.Services
 
         public int UpdateActiveStatus(int? recruiterId, int? candidateId)
         {
+            if(recruiterId == null || candidateId == null)
+                throw new ArgumentNullException("Input not valid");
+            if (recruiterId < 1 || candidateId < 1)
+                throw new ArgumentNullException("Input not valid");
             return _adminContext.UpdateActiveStatus(recruiterId, candidateId);
         }
 

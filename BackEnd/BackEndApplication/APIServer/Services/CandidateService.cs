@@ -86,14 +86,17 @@ namespace APIServer.Services
 
         public async Task<int> ApplyJob(int candidateId, int CVid, int jobDescriptionId)
         {
-
             try
             {
+                if (candidateId < 1 || CVid < 1 || jobDescriptionId < 1)
+                    throw new Exception("Data not valid");
                 var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candidateId));
                 List<CVMatching> cVMatchings = _CVMatchingRepository.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId);
                 CurriculumVitae? cv = GetCVById(CVid);
                 var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
                 JobDescription jobDescription = _JobContext.GetById(jobDescriptionId);
+                if (jobDescription == null)
+                    throw new Exception("JD not found");
                 if (cv != null)
                 {
                     if (CVList.Any(cv => cv.Id == curriculumVitae.Id))
@@ -164,6 +167,10 @@ namespace APIServer.Services
                     else throw new Exception("Your CV not exist");
                 }
                 else throw new Exception("Your CV not exist");
+            }
+            catch(OverflowException ex)
+            {
+                throw ex;
             }
             catch(DirectoryNotFoundException ex)
             {
@@ -308,7 +315,7 @@ namespace APIServer.Services
         {
             if (fullname != null)
             {
-                string fullnamePattern = @"^[a-zA-Z ]{8,35}$";
+                string fullnamePattern = @"^[\p{L} ]{8,35}$";
                 return Regex.IsMatch(fullname, fullnamePattern);
             }
             return false;
