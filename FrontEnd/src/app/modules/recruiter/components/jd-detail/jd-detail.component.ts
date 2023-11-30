@@ -92,7 +92,7 @@ export class JdDetailComponent {
     // type 1: matched list left
     // type 2: selected list
     const typeCandidate = type == 0 ? apiRecruiter.GET_CV_MATCHED : type == 1 ? apiRecruiter.GET_CV_MATCHED_LEFT : apiRecruiter.GET_CV_SELECTED
-    getRequest(typeCandidate, AuthorizationMode.PUBLIC, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: 1 })
+    getRequest(typeCandidate, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: 1 })
       .then(res => {
         this.listCandidate = res.data
         console.log(res.data);
