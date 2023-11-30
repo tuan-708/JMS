@@ -16,6 +16,14 @@ export function saveItem(key:any,data:any){
     localStorage.setItem(key, item);
 }
 
+export function getItem(key:any){
+    return localStorage.getItem(key)
+}
+
+export function removeItem(key:any){
+    return localStorage.removeItem(key)
+}
+
 export function getToken(){
     var value = localStorage.getItem('token');
 

@@ -1,6 +1,8 @@
 export const ITEM_LOAD = 20;
 export const AVATAR_DEFAULT_URL = 'https://gcavocats.ca/wp-content/uploads/2018/09/man-avatar-icon-flat-vector-19152370-1.jpg';
 export const IMG_LOADING = 'https://truetech.com.vn/wp-content/uploads/2021/07/loading.gif';
+export const ADMIN_TOKEN = 'admin-token';
+export const ADMIN_PROFILE = 'admin-profile';
 
 export enum AuthorizationMode {
     PUBLIC = 0,
@@ -91,4 +93,6 @@ export enum apiAdmin{
     GET_CANDIDATE_BY_ID = '/api/Admin/get-candidate-by-id',
     GET_JD_BY_ID = '/api/Admin/get-jd-by-id',
     GET_ALL_CV_BY_ID = '/api/Admin/get-all-cv-by-candidateid?candidateId=',
+    LOGIN_ADMIN = '/api/Token/login-admin',
+    GET_ADMIN_PROFILE = '/api/Admin/get-admin-by-id/'
 }
