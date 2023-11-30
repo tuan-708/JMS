@@ -1,22 +1,25 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { getRequest, postRequest } from 'src/app/service/api-requests';
+import { getRequest, postFileRequest, postRequest } from 'src/app/service/api-requests';
 import { showError, showSuccess } from 'src/app/service/common';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { getProfile, saveItem } from 'src/app/service/localstorage';
+import { getProfile, getToken, saveItem, signOut } from 'src/app/service/localstorage';
 
+declare var $: any;
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
+
   profile: any
   company: any
   newProfile: any = { fullname: '', phone: '', dob: '', gender: '', desc: null }
   genderDisplay: any
 
-  constructor(public toastr: ToastrService) {
+  constructor(public toastr: ToastrService, private router: Router) {
     this.profile = getProfile()
     this.getCompany();
   }
@@ -136,9 +139,9 @@ export class ProfileComponent {
     }
   }
 
-  isOldPassValid(oldPass:any){
+  isOldPassValid(oldPass: any) {
     if (oldPass.trim().length == 0) {
-      showError(this.toastr, "Hãy nhập mật khẩu!")      
+      showError(this.toastr, "Hãy nhập mật khẩu!")
       return false
     }
     return true
@@ -146,7 +149,7 @@ export class ProfileComponent {
 
   isPasswordValid(password: string): boolean {
     if (password.trim().length == 0) {
-      showError(this.toastr, "Hãy nhập mật khẩu mới!")      
+      showError(this.toastr, "Hãy nhập mật khẩu mới!")
       return false
     }
 
@@ -175,5 +178,65 @@ export class ProfileComponent {
     }
 
     return true
+  }
+
+  showUploadAvatarSuccess() {
+    this.toastr.success('Chỉnh sửa ảnh thành công', 'Thành công', {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+  showTokenExpiration() {
+    this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+  getProfile = () => {
+    var token = getToken()
+
+    postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
+      .then(res => {
+        if (res.statusCode == 200) {
+          this.profile = res.data
+          console.log(this.profile);
+        }
+      })
+      .catch(error => {
+        this.router.navigate(['/candidate/sign-in']);
+        this.showTokenExpiration()
+        signOut()
+      })
+  }
+
+  showErrorUploadImage() {
+    this.toastr.error('Chỉnh sửa thông tin cá nhân thất bại', 'Thất bại', {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+
+  getFile(event: any) {
+    if ($('#avatarCv')[0].files[0]) {
+
+      let formData: FormData = new FormData();
+      let file: File = $('#avatarCv')[0].files[0];
+      formData.append('file', file, file.name);
+
+      postFileRequest(`${apiRecruiter.UPDATE_IMAGE_RECRUITER}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, formData)
+        .then(res => {
+          if (res.statusCode == 200) {
+            this.showUploadAvatarSuccess()
+            this.getProfile()
+          }
+        })
+        .catch(data => {
+          this.showErrorUploadImage()
+          console.log(data);
+        })
+    }
   }
 }

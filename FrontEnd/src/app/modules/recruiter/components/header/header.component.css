@@ -58,3 +58,7 @@ body {
 a:hover{
    cursor: pointer;
 }
+
+.rounded-circle{
+   object-fit: cover;
+}

@@ -23,7 +23,11 @@
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG hoặc PNG không vượt quá 5 MB</div>
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Đăng Ảnh Mới</button>
+                    <!-- <button class="btn btn-primary" type="button">Đăng Ảnh Mới</button> -->
+                    <label for="avatarCv" class="iconCamera">
+                        Đăng Ảnh Mới
+                     </label>
+                     <input class="file-upload-input" style="display: none;" type='file' id="avatarCv" multiple=false (change)="getFile($event);"/>
                 </div>
             </div>
         </div>

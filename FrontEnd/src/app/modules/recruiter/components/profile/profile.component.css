@@ -5,7 +5,9 @@ body {
 }
 
 .img-account-profile {
-    height: 10rem;
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
 }
 
 .rounded-circle {
@@ -66,4 +68,11 @@ body {
     padding-right: 0;
     margin-left: 1rem;
     margin-right: 1rem;
+}
+
+.iconCamera{
+    background-color: #0d6efd;
+    padding: 10px 10px;
+    border-radius: 10px;
+    color: white;
 }

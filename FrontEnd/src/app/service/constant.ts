@@ -34,6 +34,7 @@ export enum apiRecruiter {
     //Image
     UPDATE_IMAGE_COMPANY_AVATAR = "/api/Images/update-img-avt-company",
     UPDATE_IMAGE_COMPANY_BACKGROUND = "/api/Images/update-img-bgr-company",
+    UPDATE_IMAGE_RECRUITER = "/api/Images/update-img-recuirter",
 
     //Profile
     LOGIN_RECRUITER = "/api/Token/login-recuirter",
