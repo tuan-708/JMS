@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { getRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile } from 'src/app/service/localstorage';
@@ -16,7 +17,7 @@ export class CompanyViewComponent {
   htmlContent:any;
   profile: any;
 
-  constructor() {
+  constructor(public router: Router) {
     this.profile = getProfile();
     getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + this.profile.id, AuthorizationMode.PUBLIC)
     .then(res => {
@@ -29,7 +30,7 @@ export class CompanyViewComponent {
     })
   }
 
-  onClickView(jd:any){
-    
+  onClickView(jd: any) {
+    this.router.navigate(['/recruiter/view-jd-detail', jd?.jobId]);
   }
 }

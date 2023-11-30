@@ -89,11 +89,12 @@
 .contentMoreLeft {
     background-color: #fffc;
     box-shadow: var(--boxShadow1);
-    height: 700px;
+    height: 750px;
     border-radius: 20px 20px 20px 20px;
     overflow: hidden;
     width: 70%;
     position: relative;
+    /* overflow-y: auto; */
 }
 
 .contentMoreLeftSecond {
@@ -110,7 +111,7 @@
 .contentMoreRight {
     background-color: #fffc;
     box-shadow: var(--boxShadow1);
-    height: 700px;
+    height: 750px;
     border-radius: 20px 20px 20px 20px;
     overflow: hidden;
     padding: 0;
@@ -131,6 +132,8 @@
 
 .contentDetailLeft {
     padding: 15px 20px 15px 20px;
+    height: 700px;
+    overflow-y: auto;
 }
 
 .contentDetailRight {
@@ -221,6 +224,14 @@ body {
     width: 10px;
     height: 10px;
     color: limegreen;
+    position: absolute;
+    right: 20px;
+}
+
+.status-red {
+    width: 10px;
+    height: 10px;
+    color: rgb(231, 11, 11);
     position: absolute;
     right: 20px;
 }
