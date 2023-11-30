@@ -1,7 +1,12 @@
-﻿using APIServer.IRepositories;
+﻿using APIServer.Common;
+using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
 using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace APIServer.Services
 {
@@ -71,7 +76,7 @@ namespace APIServer.Services
 
         public Admin? GetById(int id)
         {
-            throw new NotImplementedException();
+            return _adminContext.GetById(id);
         }
 
         public Candidate GetCandidateById(int id)
@@ -107,6 +112,44 @@ namespace APIServer.Services
         public int UpdateActiveStatus(int? recruiterId, int? candidateId)
         {
             return _adminContext.UpdateActiveStatus(recruiterId, candidateId);
+        }
+
+        public string generateToken(Admin? admin)
+        {
+            var claims = new[] {
+                        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
+                        new Claim("UserId", admin.Id.ToString()),
+                        new Claim("DisplayName", admin.FullName),
+                        new Claim("UserName", admin.UserName),
+                        new Claim(ClaimTypes.Role, GlobalStrings.ROLE_ADMIN),
+                    };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(double.Parse(_configuration["Jwt:expiredMins"])),
+                //expires: DateTime.Now.AddSeconds(20),
+                signingCredentials: signIn);
+
+            var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
+            return accessToken;
+        }
+
+        public Admin Login(string? username, string? password)
+        {
+            if (Validation.checkStringIsEmpty(username, password))
+            {
+                throw new ArgumentNullException("username or password empty");
+            }
+            var user = _adminContext.Login(username, password);
+            if (user == null)
+                throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
+            return user;
         }
     }
 }
