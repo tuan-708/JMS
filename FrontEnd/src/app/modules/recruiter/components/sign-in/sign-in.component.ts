@@ -57,8 +57,13 @@ export class RecruiterSignInComponent {
                    }, 1000);
 
                    setTimeout(() => {
-                     this.showSuccess()
-                     this.router.navigate(['/recruiter/list-jds']);
+                     this.showSuccess()                     
+                     if(res.data.companyId){
+                        this.router.navigate(['/recruiter/list-jds']);
+                     }else{
+                        this.router.navigate(['/recruiter/create-conpany']);
+                     }
+                     
                    }, 1000);
                    
                  }
