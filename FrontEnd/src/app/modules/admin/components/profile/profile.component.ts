@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { showError, showSuccess } from 'src/app/service/common';
 import { ADMIN_PROFILE, AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { getItem, getProfile, saveItem } from 'src/app/service/localstorage';
+import { getItem, getItemJson, getProfile, saveItem } from 'src/app/service/localstorage';
 
 @Component({
   selector: 'app-profile',
@@ -14,11 +14,13 @@ export class ProfileComponent {
   profile: any
   company: any
   newProfile: any = { fullname: '', phone: '', dob: '', gender: '', desc: null }
-  dob: any
+  dobb: any
 
   constructor(public toastr: ToastrService) {
-    this.profile = getItem(ADMIN_PROFILE)
-    this.dob = this.convertDate(this.profile?.dob)
+    this.profile = getItemJson(ADMIN_PROFILE)
+    this.dobb = this.profile?.dob.slice(0, 10)
+    console.log(this.profile);
+    
   }
 
   changePassword(oldPass: HTMLInputElement, newPass: HTMLInputElement, rePass: HTMLInputElement) {

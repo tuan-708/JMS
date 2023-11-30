@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ADMIN_PROFILE, ADMIN_TOKEN } from 'src/app/service/constant';
-import { getItem, removeItem, saveItem, signOut } from 'src/app/service/localstorage';
+import { getItem, getItemJson, removeItem, saveItem, signOut } from 'src/app/service/localstorage';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ export class HeaderComponent {
   profile: any
 
   constructor(private router: Router){
-    this.profile = getItem(ADMIN_PROFILE)
+    this.profile = getItemJson(ADMIN_PROFILE)
   }
 
   signOut(){
