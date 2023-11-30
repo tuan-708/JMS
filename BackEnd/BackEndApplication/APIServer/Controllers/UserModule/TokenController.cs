@@ -171,5 +171,28 @@ namespace APIServer.Controllers.UserModule
                 };
             }
         }
+        [HttpPost]
+        [Route("get-data-admin")]
+        [Authorize(Roles = GlobalStrings.ROLE_ADMIN)]
+        public BaseResponseBody<AdminDTO> getAdminInformation(string? token)
+        {
+            try
+            {
+                return new BaseResponseBody<AdminDTO>()
+                {
+                    message = GlobalStrings.SUCCESSFULLY,
+                    statusCode = HttpStatusCode.OK,
+                    data = adminService.getAdminInformationByToken(token),
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<AdminDTO>()
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.Unauthorized,
+                };
+            }
+        }
     }
 }

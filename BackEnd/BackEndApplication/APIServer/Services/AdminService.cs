@@ -1,4 +1,5 @@
 ﻿using APIServer.Common;
+using APIServer.DTO.EntityDTO;
 using APIServer.IRepositories;
 using APIServer.IServices;
 using APIServer.Models.Entity;
@@ -150,6 +151,37 @@ namespace APIServer.Services
             if (user == null)
                 throw new SecurityTokenException(GlobalStrings.LOGIN_ERROR);
             return user;
+        }
+
+        public AdminDTO getAdminInformationByToken(string? token)
+        {
+            try
+            {
+                if (Validation.checkStringIsEmpty(token))
+                {
+                    throw new Exception("token not valid");
+                }
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                if (jsonToken == null)
+                {
+                    throw new Exception("your token not valid");
+                }
+                if (jsonToken.ValidTo < DateTime.UtcNow)
+                    throw new Exception("token has expired");
+                var canId = jsonToken.Claims.FirstOrDefault(x => x.Type == "UserId").Value;
+                var username = jsonToken.Claims.FirstOrDefault(x => x.Type == "UserName").Value;
+                var can = _adminContext.GetById((int)Validation.ConvertInt(canId));
+                if (can.UserName != username)
+                    throw new Exception("token not valid");
+                var rs = _mapper.Map<AdminDTO>(can);
+                return rs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
