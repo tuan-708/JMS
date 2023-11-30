@@ -1,4 +1,5 @@
-﻿using APIServer.Models.Entity;
+﻿using APIServer.DTO.EntityDTO;
+using APIServer.Models.Entity;
 
 namespace APIServer.IServices
 {
@@ -17,5 +18,7 @@ namespace APIServer.IServices
         public int UpdateActiveStatus(int? recruiterId, int? candidateId);
         public string generateToken(Admin? admin);
         public Admin Login(string? username, string? password);
+        public AdminDTO getAdminInformationByToken(string? token);
+
     }
 }
