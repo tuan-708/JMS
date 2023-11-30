@@ -7,11 +7,11 @@ namespace APIServer.DTO.EntityDTO
     {
         public int CompanyId { get; set; }
         [StringLength(200)]
-        public string CompanyName { get; set; }
+        public string? CompanyName { get; set; }
         [StringLength(100)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [StringLength(10)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
         public string? Address { get; set; }
         public string? Description { get; set; }
         public string? DateCreatedDisplay { get; set; }
