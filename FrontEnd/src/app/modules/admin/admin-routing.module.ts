@@ -8,17 +8,18 @@ import { MainComponent } from './components/main/main.component';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 import { CandidateComponent } from './components/candidate/candidate.component';
 import { RecruiterComponent } from './components/recruiter/recruiter.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
    { path: "setting", component: AdminSettingComponent },
    { path: "sign-in", component: AdminSignInComponent },
    { path: "sign-up", component: AdminSignUpComponent },
-   { path: "company-page", component: CompanyComponent },
-   { path: "dashboard", component: MainComponent },
-   { path: "", component: MainComponent },
-   { path: "view-jd/:id", component: JdDetailComponent },
-   { path: "candidate-page", component: CandidateComponent },
-   { path: "recruiter-page", component: RecruiterComponent },
+   { path: "company-page", component: CompanyComponent, canActivate: [authGuard] },
+   { path: "dashboard", component: MainComponent, canActivate: [authGuard] },
+   { path: "", component: MainComponent, canActivate: [authGuard] },
+   { path: "view-jd/:id", component: JdDetailComponent, canActivate: [authGuard] },
+   { path: "candidate-page", component: CandidateComponent, canActivate: [authGuard] },
+   { path: "recruiter-page", component: RecruiterComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

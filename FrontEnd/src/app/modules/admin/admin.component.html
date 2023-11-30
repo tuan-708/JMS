@@ -1,4 +1,4 @@
-<div class="container-fluid h-100" *ngIf="routerPath != '/admin/sign-in'">
+<div class="container-fluid h-100" *ngIf="isLogin()">
     <div class="header">
         <app-header></app-header>
     </div>
@@ -12,4 +12,4 @@
         </div>
     </div>
 </div>
-<router-outlet *ngIf="routerPath == '/admin/sign-in'"></router-outlet>
+<router-outlet *ngIf="!isLogin()"></router-outlet>

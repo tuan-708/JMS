@@ -6,11 +6,11 @@
     </div> -->
     <div class="dropdown text-end">
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src={{profile?.avatarURL}} alt="mdo" width="32" height="32" class="rounded-circle"> Nguyen Hoa
+          <img src={{profile?.avatarURL}} alt="mdo" width="32" height="32" class="rounded-circle"> {{profile?.fullName}}
         </a>
         <ul class="dropdown-menu text-small">
           <li><a class="dropdown-item" [routerLink]="['/recruiter/profile']">Thông tin cá nhân</a></li>
-          <li><a class="dropdown-item" href="">Cài đặt</a></li>
+          <!-- <li><a class="dropdown-item" href="">Cài đặt</a></li> -->
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" (click)="signOut()">Đăng xuất</a></li>
         </ul>

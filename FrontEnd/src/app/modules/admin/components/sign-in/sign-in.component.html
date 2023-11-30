@@ -18,7 +18,7 @@
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <i class="bi bi-envelope-fill p-1"></i><label class="form-label" for="form3Example3">Tài khoản</label>
-                        <input type="email" id="form3Example3" class="form-control form-control-lg"
+                        <input #username type="email" id="form3Example3" class="form-control form-control-lg"
                             placeholder="Nhập tài khoản..." />
                     </div>
 
@@ -26,7 +26,7 @@
                     <div class="form-outline mb-3">
                         <i class="bi bi-lock-fill p-1"></i><label class="form-label"
                             for="form3Example4">Mật Khẩu</label>
-                        <input type="password" id="form3Example4" class="form-control form-control-lg"
+                        <input #password type="password" id="form3Example4" class="form-control form-control-lg"
                             placeholder="Nhập mật khẩu" />
                     </div>
 
@@ -38,12 +38,12 @@
                                 Ghi nhớ đăng nhập
                             </label>
                         </div>
-                        <a href="#!" class="link-primary" style="text-decoration: none;">Quên mật khẩu?</a>
+                        <!-- <a href="#!" class="link-primary" style="text-decoration: none;">Quên mật khẩu?</a> -->
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button type="button" class="btn btn-primary btn-lg btn-block "
-                            style="padding-left: 2.5rem; padding-right: 2.5rem; width: 100%;">Đăng Nhập</button>
+                            style="padding-left: 2.5rem; padding-right: 2.5rem; width: 100%;" (click)="login(username, password)">Đăng Nhập</button>
 
                     </div>
 

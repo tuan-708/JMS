@@ -35,17 +35,17 @@ export class TopThreeProductsComponent {
         {
           name: 'FPT EDUCATION',
           y: 395,
-          color: '#044342',
+          color: '#F05941',
         },
         {
           name: 'VIETTEL GROUP',
-          y: 385,
-          color: '#7e0505',
+          y: 365,
+          color: '#ED5AB3',
         },
         {
           name: 'VINAMILK',
           y: 275,
-          color: '#ed9e20',
+          color: '#87C4FF',
         },
       ]
      }
