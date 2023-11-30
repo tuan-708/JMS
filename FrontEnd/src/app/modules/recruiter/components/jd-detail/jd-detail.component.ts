@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OptionMatchModalComponent } from '../option-match-modal/option-match-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-jd-detail',
@@ -37,10 +38,12 @@ export class JdDetailComponent {
     });
  }
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute, private toastr: ToastrService) {
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private toastr: ToastrService, private viewportScroller: ViewportScroller) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
+
+    this.viewportScroller.scrollToPosition([0, 0]);
 
     //get jd detail
     getRequest(apiRecruiter.GET_JD_BY_ID, AuthorizationMode.BEARER_TOKEN, { jdId: this.id })

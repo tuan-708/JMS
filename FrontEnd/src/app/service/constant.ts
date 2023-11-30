@@ -40,6 +40,7 @@ export enum apiRecruiter {
     GET_PROFILE_RECRUITER = "/api/Token/get-data-recruiter",
     REGISTER_ACCOUNT_RECRUITER = "/api/Registers/register-for-recuirter",
     UPDATE_PROFILE = "/api/Recuirter/update-profile",
+    CHANGE_PASSWORD = "/api/Recuirter/change-password",
 
     //Company
     GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",

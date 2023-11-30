@@ -11,6 +11,7 @@ import { RegisterRecruiterComponent } from './components/sign-up/sign-up.compone
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { CompanyViewComponent } from './components/company-view/company-view.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
    { path: "sign-in", title: "Nhà tuyển dụng - Đăng nhập", component: RecruiterSignInComponent },
@@ -19,12 +20,13 @@ const routes: Routes = [
    { path: "company-update", title: "Nhà tuyển dụng - Chỉnh sửa công ty", component: CompanyUpdateComponent },
    { path: "create-jd", title: "Nhà tuyển dụng - Đăng ký bài tuyển dụng", component: CreateJdComponent },
    { path: "list-jds", title: "Nhà tuyển dụng - Danh sách bài tuyển dụng", component: ListJdsComponent },
-   { path: "", title: "Nhà tuyển dụng - Danh sách bài tuyển dụng", component: ListJdsComponent },
+   { path: "", title: "Nhà tuyển dụng - Landing Page", component: LandingPageComponent },
    { path: "jd-detail/:id", title: "Nhà tuyển dụng - Cập nhật bài tuyển dụng", component: JdUpdateComponent },
    { path: "view-jd-detail/:id", title: "Nhà tuyển dụng - Chi tiết bài tuyển dụng", component: JdDetailComponent },
    { path: "landing-page", title: "Landing Page", component: LandingPageComponent },
    { path: "view-company", title: "Nhà tuyển dụng - Thông Tin Công Ty", component: CompanyViewComponent },
    { path: "profile", title: "Nhà tuyển dụng - Thông Tin Cá Nhân", component: ProfileComponent },
+   { path: "forget-password", title: "Nhà tuyển dụng - Quên Mật Khẩu", component: ForgotPasswordComponent },
 ];
 
 @NgModule({
