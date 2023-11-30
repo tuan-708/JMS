@@ -9,6 +9,7 @@ import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
 import { CandidateComponent } from './components/candidate/candidate.component';
 import { RecruiterComponent } from './components/recruiter/recruiter.component';
 import { authGuard } from './auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
    { path: "setting", component: AdminSettingComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
    { path: "view-jd/:id", component: JdDetailComponent, canActivate: [authGuard] },
    { path: "candidate-page", component: CandidateComponent, canActivate: [authGuard] },
    { path: "recruiter-page", component: RecruiterComponent, canActivate: [authGuard] },
+   { path: "profile", component: ProfileComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

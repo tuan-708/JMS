@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
-import { getRequest } from 'src/app/service/api-requests';
+import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiAdmin } from 'src/app/service/constant';
 
 @Component({
@@ -55,5 +55,23 @@ export class RecruiterComponent {
     } catch (error) {
       console.warn('Fail in search:' + error)
     }
+  }
+
+  changeActive(id: any, isActive: any){
+    postRequest(apiAdmin.CHANGE_ACTIVE_RECRUITER + id, AuthorizationMode.PUBLIC, {})
+      .then(res => {
+        if(res.statusCode === 200){
+          console.log('success')
+          for (let i = 0; i < this.listDisplay.length; i++) {
+            const e = this.listDisplay[i];
+            if(e.id === id){
+              this.listDisplay[i].isActive = !isActive
+            }
+          }
+        }
+      })
+      .catch(data => {
+        console.warn("Call API GET COMPANY Fail:" + data)
+      })
   }
 }

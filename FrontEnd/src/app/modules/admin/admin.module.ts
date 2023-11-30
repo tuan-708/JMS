@@ -26,6 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CompanyViewComponent } from './components/company-view/company-view.component';
 import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
+import { ProfileComponent } from './components/profile/profile.component';
 @NgModule({
    declarations: [
       AdminSettingComponent,
@@ -47,6 +48,7 @@ import { JdDetailComponent } from './components/jd-detail/jd-detail.component';
       CustomFilterPipe,
       CompanyViewComponent,
       JdDetailComponent,
+      ProfileComponent,
    ],
    imports: [
       CommonModule,
