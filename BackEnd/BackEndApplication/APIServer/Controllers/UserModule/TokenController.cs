@@ -19,14 +19,41 @@ namespace APIServer.Controllers.UserModule
         private readonly IConfiguration _configuration;
         private readonly IRecuirterService recuirterService;
         private readonly ICandidateService candidateService;
+        private readonly IAdminService adminService;
 
-        public TokenController(IMapper mapper, IRecuirterService userService, IConfiguration configuration, ICandidateService candidateService)
+        public TokenController(IMapper mapper, IRecuirterService userService, IConfiguration configuration, ICandidateService candidateService, IAdminService adminService)
         {
             this.mapper = mapper;
             this.recuirterService = userService;
             this.recuirterService = userService;
             _configuration = configuration;
             this.candidateService = candidateService;
+            this.adminService = adminService;
+        }
+
+        [HttpPost]
+        [Route("login-admin")]
+        public BaseResponseBody<string> loginForAdmin(LoginModel loginModel)
+        {
+            try
+            {
+                var user = adminService.Login(loginModel.username, loginModel.password);
+                return new BaseResponseBody<string>
+                {
+                    statusCode = HttpStatusCode.OK,
+                    data = adminService.generateToken(user),
+                    message = GlobalStrings.SUCCESSFULLY,
+                };
+            }
+            catch
+            {
+                return new BaseResponseBody<string>
+                {
+                    statusCode = HttpStatusCode.Unauthorized,
+                    data = null,
+                    message = GlobalStrings.LOGIN_ERROR,
+                };
+            }
         }
 
         [HttpPost]
@@ -53,6 +80,8 @@ namespace APIServer.Controllers.UserModule
                 };
             }
         }
+
+
 
         [HttpPost]
         [Route("login-candidate")]

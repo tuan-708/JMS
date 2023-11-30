@@ -85,6 +85,8 @@ namespace APIServer.MappingObj
                 host + src.AvatarURL ))
                 ;
 
+            CreateMap<Admin, AdminDTO>();
+
             CreateMap<Candidate, CandidateDTO>()
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
                 host + "\\defaults\\default_avt.jpg" :
