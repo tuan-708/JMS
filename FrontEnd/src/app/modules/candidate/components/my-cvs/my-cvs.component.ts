@@ -135,7 +135,29 @@ export class CandidateMyCvsComponent {
    }
 
    gotoUpdateCurrentCv(id: number) {
-      console.log(id);
+
+      postRequest(`${apiCandidate.CHANGE_FINDING_JOB_STATUS}?candidateId=${this.profile.id}&cvId=${id}`, AuthorizationMode.BEARER_TOKEN, {})
+      .then(res => {
+         if (res?.statusCode == 200) {
+            getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
+            .then(res => {
+               this.listCVs = res?.data
+               console.log(this.listCVs);
+            })
+            .catch(data => {
+               this.router.navigate(['/candidate/sign-in']);
+               this.showTokenExpiration()
+               signOut()
+            })
+       
+         }else {
+            this.showError()
+         }
+      })
+      .catch(data => {
+         this.showError()
+         console.error(apiCandidate.LOGIN_CANDIDATE);
+      })
 
    }
 }

@@ -114,7 +114,6 @@ export class ProfileComponent {
 
    constructor(private toastr: ToastrService, private router: Router) {
       this.getProfile()
-   
    }
 
    getFile(event: any) {

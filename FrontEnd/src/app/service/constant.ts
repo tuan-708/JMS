@@ -68,6 +68,7 @@ export enum apiCandidate {
     GET_ALL_CV_APPLIED = "/api/Candidate/get-all-cv-applied",
     GET_CV_CANDIDATE_BY_ID = "/api/CVs/getCV",
     DELETE_CV_BY_ID = "/api/CVs/delete-cv",
+    CHANGE_FINDING_JOB_STATUS = "/api/CVs/change-is-finding-job-status",
 
     //Image
     UPLOAD_AVATAR_CV_ID = "/api/Images/upload-img-cv",
