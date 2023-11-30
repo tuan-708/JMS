@@ -36,6 +36,15 @@ namespace APIServer.Controllers.AdminModule
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<List<CurriculumVitaeDTO>>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
+                };
+            }
             catch (Exception ex)
             {
                 return new BaseResponseBody<List<CurriculumVitaeDTO>>
@@ -59,6 +68,15 @@ namespace APIServer.Controllers.AdminModule
                     data = rs,
                     statusCode = HttpStatusCode.OK,
                     message = GlobalStrings.SUCCESSFULLY,
+                };
+            }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<List<JobDTO>>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
                 };
             }
             catch (Exception ex)
@@ -85,6 +103,15 @@ namespace APIServer.Controllers.AdminModule
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<List<CandidateDTO>>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
+                };
+            }
             catch (Exception ex)
             {
                 return new BaseResponseBody<List<CandidateDTO>>
@@ -109,6 +136,15 @@ namespace APIServer.Controllers.AdminModule
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<List<RecuirterDTO>>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
+                };
+            }
             catch (Exception ex)
             {
                 return new BaseResponseBody<List<RecuirterDTO>>
@@ -131,6 +167,15 @@ namespace APIServer.Controllers.AdminModule
                     data = rs,
                     statusCode = HttpStatusCode.OK,
                     message = GlobalStrings.SUCCESSFULLY,
+                };
+            }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<List<CompanyDTO>>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
                 };
             }
             catch (Exception ex)
@@ -158,6 +203,15 @@ namespace APIServer.Controllers.AdminModule
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<CompanyDTO>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
+                };
+            }
             catch (Exception ex)
             {
                 return new BaseResponseBody<CompanyDTO>
@@ -180,6 +234,15 @@ namespace APIServer.Controllers.AdminModule
                     data = rs,
                     statusCode = HttpStatusCode.OK,
                     message = GlobalStrings.SUCCESSFULLY,
+                };
+            }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<CandidateDTO>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
                 };
             }
             catch (Exception ex)
@@ -206,6 +269,15 @@ namespace APIServer.Controllers.AdminModule
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<RecuirterDTO>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
+                };
+            }
             catch (Exception ex)
             {
                 return new BaseResponseBody<RecuirterDTO>
@@ -230,6 +302,15 @@ namespace APIServer.Controllers.AdminModule
                     message = GlobalStrings.SUCCESSFULLY,
                 };
             }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<JobDTO>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
+                };
+            }
             catch (Exception ex)
             {
                 return new BaseResponseBody<JobDTO>
@@ -252,6 +333,15 @@ namespace APIServer.Controllers.AdminModule
                     data = rs,
                     statusCode = HttpStatusCode.OK,
                     message = GlobalStrings.SUCCESSFULLY,
+                };
+            }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<CurriculumVitaeDTO>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
                 };
             }
             catch (Exception ex)
@@ -286,6 +376,15 @@ namespace APIServer.Controllers.AdminModule
                         message = GlobalStrings.BAD_REQUEST,
                     };
             }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<string>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
+                };
+            }
             catch (Exception ex)
             {
                 return new BaseResponseBody<string>
@@ -308,6 +407,15 @@ namespace APIServer.Controllers.AdminModule
                     data = rs,
                     statusCode = HttpStatusCode.OK,
                     message = GlobalStrings.SUCCESSFULLY,
+                };
+            }
+            catch (OverflowException ex)
+            {
+                return new BaseResponseBody<AdminDTO>
+                {
+                    data = null,
+                    statusCode = HttpStatusCode.BadRequest,
+                    message = ex.Message,
                 };
             }
             catch (Exception ex)

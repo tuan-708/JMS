@@ -110,6 +110,8 @@ namespace APIServer.Services
 
         public int deleteByRecuirterId(int? recuirterId, int JDid)
         {
+            if (recuirterId < 1 || JDid < 1)
+                throw new Exception("Input not valid");
             var jd = _jobRepo.GetById(JDid);
             if (!_recuirterRepo.checkExistById(recuirterId) || jd == null ||
                 jd.RecuirterId != recuirterId)
