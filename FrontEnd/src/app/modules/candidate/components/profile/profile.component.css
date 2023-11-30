@@ -1,11 +1,13 @@
 .header__container {
     position: relative;
-    margin-top: 100px;
+    margin-top: 170px;
 }
 
 .formUpdate {
-    padding-top: 50px;
+    padding: 30px;
     width: 60%;
+    box-shadow: var(--boxShadow);
+    border-radius: 20px;
     margin: auto;
 }
 

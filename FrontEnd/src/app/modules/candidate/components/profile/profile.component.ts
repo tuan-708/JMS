@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postFileRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
-import { getProfile, getToken, signOut } from 'src/app/service/localstorage';
+import { getProfile, getToken, saveItem, saveToken, signOut } from 'src/app/service/localstorage';
 
 declare var $: any;
 @Component({
@@ -98,11 +98,12 @@ export class ProfileComponent {
          .then(res => {
             if (res.statusCode == 200) {
                this.profile = res.data
-               console.log(this.profile);
 
                this.FullName = this.profile.fullName
                this.Dob = this.profile.dob.split('T')[0]
                this.Phone = this.profile.phoneNumber
+
+               saveItem("profile", res.data);
             }
          })
          .catch(error => {
@@ -146,6 +147,7 @@ export class ProfileComponent {
             .then(res => {
                if (res.statusCode == 200) {
                   this.showSuccess()
+                  this.getProfile()
                }
                if (res.statusCode == 400) {
                   this.showError()

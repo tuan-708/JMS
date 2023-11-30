@@ -29,6 +29,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
 import { ViewNullComponent } from 'src/app/components/view-null/view-null.component';
 import { ViewLoadingComponent } from 'src/app/components/view-loading/view-loading.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
    declarations: [
@@ -51,7 +52,8 @@ import { ViewLoadingComponent } from 'src/app/components/view-loading/view-loadi
       ProfileComponent,
       NotFoundComponent,
       ViewNullComponent,
-      ViewLoadingComponent
+      ViewLoadingComponent,
+      ChangePasswordComponent
    ],
    imports: [
       CommonModule,

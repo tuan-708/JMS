@@ -11,15 +11,39 @@ import { environment } from 'src/environments/environment';
 export class HeaderComponent {
    backgroundSelectedLink = `${environment.Url}/assets/background-gradients/gradients-backgrounds-sexy-blue1.png`
 
-   isLog:boolean = true;
-   profile:any
+   isLog: boolean = true;
+   profile: any;
+   headerTitle = [{ title: 'jobs', router: '/candidate', value: false },
+   { title: 'cv', router: '/candidate/your-cvs', value: false },
+   { title: 'company', router: '/candidate/list-companies', value: false },
+   { title: 'yourWork', router: '/candidate/your-apply-job', value: false }];
+   currentRouter: any;
 
-   constructor(private router: Router){
+
+   loadProfile() {
       this.profile = getProfile();
    }
 
-   signOut(){
+   constructor(private router: Router) {
+
+      this.loadProfile()
+
+      this.changeHeader();
+   }
+
+   signOut() {
       signOut();
       this.router.navigate(['/candidate/sign-in']);
+   }
+
+   changeHeader() {
+      this.currentRouter = this.router.url;
+      for (let i = 0; i < this.headerTitle.length; i++) {
+         if (this.currentRouter == this.headerTitle[i].router) {
+            this.headerTitle[i].value = true
+         } else {
+            this.headerTitle[i].value = false
+         }
+      }
    }
 }

@@ -18,6 +18,17 @@
    cursor: pointer;
 }
 
+.tabSelect{
+   font-weight: 700;
+   font-size: 25px;
+   color: black !important;
+}
+
+.nav-link:first-child{
+   font-size: 20px;
+   color: black;
+}
+
 .blockUser{
    display: flex;
    height: 50px;

@@ -21,29 +21,12 @@ export class HeaderComponent {
    currentRouter: any;
 
    auth() {
-      this.isLog = isLogin();
       this.profile = getProfile();
-      
-  
-      if(!this.isLog){
-         const token = getToken()
-         postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
-            .then(res => {
-               if (res.statusCode == 200) {
-                  saveItem("profile", res.data);
-                  this.isLog = true;
-               }
-            })
-            .catch(data => {
-               signOut();
-               this.router.navigate(['/recruiter/sign-in']);
-               console.log("Lỗi", apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token);
-            })
-      }
    }
 
    constructor(private router: Router){
       this.profile = getProfile();
+      
       if(this.profile.companyId === null){
          this.hasCompany = false
       }
