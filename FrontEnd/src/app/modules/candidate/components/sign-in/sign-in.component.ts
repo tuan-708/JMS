@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { postRequest } from 'src/app/service/api-requests';
-import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
+import { AuthorizationMode, CANDIDATE_TOKEN, apiCandidate } from 'src/app/service/constant';
 import { ToastrService } from 'ngx-toastr';
-import { saveToken, saveItem } from 'src/app/service/localstorage';
+import { saveToken, saveItem, setItem } from 'src/app/service/localstorage';
 import { Router } from '@angular/router';
 
 declare var $: any;
@@ -49,6 +49,7 @@ export class CandidateSignInComponent {
          .then(res => {
             if (res?.statusCode == 200) {
                saveToken(res.data)
+               setItem(CANDIDATE_TOKEN, res.data)
 
                this.getProfileUser(res?.data)
 

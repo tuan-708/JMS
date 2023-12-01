@@ -15,21 +15,22 @@ import { ViewCvComponent } from './components/view-cv/view-cv.component';
 import { UpdateCvComponent } from './components/update-cv/update-cv.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
    { path: "sign-in", title: "Ứng viên - Đăng nhập", component: CandidateSignInComponent },
    { path: "sign-up", title: "Ứng viên - Đăng ký", component: CandidateRegisterComponent },
-   { path: "create-cv/:id", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent },
-   { path: "your-cvs", title: "Ứng viên - Danh sách hồ sơ", component: CandidateMyCvsComponent },
-   { path: "your-apply-job", title: "Ứng viên - Danh sách công việc ứng tuyển", component: MyApplyJobComponent },
+   { path: "create-cv/:id", title: "Ứng viên - Tạo CV", component: CandidateCreateCvComponent, canActivate: [authGuard] },
+   { path: "your-cvs", title: "Ứng viên - Danh sách hồ sơ", component: CandidateMyCvsComponent, canActivate: [authGuard] },
+   { path: "your-apply-job", title: "Ứng viên - Danh sách công việc ứng tuyển", component: MyApplyJobComponent, canActivate: [authGuard] },
    { path: "forgot-password", title: "Ứng viên - Quên mật khẩu", component: CandidateForgotPasswordComponent },
    { path: "list-companies", title: "Ứng viên - Danh sách công ty", component: CandidateListCompaniesComponent },
    { path: "company-detail/:id", title: "Ứng viên - Chi tiết công ty công ty", component: CompanyDetailComponent },
    { path: "jd-detail/:id", title: "Ứng viên - Chi tiết công việc", component: JdDetailComponent },
-   { path: "update-cv/:id", title: "Ứng viên - Cập nhật cv", component: UpdateCvComponent },
-   { path: "view-cv/:id", title: "Ứng viên - Chi tiết Hồ sơ", component: ViewCvComponent },
-   { path: "profile", title: "Ứng viên - Chi tiết thông tin cá nhân", component: ProfileComponent },
-   { path: "change-password", title: "Ứng viên - Thay đổi mật khẩu", component: ChangePasswordComponent },
+   { path: "update-cv/:id", title: "Ứng viên - Cập nhật cv", component: UpdateCvComponent, canActivate: [authGuard] },
+   { path: "view-cv/:id", title: "Ứng viên - Chi tiết Hồ sơ", component: ViewCvComponent, canActivate: [authGuard] },
+   { path: "profile", title: "Ứng viên - Chi tiết thông tin cá nhân", component: ProfileComponent, canActivate: [authGuard] },
+   { path: "change-password", title: "Ứng viên - Thay đổi mật khẩu", component: ChangePasswordComponent, canActivate: [authGuard] },
    { path: "", component: CandidateHomeComponent }
 ];
 

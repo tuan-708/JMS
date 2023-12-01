@@ -1,6 +1,9 @@
 export function signOut() {
    localStorage.removeItem('token');
    localStorage.removeItem('profile');
+   localStorage.removeItem('recruiter-token');
+   localStorage.removeItem('admin-token');
+   localStorage.removeItem('candidate-token');
 }
 
 export function saveToken(token: any) {
