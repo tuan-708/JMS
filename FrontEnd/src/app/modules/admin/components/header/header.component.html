@@ -9,7 +9,7 @@
       aria-expanded="false">
       <img
         src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
-        alt="mdo" width="32" height="32" class="rounded-circle"> {{profile?.fullName}}
+        alt="mdo" width="32" height="32" class="rounded-circle"> {{getProfile()}}{{profile?.fullName}}
     </a>
     <ul class="dropdown-menu text-small">
       <li><a class="dropdown-item" [routerLink]="['/admin/profile']">Thông tin cá nhân</a></li>

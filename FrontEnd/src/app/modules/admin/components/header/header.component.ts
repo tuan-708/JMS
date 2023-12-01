@@ -12,7 +12,7 @@ export class HeaderComponent {
   profile: any
 
   constructor(private router: Router){
-    this.profile = getItemJson(ADMIN_PROFILE)
+    this.getProfile()
   }
 
   signOut(){
@@ -20,5 +20,11 @@ export class HeaderComponent {
     removeItem(ADMIN_PROFILE);
     signOut()
     this.router.navigate(['/admin/sign-in'])
+  }
+
+  getProfile(){
+    this.profile = getItemJson(ADMIN_PROFILE)
+    console.log(this.profile?.fullName);
+    
   }
 }
