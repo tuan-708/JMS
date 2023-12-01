@@ -33,6 +33,8 @@ namespace APIServer.Models.Entity
         public string? JSONMatching { get; set; }
         public float? PercentMatching { get; set; }
         public int? LevelId { get; set; }
+        public int? EmploymentTypeId { get; set; }
+        public virtual EmploymentType? EmploymentType { get; set; }
         public virtual Level? Level { get; set; }
         [StringLength(200)]
         public string? CategoryName { get; set; }

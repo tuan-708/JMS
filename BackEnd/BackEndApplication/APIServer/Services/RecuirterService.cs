@@ -221,7 +221,7 @@ namespace APIServer.Services
                 var JDList = _jobContext.getAllByRecuirterId(recruiterId);
                 List<CVMatching> matchedList = new List<CVMatching>();
                 JobDescription jd = _jobContext.GetById(jobDescriptionId);
-                if (JDList.Any(x => x.JobId == jd.JobId))
+                if (JDList.Any(x => x.JobId == jd.JobId && !x.IsDelete))
                 {
                     if (jd != null)
                     {
@@ -286,7 +286,8 @@ namespace APIServer.Services
                         CVApplied.Phone = curriculumVitae.Phone;
                         CVApplied.DisplayName = curriculumVitae.DisplayName;
                         CVApplied.GenderId = curriculumVitae.GenderId;
-                        CVApplied.CategoryName = curriculumVitae.CategoryId.ToString();
+                        CVApplied.CategoryName = curriculumVitae.CategoryName;
+                        CVApplied.EmploymentTypeId = cv.EmploymentTypeId;
                         CVApplied.DisplayEmail = curriculumVitae.DisplayEmail;
                         CVApplied.DOB = Convert.ToDateTime(curriculumVitae.DOB);
                         CVApplied.Address = curriculumVitae.Address;
