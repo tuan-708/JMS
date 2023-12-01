@@ -5,39 +5,40 @@ import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-company-detail',
-  templateUrl: './company-detail.component.html',
-  styleUrls: ['./company-detail.component.css']
+   selector: 'app-company-detail',
+   templateUrl: './company-detail.component.html',
+   styleUrls: ['./company-detail.component.css']
 })
+
 export class CompanyDetailComponent {
-  company: any;
-  Url = environment.Url;
-  linkMap: any;
-  htmlContent: any;
-  countJob: number = 0
 
-  getCompanyById(id: any){
-    getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC)
-      .then(res => {
-        if (res?.statusCode == 400) {
-          this.company = res?.data
-          this.countJob = this.company?.jDs.length
-          this.htmlContent = this.company?.description;
-        }
-        console.log(res);
-        
-      })
-      .catch(data => {
-        console.warn(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC);
-      })
-  }
+   company: any;
+   Url = environment.Url;
+   linkMap: any;
+   htmlContent: any;
+   countJob: number = 0
 
-  constructor(private route: ActivatedRoute) {
-    let id: any;
-    this.route.params.subscribe(params => {
-      id = params['id'];
-    });
+   getCompanyById(id: any) {
+      getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + id, AuthorizationMode.PUBLIC)
+         .then(res => {
+            console.log(res);
+            if (res?.statusCode == 400) {
+               this.company = res?.data
+               this.countJob = this.company?.jDs.length
+               this.htmlContent = this.company?.description;
+            }
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_COMPANY_BY_ID);
+         })
+   }
 
-    this.getCompanyById(id);
-  }
+   constructor(private route: ActivatedRoute) {
+      let id: any;
+      this.route.params.subscribe(params => {
+         id = params['id'];
+      });
+
+      this.getCompanyById(id);
+   }
 }

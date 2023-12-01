@@ -80,6 +80,7 @@ export enum apiCandidate {
     GET_PROFILE_USER = "/api/Token/get-data-candidate",
     FORGOT_PASSWORD_CANDIDATE = "/api/Email/forgot-candidate-password",
     REGISTER_ACCOUNT_CANDIDATE = "/api/Registers/register-for-candidate",
-    UPDATE_PROFILE_CANDIDATE = "/api/Candidate/update-profile"
+    UPDATE_PROFILE_CANDIDATE = "/api/Candidate/update-profile",
+    CHANGE_PASSWORD_CANDIDATE = "/api/Candidate/change-password",
 
 }

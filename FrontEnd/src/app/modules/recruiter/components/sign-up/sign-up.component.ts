@@ -46,7 +46,7 @@ export class RegisterRecruiterComponent {
    validatePassword(event: any) {
       this.Password = event
 
-      const passwordRegex: RegExp = /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/;
+      const passwordRegex: RegExp = /^(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
       this.invalidPassword = !passwordRegex.test(this.Password);
    }
 
