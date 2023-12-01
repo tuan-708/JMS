@@ -1,6 +1,8 @@
 export const ITEM_LOAD = 20;
 export const AVATAR_DEFAULT_URL = 'https://gcavocats.ca/wp-content/uploads/2018/09/man-avatar-icon-flat-vector-19152370-1.jpg';
 export const IMG_LOADING = 'https://truetech.com.vn/wp-content/uploads/2021/07/loading.gif';
+export const RECRUITER_TOKEN = 'recruiter-token'
+export const CANDIDATE_TOKEN = 'candidate-token'
 
 export enum AuthorizationMode {
    PUBLIC = 0,

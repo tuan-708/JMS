@@ -1,6 +1,9 @@
 export function signOut() {
    localStorage.removeItem('token');
    localStorage.removeItem('profile');
+   localStorage.removeItem('recruiter-token');
+   localStorage.removeItem('admin-token');
+   localStorage.removeItem('candidate-token');
 }
 
 export function saveToken(token: any) {
@@ -14,6 +17,22 @@ export function isLogin(): boolean {
 export function saveItem(key: any, data: any) {
    var item = JSON.stringify(data);
    localStorage.setItem(key, item);
+}
+
+export function setItem(key: any, value: any) {
+   localStorage.setItem(key, value);
+}
+
+export function removeItem(key: any) {
+   localStorage.removeItem(key);
+}
+
+export function getItem(key: any) {
+   return localStorage.getItem(key)
+}
+
+export function clearItem() {
+   localStorage.clear()
 }
 
 export function getToken() {

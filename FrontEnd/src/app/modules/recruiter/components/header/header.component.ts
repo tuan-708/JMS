@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { postRequest } from 'src/app/service/api-requests';
-import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { getProfile, getToken, isLogin, saveItem, signOut } from 'src/app/service/localstorage';
+import { AuthorizationMode, RECRUITER_TOKEN, apiRecruiter } from 'src/app/service/constant';
+import { getProfile, getToken, isLogin, removeItem, saveItem, signOut } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'app-header-recruiter',
@@ -35,6 +35,7 @@ export class HeaderComponent {
 
    signOut() {
       signOut();
+      removeItem(RECRUITER_TOKEN)
       this.isLog = false
       this.router.navigate(['/recruiter/landing-page']);
    }

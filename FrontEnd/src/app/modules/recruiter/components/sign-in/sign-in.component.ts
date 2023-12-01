@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
-import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { AuthorizationMode, RECRUITER_TOKEN, apiRecruiter } from 'src/app/service/constant';
 import { environment } from 'src/environments/environment';
-import { getToken, saveItem, saveToken } from 'src/app/service/localstorage';
+import { getToken, saveItem, saveToken, setItem } from 'src/app/service/localstorage';
 import { Router } from '@angular/router';
 
 @Component({
@@ -46,6 +46,7 @@ export class RecruiterSignInComponent {
          .then(res => {
             if (res?.statusCode == 200) {
                saveToken(res.data)
+               setItem(RECRUITER_TOKEN, res.data)
 
                postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data, AuthorizationMode.BEARER_TOKEN, {})
                   .then(res => {
