@@ -65,7 +65,7 @@ namespace APIServer.Repositories
                 .Include(x => x.CurriculumVitaes)
                 .Include(x => x.CVApplies)
                 .FirstOrDefaultAsync(x => 
-                x.UserName.ToLower() == username.ToLower() && x.IsDelete)
+                x.UserName.ToLower() == username.ToLower() && !x.IsDelete)
                 .Result;
             if (data == null)
                 throw new Exception("Not found");
