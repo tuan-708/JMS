@@ -21,7 +21,6 @@ export function setItem(key:any, value:any){
 }
 
 export function getItem(key:any){
-    JSON.parse
     return localStorage.getItem(key)
 }
 

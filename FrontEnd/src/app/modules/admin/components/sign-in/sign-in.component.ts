@@ -18,11 +18,11 @@ export class AdminSignInComponent {
     const data = { username: username.value, password: password.value }
 
     postRequest(apiAdmin.LOGIN_ADMIN, AuthorizationMode.PUBLIC, data)
-      .then(res => {
+      .then(async res => {
         if (res?.statusCode == 200) {
           setItem(ADMIN_TOKEN, res.data)
           saveToken(res.data)
-          this.getAdminProfile(res.data)
+          await this.getAdminProfile(res.data)
           showSuccess(this.toarst, "Đăng nhập thành công!")
           this.router.navigate(['/admin/'])
         } else {
@@ -35,13 +35,13 @@ export class AdminSignInComponent {
       })
   }
 
-  getAdminProfile(token: any) {
+  async getAdminProfile(token: any) {
     console.log('here');
     
-    postRequest(apiAdmin.GET_ADMIN_PROFILE + token, AuthorizationMode.BEARER_TOKEN, {})
-      .then(res => {
+    await postRequest(apiAdmin.GET_ADMIN_PROFILE + token, AuthorizationMode.BEARER_TOKEN, {})
+      .then(async res => {
         if (res?.statusCode == 200) {
-          setItem(ADMIN_PROFILE, res.data)
+          await saveItem(ADMIN_PROFILE, res.data)
         }
       })
       .catch(data => {
