@@ -472,3 +472,20 @@ option {
    width: 100px;
    text-align: center;
 }
+
+.inputEmail{
+   margin-left: 10px;
+   display: block !important;
+   word-wrap: break-word; 
+}
+
+.inputFieldRight{
+   margin-left: 10px;
+   display: block !important;
+   word-wrap: break-word; 
+   width: 85%;
+}
+
+.width90{
+   width: 90%;
+}

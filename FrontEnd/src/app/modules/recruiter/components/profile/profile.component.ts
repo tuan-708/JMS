@@ -19,10 +19,122 @@ export class ProfileComponent {
    newProfile: any = { fullname: '', phone: '', dob: '', gender: '', desc: null }
    genderDisplay: any
 
+
+   oldPassword: string = "";
+   newPassword: string = "";
+   conformPassword: string = "";
+
+   invalidOldPassword: boolean = false
+   invalidNewPassword: boolean = false
+   invalidConformPassword: boolean = false
+
+   displayOldPassword: boolean = false
+   displayNewPassword: boolean = false
+   displayConformPassword: boolean = false
+
+   typeOldPassword = "password"
+   typeNewPassword = "password"
+   typeConformPassword = "password"
+
+   validateOldPassword(event: any) {
+      this.oldPassword = event
+
+      console.log(this.oldPassword);
+      
+      if(this.oldPassword === "" || this.oldPassword === null ) this.invalidOldPassword = true
+      else{
+         this.invalidOldPassword = false
+      }
+
+   }
+
+   validateNewPassword(event: any) {
+      this.newPassword = event
+
+      const passwordRegex: RegExp = /^(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+      this.invalidNewPassword = !passwordRegex.test(this.newPassword);
+   }
+
+   validateConformPassword(event: any) {
+      this.conformPassword = event
+
+      if (!(this.newPassword === this.conformPassword)) {
+         this.invalidConformPassword = true
+      } else {
+         this.invalidConformPassword = false
+      }
+   }
+
+
+   changeStatusOldPassword() {
+      this.displayOldPassword = !this.displayOldPassword
+      this.typeOldPassword = this.typeOldPassword == "password" ? "text" : "password"
+   }
+
+   changeStatusNewPassword() {
+      this.displayNewPassword = !this.displayNewPassword
+      this.typeNewPassword = this.typeNewPassword == "password" ? "text" : "password"
+   }
+
+   changeStatusConformPassword() {
+      this.displayConformPassword = !this.displayConformPassword
+      this.typeConformPassword = this.typeConformPassword == "password" ? "text" : "password"
+   }
+
+
    constructor(public toastr: ToastrService, private router: Router) {
       this.profile = getProfile()
       this.getCompany();
    }
+
+   validAllFiled() {
+      if (!this.invalidOldPassword && !this.invalidNewPassword && !this.invalidConformPassword &&
+         this.oldPassword !== "" && this.newPassword !== "" && this.conformPassword !== "") {
+         return true
+      }
+      return false
+   }
+
+   showInfoInput() {
+      this.toastr.info('Điền các trường ở bên dưới', 'Thông báo', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+
+   
+   SubmitForm() {
+      if (this.validAllFiled()) {
+
+         postRequest(`${apiRecruiter.CHANGE_PASSWORD}?recruiterId=${this.profile.id}
+      &oldPassword=${this.oldPassword}&newPassword=${this.newPassword}&confirmPassword=${this.conformPassword}`, AuthorizationMode.BEARER_TOKEN, {})
+            .then(res => {
+               console.log(res);
+               if (res.statusCode == 200) {
+                  showSuccess(this.toastr, "Thay đổi mật khẩu thành công")
+                  this.oldPassword = ""
+                  this.newPassword = ""
+                  this.conformPassword = ""
+               }
+               if (res.statusCode == 400) {
+                  if (res?.message == "Old password is not correct") showError(this.toastr, "Mật khẩu cũ không chính xác")
+               }
+            })
+            .catch(res => {
+               showError(this.toastr, "Đã có lỗi xảy ra")
+               console.warn(res);
+
+            })
+      } else {
+         this.showInfoInput()
+      }
+   }
+
+
+
+
+
 
    getCompany() {
       getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + this.profile.id, AuthorizationMode.PUBLIC)
@@ -120,65 +232,6 @@ export class ProfileComponent {
       return true
    }
 
-   changePassword(oldPass: HTMLInputElement, newPass: HTMLInputElement, rePass: HTMLInputElement) {
-      console.log(oldPass.value + " = " + newPass.value + " = " + rePass.value)
-      if (this.isOldPassValid(oldPass.value) && this.isPasswordValid(newPass.value) && this.isRePassMatch(newPass.value, rePass.value)) {
-         postRequest(apiRecruiter.CHANGE_PASSWORD + "?recruiterId=" + this.profile.id + "&fullName=" + this.newProfile.fullname + "&oldPassword=" + oldPass.value + "&newPassword=" + newPass.value + "&confirmPassword=" + rePass.value, AuthorizationMode.BEARER_TOKEN, {})
-            .then(res => {
-               console.log(res)
-               if (res.statusCode == 200) {
-                  showSuccess(this.toastr, "Thay đổi mật khẩu thành công!")
-               } else {
-                  showError(this.toastr, "Thay đổi thất bại! Vui lòng thử lại sau.")
-               }
-            })
-            .catch(data => {
-               console.log("Update fail", data);
-               showError(this.toastr, "Thay đổi thất bại! Vui lòng thử lại sau.")
-            })
-      }
-   }
-
-   isOldPassValid(oldPass: any) {
-      if (oldPass.trim().length == 0) {
-         showError(this.toastr, "Hãy nhập mật khẩu!")
-         return false
-      }
-      return true
-   }
-
-   isPasswordValid(password: string): boolean {
-      if (password.trim().length == 0) {
-         showError(this.toastr, "Hãy nhập mật khẩu mới!")
-         return false
-      }
-
-      if (password.length < 8 || password.length > 20) {
-         showError(this.toastr, "Độ dài mật khẩu không hợp lệ!")
-         return false;
-      }
-
-      if (password.includes(' ')) {
-         showError(this.toastr, "Mật khẩu chứa khoảng trắng!")
-         return false;
-      }
-
-      return true;
-   }
-
-   isRePassMatch(newPass: any, rePass: any) {
-      if (rePass.trim().length == 0) {
-         showError(this.toastr, "Hãy xác nhận mật khẩu!")
-         return false
-      }
-
-      if (newPass !== rePass) {
-         showError(this.toastr, "Mật khẩu xác nhận không trùng khớp!")
-         return false
-      }
-
-      return true
-   }
 
    showUploadAvatarSuccess() {
       this.toastr.success('Chỉnh sửa ảnh thành công', 'Thành công', {

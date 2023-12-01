@@ -129,7 +129,7 @@
                <div class="item">
                   <i class="bi bi-share-fill"></i>
                   <span>
-                     Website: {{company?.webURL ? company?.webURL : "Không công khai"}}
+                     Website: <a href="{{company?.webURL}}">company?.webURL</a>
                   </span>
                </div>
 
@@ -176,11 +176,11 @@
 
                            <div class="row more">
                               <div class="col-4 textOver">
-                                 Vị trí tuyển: {{jd?.positionTitle}}
+                                 Lĩnh vực: {{jd.jobDescription.categoryName}}
                               </div>
+            
                               <div class="col-4 textOver">
-                                 Chức danh: {{jd?.levelTitle}}
-                              </div>
+                                 Vị trí tuyển: {{jd.jobDescription.positionTitle}}
                               <div class="col-4 textOver">
                                  Mức lương: {{jd?.salary}}
                               </div>

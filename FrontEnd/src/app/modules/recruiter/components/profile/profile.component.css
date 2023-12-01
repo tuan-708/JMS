@@ -76,3 +76,30 @@ body {
    border-radius: 10px;
    color: white;
 }
+
+.inputOldPassword {
+   position: relative;
+}
+
+.inputNewPassword {
+   position: relative;
+}
+
+.inputConformPassword {
+   position: relative;
+}
+
+.iconEyeOldPassword {
+   position: absolute;
+   top: 25%;
+   right: 2%;
+   cursor: pointer;
+}
+
+.iconEyeOldPassword:active {
+   opacity: 0.7;
+}
+
+.display {
+   display: none;
+}

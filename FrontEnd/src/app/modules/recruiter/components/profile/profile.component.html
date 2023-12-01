@@ -113,28 +113,72 @@
          <div class="card mb-4">
             <div class="card-header">Thay Đổi Mật Khẩu</div>
             <div class="card-body">
-               <form class="form" role="form" autocomplete="off">
+               <!-- <form class="form" role="form" autocomplete="off">
                   <div class="form-group">
-                     <label for="inputPasswordOld">Mật Khẩu Hiện Tại</label>
-                     <input #oldPass type="password" class="form-control" id="inputPasswordOld" required="">
+                     <label for="inputPasswordOld">Mật Khẩu Hiện Tại</label><span class="link-danger"> *</span>
+                     <input #oldPass maxlength="35" type="password" class="form-control" id="inputPasswordOld" required="">
                   </div>
                   <div class="form-group">
-                     <label for="inputPasswordNew">Mật khẩu mới</label>
-                     <input #newPass type="password" class="form-control" id="inputPasswordNew" required="">
+                     <label for="inputPasswordNew">Mật khẩu mới</label><span class="link-danger"> *</span>
+                     <input #newPass  maxlength="35" type="password" class="form-control" id="inputPasswordNew" required="">
                      <span class="form-text small text-muted">
                         Mật khẩu mới phải từ 8 - 20 ký tự, không được chứa khoảng trắng.
                      </span>
                   </div>
                   <div class="form-group">
-                     <label for="inputPasswordNewVerify">Xác nhận mật khẩu</label>
-                     <input #rePass type="password" class="form-control" id="inputPasswordNewVerify" required="">
+                     <label for="inputPasswordNewVerify">Xác nhận mật khẩu</label><span class="link-danger"> *</span>
+                     <input #rePass  maxlength="35" type="password" class="form-control" id="inputPasswordNewVerify" required="">
                      <span class="form-text small text-muted">
                         Hãy nhập lại mật khẩu để xác nhận.
                      </span>
                   </div>
                   <button class="btn btn-primary" type="button" (click)="changePassword(oldPass, newPass, rePass)">Cập
                      Nhật</button>
-               </form>
+               </form> -->
+
+
+
+               <section>
+                  <!-- old password input -->
+                  <div class="form-label-group mb-4 mt-3">
+                     <label class="form-label" for="old">Mật khẩu cũ</label><span class="link-danger"> *</span>
+                     <div class="inputOldPassword">
+                        <input [type]="typeOldPassword" maxlength="35" (ngModelChange)="validateOldPassword($event)"  [(ngModel)]="oldPassword" name="old" class="form-control form-control-md shadow-none" />
+                        <i class="fa-solid fa-eye iconEyeOldPassword" [class.display]="displayOldPassword" (click)="changeStatusOldPassword()"></i>
+                        <i class="fa-sharp fa-solid fa-eye-slash iconEyeOldPassword" [class.display]="!displayOldPassword" (click)="changeStatusOldPassword()"></i>
+                     </div>
+                     <span *ngIf="invalidOldPassword" class="link-danger">
+                        Mật khẩu không được để trống
+                     </span>
+                  </div>
+                  <!-- new password input -->
+                  <div class="form-label-group mb-4 mt-3">
+                     <label class="form-label" for="new">Mật khẩu mới</label><span class="link-danger"> *</span>
+                     <div class="inputNewPassword">
+                        <input [type]="typeNewPassword" name="new" maxlength="35" (ngModelChange)="validateNewPassword($event)"  [(ngModel)]="newPassword" class="form-control form-control-md shadow-none" />
+                        <i class="fa-solid fa-eye iconEyeOldPassword" [class.display]="displayNewPassword" (click)="changeStatusNewPassword()"></i>
+                        <i class="fa-sharp fa-solid fa-eye-slash iconEyeOldPassword" [class.display]="!displayNewPassword" (click)="changeStatusNewPassword()"></i>
+                     </div>
+                     <span *ngIf="invalidNewPassword" class="link-danger">
+                        Mật khẩu phải chứ ít nhất 8 ký tự, Trong đó phải có ít nhất 1 ký tự viết hoa và ký tự đặc biệt
+                     </span>
+                  </div>
+                  <!-- conform password input -->
+                  <div class="form-label-group mb-4 mt-3">
+                     <label class="form-label" for="conform">Xác nhận mật khẩu</label><span class="link-danger"> *</span>
+                     <div class="inputConformPassword">
+                        <input [type]="typeConformPassword"  name="conform"  maxlength="35" (ngModelChange)="validateConformPassword($event)" [(ngModel)]="conformPassword" class="form-control form-control-md shadow-none" />
+                        <i class="fa-solid fa-eye iconEyeOldPassword" [class.display]="displayConformPassword" (click)="changeStatusConformPassword()"></i>
+                        <i class="fa-sharp fa-solid fa-eye-slash iconEyeOldPassword" [class.display]="!displayConformPassword" (click)="changeStatusConformPassword()"></i>
+                     </div>
+                     <span *ngIf="invalidConformPassword" class="link-danger">
+                        Mật khẩu không trùng khớp
+                     </span>
+                  </div>
+                  <div class="col-12 p-0 mt-5">
+                     <button type="button" class="btn btnBlueLight btn-block" (click)="SubmitForm()">Thay đổi</button>
+                  </div>
+               </section>
             </div>
          </div>
       </div>

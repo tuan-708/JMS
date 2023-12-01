@@ -35,8 +35,13 @@ export class ChangePasswordComponent {
    validateOldPassword(event: any) {
       this.oldPassword = event
 
-      const passwordRegex: RegExp = /^(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
-      this.invalidOldPassword = !passwordRegex.test(this.oldPassword);
+      console.log(this.oldPassword);
+      
+      if(this.oldPassword === "" || this.oldPassword === null ) this.invalidOldPassword = true
+      else{
+         this.invalidOldPassword = false
+      }
+
    }
 
    validateNewPassword(event: any) {

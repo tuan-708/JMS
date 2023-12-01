@@ -163,7 +163,7 @@ export class JdUpdateComponent {
    skillRq = new FormControl('', [Validators.required]);
    certificateRq = new FormControl('', [Validators.required]);
    projectRq = new FormControl('', [Validators.required]);
-   benefitRq = new FormControl('', [Validators.required]);
+   benefitRq = new FormControl('',);
    otherRequired = new FormControl('', [Validators.required]);
 
    getErrorMessageTitle() {
@@ -274,13 +274,6 @@ export class JdUpdateComponent {
       return
    }
 
-   getErrorMessageBenefitRequirement() {
-      if (this.benefitRq.hasError('required')) {
-         return 'Yêu cầu quyền lợi không được để trống!'
-      }
-      return
-   }
-
    checkReq: any = false;
    checkDes: any = false;
    checkBen: any = false;
@@ -305,7 +298,7 @@ export class JdUpdateComponent {
          this.positionRq.valid && this.levelRq.valid &&
          this.genderRq.valid && this.typeRq.valid &&
          this.categoryRq.valid && this.expiredDateRq.valid &&
-         this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.experienceRq.valid && this.benefitRq.valid) {
+         this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.experienceRq.valid) {
 
          const title = this.titleRq.value;
          const numberRequirement = this.numberRequiredRq.value;
@@ -333,7 +326,7 @@ export class JdUpdateComponent {
          const data = {
             jobId: this.jdDetail?.jobId,
             title: title,
-            createdAt: createdAt,
+            createdAt: this.formatDate1(this.jdDetail?.createdAt),
             employmentTypeName: employmentTypeName,
             genderRequirement: genderRequirement,
             ageRequirement: ageRequirement,
@@ -349,16 +342,24 @@ export class JdUpdateComponent {
             contactEmail: contactEmail,
             address: address,
             numberRequirement: numberRequirement,
-            companyName: this.profile.companyId,
+            companyName: this.profile.companyId.toString(),
             categoryName: categoryName,
             expiredDate: expiredDate,
             levelTitle: levelTitle,
-            positionTitle: positionTitle
+            positionTitle: positionTitle,
+            companyDTO: {}
          }
+
+         console.log(data);
+         
 
          postRequest(`${apiRecruiter.UPDATE_JD_BY_RECRUITER}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
-               this.showUpdateJDSuccess()
+               if (res?.statusCode == 200) {
+                  this.showUpdateJDSuccess()
+               }else{
+                  this.showUpdateJDFail()
+               }
                console.log(res);
             })
             .catch(data => {
@@ -391,6 +392,16 @@ export class JdUpdateComponent {
       return
    }
 
+
+   formatDate1(str:string){
+      const dateParts = str.split('/');
+      const year = + dateParts[2];
+      const month = + dateParts[1];
+      const day = + dateParts[0];
+
+      return year+"-"+month+"-"+day
+   }
+
    formatDate(): void {
       // Parse start date the string into a Date object
       const dateParts = this.jdDetail.createdAt.split('/');
@@ -402,9 +413,9 @@ export class JdUpdateComponent {
 
       // Parse end date the string into a Date object
       const dateParts2 = this.jdDetail.expiredDate.split('/');
-      const year2 = +dateParts2[2];
-      const month2 = +dateParts2[1] - 1;
-      const day2 = +dateParts2[0];
+      const year2 = + dateParts2[2];
+      const month2 = + dateParts2[1] - 1;
+      const day2 = + dateParts2[0];
 
       const date2 = new Date(year2, month2, day2);
 

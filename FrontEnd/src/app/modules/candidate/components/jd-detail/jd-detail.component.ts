@@ -31,6 +31,8 @@ export class JdDetailComponent {
    profile: any
    selectedCV = "0"
 
+   pending = false
+
    convertStringDateInput(str: string) {
       const dateStr: string = str;
       const item = dateStr.split("/")
@@ -134,24 +136,29 @@ export class JdDetailComponent {
 
    submitCv(event: any) {
       if (this.validateSubmitCv()) {
+         this.pending = true
          postRequest(`${apiCandidate.CANDIDATE_APPLYJOB}?candidateId=${this.profile.id}&CVid=${this.selectedCV}&jobDescriptionId=${this.JDId}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
                if (res?.statusCode == 200) {
                   this.showSuccess()
                   console.log(res);
+                  this.pending = false
                }
                if (res?.statusCode == 204) {
                   this.showErrorDuplicate()
                   console.log(res);
+                  this.pending = false
                }
                if (res?.statusCode == 400) {
                   this.showError()
                   console.log(res);
+                  this.pending = false
                }
             })
             .catch(data => {
                this.showError()
                console.log(data);
+               this.pending = false
             })
       }
    }

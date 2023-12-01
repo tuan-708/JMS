@@ -35,6 +35,9 @@ export class MyApplyJobComponent {
       getRequest(`${apiCandidate.GET_ALL_CV_APPLIED}`, AuthorizationMode.BEARER_TOKEN, { candidateId: this.profile.id, pageIndex: 1 })
          .then(res => {
             this.listJds = res?.data
+
+            console.log(this.listJds);
+            
             try {
                this.totalItems = res?.objectLength
 

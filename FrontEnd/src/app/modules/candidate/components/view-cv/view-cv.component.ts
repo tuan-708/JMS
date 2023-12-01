@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
-import { themeList } from './constant';
+import { themeList } from 'src/app/modules/candidate/components/view-cv/constant';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 
@@ -43,7 +43,7 @@ export class ViewCvComponent {
          this.dob = this.convertDate(data.jd.dob.split("T")[0]);
       }
 
-      console.log(data);
+      console.log(data.jd.theme);
 
 
       this.colorLeftHeader = themeList[data.jd.theme].colorLeftHeader
@@ -51,6 +51,8 @@ export class ViewCvComponent {
       this.colorLeftInput = themeList[data.jd.theme].colorLeftInput
       this.ThemStyle = themeList[data.jd.theme].ThemStyle
       this.backgroudSelectedLink = themeList[data.jd.theme].backgroudSelectedLink
+
+      console.log(this.backgroudSelectedLink);
       this.fontCV = data.jd.font
    }
 

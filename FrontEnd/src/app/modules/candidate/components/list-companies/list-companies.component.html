@@ -20,7 +20,7 @@
 
          <div class="row d-flex mt-3">
             <div class="col-6" style="align-self: center; font-weight: 600; font-size: 1.2em; padding: 0;">Công ty nổi
-               bật 20</div>
+               bật</div>
             <!-- Bootstrap select -->
             <div class="col-3">
 
@@ -28,9 +28,10 @@
          </div>
 
          <div class="row d-flex listCompany">
-            <div *ngIf="!companies" style="height: 700px;">
+            <div *ngIf="!companies" style="height: 500px;">
                <app-view-loading></app-view-loading>
             </div>
+
             <div class="itemCompany" *ngFor="let com of companies | paginate: 
             {
                itemsPerPage: itemsPerPage,
@@ -39,11 +40,11 @@
              }">
                <div (click)="onClick(com)">
                   <div class="backgroundImage">
-                     <img src={{com?.backGroundURL}} alt="Ảnh bìa">
+                     <img src={{com?.backGroundURL}}                   onerror="this.src='https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png'" alt="Ảnh bìa">
                   </div>
 
                   <div class="itemCompanyHeader">
-                     <img src={{com?.avatarURL}} alt="">
+                     <img src={{com?.avatarURL}}                   onerror="this.src='https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png'" alt="">
                      <div class="sc-a15ef871-1 fllower"><svg width="20" height="20" style="margin-right: 10px;"
                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                            <path

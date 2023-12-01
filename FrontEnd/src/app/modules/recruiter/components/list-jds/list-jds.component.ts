@@ -28,8 +28,10 @@ export class ListJdsComponent {
    listRunning: any = []
    listExpired: any = []
    listDraft: any = []
-   firstTabTitle: any
-   secondTabTitle: any
+   firstTabTitle= "Đang tuyển dụng"
+   secondTabTitle= "Đã hết hạn"
+
+   inputSearch = ""
 
    getListPage(totalPage: number) {
       let list = []

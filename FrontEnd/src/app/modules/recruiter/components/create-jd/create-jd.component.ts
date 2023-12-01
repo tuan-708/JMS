@@ -96,7 +96,7 @@ export class CreateJdComponent {
    skillRq = new FormControl('', [Validators.required]);
    certificateRq = new FormControl('', [Validators.required]);
    projectRq = new FormControl('', [Validators.required]);
-   benefitRq = new FormControl('', [Validators.required]);
+   benefitRq = new FormControl('');
    otherRequired = new FormControl('', [Validators.required]);
 
    getErrorMessageTitle() {
@@ -207,13 +207,6 @@ export class CreateJdComponent {
       return
    }
 
-   getErrorMessageBenefitRequirement() {
-      if (this.benefitRq.hasError('required')) {
-         return 'Yêu cầu quyền lợi không được để trống!'
-      }
-      return
-   }
-
    checkReq: any = false;
    checkDes: any = false;
    checkBen: any = false;
@@ -246,7 +239,7 @@ export class CreateJdComponent {
          this.positionRq.valid && this.levelRq.valid &&
          this.genderRq.valid && this.typeRq.valid &&
          this.categoryRq.valid && this.expiredDateRq.valid &&
-         this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.experienceRq.valid && this.benefitRq.valid) {
+         this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.experienceRq.valid) {
 
          const title = this.titleRq.value;
          const numberRequirement = this.numberRequiredRq.value;
@@ -301,7 +294,7 @@ export class CreateJdComponent {
 
          postRequest(`${apiRecruiter.POST_CREATE_JD}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
-               if(res.stausCode == 201){
+               if(res.statusCode == 201){
                   this.showCreateJDSuccess()
                }else{
                   this.showCreateJDFail()

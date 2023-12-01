@@ -59,11 +59,11 @@ export class CandidateListCompaniesComponent {
                console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
             })
       } else {
-         getRequest(`${apiRecruiter.SEARCH_COMPANY}/${this.inputSearch}/${this.page}`, AuthorizationMode.PUBLIC, { page: 1 })
+         getRequest(`${apiRecruiter.SEARCH_COMPANY}?search=${this.inputSearch}&${this.page}`, AuthorizationMode.PUBLIC, { page: 1 })
             .then(res => {
                this.companies = res?.data
-
-
+               console.log( this.companies);
+               
             })
             .catch(data => {
                console.warn(apiRecruiter.GET_COMPANY_PAGING);

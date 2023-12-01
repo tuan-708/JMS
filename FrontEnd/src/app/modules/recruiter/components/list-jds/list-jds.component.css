@@ -137,3 +137,23 @@ button {
 .mdc-tab__text-label {
    font-weight: 500 !important;
 }
+
+.formInputSearch {
+   border: 1px solid var(--blueLight1);
+   border-radius: 22px;
+   width: 35%;
+   overflow: hidden;
+   box-shadow: var(--boxShadow);
+   height: 44px;
+   margin-bottom: 30px;
+}
+
+.input-group-append{
+   height: 44px;
+}
+
+.customInput {
+   border: none;
+   font-size: 1.1em;
+   margin-right: 5px;
+}
