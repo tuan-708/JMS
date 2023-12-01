@@ -1,400 +1,390 @@
 <mat-dialog-content>
-    <div style="display: flex;" *ngIf="data.recruiterId">
-        <div class="col-10">
-        </div>
-        <div class="col-2 pb-2">
-            <div class="btn-option float-end">
-                <button class="pr-2" title="Loại khỏi danh sách"><i class="bi bi-person-dash h4"></i></button>
-                <button *ngIf="data.jd?.isSelected == 0" (click)="onClickSelect(data.jd)" title="Yêu thích"><i
-                        class="bi bi-star h4"></i></button>
-                <button *ngIf="data.jd?.isSelected == 1" (click)="onClickSelect(data.jd)" title="Bỏ yêu thích"><i
-                        class="bi bi-star-fill h4"></i></button>
+   <div style="display: flex;" *ngIf="data.recruiterId">
+      <div class="col-10">
+      </div>
+      <div class="col-2 pb-2">
+         <div class="btn-option float-end">
+            <button class="pr-2" title="Loại khỏi danh sách"><i class="bi bi-person-dash h4"></i></button>
+            <button *ngIf="data.jd?.isSelected == 0" (click)="onClickSelect(data.jd)" title="Yêu thích"><i
+                  class="bi bi-star h4"></i></button>
+            <button *ngIf="data.jd?.isSelected == 1" (click)="onClickSelect(data.jd)" title="Bỏ yêu thích"><i
+                  class="bi bi-star-fill h4"></i></button>
+         </div>
+      </div>
+   </div>
+   <div class="conten-detail-cv">
+      <div class="col-4 p-3 block-left" [style.background-image]="'url('+ backgroudSelectedLink + ')'">
+         <div class="avatar-candidate">
+            <div class="file-upload">
+               <img src="{{ data.jd.avatarURL }}"
+                  onerror="this.src='https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png'"
+                  alt="">
             </div>
-        </div>
-    </div>
-    <div class="conten-detail-cv">
-        <div class="col-4 p-3 block-left" [style.background-image]="'url('+ backgroudSelectedLink + ')'">
-            <div class="avatar-candidate">
-                <div class="file-upload">
-                    <img src="{{ data.jd.avatarURL }}" onerror="this.src='https://icons.iconarchive.com/icons/papirus-team/papirus-status/256/avatar-default-icon.png'" alt="">
-                </div>
+         </div>
+         <!-- Form Infor  -->
+         <div class="mt-3 form-info form-input-value">
+            <!-- Header  -->
+            <div>
+               <input type="text" placeholder="Thông tin cá nhân" value="Thông tin cá nhân" disabled
+                  class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
             </div>
-            <!-- Form Infor  -->
-            <div class="mt-3 form-info form-input-value">
-                <!-- Header  -->
-                <div>
-                    <input type="text" placeholder="Thông tin cá nhân" value="Thông tin cá nhân" disabled
-                        class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
-                </div>
-                <!-- Input Email  -->
-                <div *ngIf="data.jd.displayEmail">
-                    <div class="mt-1" style="display: flex;">
-                        <i class="fa-solid fa-envelope" [style.color]="colorLeftHeader"></i>
-                        <input type="text" placeholder="Email" class="form-info-input inputEmail"
-                            [style.color]="colorLeftInput" value="{{ data.jd.displayEmail }}" disabled
-                            [class]="ThemStyle">
-                    </div>
-                </div>
-
-                <!-- Input Phone  -->
-                <div *ngIf="data.jd.phone">
-                    <div class="mt-1" style="display: flex;">
-                        <i class="fa-solid fa-phone" [style.color]="colorLeftHeader"></i>
-                        <input type="text" placeholder="Số điện thoại" class="form-info-input inputPhone"
-                            [style.color]="colorLeftInput" value="{{ data.jd.phone }}" disabled [class]="ThemStyle">
-                    </div>
-                </div>
-
-                <!-- Input Dob  -->
-                <div *ngIf="data.jd.dob">
-                    <div class="mt-1" style="display: flex;">
-                        <i class="fa-solid fa-calendar" [style.color]="colorLeftHeader"></i>
-                        <input type="text" id="dateInput" name="dateInput" pattern="\d{2}-\d{2}-\d{4}"
-                            placeholder="dd/mm/yyyy" class="form-info-input inputDob" [style.color]="colorLeftInput"
-                            value="{{ dob }}" disabled [class]="ThemStyle">
-                    </div>
-                </div>
-
-                <!-- Input Gender  -->
-                <div *ngIf="data.jd.genderDisplay">
-                    <div class="d-flex mt-2">
-                        <i class="fa-solid fa-venus-mars" [style.color]="colorLeftHeader"
-                            style="margin-right: 5px;"></i>
-                        <div [style.color]="colorLeftInput">Nam</div>
-                    </div>
-                </div>
-
-                <!-- Input Address  -->
-                <div *ngIf="data.jd.address">
-                    <div class="mt-1 d-flex">
-                        <i class="fa-solid fa-location-dot" [style.color]="colorLeftHeader"></i>
-                        <textarea maxlength="60" placeholder="Địa chỉ" class="form-info-input inputAddress"
-                            [style.color]="colorLeftInput" value="{{ data.jd.address }}" disabled
-                            [class]="ThemStyle"></textarea>
-                    </div>
-                </div>
-
+            <!-- Input Email  -->
+            <div *ngIf="data.jd.displayEmail">
+               <div class="mt-1" style="display: flex;">
+                  <i class="fa-solid fa-envelope" [style.color]="colorLeftHeader"></i>
+                  <input type="text" placeholder="Email" class="form-info-input inputEmail"
+                     [style.color]="colorLeftInput" value="{{ data.jd.displayEmail }}" disabled [class]="ThemStyle">
+               </div>
             </div>
 
+            <!-- Input Phone  -->
+            <div *ngIf="data.jd.phone">
+               <div class="mt-1" style="display: flex;">
+                  <i class="fa-solid fa-phone" [style.color]="colorLeftHeader"></i>
+                  <input type="text" placeholder="Số điện thoại" class="form-info-input inputPhone"
+                     [style.color]="colorLeftInput" value="{{ data.jd.phone }}" disabled [class]="ThemStyle">
+               </div>
+            </div>
 
-            <!-- Form Skills  -->
-            <div class="mt-3 form-skills form-input-value">
-                <!-- Header  -->
-                <div *ngIf="data.jd.skill[0].SkillDescription">
-                    <input type="text" placeholder="Kỹ năng" value="Kỹ năng" disabled class="form-left--header width100"
-                        [style.color]="colorLeftHeader">
-                </div>
+            <!-- Input Dob  -->
+            <div *ngIf="data.jd.dob">
+               <div class="mt-1" style="display: flex;">
+                  <i class="fa-solid fa-calendar" [style.color]="colorLeftHeader"></i>
+                  <input type="text" id="dateInput" name="dateInput" pattern="\d{2}-\d{2}-\d{4}"
+                     placeholder="dd/mm/yyyy" class="form-info-input inputDob" [style.color]="colorLeftInput"
+                     value="{{ dob }}" disabled [class]="ThemStyle">
+               </div>
+            </div>
 
-                <div class="skill" *ngFor="let sk of data.jd.skill">
-                    <!-- Input Name Skills  -->
-                    <!-- <div *ngIf="sk.Title">
+            <!-- Input Gender  -->
+            <div *ngIf="data.jd.genderDisplay">
+               <div class="d-flex mt-2">
+                  <i class="fa-solid fa-venus-mars" [style.color]="colorLeftHeader" style="margin-right: 5px;"></i>
+                  <div [style.color]="colorLeftInput">Nam</div>
+               </div>
+            </div>
+
+            <!-- Input Address  -->
+            <div *ngIf="data.jd.address">
+               <div class="mt-1 d-flex">
+                  <i class="fa-solid fa-location-dot" [style.color]="colorLeftHeader"></i>
+                  <textarea maxlength="60" placeholder="Địa chỉ" class="form-info-input inputAddress"
+                     [style.color]="colorLeftInput" value="{{ data.jd.address }}" disabled
+                     [class]="ThemStyle"></textarea>
+               </div>
+            </div>
+
+         </div>
+
+
+         <!-- Form Skills  -->
+         <div class="mt-3 form-skills form-input-value">
+            <!-- Header  -->
+            <div *ngIf="data.jd.skill[0].SkillDescription">
+               <input type="text" placeholder="Kỹ năng" value="Kỹ năng" disabled class="form-left--header width100"
+                  [style.color]="colorLeftHeader">
+            </div>
+
+            <div class="skill" *ngFor="let sk of data.jd.skill">
+               <!-- Input Name Skills  -->
+               <!-- <div *ngIf="sk.Title">
                         <div class="mt-1">
                             <input type="text" placeholder="Tên kỹ năng" class="form-info-input skillTitle"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div>
                     </div> -->
 
-                    <!-- Input Describe Skills  -->
-                    <div class="mt-1">
-                        <div *ngIf="sk.SkillDescription">
-                            <div style="text-align: justify;" [style.color]="colorLeftInput" [class]="ThemStyle">
-                                {{ sk.SkillDescription }}
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-                </div>
+               <!-- Input Describe Skills  -->
+               <div class="mt-1">
+                  <div *ngIf="sk.SkillDescription">
+                     <div style="text-align: justify;" [style.color]="colorLeftInput" [class]="ThemStyle">
+                        {{ sk.SkillDescription }}
+                     </div>
+                     <br>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- Form Certificates  -->
+         <div class="mt-3 form-Certificates form-input-value">
+            <!-- Header  -->
+            <div *ngIf="data.jd.certificate[0].CertificateName">
+               <input type="text" placeholder="Chứng chỉ" value="Tên chứng chỉ" disabled
+                  class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
             </div>
 
-            <!-- Form Certificates  -->
-            <div class="mt-3 form-Certificates form-input-value">
-                <!-- Header  -->
-                <div *ngIf="data.jd.certificate[0].CertificateName">
-                    <input type="text" placeholder="Chứng chỉ" value="Tên chứng chỉ" disabled
-                        class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
-                </div>
+            <div class="certificates" *ngFor="let ce of data.jd.certificate">
 
-                <div class="certificates" *ngFor="let ce of data.jd.certificate">
+               <!-- Input Name Certificates  -->
+               <div *ngIf="ce.CertificateName">
+                  <div class="mt-1">
+                     <input type="text" placeholder="Tên chứng chỉ" class="form-info-input certificateName"
+                        [style.color]="colorLeftInput" value="{{ ce.CertificateName }}" disabled [class]="ThemStyle">
+                  </div>
+               </div>
 
-                    <!-- Input Name Certificates  -->
-                    <div *ngIf="ce.CertificateName">
-                        <div class="mt-1">
-                            <input type="text" placeholder="Tên chứng chỉ" class="form-info-input certificateName"
-                                [style.color]="colorLeftInput" value="{{ ce.CertificateName }}" disabled
-                                [class]="ThemStyle">
-                        </div>
-                    </div>
+               <!-- Input Time Certificates  -->
+               <div class="mt-1 d-flex">
+                  <div *ngIf="ce.IssuedDate">
+                     <input type="text" placeholder="Bắt đầu" class="form-info-input width50 issuedDateCertificate"
+                        value="{{ ce.IssuedDate }}" disabled [style.color]="colorLeftInput" [class]="ThemStyle">
+                     <div>-</div>
+                  </div>
+                  <div *ngIf="ce.ExpiredDate">
+                     <input type="text" placeholder="Kết thúc" class="form-info-input width50 expiredDateCertificate"
+                        value="{{ ce.ExpiredDate }}" disabled [style.color]="colorLeftInput" [class]="ThemStyle">
+                  </div>
 
-                    <!-- Input Time Certificates  -->
-                    <div class="mt-1 d-flex">
-                        <div *ngIf="ce.IssuedDate">
-                            <input type="text" placeholder="Bắt đầu"
-                                class="form-info-input width50 issuedDateCertificate" value="{{ ce.IssuedDate }}"
-                                disabled [style.color]="colorLeftInput" [class]="ThemStyle">
-                            <div>-</div>
-                        </div>
-                        <div *ngIf="ce.ExpiredDate">
-                            <input type="text" placeholder="Kết thúc"
-                                class="form-info-input width50 expiredDateCertificate" value="{{ ce.ExpiredDate }}"
-                                disabled [style.color]="colorLeftInput" [class]="ThemStyle">
-                        </div>
+               </div>
 
-                    </div>
+               <!-- Input Link Certificates  -->
+               <div *ngIf="ce.credentialURL">
+                  <div class="mt-1">
+                     <input type="text" placeholder="Link" class="form-info-input width50 credentialURLCertificate"
+                        value="{{ ce.credentialURL }}" disabled [style.color]="colorLeftInput" [class]="ThemStyle">
+                  </div>
+               </div>
 
-                    <!-- Input Link Certificates  -->
-                    <div *ngIf="ce.credentialURL">
-                        <div class="mt-1">
-                            <input type="text" placeholder="Link"
-                                class="form-info-input width50 credentialURLCertificate" value="{{ ce.credentialURL }}"
-                                disabled [style.color]="colorLeftInput" [class]="ThemStyle">
-                        </div>
-                    </div>
+               <!-- Input Description Certificates  -->
+               <div *ngIf="ce.CertificateProvider">
+                  <div class="mt-1">
+                     <textarea rows="3" maxlength="300" placeholder="Miêu tả"
+                        class="form-info-input certificateProvider" value="{{ ce.CertificateProvider }}" disabled
+                        [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                  </div>
+               </div>
 
-                    <!-- Input Description Certificates  -->
-                    <div *ngIf="ce.CertificateProvider">
-                        <div class="mt-1">
-                            <textarea rows="3" maxlength="300" placeholder="Miêu tả"
-                                class="form-info-input certificateProvider" value="{{ ce.CertificateProvider }}"
-                                disabled [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
-                        </div>
-                    </div>
+            </div>
+         </div>
 
-                </div>
+         <!-- Form Award  -->
+         <div class="mt-3 form-prizes form-input-value">
+            <!-- Header  -->
+            <div *ngIf="data.jd.award[0].AwardName">
+               <input type="text" placeholder="Giải thưởng" value="Giải thưởng" disabled
+                  class="form-left--header width100" [style.color]="colorLeftHeader">
             </div>
 
-            <!-- Form Award  -->
-            <div class="mt-3 form-prizes form-input-value">
-                <!-- Header  -->
-                <div *ngIf="data.jd.award[0].AwardName">
-                    <input type="text" placeholder="Giải thưởng" value="Giải thưởng" disabled
-                        class="form-left--header width100" [style.color]="colorLeftHeader">
-                </div>
-
-                <div class="prizes" *ngFor="let aw of data.jd.award">
-                    <!-- Input Time Award  -->
-                    <div *ngIf="aw.FromYear">
-                        <div class="mt-1">
-                            <input type="text" placeholder="Thời gian" class="form-info-input fromYearAwards"
-                                [style.color]="colorLeftInput" value="{{ aw.FromYear }}" disabled [class]="ThemStyle">
-                        </div>
-                    </div>
+            <div class="prizes" *ngFor="let aw of data.jd.award">
+               <!-- Input Time Award  -->
+               <div *ngIf="aw.FromYear">
+                  <div class="mt-1">
+                     <input type="text" placeholder="Thời gian" class="form-info-input fromYearAwards"
+                        [style.color]="colorLeftInput" value="{{ aw.FromYear }}" disabled [class]="ThemStyle">
+                  </div>
+               </div>
 
 
-                    <!-- Input Name Award  -->
-                    <div *ngIf="aw.AwardName">
-                        <div class="mt-1">
-                            <input type="text" placeholder="Tên giải thưởng" class="form-info-input awardName"
-                                [style.color]="colorLeftInput" value="{{ aw.AwardName}}" disabled [class]="ThemStyle">
-                        </div>
-                    </div>
+               <!-- Input Name Award  -->
+               <div *ngIf="aw.AwardName">
+                  <div class="mt-1">
+                     <input type="text" placeholder="Tên giải thưởng" class="form-info-input awardName"
+                        [style.color]="colorLeftInput" value="{{ aw.AwardName}}" disabled [class]="ThemStyle">
+                  </div>
+               </div>
 
-                    <!-- Input Description Award  -->
-                    <div *ngIf="aw.Description">
-                        <div class="mt-1">
-                            <textarea rows="3" maxlength="300" type="text" placeholder="Miêu tả"
-                                class="form-info-input awardDescription" value="{{ aw.Description}}" disabled
-                                [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
-                        </div>
-                    </div>
+               <!-- Input Description Award  -->
+               <div *ngIf="aw.Description">
+                  <div class="mt-1">
+                     <textarea rows="3" maxlength="300" type="text" placeholder="Miêu tả"
+                        class="form-info-input awardDescription" value="{{ aw.Description}}" disabled
+                        [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                  </div>
+               </div>
 
-                </div>
             </div>
-        </div>
+         </div>
+      </div>
 
-        <div class="col-8 p-4 block-right">
+      <div class="col-8 p-4 block-right">
 
-            <!-- Name and Position job -->
-            <div class="form-position form-input-value">
-                <!-- Header  Title-->
-                <div>
-                    <input type="text" placeholder="Họ và tên" class="form-right--header mt-2 displayName"
-                        [style.color]="colorRightHeader" value="{{ data.jd.displayName }}" disabled [class]="ThemStyle">
-                </div>
-
-                <!-- Header -->
-                <div>
-                    <input type="text" placeholder="Vị trí công việc" class="form-right--header mt-2 positionTitleName"
-                        [style.color]="colorRightHeader" value="Vị trí: {{ data.jd.level.description }}" disabled
-                        [class]="ThemStyle">
-                </div>
+         <!-- Name and Position job -->
+         <div class="form-position form-input-value">
+            <!-- Header  Title-->
+            <div>
+               <input type="text" placeholder="Họ và tên" class="form-right--header mt-2 displayName"
+                  [style.color]="colorRightHeader" value="{{ data.jd.displayName }}" disabled [class]="ThemStyle">
             </div>
 
-            <!-- Form careerGoal  -->
-            <div class="mt-3 form-target form-input-value">
-                <!-- Header Title -->
-                <div>
-                    <input type="text" placeholder="Mục tiêu nghề nghiệp" value="Mục tiêu nghề nghiệp" disabled
-                        class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
-                </div>
+            <!-- Header -->
+            <div>
+               <input type="text" placeholder="Vị trí công việc" class="form-right--header mt-2 positionTitleName"
+                  [style.color]="colorRightHeader" value="Vị trí: {{ data.jd.level.description }}" disabled
+                  [class]="ThemStyle">
+            </div>
+         </div>
 
-                <!-- Input Decribe careerGoal  -->
-                <div class="mt-1">
-                    <div style="text-align: justify;" [style.color]="colorRightHeader" [class]="ThemStyle">
-                        {{ data.jd.careerGoal }}
-                    </div>
-                </div>
+         <!-- Form careerGoal  -->
+         <div class="mt-3 form-target form-input-value">
+            <!-- Header Title -->
+            <div>
+               <input type="text" placeholder="Mục tiêu nghề nghiệp" value="Mục tiêu nghề nghiệp" disabled
+                  class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
             </div>
 
-            <!-- Form Experience  -->
-            <div class="mt-3 form-experience form-input-value">
-                <!-- Header Title -->
-                <div *ngIf="data.jd.jobExperience[0].Position">
-                    <input type="text" placeholder="Kinh nghiệm việc làm" value="Kinh nghiệm việc làm" disabled
-                        class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
-                </div>
+            <!-- Input Decribe careerGoal  -->
+            <div class="mt-1">
+               <div style="text-align: justify;" [style.color]="colorRightHeader" [class]="ThemStyle">
+                  {{ data.jd.careerGoal }}
+               </div>
+            </div>
+         </div>
 
-                <div class="experience" *ngFor="let ex of data.jd.jobExperience">
-                    <!-- Header Experience  -->
-                    <div class="mt-1">
-                        <span *ngIf="ex.Position">
-                            <i class="fa-solid fa-suitcase" [style.color]="colorRightHeader" [class]="ThemStyle"></i>
-                            <input type="text" placeholder="Vị trí công việc"
-                                class="form-info-input-right mt-2 positionOfCompany" value="{{ ex.Position}} " disabled
-                                [style.color]="colorRightHeader" [class]="ThemStyle">
-                            <span>//</span>
-                        </span>
-                        <span *ngIf="ex.FromDate">
-                            <input type="text" placeholder="Bắt đầu"
-                                class="form-info-input-Right-Date mt-2 fromDateExperience" value="{{ ex.FromDate  }}"
-                                disabled [class]="ThemStyle">
-                        </span>
-                        <span>-</span>
+         <!-- Form Experience  -->
+         <div class="mt-3 form-experience form-input-value">
+            <!-- Header Title -->
+            <div *ngIf="data.jd.jobExperience[0].Position">
+               <input type="text" placeholder="Kinh nghiệm việc làm" value="Kinh nghiệm việc làm" disabled
+                  class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
+            </div>
 
-                        <span *ngIf="ex.ToDate">
-                            <input type="text" placeholder="Kết thúc"
-                                class="form-info-input-Right-Date mt-2 toDateExperience" value="{{ ex.ToDate }}" disabled
-                                [class]="ThemStyle">
-                        </span>
+            <div class="experience" *ngFor="let ex of data.jd.jobExperience">
+               <!-- Header Experience  -->
+               <div class="mt-1">
+                  <span *ngIf="ex.Position">
+                     <i class="fa-solid fa-suitcase" [style.color]="colorRightHeader" [class]="ThemStyle"></i>
+                     <input type="text" placeholder="Vị trí công việc"
+                        class="form-info-input-right mt-2 positionOfCompany" value="{{ ex.Position}} " disabled
+                        [style.color]="colorRightHeader" [class]="ThemStyle">
+                     <span>//</span>
+                  </span>
+                  <span *ngIf="ex.FromDate">
+                     <input type="text" placeholder="Bắt đầu" class="form-info-input-Right-Date mt-2 fromDateExperience"
+                        value="{{ ex.FromDate  }}" disabled [class]="ThemStyle">
+                  </span>
+                  <span>-</span>
 
-                    </div>
+                  <span *ngIf="ex.ToDate">
+                     <input type="text" placeholder="Kết thúc" class="form-info-input-Right-Date mt-2 toDateExperience"
+                        value="{{ ex.ToDate }}" disabled [class]="ThemStyle">
+                  </span>
 
-                    <div *ngIf="ex.ComapanyName">
-                        <input type="text" placeholder="Tên công ty " value="{{ ex.ComapanyName }}" disabled
-                            class="form-info-input-right mt-2 width100 companyName" [style.color]="colorRightHeader"
-                            [class]="ThemStyle">
+               </div>
 
-                    </div>
+               <div *ngIf="ex.ComapanyName">
+                  <input type="text" placeholder="Tên công ty " value="{{ ex.ComapanyName }}" disabled
+                     class="form-info-input-right mt-2 width100 companyName" [style.color]="colorRightHeader"
+                     [class]="ThemStyle">
 
-                    <div *ngIf="ex.Description">
-                        <!-- <div style="text-align: justify; "   [style.color]="colorRightHeader"   [class]="ThemStyle">
+               </div>
+
+               <div *ngIf="ex.Description">
+                  <!-- <div style="text-align: justify; "   [style.color]="colorRightHeader"   [class]="ThemStyle">
                             {{ ex.Description }}
                         </div> -->
 
-                        <textarea rows="7" value="{{ ex.Description }}" disabled
-                            placeholder="Mô tả kinh nghiệm việc làm của bạn"
-                            class="form-info-input-right width100 mt-2 experienceDescription"
-                            [class]="ThemStyle"></textarea>
+                  <textarea rows="7" value="{{ ex.Description }}" disabled
+                     placeholder="Mô tả kinh nghiệm việc làm của bạn"
+                     class="form-info-input-right width100 mt-2 experienceDescription" [class]="ThemStyle"></textarea>
 
-                    </div>
+               </div>
 
-                </div>
+            </div>
+         </div>
+
+         <!-- Form Project  -->
+         <div class="mt-3 form-project form-input-value">
+            <!-- Header Title -->
+            <div *ngIf="data.jd.project[0].ProjectName">
+               <input type="text" placeholder="Dự án" value="Dự án" disabled class="form-right--header mt-2"
+                  [style.color]="colorRightHeader">
             </div>
 
-            <!-- Form Project  -->
-            <div class="mt-3 form-project form-input-value">
-                <!-- Header Title -->
-                <div *ngIf="data.jd.project[0].ProjectName">
-                    <input type="text" placeholder="Dự án" value="Dự án" disabled class="form-right--header mt-2"
-                        [style.color]="colorRightHeader">
-                </div>
+            <div class="project" *ngFor="let pr of data.jd.project">
+               <!-- Header Project  -->
+               <div class="mt-1">
+                  <span *ngIf="pr.ProjectName">
+                     <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
+                     <input type="text" placeholder="Tên dự án" value="{{ pr.ProjectName }}" disabled
+                        class="form-info-input-right mt-2 projectName" [class]="ThemStyle">
+                     <span>//</span>
+                  </span>
 
-                <div class="project" *ngFor="let pr of data.jd.project">
-                    <!-- Header Project  -->
-                    <div class="mt-1">
-                        <span *ngIf="pr.ProjectName">
-                            <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
-                            <input type="text" placeholder="Tên dự án" value="{{ pr.ProjectName }}" disabled
-                                class="form-info-input-right mt-2 projectName" [class]="ThemStyle">
-                            <span>//</span>
-                        </span>
-
-                        <span *ngIf="pr.FromDate">
-                            <input type="text" placeholder="Bắt đầu" value="{{ pr.FromDate }}" disabled
-                                class="form-info-input-Right-Date mt-2 fromDateProject" [class]="ThemStyle">
-                        </span>
-                        <span>-</span>
-                        <span *ngIf="pr.ToDate">
-                            <input type="text" placeholder="Kết thúc" value="{{ pr.ToDate }}" disabled
-                                class="form-info-input-Right-Date mt-2 toDateProject" [class]="ThemStyle">
-                        </span>
-                    </div>
-                    <div>
-                        <div *ngIf="pr.IsStillWorking">
-                            Đang làm việc
-                        </div>
-                    </div>
-                    <div>
-                        <div *ngIf="pr.Description">
-                            <div style="text-align: justify;" [style.color]="colorRightHeader" [class]="ThemStyle">
-                                {{ pr.Description}}
-                            </div>
-                            <!-- <textarea rows="3" maxlength="300" value="{{ pr.Description}}" disabled placeholder="Mô tả kinh nghiệm trong dự án của bạn"
+                  <span *ngIf="pr.FromDate">
+                     <input type="text" placeholder="Bắt đầu" value="{{ pr.FromDate }}" disabled
+                        class="form-info-input-Right-Date mt-2 fromDateProject" [class]="ThemStyle">
+                  </span>
+                  <span>-</span>
+                  <span *ngIf="pr.ToDate">
+                     <input type="text" placeholder="Kết thúc" value="{{ pr.ToDate }}" disabled
+                        class="form-info-input-Right-Date mt-2 toDateProject" [class]="ThemStyle">
+                  </span>
+               </div>
+               <div>
+                  <div *ngIf="pr.IsStillWorking">
+                     Đang làm việc
+                  </div>
+               </div>
+               <div>
+                  <div *ngIf="pr.Description">
+                     <div style="text-align: justify;" [style.color]="colorRightHeader" [class]="ThemStyle">
+                        {{ pr.Description}}
+                     </div>
+                     <!-- <textarea rows="3" maxlength="300" value="{{ pr.Description}}" disabled placeholder="Mô tả kinh nghiệm trong dự án của bạn"
                             class="form-info-input-right width100 mt-2 projectDescription"
                             [class]="ThemStyle"></textarea> -->
-                        </div>
-                    </div>
-                </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- Form Educations  -->
+         <div class="mt-3 form-education form-input-value">
+            <!-- Header Title -->
+            <div *ngIf="data.jd.education[0].MajorName">
+               <input type="text" placeholder="Học vấn" value="Học vấn" disabled class="form-right--header mt-2"
+                  [style.color]="colorRightHeader">
             </div>
 
-            <!-- Form Educations  -->
-            <div class="mt-3 form-education form-input-value">
-                <!-- Header Title -->
-                <div *ngIf="data.jd.education[0].MajorName">
-                    <input type="text" placeholder="Học vấn" value="Học vấn" disabled class="form-right--header mt-2"
-                        [style.color]="colorRightHeader">
-                </div>
+            <div class="education" *ngFor="let ed of data.jd.education">
+               <!-- Header Educations  -->
+               <div class="mt-1">
+                  <span *ngIf="ed.MajorName">
+                     <i class="fa-solid fa-school" [style.color]="colorRightHeader"></i>
+                     <input type="text" placeholder="Ngành học - môn học " value="{{ ed.MajorName }}" disabled
+                        class="form-info-input-right mt-2 majorName" [style.color]="colorRightHeader"
+                        [class]="ThemStyle">
+                     <span>//</span>
+                  </span>
 
-                <div class="education" *ngFor="let ed of data.jd.education">
-                    <!-- Header Educations  -->
-                    <div class="mt-1">
-                        <span *ngIf="ed.MajorName">
-                            <i class="fa-solid fa-school" [style.color]="colorRightHeader"></i>
-                            <input type="text" placeholder="Ngành học - môn học " value="{{ ed.MajorName }}" disabled
-                                class="form-info-input-right mt-2 majorName" [style.color]="colorRightHeader"
-                                [class]="ThemStyle">
-                            <span>//</span>
-                        </span>
+                  <span *ngIf="ed.FromYear">
+                     <input type="text" placeholder="Bắt đầu" [style.color]="colorRightHeader" value="{{ ed.FromYear }}"
+                        disabled class="form-info-input-Right-Date mt-2 fromYearEducation" [class]="ThemStyle">
+                  </span>
+                  <span>-</span>
+                  <span *ngIf="ed.ToYear">
+                     <input type="text" placeholder="Kết thúc" [style.color]="colorRightHeader" value="{{ ed.ToYear }}"
+                        disabled class="form-info-input-Right-Date mt-2 toYearEducation" [class]="ThemStyle">
+                  </span>
+               </div>
 
-                        <span *ngIf="ed.FromYear">
-                            <input type="text" placeholder="Bắt đầu" [style.color]="colorRightHeader"
-                                value="{{ ed.FromYear }}" disabled class="form-info-input-Right-Date mt-2 fromYearEducation"
-                                [class]="ThemStyle">
-                        </span>
-                        <span>-</span>
-                        <span *ngIf="ed.ToYear">
-                            <input type="text" placeholder="Kết thúc" [style.color]="colorRightHeader"
-                                value="{{ ed.ToYear }}" disabled class="form-info-input-Right-Date mt-2 toYearEducation"
-                                [class]="ThemStyle">
-                        </span>
-                    </div>
+               <div *ngIf="ed.SchoolName">
+                  <div>
+                     <input type="text" placeholder="Tên trường học" value="Tên trường: {{ ed.SchoolName }}" disabled
+                        class="form-info-input-right mt-2 schoolName width100" [style.color]="colorRightHeader"
+                        [class]="ThemStyle">
+                  </div>
 
-                    <div *ngIf="ed.SchoolName">
-                        <div>
-                            <input type="text" placeholder="Tên trường học" value="Tên trường: {{ ed.SchoolName }}"
-                                disabled class="form-info-input-right mt-2 schoolName width100"
-                                [style.color]="colorRightHeader" [class]="ThemStyle">
-                        </div>
+               </div>
 
-                    </div>
+               <div>
+                  <div *ngIf="ed.SchoolName" [style.color]="colorRightHeader" [class]="ThemStyle">
+                     Tình trạng: Đang học tập
+                  </div>
+                  <div *ngIf="!ed.SchoolName" [style.color]="colorRightHeader" [class]="ThemStyle">
+                     Tình trạng: Đã tốt nghiệp
+                  </div>
+               </div>
 
-                    <div>
-                        <div *ngIf="ed.SchoolName" [style.color]="colorRightHeader" [class]="ThemStyle">
-                            Tình trạng: Đang học tập
-                        </div>
-                        <div *ngIf="!ed.SchoolName" [style.color]="colorRightHeader" [class]="ThemStyle">
-                            Tình trạng: Đã tốt nghiệp
-                        </div>
-                    </div>
-
-                    <div *ngIf="ed.Description">
-                        <textarea rows="3" maxlength="300" value="{{ ed.Description }}" disabled
-                            placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
-                            class="form-info-input-right width100 mt-2 educationDescription"
-                            [class]="ThemStyle"></textarea>
-                    </div>
-                </div>
+               <div *ngIf="ed.Description">
+                  <textarea rows="3" maxlength="300" value="{{ ed.Description }}" disabled
+                     placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
+                     class="form-info-input-right width100 mt-2 educationDescription" [class]="ThemStyle"></textarea>
+               </div>
             </div>
-        </div>
+         </div>
+      </div>
 
-    </div>
+   </div>
 </mat-dialog-content>

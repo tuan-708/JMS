@@ -51,8 +51,8 @@ export class CandidateSignInComponent {
                saveToken(res.data)
 
                this.getProfileUser(res?.data)
-          
-            }else {
+
+            } else {
                this.showError()
             }
          })
@@ -62,25 +62,25 @@ export class CandidateSignInComponent {
          })
    }
 
-   getProfileUser(token: string){
+   getProfileUser(token: string) {
       postRequest(apiCandidate.GET_PROFILE_USER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
-      .then(res => {
-         if (res.statusCode == 200) {
+         .then(res => {
+            if (res.statusCode == 200) {
 
-            setTimeout(() => {
-               saveItem("profile", res.data);
-            }, 1000);
+               setTimeout(() => {
+                  saveItem("profile", res.data);
+               }, 1000);
 
-            setTimeout(() => {
-               this.showSuccess()
-               this.router.navigate(['/candidate/']);
-            }, 1000);
-         }
-      })
-      .catch(data => {
-         this.showError()
-         console.error(apiCandidate.GET_PROFILE_USER);
-      })
+               setTimeout(() => {
+                  this.showSuccess()
+                  this.router.navigate(['/candidate/']);
+               }, 1000);
+            }
+         })
+         .catch(data => {
+            this.showError()
+            console.error(apiCandidate.GET_PROFILE_USER);
+         })
    }
 
 }

@@ -24,10 +24,10 @@ export class HeaderComponent {
       this.profile = getProfile();
    }
 
-   constructor(private router: Router){
+   constructor(private router: Router) {
       this.profile = getProfile();
-      
-      if(this.profile.companyId === null){
+
+      if (this.profile.companyId === null) {
          this.hasCompany = false
       }
       this.changeHeader();

@@ -1,30 +1,36 @@
 <div class="container">
    <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-         <img src="https://www.vietnamworks.com/_next/image?url=https%3A%2F%2Fimages.vietnamworks.com%2Flogo%2Fspinmaster_hrbn.JPG_124709.jpg&w=1920&q=75" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-         <img src="https://www.vietnamworks.com/_next/image?url=https%3A%2F%2Fimages.vietnamworks.com%2Flogo%2Fonpoint_hrbn.JPG_124824.jpg&w=1920&q=75" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-         <img src="https://www.vietnamworks.com/_next/image?url=https%3A%2F%2Fimages.vietnamworks.com%2Flogo%2Fbanvien_hrbn_124682.png&w=1920&q=75" class="d-block w-100" alt="...">
-        </div>
+         <div class="carousel-item active">
+            <img
+               src="https://www.vietnamworks.com/_next/image?url=https%3A%2F%2Fimages.vietnamworks.com%2Flogo%2Fspinmaster_hrbn.JPG_124709.jpg&w=1920&q=75"
+               class="d-block w-100" alt="...">
+         </div>
+         <div class="carousel-item">
+            <img
+               src="https://www.vietnamworks.com/_next/image?url=https%3A%2F%2Fimages.vietnamworks.com%2Flogo%2Fonpoint_hrbn.JPG_124824.jpg&w=1920&q=75"
+               class="d-block w-100" alt="...">
+         </div>
+         <div class="carousel-item">
+            <img
+               src="https://www.vietnamworks.com/_next/image?url=https%3A%2F%2Fimages.vietnamworks.com%2Flogo%2Fbanvien_hrbn_124682.png&w=1920&q=75"
+               class="d-block w-100" alt="...">
+         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="sr-only">Previous</span>
       </a>
       <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <span class="sr-only">Next</span>
       </a>
-    </div>
+   </div>
 
    <section class="mt-5">
       <div class="textHeader1">Các công ty nổi bật</div>
@@ -40,18 +46,16 @@
          <ul id="cards">
             <div *ngIf="!companies" style="height: 400px;">
                <app-view-loading></app-view-loading>
-           </div>
+            </div>
             <li id="box1" class="list" *ngFor="let com of companies">
                <a href="/candidate/company-detail/{{com?.companyId}}" style="text-decoration: none;">
                   <div class="imageSize">
-                     <img
-                        src="{{ com?.avatarURL }}"
-                        alt="...">
-   
+                     <img src="{{ com?.avatarURL }}" alt="...">
+
                   </div>
                   <div class="titleCompany">{{ com?.companyName }}</div>
                </a>
-         
+
             </li>
 
          </ul>

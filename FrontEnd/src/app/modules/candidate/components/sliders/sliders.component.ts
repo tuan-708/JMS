@@ -28,19 +28,17 @@ export class SlidersComponent {
       });
    }
 
-
-   
-   constructor(){
-      getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 10})
-      .then(res => {
-         if (res?.statusCode == 200) {
-            this.companies = res?.data
-            console.log(res?.data);
-         }
-      })
-      .catch(data => {
-         console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
-      })
+   constructor() {
+      getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 10 })
+         .then(res => {
+            if (res?.statusCode == 200) {
+               this.companies = res?.data
+               console.log(res?.data);
+            }
+         })
+         .catch(data => {
+            console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
+         })
    }
 
 }

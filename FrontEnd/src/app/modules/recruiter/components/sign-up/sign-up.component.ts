@@ -111,7 +111,7 @@ export class RegisterRecruiterComponent {
                console.warn(data);
 
             })
-      }else{
+      } else {
          this.showInfoInput()
       }
    }

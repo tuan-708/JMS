@@ -5,7 +5,8 @@ import { environment } from 'src/environments/environment';
    templateUrl: './home.component.html',
    styleUrls: ['./home.component.css']
 })
+
 export class CandidateHomeComponent {
    backgroudSelectedLink = `${environment.apiUrl}/assets/background-gradients/gradient-green.jpg`;
-   
+
 }

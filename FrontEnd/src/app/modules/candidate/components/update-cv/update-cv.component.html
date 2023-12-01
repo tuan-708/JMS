@@ -1,465 +1,464 @@
 <div class="container-fluid">
-    <candidate-header></candidate-header>
+   <candidate-header></candidate-header>
 
-    <div class="container header__container">
-        <div class="flex">
+   <div class="container header__container">
+      <div class="flex">
 
-            <div class="header__tool">
-                <div class="header__preview-cv">
-                    <button class="btn-cv btn-cv--success btn-cv--fix-size is-plain">
-                        <i class="mr-8 fa-regular fa-eye"></i><span class="btn-cv__text">Xem trước</span></button>
-                </div>
-                <div class="save-cv" (click)="SubmitCV($event)">
-                    <button class="save-cv save-cv__btn btn-cv btn-cv--success btn-cv--fix-size">
-                        <i class="save-cv__icon fa-solid fa-floppy-disk mr-8"></i>
-                        <span class="btn-cv__text">Chỉnh sửa</span>
-                    </button>
-                </div>
-                <div class="confirm-modal">
-                    <div class="el-overlay" style="z-index: 2001; display: none;">
-                        <div class="el-overlay-dialog"><!--v-if--></div>
-                    </div>
-                </div>
+         <div class="header__tool">
+            <div class="header__preview-cv">
+               <button class="btn-cv btn-cv--success btn-cv--fix-size is-plain">
+                  <i class="mr-8 fa-regular fa-eye"></i><span class="btn-cv__text">Xem trước</span></button>
             </div>
-        </div>
-    </div>
-
-
-
-    <div class="container mb-5" [style.font-family]="fontCV">
-        <div class="container Header">
-            <div class="header__title">
-                <input type="text" class="header__input cvTitle" placeholder="Tên CV" value="{{ cv?.cvTitle }}">
+            <div class="save-cv" (click)="SubmitCV($event)">
+               <button class="save-cv save-cv__btn btn-cv btn-cv--success btn-cv--fix-size">
+                  <i class="save-cv__icon fa-solid fa-floppy-disk mr-8"></i>
+                  <span class="btn-cv__text">Chỉnh sửa</span>
+               </button>
             </div>
-            <div class="header__title">
-                <select class="form-select shadow-none customSelect categoryId" [(ngModel)]="selectCategory" aria-label="Default select example">
-                    <option value="0" selected> Chọn Lĩnh Vực</option>
-                    <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
-                </select>
+            <div class="confirm-modal">
+               <div class="el-overlay" style="z-index: 2001; display: none;">
+                  <div class="el-overlay-dialog"><!--v-if--></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+   <div class="container mb-5" [style.font-family]="fontCV">
+      <div class="container Header">
+         <div class="header__title">
+            <input type="text" class="header__input cvTitle" placeholder="Tên CV" value="{{ cv?.cvTitle }}">
+         </div>
+         <div class="header__title">
+            <select class="form-select shadow-none customSelect categoryId" [(ngModel)]="selectCategory"
+               aria-label="Default select example">
+               <option value="0" selected> Chọn Lĩnh Vực</option>
+               <option *ngFor="let elm of categories; index as i" value={{elm.id}}>{{elm.categoryName}}</option>
+            </select>
+         </div>
+
+         <div class="header__title">
+            <select class="form-select shadow-none customSelect levelId" [(ngModel)]="selectLevel"
+               aria-label="Default select example">
+               <option value="0" selected>Chọn Cấp Bậc</option>
+               <option *ngFor="let elm of levels; index as i" value={{elm.id}}>{{elm.title}}</option>
+            </select>
+         </div>
+
+         <div class="header__title">
+            <select class="form-select shadow-none customSelect employmentTypeId" [(ngModel)]="selectEmploymentTypes"
+               aria-label="Default select example">
+               <option value="0" selected>Chọn Loại việc làm</option>
+               <option *ngFor="let elm of employmentTypes; index as i" value={{elm.id}}>{{elm.title}}</option>
+            </select>
+         </div>
+
+
+
+         <div class="header__title">
+            <select class="form-select shadow-none customSelect1" (change)="selectedFont($event)"
+               aria-label="Default select example">
+               <option value="Sans-serif">Sans-serif</option>
+               <option value="Monospace">Monospace</option>
+               <option value="Arial">Arial</option>
+               <option value="Times New Roman">Times New Roman</option>
+               <option value="Helvetica">Helvetica</option>
+               <option value="Courier">Courier</option>
+               <option value="Courier New">Courier New</option>
+               <option value="Verdana">Verdana</option>
+            </select>
+         </div>
+         <div class="block-BackGroundCV">
+
+            <div style="margin: auto;">
+               <i class="fa-solid fa-image"></i>
+               <span>Hình nền CV</span>
             </div>
 
-            <div class="header__title">
-                <select class="form-select shadow-none customSelect levelId"  [(ngModel)]="selectLevel" aria-label="Default select example">
-                    <option  value="0" selected>Chọn Cấp Bậc</option>
-                    <option *ngFor="let elm of levels; index as i" value={{elm.id}}>{{elm.title}}</option>
-                </select>
+            <div class="wrapModel">
+               <div class="modelBackground">
+                  <div class="items" (click)="SelectedBackGround(0)">
+                     <img src="{{apiURL}}/assets/images/themeDefault.jpg" alt="">
+                  </div>
+
+                  <div class="items" (click)="SelectedBackGround(1)">
+                     <img src="{{apiURL}}/assets/images/theme1.jpg" alt="">
+                  </div>
+
+                  <div class="items" (click)="SelectedBackGround(2)">
+                     <img src="{{apiURL}}/assets/images/theme2.jpg" alt="">
+                  </div>
+
+                  <div class="items" (click)="SelectedBackGround(3)">
+                     <img src="{{apiURL}}/assets/images/theme3.jpg" alt="">
+                  </div>
+
+                  <div class="items" (click)="SelectedBackGround(4)">
+                     <img src="{{apiURL}}/assets/images/theme4.jpg" alt="">
+                  </div>
+
+                  <div class="items" (click)="SelectedBackGround(5)">
+                     <img src="{{apiURL}}/assets/images/theme5.jpg" alt="">
+                  </div>
+
+                  <div class="items" (click)="SelectedBackGround(6)">
+                     <img src="{{apiURL}}/assets/images/theme6.jpg" alt="">
+                  </div>
+
+                  <div class="items" (click)="SelectedBackGround(7)">
+                     <img src="{{apiURL}}/assets/images/theme7.jpg" alt="">
+                  </div>
+
+                  <div class="items" (click)="SelectedBackGround(8)">
+                     <img src="{{apiURL}}/assets/images/theme8.jpg" alt="">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="conten-detail-cv">
+         <div class="col-4 p-3 block-left" [style.background-image]="'url('+ backgroundSelectedLink + ')'">
+            <div class="avatar-candidate">
+               <div class="file-upload">
+                  <div class="image-upload-wrap" ng-hide="true" [style.display]="hideImage">
+                     <input class="file-upload-input" type='file' id="avatarCv" multiple=false
+                        (change)="getFile($event);" accept="image/*" />
+                     <div class="drag-text">
+                        <h3 [class]="ThemStyle">Kéo thả ảnh hoặc chọn ảnh</h3>
+                     </div>
+                  </div>
+                  <div class="file-upload-content" [style.display]="displayImage">
+                     <img class="file-upload-image" [src]="fileSrc" alt="your image"
+                        onerror="this.src='https://cdn1.iconfinder.com/data/icons/main-ui-elements-with-colour-bg/512/male_avatar-512.png'" />
+                     <div class="btn-Change-Image">
+                        <i class="fa-solid fa-plus file-upload-btn" onclick="$('.file-upload-input').trigger( 'click' )"
+                           [style.display]="displayChange"></i>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Form Infor  -->
+            <div class="mt-3 form-info form-input-value">
+               <!-- Header  -->
+               <div>
+                  <input type="text" placeholder="Thông tin cá nhân" value="Thông tin cá nhân" disabled
+                     class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
+               </div>
+               <!-- Input Email  -->
+               <div class="mt-1">
+                  <i class="fa-solid fa-envelope" [style.color]="colorLeftHeader"></i>
+                  <input type="text" placeholder="Email" value="{{ cv?.displayEmail }}"
+                     class="form-info-input inputEmail" [style.color]="colorLeftInput" [class]="ThemStyle">
+               </div>
+               <!-- Input Phone  -->
+               <div class="mt-1">
+                  <i class="fa-solid fa-phone" [style.color]="colorLeftHeader"></i>
+                  <input type="text" placeholder="Số điện thoại" class="form-info-input inputPhone"
+                     [style.color]="colorLeftInput" value="{{ cv?.phone }}" [class]="ThemStyle">
+               </div>
+               <!-- Input Dob  -->
+               <div class="mt-1">
+                  <i class="fa-solid fa-calendar" [style.color]="colorLeftHeader"></i>
+                  <input type="date" data-date-format="DD/MM/YYYY" value="{{ cv?.dob }}"
+                     class="form-info-input inputDob" [style.color]="colorLeftInput" [class]="ThemStyle">
+               </div>
+               <!-- Input Gender  -->
+               <div class="d-flex mt-2">
+                  <i class="fa-solid fa-venus-mars" [style.color]="colorLeftHeader"></i>
+                  <div class="d-flex">
+                     <div class="form-check ml-2">
+                        <input class="form-check-input shadow-none" [style.color]="colorLeftInput" value="1"
+                           [(ngModel)]="selectedGender" type="radio" name="gender" id="nam">
+                        <label class="form-check-label" for="nam" [style.color]="colorLeftHeader">
+                           Nam
+                        </label>
+                     </div>
+                     <div class="form-check  ml-2">
+                        <input class="form-check-input shadow-none" [style.color]="colorLeftHeader" value="2"
+                           [(ngModel)]="selectedGender" type="radio" name="gender" id="nu">
+                        <label class="form-check-label" for="nu" [style.color]="colorLeftHeader">
+                           Nữ
+                        </label>
+                     </div>
+                  </div>
+               </div>
+               <!-- Input Address  -->
+               <div class="mt-1 d-flex">
+                  <i class="fa-solid fa-location-dot" [style.color]="colorLeftHeader"></i>
+                  <textarea rows="2" maxlength="60" placeholder="Địa chỉ" class="form-info-input inputAddress"
+                     [style.color]="colorLeftInput" value="{{ cv?.address }}" [class]="ThemStyle"></textarea>
+               </div>
             </div>
 
-            <div class="header__title">
-                <select class="form-select shadow-none customSelect employmentTypeId"  [(ngModel)]="selectEmploymentTypes"
-                    aria-label="Default select example">
-                    <option  value="0" selected>Chọn Loại việc làm</option>
-                    <option *ngFor="let elm of employmentTypes; index as i" value={{elm.id}}>{{elm.title}}</option>
-                </select>
-            </div>
+            <!-- Form Skills  -->
+            <div class="mt-3 form-skills form-input-value">
+               <!-- Header  -->
+               <div>
+                  <input type="text" placeholder="Kỹ năng" value="Kỹ năng" disabled class="form-left--header width100"
+                     [style.color]="colorLeftHeader">
+               </div>
 
-
-
-            <div class="header__title">
-                <select class="form-select shadow-none customSelect1" (change)="selectedFont($event)"
-                    aria-label="Default select example">
-                    <option value="Sans-serif">Sans-serif</option>
-                    <option value="Monospace">Monospace</option>
-                    <option value="Arial">Arial</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Helvetica">Helvetica</option>
-                    <option value="Courier">Courier</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Verdana">Verdana</option>
-                </select>
-            </div>
-            <div class="block-BackGroundCV">
-
-                <div style="margin: auto;">
-                    <i class="fa-solid fa-image"></i>
-                    <span>Hình nền CV</span>
-                </div>
-
-                <div class="wrapModel">
-                    <div class="modelBackground">
-                        <div class="items" (click)="SelectedBackGround(0)">
-                            <img src="{{apiURL}}/assets/images/themeDefault.jpg" alt="">
-                        </div>
-
-                        <div class="items" (click)="SelectedBackGround(1)">
-                            <img src="{{apiURL}}/assets/images/theme1.jpg" alt="">
-                        </div>
-
-                        <div class="items" (click)="SelectedBackGround(2)">
-                            <img src="{{apiURL}}/assets/images/theme2.jpg" alt="">
-                        </div>
-
-                        <div class="items" (click)="SelectedBackGround(3)">
-                            <img src="{{apiURL}}/assets/images/theme3.jpg" alt="">
-                        </div>
-
-                        <div class="items" (click)="SelectedBackGround(4)">
-                            <img src="{{apiURL}}/assets/images/theme4.jpg" alt="">
-                        </div>
-
-                        <div class="items" (click)="SelectedBackGround(5)">
-                            <img src="{{apiURL}}/assets/images/theme5.jpg" alt="">
-                        </div>
-
-                        <div class="items" (click)="SelectedBackGround(6)">
-                            <img src="{{apiURL}}/assets/images/theme6.jpg" alt="">
-                        </div>
-
-                        <div class="items" (click)="SelectedBackGround(7)">
-                            <img src="{{apiURL}}/assets/images/theme7.jpg" alt="">
-                        </div>
-
-                        <div class="items" (click)="SelectedBackGround(8)">
-                            <img src="{{apiURL}}/assets/images/theme8.jpg" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="conten-detail-cv">
-            <div class="col-4 p-3 block-left" [style.background-image]="'url('+ backgroundSelectedLink + ')'">
-                <div class="avatar-candidate">
-                    <div class="file-upload">
-                        <div class="image-upload-wrap" ng-hide="true" [style.display]="hideImage">
-                            <input class="file-upload-input" type='file' id="avatarCv" multiple=false
-                                (change)="getFile($event);" accept="image/*" />
-                            <div class="drag-text">
-                                <h3 [class]="ThemStyle">Kéo thả ảnh hoặc chọn ảnh</h3>
-                            </div>
-                        </div>
-                        <div class="file-upload-content" [style.display]="displayImage">
-                            <img class="file-upload-image" [src]="fileSrc" alt="your image" onerror="this.src='https://cdn1.iconfinder.com/data/icons/main-ui-elements-with-colour-bg/512/male_avatar-512.png'" />
-                            <div class="btn-Change-Image">
-                                <i class="fa-solid fa-plus file-upload-btn"
-                                    onclick="$('.file-upload-input').trigger( 'click' )"
-                                    [style.display]="displayChange"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Form Infor  -->
-                <div class="mt-3 form-info form-input-value">
-                    <!-- Header  -->
-                    <div>
-                        <input type="text" placeholder="Thông tin cá nhân" value="Thông tin cá nhân" disabled
-                            class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
-                    </div>
-                    <!-- Input Email  -->
-                    <div class="mt-1">
-                        <i class="fa-solid fa-envelope" [style.color]="colorLeftHeader"></i>
-                        <input type="text" placeholder="Email" value="{{ cv?.displayEmail }}"
-                            class="form-info-input inputEmail" [style.color]="colorLeftInput" [class]="ThemStyle">
-                    </div>
-                    <!-- Input Phone  -->
-                    <div class="mt-1">
-                        <i class="fa-solid fa-phone" [style.color]="colorLeftHeader"></i>
-                        <input type="text" placeholder="Số điện thoại" class="form-info-input inputPhone"
-                            [style.color]="colorLeftInput" value="{{ cv?.phone }}" [class]="ThemStyle">
-                    </div>
-                    <!-- Input Dob  -->
-                    <div class="mt-1">
-                        <i class="fa-solid fa-calendar" [style.color]="colorLeftHeader"></i>
-                        <input type="date" data-date-format="DD/MM/YYYY" value="{{ cv?.dob }}"
-                            class="form-info-input inputDob" [style.color]="colorLeftInput" [class]="ThemStyle">
-                    </div>
-                    <!-- Input Gender  -->
-                    <div class="d-flex mt-2">
-                        <i class="fa-solid fa-venus-mars" [style.color]="colorLeftHeader"></i>
-                        <div class="d-flex">
-                            <div class="form-check ml-2">
-                                <input class="form-check-input shadow-none" [style.color]="colorLeftInput" value="1"
-                                    [(ngModel)]="selectedGender" type="radio" name="gender" id="nam">
-                                <label class="form-check-label" for="nam" [style.color]="colorLeftHeader">
-                                    Nam
-                                </label>
-                            </div>
-                            <div class="form-check  ml-2">
-                                <input class="form-check-input shadow-none" [style.color]="colorLeftHeader" value="2"
-                                    [(ngModel)]="selectedGender" type="radio" name="gender" id="nu">
-                                <label class="form-check-label" for="nu" [style.color]="colorLeftHeader">
-                                    Nữ
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Input Address  -->
-                    <div class="mt-1 d-flex">
-                        <i class="fa-solid fa-location-dot" [style.color]="colorLeftHeader"></i>
-                        <textarea rows="2" maxlength="60" placeholder="Địa chỉ" class="form-info-input inputAddress"
-                            [style.color]="colorLeftInput" value="{{ cv?.address }}" [class]="ThemStyle"></textarea>
-                    </div>
-                </div>
-
-                <!-- Form Skills  -->
-                <div class="mt-3 form-skills form-input-value">
-                    <!-- Header  -->
-                    <div>
-                        <input type="text" placeholder="Kỹ năng" value="Kỹ năng" disabled
-                            class="form-left--header width100" [style.color]="colorLeftHeader">
-                    </div>
-
-                    <div class="skill">
-                        <!-- Input Name Skills  -->
-                        <!-- <div class="mt-1">
+               <div class="skill">
+                  <!-- Input Name Skills  -->
+                  <!-- <div class="mt-1">
                             <input type="text" placeholder="Tên kỹ năng" class="form-info-input skillTitle"
                                 [style.color]="colorLeftInput" [class]="ThemStyle">
                         </div> -->
 
-                        <!-- Input Describe Skills  -->
-                        <div class="mt-1">
-                            <div *ngFor="let sk of cv?.skills">
-                                <textarea rows="3" maxlength="300" placeholder="Mô tả kỹ năng"
-                                    class="form-info-input inputDescripitonSkills skillDescription"
-                                    [style.color]="colorLeftInput" [class]="ThemStyle">{{ sk?.skillDescription }}</textarea>
-                            </div>
+                  <!-- Input Describe Skills  -->
+                  <div class="mt-1">
+                     <div *ngFor="let sk of cv?.skills">
+                        <textarea rows="3" maxlength="300" placeholder="Mô tả kỹ năng"
+                           class="form-info-input inputDescripitonSkills skillDescription"
+                           [style.color]="colorLeftInput" [class]="ThemStyle">{{ sk?.skillDescription }}</textarea>
+                     </div>
 
-                        </div>
-                    </div>
+                  </div>
+               </div>
 
-                    <i class="fa-solid fa-plus skillAdd" (click)="skillAdd($event)"></i>
-                    <i class="fa-solid fa-minus skillSub" (click)="skillSub($event)"></i>
-                </div>
-
-                <!-- Form Certificates  -->
-                <div class="mt-3 form-Certificates form-input-value">
-                    <!-- Header  -->
-                    <div>
-                        <input type="text" placeholder="Chứng chỉ" value="Tên chứng chỉ" disabled
-                            class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
-                    </div>
-
-                    <div class="certificates" *ngFor="let ce of cv?.certificates">
-                        <!-- Input Name Certificates  -->
-                        <div class="mt-1">
-                            <input type="text" placeholder="Tên chứng chỉ" value="{{ ce?.certificateName }}" class="form-info-input certificateName"
-                                [style.color]="colorLeftInput" [class]="ThemStyle">
-                        </div>
-
-                        <!-- Input Time Certificates  -->
-                        <div class="mt-1 d-flex">
-                            <input type="text" placeholder="Bắt đầu"
-                                class="form-info-input width50 issuedDateCertificate" value="{{ ce?.issuedDate }}" [style.color]="colorLeftInput"
-                                [class]="ThemStyle">
-                            <div>-</div>
-                            <input type="text" placeholder="Kết thúc"
-                                class="form-info-input width50 expiredDateCertificate" value="{{ ce?.expiredDate }}" [style.color]="colorLeftInput"
-                                [class]="ThemStyle">
-                        </div>
-
-                        <!-- Input Link Certificates  -->
-                        <div class="mt-1">
-                            <input type="text" placeholder="Link"
-                                class="form-info-input width50 credentialURLCertificate" value="{{ ce?.credentialURL }}" [style.color]="colorLeftInput"
-                                [class]="ThemStyle">
-                        </div>
-
-                        <!-- Input Description Certificates  -->
-                        <div class="mt-1">
-                            <textarea rows="3" maxlength="300" placeholder="Miêu tả"
-                                class="form-info-input certificateProvider" [style.color]="colorLeftInput"
-                                [class]="ThemStyle">{{ ce.certificateProvider }}</textarea>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-plus certificatesAdd" (click)="certificatesAdd($event)"></i>
-                    <i class="fa-solid fa-minus certificatesSub" (click)="certificatesSub($event)"></i>
-                </div>
-
-                <!-- Form Award  -->
-                <div class="mt-3 form-prizes form-input-value">
-                    <!-- Header  -->
-                    <div>
-                        <input type="text" placeholder="Giải thưởng" value="Giải thưởng" disabled
-                            class="form-left--header width100" [style.color]="colorLeftHeader">
-                    </div>
-
-                    <div class="prizes" *ngFor="let aw of cv?.awards">
-                        <!-- Input Time Award  -->
-                        <div class="mt-1">
-                            <input type="text" placeholder="Thời gian" value="{{ aw?.fromYear }}" class="form-info-input fromYearAwards"
-                                [style.color]="colorLeftInput" [class]="ThemStyle">
-                        </div>
-
-                        <!-- Input Name Award  -->
-                        <div class="mt-1">
-                            <input type="text" placeholder="Tên giải thưởng" value="{{ aw?.awardName }}" class="form-info-input awardName"
-                                [style.color]="colorLeftInput" [class]="ThemStyle">
-                        </div>
-
-                        <!-- Input Description Award  -->
-                        <div class="mt-1">
-                            <textarea rows="3" maxlength="300" type="text" placeholder="Miêu tả"
-                                class="form-info-input awardDescription" [style.color]="colorLeftInput"
-                                [class]="ThemStyle">{{ aw?.description }}</textarea>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-plus prizesAdd" (click)="prizesAdd($event)"></i>
-                    <i class="fa-solid fa-minus prizesSub" (click)="prizesSub($event)"></i>
-                </div>
+               <i class="fa-solid fa-plus skillAdd" (click)="skillAdd($event)"></i>
+               <i class="fa-solid fa-minus skillSub" (click)="skillSub($event)"></i>
             </div>
 
-            <div class="col-8 p-4 block-right">
+            <!-- Form Certificates  -->
+            <div class="mt-3 form-Certificates form-input-value">
+               <!-- Header  -->
+               <div>
+                  <input type="text" placeholder="Chứng chỉ" value="Tên chứng chỉ" disabled
+                     class="form-left--header width100" [style.color]="colorLeftHeader" [class]="ThemStyle">
+               </div>
 
-                <!-- Name and Position job -->
-                <div class="form-position form-input-value">
-                    <!-- Header  Title-->
-                    <div>
-                        <input type="text" placeholder="Họ và tên" value="{{ cv?.displayName }}" class="form-right--header mt-2 displayName"
-                            [style.color]="colorRightHeader" [class]="ThemStyle">
-                    </div>
+               <div class="certificates" *ngFor="let ce of cv?.certificates">
+                  <!-- Input Name Certificates  -->
+                  <div class="mt-1">
+                     <input type="text" placeholder="Tên chứng chỉ" value="{{ ce?.certificateName }}"
+                        class="form-info-input certificateName" [style.color]="colorLeftInput" [class]="ThemStyle">
+                  </div>
 
-                    <!-- Header -->
-                    <div>
-                        <input type="text" placeholder="Vị trí công việc"  value="{{ cv?.categoryName }}"
-                            class="form-right--header mt-2 positionTitleName" [style.color]="colorRightHeader"
-                            [class]="ThemStyle">
-                    </div>
-                </div>
+                  <!-- Input Time Certificates  -->
+                  <div class="mt-1 d-flex">
+                     <input type="text" placeholder="Bắt đầu" class="form-info-input width50 issuedDateCertificate"
+                        value="{{ ce?.issuedDate }}" [style.color]="colorLeftInput" [class]="ThemStyle">
+                     <div>-</div>
+                     <input type="text" placeholder="Kết thúc" class="form-info-input width50 expiredDateCertificate"
+                        value="{{ ce?.expiredDate }}" [style.color]="colorLeftInput" [class]="ThemStyle">
+                  </div>
 
-                <!-- Form careerGoal  -->
-                <div class="mt-3 form-target form-input-value">
-                    <!-- Header Title -->
-                    <div>
-                        <input type="text" placeholder="Mục tiêu nghề nghiệp" value="Mục tiêu nghề nghiệp" disabled
-                            class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
-                    </div>
+                  <!-- Input Link Certificates  -->
+                  <div class="mt-1">
+                     <input type="text" placeholder="Link" class="form-info-input width50 credentialURLCertificate"
+                        value="{{ ce?.credentialURL }}" [style.color]="colorLeftInput" [class]="ThemStyle">
+                  </div>
 
-                    <!-- Input Decribe careerGoal  -->
-                    <div class="mt-1">
-                        <textarea rows="3" maxlength="300"
-                            placeholder="mục tiêu nghề nghiệp của bạn, bao gồm mục tiêu ngắn và dài hạn"
-                            class="input-side-right mt-2 careerGoal" [style.color]="colorRightHeader"
-                            [class]="ThemStyle">{{ cv?.careerGoal }}</textarea>
-                    </div>
-                </div>
-
-                <!-- Form Experience  -->
-                <div class="mt-3 form-experience form-input-value">
-                    <!-- Header Title -->
-                    <div>
-                        <input type="text" placeholder="Kinh nghiệm việc làm" value="Kinh nghiệm việc làm" disabled
-                            class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
-                    </div>
-
-                    <div class="experience" *ngFor="let ex of cv?.jobExperiences">
-                        <!-- Header Experience  -->
-                        <div class="mt-1">
-                            <i class="fa-solid fa-suitcase"></i>
-                            <input type="text" placeholder="Vị trí công việc" value="{{ ex?.position }}"
-                                class="form-info-input-right mt-2 positionOfCompany" [style.color]="colorRightHeader"
-                                [class]="ThemStyle">
-                            <span>//</span>
-                            <input type="text" placeholder="Bắt đầu" value="{{ ex?.fromDate}}"
-                                class="form-info-input-Right-Date mt-2 fromDateExperience" [class]="ThemStyle">
-                            <span>-</span>
-                            <input type="text" placeholder="Kết thúc" value="{{ ex?.toDate }}"
-                                class="form-info-input-Right-Date mt-2 toDateExperience" [class]="ThemStyle">
-                        </div>
-
-                        <div>
-                            <input type="text" placeholder="Tên công ty " value="{{ ex?.comapanyName }}"
-                                class="form-info-input-right mt-2 width100 companyName" [class]="ThemStyle">
-                        </div>
-
-                        <div>
-                            <textarea rows="4" maxlength="600" placeholder="Mô tả kinh nghiệm việc làm của bạn"
-                                class="form-info-input-right width100 mt-2 experienceDescription"
-                                [class]="ThemStyle">{{ ex.description }}</textarea>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-plus form-experienceAdd" (click)="formExperienceAdd($event)"></i>
-                    <i class="fa-solid fa-minus form-experienceSub" (click)="formExperienceSub($event)"></i>
-                </div>
-
-                <!-- Form Project  -->
-                <div class="mt-3 form-project form-input-value">
-                    <!-- Header Title -->
-                    <div>
-                        <input type="text" placeholder="Dự án" value="Dự án" disabled class="form-right--header mt-2"
-                            [style.color]="colorRightHeader">
-                    </div>
-
-                    <div class="project" *ngFor="let pr of cv?.projects">
-                        <!-- Header Project  -->
-                        <div class="mt-1">
-                            <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
-                            <input type="text" value="{{ pr?.projectName }}" placeholder="Tên dự án" class="form-info-input-right mt-2 projectName"
-                                [class]="ThemStyle">
-                            <span>//</span>
-                            <input type="text" value="{{ pr?.fromDate}}" placeholder="Bắt đầu" class="form-info-input-Right-Date mt-2 fromDateProject"
-                                [class]="ThemStyle">
-                                <span>-</span>
-                            <input type="text" value="{{ pr?.toDate }}"  placeholder="Kết thúc" class="form-info-input-Right-Date mt-2 toDateProject"
-                                [class]="ThemStyle">
-                        </div>
-                        <div>
-                            <div class="form-check ">
-                                <input class="form-check-input shadow-none isStillWorking" type="checkbox" [checked]="pr.isStillWorking">
-                                <label class="form-check-label">
-                                    Đang làm việc
-                                </label>
-                            </div>
-                        </div>
-                        <div>
-                            <textarea rows="3" maxlength="300" placeholder="Mô tả kinh nghiệm trong dự án của bạn"
-                                class="form-info-input-right width100 mt-2 projectDescription"
-                                [class]="ThemStyle">{{ pr.description }}</textarea>
-                        </div>
-                    </div>
-
-                    <i class="fa-solid fa-plus form-projectAdd" (click)="formProjectAdd($event)"></i>
-                    <i class="fa-solid fa-minus form-projectSub" (click)="formProjectSub($event)"></i>
-                </div>
-
-                <!-- Form Educations  -->
-                <div class="mt-3 form-education form-input-value">
-                    <!-- Header Title -->
-                    <div>
-                        <input type="text" placeholder="Học vấn" value="Học vấn" disabled
-                            class="form-right--header mt-2" [style.color]="colorRightHeader">
-                    </div>
-
-                    <div class="education" *ngFor="let ed of cv?.educations">
-                        <!-- Header Educations  -->
-                        <div class="mt-1">
-                            <i class="fa-solid fa-school" [style.color]="colorRightHeader"></i>
-                            <input type="text" placeholder="Ngành học - môn học " value="{{ ed?.majorName}}"
-                                class="form-info-input-right mt-2 majorName" [class]="ThemStyle">
-                            <span>//</span>
-                            <input type="text" placeholder="Bắt đầu" value="{{ ed?.fromYear}}"
-                                class="form-info-input-Right-Date mt-2 fromYearEducation" [class]="ThemStyle">
-                                <span>-</span>
-                            <input type="text" placeholder="Kết thúc"  value="{{ ed.toYear}}" class="form-info-input-Right-Date mt-2 toYearEducation"
-                                [class]="ThemStyle">
-                        </div>
-
-                        <div> 
-                            <input type="text" placeholder="Tên trường học" value="{{ ed.schoolName}}"
-                                class="form-info-input-right mt-2 schoolName width100" [class]="ThemStyle">
-                        </div>
-                        <div>
-                            <div class="form-check ">
-                                <input type="checkbox" class="form-check-input shadow-none stillLearning" [checked]="ed.stillLearning">
-                                <label class="form-check-label">
-                                    Đang học tập
-                                </label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <textarea rows="3" maxlength="300"
-                                placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
-                                class="form-info-input-right width100 mt-2 educationDescription"
-                                [class]="ThemStyle"></textarea>
-                        </div>
-                    </div>
-
-                    <i class="fa-solid fa-plus form-educationAdd" (click)="formEducationAdd($event)"></i>
-                    <i class="fa-solid fa-minus form-educationSub" (click)="formEducationSub($event)"></i>
-                </div>
+                  <!-- Input Description Certificates  -->
+                  <div class="mt-1">
+                     <textarea rows="3" maxlength="300" placeholder="Miêu tả"
+                        class="form-info-input certificateProvider" [style.color]="colorLeftInput"
+                        [class]="ThemStyle">{{ ce.certificateProvider }}</textarea>
+                  </div>
+               </div>
+               <i class="fa-solid fa-plus certificatesAdd" (click)="certificatesAdd($event)"></i>
+               <i class="fa-solid fa-minus certificatesSub" (click)="certificatesSub($event)"></i>
             </div>
 
-        </div>
+            <!-- Form Award  -->
+            <div class="mt-3 form-prizes form-input-value">
+               <!-- Header  -->
+               <div>
+                  <input type="text" placeholder="Giải thưởng" value="Giải thưởng" disabled
+                     class="form-left--header width100" [style.color]="colorLeftHeader">
+               </div>
 
-    </div>
+               <div class="prizes" *ngFor="let aw of cv?.awards">
+                  <!-- Input Time Award  -->
+                  <div class="mt-1">
+                     <input type="text" placeholder="Thời gian" value="{{ aw?.fromYear }}"
+                        class="form-info-input fromYearAwards" [style.color]="colorLeftInput" [class]="ThemStyle">
+                  </div>
+
+                  <!-- Input Name Award  -->
+                  <div class="mt-1">
+                     <input type="text" placeholder="Tên giải thưởng" value="{{ aw?.awardName }}"
+                        class="form-info-input awardName" [style.color]="colorLeftInput" [class]="ThemStyle">
+                  </div>
+
+                  <!-- Input Description Award  -->
+                  <div class="mt-1">
+                     <textarea rows="3" maxlength="300" type="text" placeholder="Miêu tả"
+                        class="form-info-input awardDescription" [style.color]="colorLeftInput"
+                        [class]="ThemStyle">{{ aw?.description }}</textarea>
+                  </div>
+               </div>
+               <i class="fa-solid fa-plus prizesAdd" (click)="prizesAdd($event)"></i>
+               <i class="fa-solid fa-minus prizesSub" (click)="prizesSub($event)"></i>
+            </div>
+         </div>
+
+         <div class="col-8 p-4 block-right">
+
+            <!-- Name and Position job -->
+            <div class="form-position form-input-value">
+               <!-- Header  Title-->
+               <div>
+                  <input type="text" placeholder="Họ và tên" value="{{ cv?.displayName }}"
+                     class="form-right--header mt-2 displayName" [style.color]="colorRightHeader" [class]="ThemStyle">
+               </div>
+
+               <!-- Header -->
+               <div>
+                  <input type="text" placeholder="Vị trí công việc" value="{{ cv?.categoryName }}"
+                     class="form-right--header mt-2 positionTitleName" [style.color]="colorRightHeader"
+                     [class]="ThemStyle">
+               </div>
+            </div>
+
+            <!-- Form careerGoal  -->
+            <div class="mt-3 form-target form-input-value">
+               <!-- Header Title -->
+               <div>
+                  <input type="text" placeholder="Mục tiêu nghề nghiệp" value="Mục tiêu nghề nghiệp" disabled
+                     class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
+               </div>
+
+               <!-- Input Decribe careerGoal  -->
+               <div class="mt-1">
+                  <textarea rows="3" maxlength="300"
+                     placeholder="mục tiêu nghề nghiệp của bạn, bao gồm mục tiêu ngắn và dài hạn"
+                     class="input-side-right mt-2 careerGoal" [style.color]="colorRightHeader"
+                     [class]="ThemStyle">{{ cv?.careerGoal }}</textarea>
+               </div>
+            </div>
+
+            <!-- Form Experience  -->
+            <div class="mt-3 form-experience form-input-value">
+               <!-- Header Title -->
+               <div>
+                  <input type="text" placeholder="Kinh nghiệm việc làm" value="Kinh nghiệm việc làm" disabled
+                     class="form-right--header mt-2" [style.color]="colorRightHeader" [class]="ThemStyle">
+               </div>
+
+               <div class="experience" *ngFor="let ex of cv?.jobExperiences">
+                  <!-- Header Experience  -->
+                  <div class="mt-1">
+                     <i class="fa-solid fa-suitcase"></i>
+                     <input type="text" placeholder="Vị trí công việc" value="{{ ex?.position }}"
+                        class="form-info-input-right mt-2 positionOfCompany" [style.color]="colorRightHeader"
+                        [class]="ThemStyle">
+                     <span>//</span>
+                     <input type="text" placeholder="Bắt đầu" value="{{ ex?.fromDate}}"
+                        class="form-info-input-Right-Date mt-2 fromDateExperience" [class]="ThemStyle">
+                     <span>-</span>
+                     <input type="text" placeholder="Kết thúc" value="{{ ex?.toDate }}"
+                        class="form-info-input-Right-Date mt-2 toDateExperience" [class]="ThemStyle">
+                  </div>
+
+                  <div>
+                     <input type="text" placeholder="Tên công ty " value="{{ ex?.comapanyName }}"
+                        class="form-info-input-right mt-2 width100 companyName" [class]="ThemStyle">
+                  </div>
+
+                  <div>
+                     <textarea rows="4" maxlength="600" placeholder="Mô tả kinh nghiệm việc làm của bạn"
+                        class="form-info-input-right width100 mt-2 experienceDescription"
+                        [class]="ThemStyle">{{ ex.description }}</textarea>
+                  </div>
+               </div>
+               <i class="fa-solid fa-plus form-experienceAdd" (click)="formExperienceAdd($event)"></i>
+               <i class="fa-solid fa-minus form-experienceSub" (click)="formExperienceSub($event)"></i>
+            </div>
+
+            <!-- Form Project  -->
+            <div class="mt-3 form-project form-input-value">
+               <!-- Header Title -->
+               <div>
+                  <input type="text" placeholder="Dự án" value="Dự án" disabled class="form-right--header mt-2"
+                     [style.color]="colorRightHeader">
+               </div>
+
+               <div class="project" *ngFor="let pr of cv?.projects">
+                  <!-- Header Project  -->
+                  <div class="mt-1">
+                     <i class="fa-solid fa-diagram-project" [style.color]="colorRightHeader"></i>
+                     <input type="text" value="{{ pr?.projectName }}" placeholder="Tên dự án"
+                        class="form-info-input-right mt-2 projectName" [class]="ThemStyle">
+                     <span>//</span>
+                     <input type="text" value="{{ pr?.fromDate}}" placeholder="Bắt đầu"
+                        class="form-info-input-Right-Date mt-2 fromDateProject" [class]="ThemStyle">
+                     <span>-</span>
+                     <input type="text" value="{{ pr?.toDate }}" placeholder="Kết thúc"
+                        class="form-info-input-Right-Date mt-2 toDateProject" [class]="ThemStyle">
+                  </div>
+                  <div>
+                     <div class="form-check ">
+                        <input class="form-check-input shadow-none isStillWorking" type="checkbox"
+                           [checked]="pr.isStillWorking">
+                        <label class="form-check-label">
+                           Đang làm việc
+                        </label>
+                     </div>
+                  </div>
+                  <div>
+                     <textarea rows="3" maxlength="300" placeholder="Mô tả kinh nghiệm trong dự án của bạn"
+                        class="form-info-input-right width100 mt-2 projectDescription"
+                        [class]="ThemStyle">{{ pr.description }}</textarea>
+                  </div>
+               </div>
+
+               <i class="fa-solid fa-plus form-projectAdd" (click)="formProjectAdd($event)"></i>
+               <i class="fa-solid fa-minus form-projectSub" (click)="formProjectSub($event)"></i>
+            </div>
+
+            <!-- Form Educations  -->
+            <div class="mt-3 form-education form-input-value">
+               <!-- Header Title -->
+               <div>
+                  <input type="text" placeholder="Học vấn" value="Học vấn" disabled class="form-right--header mt-2"
+                     [style.color]="colorRightHeader">
+               </div>
+
+               <div class="education" *ngFor="let ed of cv?.educations">
+                  <!-- Header Educations  -->
+                  <div class="mt-1">
+                     <i class="fa-solid fa-school" [style.color]="colorRightHeader"></i>
+                     <input type="text" placeholder="Ngành học - môn học " value="{{ ed?.majorName}}"
+                        class="form-info-input-right mt-2 majorName" [class]="ThemStyle">
+                     <span>//</span>
+                     <input type="text" placeholder="Bắt đầu" value="{{ ed?.fromYear}}"
+                        class="form-info-input-Right-Date mt-2 fromYearEducation" [class]="ThemStyle">
+                     <span>-</span>
+                     <input type="text" placeholder="Kết thúc" value="{{ ed.toYear}}"
+                        class="form-info-input-Right-Date mt-2 toYearEducation" [class]="ThemStyle">
+                  </div>
+
+                  <div>
+                     <input type="text" placeholder="Tên trường học" value="{{ ed.schoolName}}"
+                        class="form-info-input-right mt-2 schoolName width100" [class]="ThemStyle">
+                  </div>
+                  <div>
+                     <div class="form-check ">
+                        <input type="checkbox" class="form-check-input shadow-none stillLearning"
+                           [checked]="ed.stillLearning">
+                        <label class="form-check-label">
+                           Đang học tập
+                        </label>
+                     </div>
+                  </div>
+
+                  <div>
+                     <textarea rows="3" maxlength="300" placeholder="Mô tả quá trình học tập hoặc thành tích của bạn"
+                        class="form-info-input-right width100 mt-2 educationDescription" [class]="ThemStyle"></textarea>
+                  </div>
+               </div>
+
+               <i class="fa-solid fa-plus form-educationAdd" (click)="formEducationAdd($event)"></i>
+               <i class="fa-solid fa-minus form-educationSub" (click)="formEducationSub($event)"></i>
+            </div>
+         </div>
+
+      </div>
+
+   </div>
 </div>

@@ -10,7 +10,7 @@
    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 }
 
-.avatar{
+.avatar {
    width: 50px;
    height: 50px;
    object-fit: cover;
@@ -18,28 +18,28 @@
    cursor: pointer;
 }
 
-.tabSelect{
+.tabSelect {
    font-weight: 700;
    font-size: 25px;
    color: black !important;
 }
 
-.nav-link:first-child{
+.nav-link:first-child {
    font-size: 20px;
    color: black;
 }
 
-.blockUser{
+.blockUser {
    display: flex;
    height: 50px;
    position: relative;
 }
 
-.blockUser:hover .profile{
+.blockUser:hover .profile {
    display: block;
 }
 
-.profile{
+.profile {
    display: none;
    position: absolute;
    bottom: -10;
@@ -51,12 +51,12 @@
    padding: 10px;
 }
 
-.itemProfile{
+.itemProfile {
    padding: 0px;
    cursor: pointer;
 }
 
-.line{
+.line {
    width: 100%;
    height: 2px;
    background-color: #ccc;

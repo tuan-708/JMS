@@ -10,10 +10,10 @@ import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
    styleUrls: ['./forgot-password.component.css']
 })
 export class CandidateForgotPasswordComponent {
-   Email=""
+   Email = ""
 
    showSuccess() {
-      this.toastr.success('Thay đổi thành công, vui lòng kiểm tra Email!', 'Thành công',  {
+      this.toastr.success('Thay đổi thành công, vui lòng kiểm tra Email!', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
@@ -26,20 +26,20 @@ export class CandidateForgotPasswordComponent {
       });
    }
 
-   constructor(private toastr: ToastrService){
-    
+   constructor(private toastr: ToastrService) {
+
    }
 
-   Submit(){
-      postRequest(`${apiCandidate.FORGOT_PASSWORD_CANDIDATE}?email=${this.Email}`, AuthorizationMode.PUBLIC, {Email: this.Email})
-      .then(res => {
-         
-         console.log(res);
-         
-      }) 
-      .catch(res => {
-         console.warn(res);
-         
-      })
+   Submit() {
+      postRequest(`${apiCandidate.FORGOT_PASSWORD_CANDIDATE}?email=${this.Email}`, AuthorizationMode.PUBLIC, { Email: this.Email })
+         .then(res => {
+
+            console.log(res);
+
+         })
+         .catch(res => {
+            console.warn(res);
+
+         })
    }
 }

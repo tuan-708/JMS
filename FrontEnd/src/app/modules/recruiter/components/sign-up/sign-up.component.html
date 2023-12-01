@@ -31,8 +31,8 @@
                <!-- Email input -->
                <div class="form-label-group mb-4 mt-3">
                   <label class="form-label" for="email">Email</label><span class="link-danger"> *</span>
-                  <input type="email" id="email" (ngModelChange)="validateEmail($event)" [(ngModel)]="Email" class="form-control form-control-md shadow-none"
-                     placeholder="" />
+                  <input type="email" id="email" (ngModelChange)="validateEmail($event)" [(ngModel)]="Email"
+                     class="form-control form-control-md shadow-none" placeholder="" />
                   <span *ngIf="invalidEmail" class="link-danger">
                      Email không hợp lệ
                   </span>
@@ -54,8 +54,8 @@
                <div class="form-label-group mb-4 mt-3">
                   <label class="form-label" for="rePassword">Xác nhận mật khẩu</label><span class="link-danger">
                      *</span>
-                  <input type="password" id="rePassword" (ngModelChange)="validateRePassword($event)" [(ngModel)]="rePassword"
-                     class="form-control form-control-md shadow-none" placeholder="" />
+                  <input type="password" id="rePassword" (ngModelChange)="validateRePassword($event)"
+                     [(ngModel)]="rePassword" class="form-control form-control-md shadow-none" placeholder="" />
                   <span *ngIf="invalidRePassword" class="link-danger">
                      Mật khẩu không trùng khớp
                   </span>

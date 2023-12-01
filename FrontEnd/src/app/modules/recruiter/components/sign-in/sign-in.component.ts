@@ -19,14 +19,14 @@ export class RecruiterSignInComponent {
    password: any;
 
    showSuccess() {
-      this.toastr.success('Đăng nhập thành công','Thành công', {
+      this.toastr.success('Đăng nhập thành công', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
    }
 
    showError() {
-      this.toastr.error('Tài khoản mật khẩu không chính xác','Thất bại', {
+      this.toastr.error('Tài khoản mật khẩu không chính xác', 'Thất bại', {
          progressBar: true,
          timeOut: 3000,
          enableHtml: true
@@ -42,43 +42,43 @@ export class RecruiterSignInComponent {
          username: this.username,
          password: this.password
       }
-       postRequest(apiRecruiter.LOGIN_RECRUITER, AuthorizationMode.PUBLIC, data)
+      postRequest(apiRecruiter.LOGIN_RECRUITER, AuthorizationMode.PUBLIC, data)
          .then(res => {
             if (res?.statusCode == 200) {
                saveToken(res.data)
 
                postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data, AuthorizationMode.BEARER_TOKEN, {})
-               .then(res => {
+                  .then(res => {
 
-                 if (res.statusCode == 200) {
+                     if (res.statusCode == 200) {
 
-                  setTimeout(() => {
-                     saveItem("profile", res.data);
-                   }, 1000);
+                        setTimeout(() => {
+                           saveItem("profile", res.data);
+                        }, 1000);
 
-                   setTimeout(() => {
-                     this.showSuccess()                     
-                     if(res.data.companyId){
-                        this.router.navigate(['/recruiter/list-jds']);
-                     }else{
-                        this.router.navigate(['/recruiter/create-conpany']);
+                        setTimeout(() => {
+                           this.showSuccess()
+                           if (res.data.companyId) {
+                              this.router.navigate(['/recruiter/list-jds']);
+                           } else {
+                              this.router.navigate(['/recruiter/create-conpany']);
+                           }
+
+                        }, 1000);
+
                      }
-                     
-                   }, 1000);
-                   
-                 }
-               })
-               .catch(data => {
-                 console.log(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data, data );
-               })
-            }else{
+                  })
+                  .catch(data => {
+                     console.log(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data, data);
+                  })
+            } else {
                this.showError()
             }
          })
          .catch(data => {
             this.showError()
             console.error(apiRecruiter.LOGIN_RECRUITER, data);
-            
+
          })
    }
 

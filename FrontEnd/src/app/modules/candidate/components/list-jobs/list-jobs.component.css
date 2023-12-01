@@ -55,13 +55,13 @@
    color: orange;
 }
 
-.customInput{
+.customInput {
    border: none;
    font-size: 1.1em;
    margin-right: 5px;
 }
 
-.formInputSearch{
+.formInputSearch {
    border: 1px solid var(--blueLight1);
    border-radius: 22px;
    width: 100%;
@@ -70,7 +70,7 @@
    box-shadow: var(--boxShadow);
 }
 
-.customSelect{
+.customSelect {
    border: none;
 }
 

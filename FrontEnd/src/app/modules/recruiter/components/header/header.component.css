@@ -55,10 +55,10 @@ body {
    color: black !important;
 }
 
-a:hover{
+a:hover {
    cursor: pointer;
 }
 
-.rounded-circle{
+.rounded-circle {
    object-fit: cover;
 }

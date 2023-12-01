@@ -91,7 +91,7 @@ export class ProfileComponent {
    }
 
 
-   getProfile = () =>{
+   getProfile = () => {
       var token = getToken()
 
       postRequest(apiCandidate.GET_PROFILE_USER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
@@ -125,17 +125,17 @@ export class ProfileComponent {
          formData.append('file', file, file.name);
 
          postFileRequest(`${apiCandidate.UPDATE_AVATAR_CANDIDATE}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, formData)
-           .then(res => {
-             if(res.statusCode == 200){
-               this.showUploadAvatarSuccess()
-               this.getProfile()
-             }
-           })
-           .catch(data => {
-             this.showError()
-             console.log(data);
-           })
-       }
+            .then(res => {
+               if (res.statusCode == 200) {
+                  this.showUploadAvatarSuccess()
+                  this.getProfile()
+               }
+            })
+            .catch(data => {
+               this.showError()
+               console.log(data);
+            })
+      }
    }
 
    SubmitForm() {

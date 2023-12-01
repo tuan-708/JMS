@@ -1,192 +1,192 @@
 .Content {
-    padding-top: 130px;
-    padding-bottom: 30px;
+   padding-top: 130px;
+   padding-bottom: 30px;
 }
 
 .header {
-    display: flex;
+   display: flex;
 }
 
 .header1 {
-    display: flex;
-    justify-content: center;
+   display: flex;
+   justify-content: center;
 }
 
 .logoCompany {
-    width: 130px;
-    height: 130px;
-    object-fit: contain;
+   width: 130px;
+   height: 130px;
+   object-fit: contain;
 }
 
 .Recruitment {
-    padding: 10px 15px 10px 15px;
-    border-radius: 10px;
-    background-color: var(--blueLight2);
+   padding: 10px 15px 10px 15px;
+   border-radius: 10px;
+   background-color: var(--blueLight2);
 }
 
 .header3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 .textHeader {
-    font-size: 1.4em;
-    font-weight: 600;
+   font-size: 1.4em;
+   font-weight: 600;
 }
 
 .textBold {
-    font-size: 1.3em;
-    font-weight: 600;
-    margin-bottom: 10px;
+   font-size: 1.3em;
+   font-weight: 600;
+   margin-bottom: 10px;
 }
 
 .textNomarl {
-    font-size: 1.1em;
-    font-weight: 400;
+   font-size: 1.1em;
+   font-weight: 400;
 }
 
 .infomationLeft {
-    border-right: 1px solid #ccc;
+   border-right: 1px solid #ccc;
 }
 
 .mat-mdc-tab-group,
 .mat-mdc-tab-nav-bar {
-    --mat-tab-header-active-focus-label-text-color: #151414;
-    --mat-tab-header-active-label-text-color: #151414;
-    --mat-tab-header-inactive-label-text-color: rgb(0 0 0 / 60%);
-    --mat-tab-header-inactive-focus-label-text-color: #151414;
-    --mat-tab-header-inactive-hover-label-text-color: #151414;
-    --mdc-tab-indicator-active-indicator-color: #242022;
-    --mat-tab-header-active-hover-label-text-color: var(--blueLight2);
-    --mat-tab-header-active-ripple-color: var(--blueLight2);
-    --mat-tab-header-inactive-ripple-color: #232222;
+   --mat-tab-header-active-focus-label-text-color: #151414;
+   --mat-tab-header-active-label-text-color: #151414;
+   --mat-tab-header-inactive-label-text-color: rgb(0 0 0 / 60%);
+   --mat-tab-header-inactive-focus-label-text-color: #151414;
+   --mat-tab-header-inactive-hover-label-text-color: #151414;
+   --mdc-tab-indicator-active-indicator-color: #242022;
+   --mat-tab-header-active-hover-label-text-color: var(--blueLight2);
+   --mat-tab-header-active-ripple-color: var(--blueLight2);
+   --mat-tab-header-inactive-ripple-color: #232222;
 }
 
 .mdc-tab__text-label {
-    min-width: 30px !important;
-    padding: 20px;
-    color: white;
-    opacity: 1 !important;
-    font-weight: 700;
-    font-size: 1.2em;
+   min-width: 30px !important;
+   padding: 20px;
+   color: white;
+   opacity: 1 !important;
+   font-weight: 700;
+   font-size: 1.2em;
 }
 
 .mat-mdc-tab-labels {
-    width: 50%;
-    margin-top: 20px;
+   width: 50%;
+   margin-top: 20px;
 }
 
 .itemSmall {
-    margin-bottom: 10px;
-    height: 55px;
+   margin-bottom: 10px;
+   height: 55px;
 }
 
 .itemSmall i {
-    line-height: 55px;
+   line-height: 55px;
 }
 
 .line {
-    width: 65%;
-    height: 2px;
-    background-color: #ccc;
-    margin-bottom: 10px;
+   width: 65%;
+   height: 2px;
+   background-color: #ccc;
+   margin-bottom: 10px;
 }
 
 .contentItemSmal {
-    margin-left: 15px;
-    font-size: 1em;
+   margin-left: 15px;
+   font-size: 1em;
 }
 
 .contentItemSmal>:nth-child(odd) {
-    font-weight: 500;
+   font-weight: 500;
 }
 
 
 .modal {
-    top: 70px;
-    max-width: 800px !important;
-    height: 800px !important;
+   top: 70px;
+   max-width: 800px !important;
+   height: 800px !important;
 }
 
 .modal a.close-modal {
-    top: 10px !important;
-    right: 10px !important;
+   top: 10px !important;
+   right: 10px !important;
 }
 
 
 ::ng-deep #toast-container>div {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    color: #ffffff;
-    opacity: 0.9;
- }
+   -moz-box-shadow: none !important;
+   -webkit-box-shadow: none !important;
+   box-shadow: none !important;
+   color: #ffffff;
+   opacity: 0.9;
+}
 
 .btnRecruiment {
-    padding: 12px 17px 12px 17px;
-    background-color: var(--blueLight2);
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
+   padding: 12px 17px 12px 17px;
+   background-color: var(--blueLight2);
+   text-decoration: none;
+   border-radius: 20px;
+   font-size: 1.1em;
+   font-weight: 600;
+   cursor: pointer;
 }
 
 .btnRecruiment:hover {
-    text-decoration: none;
+   text-decoration: none;
 }
 
 .btnRecruimentExpiredDate {
-    padding: 15px 20px 15px 20px;
-    background-color: #fff1f0;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #d83324;
+   padding: 15px 20px 15px 20px;
+   background-color: #fff1f0;
+   text-decoration: none;
+   border-radius: 20px;
+   font-size: 1.1em;
+   font-weight: 600;
+   color: #d83324;
 }
 
 .btnRecruimentExpiredDate:hover {
-    text-decoration: none;
-    color: #d83324;
-    cursor: pointer;
+   text-decoration: none;
+   color: #d83324;
+   cursor: pointer;
 }
 
 .btnRecruiment:active {
-    text-decoration: none;
+   text-decoration: none;
 }
 
 .textHeader {
-    font-size: 1.3em;
-    font-weight: 600;
+   font-size: 1.3em;
+   font-weight: 600;
 }
 
 #box-note-modal-apply {
-    background: #fff;
-    border: 1px solid #e9eaec;
-    border-radius: 8px;
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    margin-top: 8px;
-    padding: 16px;
+   background: #fff;
+   border: 1px solid #e9eaec;
+   border-radius: 8px;
+   font-family: Inter, sans-serif;
+   font-style: normal;
+   margin-top: 8px;
+   padding: 16px;
 }
 
 .text-left {
-    text-align: left;
+   text-align: left;
 }
 
 #box-note-modal-apply .note-title {
-    color: #d83324;
-    font-size: 1.1em;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-    margin: 0;
-    margin-bottom: 5px;
+   color: #d83324;
+   font-size: 1.1em;
+   font-style: normal;
+   font-weight: 600;
+   line-height: 24px;
+   margin: 0;
+   margin-bottom: 5px;
 }
 
 .textHeader2 {
-    font-size: 1.1em;
-    font-weight: 600;
+   font-size: 1.1em;
+   font-weight: 600;
 }

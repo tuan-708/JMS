@@ -1,4 +1,4 @@
-.formCompanyUpdate{
+.formCompanyUpdate {
    padding-top: 80px;
 }
 
@@ -27,13 +27,13 @@ button {
    object-fit: cover;
 }
 
-.avatar{
+.avatar {
    width: 150px;
    height: 150px;
    object-fit: contain;
 }
 
-.bacground{
+.bacground {
    width: 100%;
    height: 220px;
    object-fit: contain;

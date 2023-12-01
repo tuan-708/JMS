@@ -15,6 +15,7 @@ declare var $: any;
    templateUrl: './my-cvs.component.html',
    styleUrls: ['./my-cvs.component.css']
 })
+
 export class CandidateMyCvsComponent {
    Url = environment.Url;
    list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -137,27 +138,27 @@ export class CandidateMyCvsComponent {
    gotoUpdateCurrentCv(id: number) {
 
       postRequest(`${apiCandidate.CHANGE_FINDING_JOB_STATUS}?candidateId=${this.profile.id}&cvId=${id}`, AuthorizationMode.BEARER_TOKEN, {})
-      .then(res => {
-         if (res?.statusCode == 200) {
-            getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
-            .then(res => {
-               this.listCVs = res?.data
-               console.log(this.listCVs);
-            })
-            .catch(data => {
-               this.router.navigate(['/candidate/sign-in']);
-               this.showTokenExpiration()
-               signOut()
-            })
-       
-         }else {
+         .then(res => {
+            if (res?.statusCode == 200) {
+               getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
+                  .then(res => {
+                     this.listCVs = res?.data
+                     console.log(this.listCVs);
+                  })
+                  .catch(data => {
+                     this.router.navigate(['/candidate/sign-in']);
+                     this.showTokenExpiration()
+                     signOut()
+                  })
+
+            } else {
+               this.showError()
+            }
+         })
+         .catch(data => {
             this.showError()
-         }
-      })
-      .catch(data => {
-         this.showError()
-         console.error(apiCandidate.LOGIN_CANDIDATE);
-      })
+            console.error(apiCandidate.LOGIN_CANDIDATE);
+         })
 
    }
 }

@@ -1,302 +1,302 @@
 <div>
-    <candidate-header></candidate-header>
-    <div class="Content container">
-        <section>
-            <div class="row header">
-                <div class="col-3 header1">
-                    <a href="/candidate/company-detail/{{jd?.companyDTO?.companyId}}" style="text-decoration: none;">
-                        <img class="logoCompany" src="{{jd?.companyDTO?.avatarURL }}" alt="">
-                    </a>
-                </div>
-
-                <div class="col-6 header2">
-                    <div class="textHeader">{{ jd?.title }}</div>
-                    <div class="textNomarl">Công ty: {{ jd?.companyDTO?.companyName }}</div>
-                    <div class="textNomarl">Địa điểm: {{ jd?.address }}</div>
-                    <div class="textNomarl">Mức lương: {{ jd?.salary }}</div>
-                </div>
-                <div class="col-3 header3">
-
-                    <!-- Modal HTML embedded directly into document -->
-                    <div id="ex1" class="modal">
-                        <div class="contentModal" style="width: 100%;">
-                            <div class="textHeader">Ứng tuyển <span>{{ jd?.title }}</span></div>
-                            <div class="mt-2">
-                                <div>
-                                    <div class="textHeader2">Chọn CV ứng tuyển</div>
-
-                                    <select [(ngModel)]="selectedCV" class="form-select shadow-none p-2 mt-2"
-                                        aria-label="Default select example">
-                                        <option value="0" selected>Chọn CV ứng tuyển</option>
-                                        <option *ngFor="let cv of listCvs; index as i" value={{cv.id}}>{{cv.cvTitle}}
-                                        </option>
-                                    </select>
-
-                                    <div class="text-left d-flex mt-3" id="box-note-modal-apply">
-                                        <div class="col-3">
-                                            <img class="logoCompany" src="{{jd?.companyDTO?.avatarURL }}" alt="">
-                                        </div>
-
-                                        <div class="col-8 header2">
-                                            <div class="textHeader">{{ jd?.title }}</div>
-                                            <div class="textNomarl">Công ty: {{ jd?.companyDTO?.companyName }}</div>
-                                            <div class="textNomarl">Địa điểm: {{ jd?.address }}</div>
-                                            <div class="textNomarl">Mức lương: {{ jd?.salary }}</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="text-left mt-3" id="box-note-modal-apply">
-                                        <h4 class="note-title">
-                                            <i class="fa-solid fa-triangle-exclamation"></i> Lưu ý:
-                                        </h4>
-                                        <div class="note-content">
-                                            <p class="note-content__list">
-                                                <span>
-                                                    JMS khuyên tất cả các bạn hãy luôn cẩn trọng trong quá trình tìm
-                                                    việc và chủ động nghiên cứu về thông
-                                                    tin
-                                                    công ty, vị trí việc làm trước khi ứng tuyển. <br>Ứng viên cần có
-                                                    trách nhiệm với hành vi ứng tuyển của
-                                                    mình. Nếu bạn gặp
-                                                    phải tin tuyển dụng hoặc nhận được liên lạc đáng ngờ của nhà tuyển
-                                                    dụng, hãy báo cáo ngay cho JMS qua
-                                                    email
-                                                    <a class="color-green" target="_top"
-                                                        href="mailto:hotro@jms.vn">hotro@jms.vn</a> để được hỗ trợ
-                                                    kịp thời.
-                                                </span>
-                                            </p>
-                                            <p class="note-content__list">
-                                                <span>
-                                                    Tìm hiểu thêm kinh nghiệm phòng tránh lừa đảo <a href=""
-                                                        target="__blank" class="hight-light color-green">tại đây</a>.
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex mt-3">
-                                        <a type="button" rel="modal:close" class="btn btn-light">Huỷ</a>
-                                        <button type="button" class="btn btnBlueLight btn-block"
-                                            style="margin-left: 15px;" (click)="submitCv($event)">Ứng tuyển
-                                            ngay</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div *ngIf="isExpiredDate; else ExpiredDate">
-                        <a class="btnRecruimentExpiredDate" rel="modal:open">Đã hết hạn</a>
-                    </div>
-
-                    <ng-template #ExpiredDate>
-                        <!-- Link to open the modal -->
-                        <a href="#ex1" class="btnRecruiment" rel="modal:open">Ứng tuyển ngay</a>
-                    </ng-template>
-
-
-                </div>
+   <candidate-header></candidate-header>
+   <div class="Content container">
+      <section>
+         <div class="row header">
+            <div class="col-3 header1">
+               <a href="/candidate/company-detail/{{jd?.companyDTO?.companyId}}" style="text-decoration: none;">
+                  <img class="logoCompany" src="{{jd?.companyDTO?.avatarURL }}" alt="">
+               </a>
             </div>
 
-            <mat-tab-group animationDuration="0ms">
-                <mat-tab label="Thông tin việc làm">
-                    <div class="d-flex mt-3">
-                        <div style="width: 65%; padding: 20px;" class="infomationLeft">
+            <div class="col-6 header2">
+               <div class="textHeader">{{ jd?.title }}</div>
+               <div class="textNomarl">Công ty: {{ jd?.companyDTO?.companyName }}</div>
+               <div class="textNomarl">Địa điểm: {{ jd?.address }}</div>
+               <div class="textNomarl">Mức lương: {{ jd?.salary }}</div>
+            </div>
+            <div class="col-3 header3">
 
-                            <div *ngIf="jobDetail">
-                                <div class="textBold">
-                                    Mô tả công việc
-                                </div>
-                                <div [innerHTML]="jobDetail">
-                                </div>
-                            </div>
+               <!-- Modal HTML embedded directly into document -->
+               <div id="ex1" class="modal">
+                  <div class="contentModal" style="width: 100%;">
+                     <div class="textHeader">Ứng tuyển <span>{{ jd?.title }}</span></div>
+                     <div class="mt-2">
+                        <div>
+                           <div class="textHeader2">Chọn CV ứng tuyển</div>
 
-                            <div *ngIf="educationRequirement">
-                                <div class="textBold">
-                                    Trình độ học vấn
-                                </div>
-                                <div [innerHTML]="educationRequirement">
-                                </div>
-                            </div>
+                           <select [(ngModel)]="selectedCV" class="form-select shadow-none p-2 mt-2"
+                              aria-label="Default select example">
+                              <option value="0" selected>Chọn CV ứng tuyển</option>
+                              <option *ngFor="let cv of listCvs; index as i" value={{cv.id}}>{{cv.cvTitle}}
+                              </option>
+                           </select>
 
-                            <div *ngIf="experienceRequirement">
-                                <div class="textBold">
-                                    Kinh nghiệm
-                                </div>
-                                <div [innerHTML]="experienceRequirement">
-                                </div>
-                            </div>
+                           <div class="text-left d-flex mt-3" id="box-note-modal-apply">
+                              <div class="col-3">
+                                 <img class="logoCompany" src="{{jd?.companyDTO?.avatarURL }}" alt="">
+                              </div>
 
-                            <div *ngIf="skillRequirement">
-                                <div class="textBold">
-                                    Yêu cầu kỹ năng
-                                </div>
+                              <div class="col-8 header2">
+                                 <div class="textHeader">{{ jd?.title }}</div>
+                                 <div class="textNomarl">Công ty: {{ jd?.companyDTO?.companyName }}</div>
+                                 <div class="textNomarl">Địa điểm: {{ jd?.address }}</div>
+                                 <div class="textNomarl">Mức lương: {{ jd?.salary }}</div>
+                              </div>
+                           </div>
 
-                                <div [innerHTML]="skillRequirement">
-                                </div>
-                            </div>
+                           <div class="text-left mt-3" id="box-note-modal-apply">
+                              <h4 class="note-title">
+                                 <i class="fa-solid fa-triangle-exclamation"></i> Lưu ý:
+                              </h4>
+                              <div class="note-content">
+                                 <p class="note-content__list">
+                                    <span>
+                                       JMS khuyên tất cả các bạn hãy luôn cẩn trọng trong quá trình tìm
+                                       việc và chủ động nghiên cứu về thông
+                                       tin
+                                       công ty, vị trí việc làm trước khi ứng tuyển. <br>Ứng viên cần có
+                                       trách nhiệm với hành vi ứng tuyển của
+                                       mình. Nếu bạn gặp
+                                       phải tin tuyển dụng hoặc nhận được liên lạc đáng ngờ của nhà tuyển
+                                       dụng, hãy báo cáo ngay cho JMS qua
+                                       email
+                                       <a class="color-green" target="_top" href="mailto:hotro@jms.vn">hotro@jms.vn</a>
+                                       để được hỗ trợ
+                                       kịp thời.
+                                    </span>
+                                 </p>
+                                 <p class="note-content__list">
+                                    <span>
+                                       Tìm hiểu thêm kinh nghiệm phòng tránh lừa đảo <a href="" target="__blank"
+                                          class="hight-light color-green">tại đây</a>.
+                                    </span>
+                                 </p>
+                              </div>
+                           </div>
 
-
-                            <div *ngIf="certificateRequirement">
-                                <div class="textBold">
-                                    Yêu cầu chứng chỉ
-                                </div>
-                                <div [innerHTML]="certificateRequirement">
-                                </div>
-                            </div>
-
-                            <div *ngIf="projectRequirement">
-                                <div class="textBold">
-                                    Yêu cầu dự án
-                                </div>
-                                <div [innerHTML]="projectRequirement">
-                                </div>
-                            </div>
-
-                            <div *ngIf="candidateBenefit">
-                                <div class="textBold">
-                                    Quyền lợi
-                                </div>
-                                <div [innerHTML]="candidateBenefit">
-                                </div>
-                            </div>
-
-
-                            <div *ngIf="otherInformation">
-                                <div class="textBold">
-                                    Yêu cầu khác
-                                </div>
-                                <div [innerHTML]="otherInformation">
-                                </div>
-                            </div>
+                           <div class="d-flex mt-3">
+                              <a type="button" rel="modal:close" class="btn btn-light">Huỷ</a>
+                              <button type="button" class="btn btnBlueLight btn-block" style="margin-left: 15px;"
+                                 (click)="submitCv($event)">Ứng tuyển
+                                 ngay</button>
+                           </div>
                         </div>
-                        <div style="width: 35%; padding: 20px;">
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-calendar"></i>
-                                <div class="contentItemSmal">
-                                    <div>Ngày đăng</div>
-                                    <div>{{ jd?.createdAt }}</div>
-                                </div>
-                            </div>
+                     </div>
+                  </div>
+               </div>
 
-                            <div class="line"></div>
+               <div *ngIf="isExpiredDate; else ExpiredDate">
+                  <a class="btnRecruimentExpiredDate" rel="modal:open">Đã hết hạn</a>
+               </div>
 
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-calendar" style="margin-right: 10px;"></i>
-                                <div class="contentItemSmal">
-                                    <div>Ngày hết hạn</div>
-                                    <div>{{ jd?.expiredDate }}</div>
-                                </div>
-                            </div>
+               <ng-template #ExpiredDate>
+                  <!-- Link to open the modal -->
+                  <a href="#ex1" class="btnRecruiment" rel="modal:open">Ứng tuyển ngay</a>
+               </ng-template>
 
-                            <div class="line"></div>
 
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-layer-group"></i>
-                                <div class="contentItemSmal">
-                                    <div>Cấp bậc</div>
-                                    <div>{{ jd?.levelTitle }}</div>
-                                </div>
-                            </div>
+            </div>
+         </div>
 
-                            <div class="line"></div>
+         <mat-tab-group animationDuration="0ms">
+            <mat-tab label="Thông tin việc làm">
+               <div class="d-flex mt-3">
+                  <div style="width: 65%; padding: 20px;" class="infomationLeft">
 
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-briefcase"></i>
-                                <div class="contentItemSmal">
-                                    <div>Chức Danh</div>
-                                    <div>{{ jd?.positionTitle}}</div>
-                                </div>
-                            </div>
-
-                            <div class="line"></div>
-
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-briefcase"></i>
-                                <div class="contentItemSmal">
-                                    <div>Lĩnh vực</div>
-                                    <div>{{ jd?.categoryName}}</div>
-                                </div>
-                            </div>
-
-                            <div class="line"></div>
-
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-venus-mars"></i>
-                                <div class="contentItemSmal">
-                                    <div>Gới tính</div>
-                                    <div>{{ jd?.genderRequirement}}</div>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-envelope"></i>
-                                <div class="contentItemSmal">
-                                    <div>Email</div>
-                                    <div>{{ jd?.contactEmail}}</div>
-                                </div>
-                            </div>
+                     <div *ngIf="jobDetail">
+                        <div class="textBold">
+                           Mô tả công việc
                         </div>
-                    </div>
-                </mat-tab>
-                <mat-tab label="Thông tin công ty">
-                    <div class="d-flex mt-3">
-                        <div style="width: 65%; padding: 20px;" class="infomationLeft">
-                            <div class="textBold">
-                                Miêu tả công ty
-                            </div>
-                            <div [innerHTML]="descriptionCompany">
-                            </div>
+                        <div [innerHTML]="jobDetail">
                         </div>
-                        <div style="width: 35%; padding: 20px;">
+                     </div>
 
-
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-signature"></i>
-                                <div class="contentItemSmal">
-                                    <div>Tên công ty</div>
-                                    <div>{{ jd?.companyDTO?.companyName }}</div>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-person"></i>
-                                <div class="contentItemSmal">
-                                    <div>Nhà sáng lập</div>
-                                    <div>{{ jd?.companyDTO?.recuirterFounder }}</div>
-                                </div>
-                            </div>
-
-                            <div class="line"></div>
-
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-briefcase"></i>
-                                <div class="contentItemSmal">
-                                    <div>Lĩnh vực</div>
-                                    <div>{{ jd?.companyDTO?.categoryName}}</div>
-                                </div>
-                            </div>
-
-                            <div class="line"></div>
-
-                            <div class="d-flex itemSmall">
-                                <i class="fa-solid fa-briefcase"></i>
-                                <div class="contentItemSmal">
-                                    <div>Quy mô</div>
-                                    <div>{{ jd?.companyDTO?.size}}</div>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div>
-                                Link web: {{ jd?.companyDTO?.webURL}}
-                            </div>
+                     <div *ngIf="educationRequirement">
+                        <div class="textBold">
+                           Trình độ học vấn
                         </div>
-                    </div>
-                </mat-tab>
-            </mat-tab-group>
-        </section>
-    </div>
+                        <div [innerHTML]="educationRequirement">
+                        </div>
+                     </div>
+
+                     <div *ngIf="experienceRequirement">
+                        <div class="textBold">
+                           Kinh nghiệm
+                        </div>
+                        <div [innerHTML]="experienceRequirement">
+                        </div>
+                     </div>
+
+                     <div *ngIf="skillRequirement">
+                        <div class="textBold">
+                           Yêu cầu kỹ năng
+                        </div>
+
+                        <div [innerHTML]="skillRequirement">
+                        </div>
+                     </div>
+
+
+                     <div *ngIf="certificateRequirement">
+                        <div class="textBold">
+                           Yêu cầu chứng chỉ
+                        </div>
+                        <div [innerHTML]="certificateRequirement">
+                        </div>
+                     </div>
+
+                     <div *ngIf="projectRequirement">
+                        <div class="textBold">
+                           Yêu cầu dự án
+                        </div>
+                        <div [innerHTML]="projectRequirement">
+                        </div>
+                     </div>
+
+                     <div *ngIf="candidateBenefit">
+                        <div class="textBold">
+                           Quyền lợi
+                        </div>
+                        <div [innerHTML]="candidateBenefit">
+                        </div>
+                     </div>
+
+
+                     <div *ngIf="otherInformation">
+                        <div class="textBold">
+                           Yêu cầu khác
+                        </div>
+                        <div [innerHTML]="otherInformation">
+                        </div>
+                     </div>
+                  </div>
+                  <div style="width: 35%; padding: 20px;">
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-calendar"></i>
+                        <div class="contentItemSmal">
+                           <div>Ngày đăng</div>
+                           <div>{{ jd?.createdAt }}</div>
+                        </div>
+                     </div>
+
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-calendar" style="margin-right: 10px;"></i>
+                        <div class="contentItemSmal">
+                           <div>Ngày hết hạn</div>
+                           <div>{{ jd?.expiredDate }}</div>
+                        </div>
+                     </div>
+
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <div class="contentItemSmal">
+                           <div>Cấp bậc</div>
+                           <div>{{ jd?.levelTitle }}</div>
+                        </div>
+                     </div>
+
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <div class="contentItemSmal">
+                           <div>Chức Danh</div>
+                           <div>{{ jd?.positionTitle}}</div>
+                        </div>
+                     </div>
+
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <div class="contentItemSmal">
+                           <div>Lĩnh vực</div>
+                           <div>{{ jd?.categoryName}}</div>
+                        </div>
+                     </div>
+
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-venus-mars"></i>
+                        <div class="contentItemSmal">
+                           <div>Gới tính</div>
+                           <div>{{ jd?.genderRequirement}}</div>
+                        </div>
+                     </div>
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div class="contentItemSmal">
+                           <div>Email</div>
+                           <div>{{ jd?.contactEmail}}</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </mat-tab>
+            <mat-tab label="Thông tin công ty">
+               <div class="d-flex mt-3">
+                  <div style="width: 65%; padding: 20px;" class="infomationLeft">
+                     <div class="textBold">
+                        Miêu tả công ty
+                     </div>
+                     <div [innerHTML]="descriptionCompany">
+                     </div>
+                  </div>
+                  <div style="width: 35%; padding: 20px;">
+
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-signature"></i>
+                        <div class="contentItemSmal">
+                           <div>Tên công ty</div>
+                           <div>{{ jd?.companyDTO?.companyName }}</div>
+                        </div>
+                     </div>
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-person"></i>
+                        <div class="contentItemSmal">
+                           <div>Nhà sáng lập</div>
+                           <div>{{ jd?.companyDTO?.recuirterFounder }}</div>
+                        </div>
+                     </div>
+
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <div class="contentItemSmal">
+                           <div>Lĩnh vực</div>
+                           <div>{{ jd?.companyDTO?.categoryName}}</div>
+                        </div>
+                     </div>
+
+                     <div class="line"></div>
+
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <div class="contentItemSmal">
+                           <div>Quy mô</div>
+                           <div>{{ jd?.companyDTO?.size}}</div>
+                        </div>
+                     </div>
+                     <div class="line"></div>
+                     <div>
+                        Link web: {{ jd?.companyDTO?.webURL}}
+                     </div>
+                  </div>
+               </div>
+            </mat-tab>
+         </mat-tab-group>
+      </section>
+   </div>
 </div>

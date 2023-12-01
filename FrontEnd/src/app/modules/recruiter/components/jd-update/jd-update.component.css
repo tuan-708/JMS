@@ -1,7 +1,7 @@
-.formJđetail{
-    padding-top: 80px;
+.formJđetail {
+   padding-top: 80px;
 }
 
-.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input{
-    color: black !important;
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input {
+   color: black !important;
 }

@@ -17,7 +17,7 @@ export class ListJobsComponent {
    constructor(private router: Router) {
       getRequest(apiCandidate.GET_ALL_JDS_PAGING + "/" + this.page, AuthorizationMode.PUBLIC)
          .then(res => {
-            if(res?.statusCode == 200){
+            if (res?.statusCode == 200) {
                this.listJds = res?.data
                this.totalItems = res?.objectLength
                console.log(this.listJds);
@@ -32,7 +32,7 @@ export class ListJobsComponent {
       this.page = page
       getRequest(apiCandidate.GET_ALL_JDS_PAGING + "/" + this.page, AuthorizationMode.PUBLIC)
          .then(res => {
-            if(res?.statusCode == 200){
+            if (res?.statusCode == 200) {
                this.listJds = res?.data
                this.totalItems = res?.objectLength
                console.log(this.listJds);
@@ -47,7 +47,7 @@ export class ListJobsComponent {
    onClick(jd: any) {
 
       console.log(jd);
-      
+
       this.router.navigate(['/candidate/jd-detail/', jd?.jobId]);
    }
 }

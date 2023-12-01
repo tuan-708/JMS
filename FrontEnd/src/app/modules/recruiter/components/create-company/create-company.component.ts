@@ -20,7 +20,7 @@ export class CreateCompanyComponent {
    categories: any;
 
 
-   constructor(private router: Router,private toastr: ToastrService) {
+   constructor(private router: Router, private toastr: ToastrService) {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.categories = res?.data
@@ -87,7 +87,7 @@ export class CreateCompanyComponent {
       return
    }
 
-   getErrorMessagePhone(){
+   getErrorMessagePhone() {
       if (this.phoneRq.hasError('required')) {
          return 'Số điện thoại không hợp lệ!'
       }
@@ -104,7 +104,7 @@ export class CreateCompanyComponent {
    checkReq: any = false;
 
    showSuccess() {
-      this.toastr.success('Đăng ký công ty thành công', 'Thành công',  {
+      this.toastr.success('Đăng ký công ty thành công', 'Thành công', {
          progressBar: true,
          timeOut: 3000,
       });
