@@ -90,7 +90,8 @@ namespace APIServer.Services
             {
                 if (candidateId < 1 || CVid < 1 || jobDescriptionId < 1)
                     throw new Exception("Data not valid");
-                var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(getAllCVByCandidateId(candidateId));
+                List<CurriculumVitae> curriculumVitaes = getAllCVByCandidateId(candidateId);
+                var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(curriculumVitaes);
                 List<CVMatching> cVMatchings = _CVMatchingRepository.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId);
                 CurriculumVitae? cv = GetCVById(CVid);
                 var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
@@ -99,7 +100,7 @@ namespace APIServer.Services
                     throw new Exception("JD not found");
                 if (cv != null)
                 {
-                    if (CVList.Any(cv => cv.Id == curriculumVitae.Id))
+                    if (curriculumVitaes.Any(cv => cv.Id == cv.Id))
                     {
                         CVMatching CVApplied = new CVMatching();
 
@@ -122,7 +123,8 @@ namespace APIServer.Services
                             CVApplied.Phone = curriculumVitae.Phone;
                             CVApplied.DisplayName = curriculumVitae.DisplayName;
                             CVApplied.GenderId = curriculumVitae.GenderId;
-                            CVApplied.CategoryName = curriculumVitae.CategoryId.ToString();
+                            CVApplied.CategoryName = curriculumVitae.CategoryName;
+                            CVApplied.EmploymentTypeId = cv.EmploymentTypeId;
                             CVApplied.DisplayEmail = curriculumVitae.DisplayEmail;
                             CVApplied.DOB = Convert.ToDateTime(curriculumVitae.DOB);
                             CVApplied.Address = curriculumVitae.Address;
