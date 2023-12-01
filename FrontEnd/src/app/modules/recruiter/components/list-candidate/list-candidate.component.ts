@@ -112,8 +112,9 @@ export class ListCandidateComponent {
                if (index !== -1) {
                   this.listDisplay.splice(index, 1);
                }
+            }else{
+               this.showFail()
             }
-            this.showFail()
          })
          .catch(data => {
             this.showFail()
