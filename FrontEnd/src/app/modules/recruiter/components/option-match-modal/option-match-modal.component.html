@@ -6,10 +6,9 @@
       <input matInput type="number" [formControl]="quanControl" [(ngModel)]="data.quantity">
       <mat-error *ngIf="quanControl.invalid">{{getErrorMessageQuantity()}}</mat-error>
    </mat-form-field>
-   <p>Hệ thống sẽ trả về kết quả sau 24h!</p>
+   <p>Hệ thống sẽ mất chút thời gian để tìm các ứng viên phù hợp cho bạn, vui lòng chờ đợi!</p>
 
-   <br>
-   <p>Bạn muốn nhận kết quả sớm hơn? Hãy nhập thời gian bạn muốn nhận kết quả:</p>
+   <!-- <p>Bạn muốn nhận kết quả sớm hơn? Hãy nhập thời gian bạn muốn nhận kết quả:</p>
    <mat-form-field>
       <mat-label>Giờ</mat-label>
       <input matInput type="number" [formControl]="hourControl" [(ngModel)]="hour">
@@ -20,7 +19,7 @@
       <input matInput type="number" [formControl]="minControl" [(ngModel)]="minute" (isValidForm)="true">
       <mat-error *ngIf="minControl.invalid">Thời gian không hợp lệ!</mat-error>
    </mat-form-field>
-   <p class="text-danger" *ngIf="!isValidForm">Thời gian không hợp lệ!</p>
+   <p class="text-danger" *ngIf="!isValidForm">Thời gian không hợp lệ!</p> -->
 </div>
 <div mat-dialog-actions align="end">
    <button mat-button (click)="onNoClick()">Đóng</button>

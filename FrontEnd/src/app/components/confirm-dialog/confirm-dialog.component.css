@@ -7,7 +7,7 @@ button {
 
 .prm-btn{
     margin-right: 20px;
-    background-color: var(--blueLight2);
+    background-color: rgb(74, 74, 193);
     color: white;
     outline: none;
 }

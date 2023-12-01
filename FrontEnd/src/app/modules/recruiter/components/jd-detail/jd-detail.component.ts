@@ -87,16 +87,28 @@ export class JdDetailComponent {
       });
    }
 
-   openCandidateDialog(type: any): void {
+   async openCandidateDialog(type: any): Promise<void> {
       // type 0: matched list 
       // type 1: matched list left
       // type 2: selected list
       const typeCandidate = type == 0 ? apiRecruiter.GET_CV_MATCHED : type == 1 ? apiRecruiter.GET_CV_MATCHED_LEFT : apiRecruiter.GET_CV_SELECTED
-      getRequest(typeCandidate, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: 1 })
-         .then(res => {
+      await getRequest(typeCandidate, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: 1 })
+         .then(async res => {
             this.listCandidate = res.data
-            console.log(res.data);
 
+            if (res.totalPage > 1) {
+               for (let i = 2; i <= res.totalPage; i++) {
+                  await getRequest(typeCandidate, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: i })
+                     .then(res => {
+                        if (res.statusCode === 200) {
+                           this.listCandidate = this.listCandidate.concat(res.data)                           
+                        }
+                     })
+                     .catch(data => {
+                        console.warn(data);
+                     })
+               }
+            }            
             this.dialog.open(ListCandidateComponent, {
                width: '60%',
                data: { listType: type, recruiterId: this.jdDetail.recuirterId, jdId: this.jdDetail.jobId, content: this.listCandidate }

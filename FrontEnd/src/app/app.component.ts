@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from './../environments/environment';
+import { clearItem } from './service/localstorage';
 
 @Component({
    selector: 'app-root',

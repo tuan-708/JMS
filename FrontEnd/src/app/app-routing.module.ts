@@ -33,7 +33,7 @@ const routes: Routes = [
       loadChildren: () => import('./modules/recruiter/recruiter.module').then(x => x.RecruiterModule)
    },
 
-   { path: '', redirectTo: '/candidate', pathMatch: 'full' },
+   { path: '**', redirectTo: '/candidate', pathMatch: 'full' },
 
 ];
 
