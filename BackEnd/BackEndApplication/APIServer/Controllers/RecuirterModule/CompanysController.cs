@@ -52,7 +52,7 @@ namespace APIServer.Controllers.RecuirterModule
                 return new BaseResponseBody<CompanyDTO>
                 {
                     message = GlobalStrings.SUCCESSFULLY,
-                    statusCode = HttpStatusCode.BadRequest,
+                    statusCode = HttpStatusCode.OK,
                     data = com,
                 };
             }

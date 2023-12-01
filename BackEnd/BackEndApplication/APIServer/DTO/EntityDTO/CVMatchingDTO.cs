@@ -23,6 +23,7 @@
         public DateTime ApplyDate { get; set; }
         public string? JSONMatching { get; set; }
         public float? PercentMatching { get; set; }
+        public string? EmploymentTypeName { get; set; }
         public virtual LevelDTO? Level { get; set; }
         public string? CategoryName { get; set; }
         public int? CurriculumVitaeId { get; set; }
