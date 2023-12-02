@@ -103,3 +103,7 @@ body {
 .display {
    display: none;
 }
+
+.field-disable{
+   background-color: #d5d5d5;
+}
