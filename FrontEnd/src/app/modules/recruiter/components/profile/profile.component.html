@@ -44,14 +44,17 @@
                   <div class="mb-3">
                      <label class="small mb-1" for="inputUsername">Họ và tên</label>
                      <input #fullname class="form-control" type="text" placeholder="Nhập tên của bạn"
-                        [value]="profile?.fullName">
+                        [value]="profile?.fullName" (input)="validateString(fullname.value)">
+                        <span *ngIf="invalidName" class="link-danger fs-6">
+                           {{invalidNameMsg}}
+                        </span>
                   </div>
                   <!-- Form Row-->
                   <div class="row gx-3 mb-3">
                      <!-- Form Group (first name)-->
                      <div class="col-md-6">
                         <label class="small mb-1" for="inputFirstName">Tài khoản</label>
-                        <input class="form-control" id="inputFirstName" type="text" placeholder="Tài khoản của bạn"
+                        <input class="form-control field-disable" id="inputFirstName" type="text" placeholder="Tài khoản của bạn"
                            value={{profile?.userName}} disabled>
                      </div>
                      <!-- Form Group (last name)-->
@@ -72,7 +75,7 @@
                      <!-- Form Group (organization name)-->
                      <div class="col-md-12">
                         <label class="small mb-1" for="inputOrgName">Email</label>
-                        <input class="form-control" id="inputOrgName" type="email" placeholder="Bạn chưa có email"
+                        <input class="form-control field-disable " id="inputOrgName" type="email" placeholder="Bạn chưa có email"
                            value={{profile?.email}} disabled>
                      </div>
                      <!-- Form Group (location)-->
@@ -85,7 +88,7 @@
                   <!-- Form Group (email address)-->
                   <div class="mb-3">
                      <label class="small mb-1" for="inputEmailAddress">Tổ chức</label>
-                     <input class="form-control" id="inputEmailAddress" type="email" placeholder="Bạn chưa có công ty"
+                     <input class="form-control field-disable" id="inputEmailAddress" type="email" placeholder="Bạn chưa có công ty"
                         value={{company?.companyName}} disabled>
                   </div>
                   <!-- Form Row-->
@@ -94,13 +97,19 @@
                      <div class="col-md-6">
                         <label class="small mb-1" for="inputPhone">Số điện thoại</label>
                         <input #phone class="form-control" id="inputPhone" type="tel" placeholder="Nhập số điện thoại"
-                           [value]="profile?.phoneNumber">
+                           [value]="profile?.phoneNumber" (input)="validatePhoneNumber(phone.value)">
+                           <span *ngIf="invalidPhone" class="link-danger fs-6">
+                              {{invalidPhoneMsg}}
+                           </span>
                      </div>
                      <!-- Form Group (birthday)-->
                      <div class="col-md-6">
                         <label class="small mb-1" for="inputBirthday">Ngày sinh</label>
                         <input #dob class="form-control" id="inputBirthday" type="text" name="birthday"
-                           placeholder="Nhập ngày sinh" [value]="profile?.doB_Display">
+                           placeholder="Nhập ngày sinh" [value]="profile?.doB_Display" (input)="validateDate(dob.value)">
+                           <span *ngIf="invalidDob" class="link-danger fs-6">
+                              {{invalidDobMsg}}
+                           </span>
                      </div>
                   </div>
                   <!-- Save changes button-->

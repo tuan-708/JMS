@@ -36,6 +36,13 @@ export class ProfileComponent {
    typeNewPassword = "password"
    typeConformPassword = "password"
 
+   invalidName: any = false
+   invalidNameMsg: any
+   invalidPhone: any = false
+   invalidPhoneMsg: any
+   invalidDob: any = false
+   invalidDobMsg: any
+
    validateOldPassword(event: any) {
       this.oldPassword = event
 
@@ -183,16 +190,19 @@ export class ProfileComponent {
    }
 
    validatePhoneNumber(phoneNumber: string): boolean {
-      if (phoneNumber.length < 9 || phoneNumber.length > 10) {
-         showError(this.toastr, "Cập nhật thất bại! Độ dài số điện thoại không hợp lệ.")
-         return false;
-      }
-
       if (!/^\d+$/.test(phoneNumber)) {
-         showError(this.toastr, "Cập nhật thất bại! Số điện thoại không hợp lệ.")
+         this.invalidPhone = true
+         this.invalidPhoneMsg = 'Số điện thoại không hợp lệ'
          return false;
       }
 
+      if (phoneNumber.length < 9 || phoneNumber.length > 10) {
+         this.invalidPhone = true
+         this.invalidPhoneMsg = 'Độ dài không hợp lệ'
+         return false;
+      }
+
+      this.invalidPhone = false
       return true;
    }
 
@@ -200,8 +210,9 @@ export class ProfileComponent {
       const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
       if (!regex.test(dateString)) {
-         showError(this.toastr, "Cập nhật thất bại! Định dạng ngày tháng không hợp lệ (dd/MM/yyyy).")
-         return false; // Không khớp định dạng
+         this.invalidDob = true
+         this.invalidDobMsg = 'Ngày tháng không hợp lệ! (dd//MM//yyyy)'
+         return false
       }
 
       const parts = dateString.split('/');
@@ -210,25 +221,40 @@ export class ProfileComponent {
       const year = parseInt(parts[2], 10);
 
       if (isNaN(day) || isNaN(month) || isNaN(year)) {
-         showError(this.toastr, "Cập nhật thất bại! Ngày tháng không hợp lệ.")
+         this.invalidDob = true
+         this.invalidDobMsg = 'Ngày tháng không hợp lệ! (dd//MM//yyyy)'
          return false; // Không phải là số
       }
 
       const maxDays = new Date(year, month, 0).getDate();
 
       if (day < 1 || day > maxDays || month < 1 || month > 12) {
-         showError(this.toastr, "Cập nhật thất bại! Ngày tháng không hợp lệ.")
+         this.invalidDob = true
+         this.invalidDobMsg = 'Ngày tháng không hợp lệ! (dd//MM//yyyy)'
          return false; // Ngày tháng không hợp lệ
       }
 
+      this.invalidDob = false
       return true;
    }
 
    validateString(string: any) {
+      const regex = /^[ a-zA-Zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễđìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹ\s']+$/;
+
+
       if (string == null || string.trim().length == 0) {
-         showError(this.toastr, "Cập nhật thất bại! Tên không được để trống.")
+         this.invalidName = true
+         this.invalidNameMsg = 'Tên không được để trống!'
          return false
       }
+
+      if (!regex.test(string)) {
+         this.invalidName = true
+         this.invalidNameMsg = 'Tên không được chứa số hoặc ký tự đặc biệt!'
+         return false
+      }
+
+      this.invalidName = false
       return true
    }
 

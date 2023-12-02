@@ -7,7 +7,7 @@
                <div class="card-body p-4 p-md-4">
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">{{jdDetail?.title | uppercase}}</h3>
                   <div class="row text-center">
-                     <div class="col-4"><i class="bi bi-person-circle h4"></i> NGƯỜI ĐĂNG: {{jdDetail?.recuirterId}}
+                     <div class="col-4"><i class="bi bi-person-circle h4"></i> NGƯỜI ĐĂNG: {{jdDetail?.companyDTO?.recuirterFounder}}
                      </div>
                      <div class="col-4"><i class="bi bi-calendar h4"></i> NGÀY TẠO: {{jdDetail?.createdAt}}</div>
                      <div class="col-4"><i class="bi bi-calendar-check h4"></i> NGÀY HẾT HẠN: {{jdDetail?.expiredDate}}
@@ -43,7 +43,7 @@
                         </div>
                         <div class="p-child">
                            <div class="p-child-content">Lĩnh vực</div>
-                           <div class="p-child-content">{{jdDetail?.categoryName}}</div>
+                           <div class="p-child-content">{{jdDetail?.categoryName ? jdDetail?.categoryName : 'Không'}}</div>
                         </div>
                      </div>
                      <div class="col-4 p-parent">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="p-child">
                            <div class="p-child-content">Chức danh</div>
-                           <div class="p-child-content">{{jdDetail?.positionTitle}}</div>
+                           <div class="p-child-content">{{jdDetail?.positionTitle ? jdDetail?.positionTitle : 'Không'}}</div>
                         </div>
                      </div>
                      <div class="col-4 p-parent">
@@ -61,7 +61,7 @@
                         </div>
                         <div class="p-child">
                            <div class="p-child-content">Cấp bậc</div>
-                           <div class="p-child-content">{{jdDetail?.levelTitle}}</div>
+                           <div class="p-child-content">{{jdDetail?.levelTitle ? jdDetail?.levelTitle : 'Không'}}</div>
                         </div>
                      </div>
                   </div>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="p-child">
                            <div class="p-child-content">Độ tuổi</div>
-                           <div class="p-child-content">{{jdDetail?.ageRequirement}}</div>
+                           <div class="p-child-content">{{jdDetail?.ageRequirement ? jdDetail?.ageRequirement : 'Không'}}</div>
                         </div>
                      </div>
                      <div class="col-4 p-parent">
@@ -82,7 +82,7 @@
                         </div>
                         <div class="p-child">
                            <div class="p-child-content">Giới tính</div>
-                           <div class="p-child-content">{{jdDetail?.genderRequirement}}</div>
+                           <div class="p-child-content">{{jdDetail?.genderRequirement ? jdDetail?.genderRequirement : 'Không'}}</div>
                         </div>
                      </div>
                      <div class="col-4 p-parent">
@@ -103,7 +103,7 @@
                         </div>
                         <div class="p-child">
                            <div class="p-child-content">Số lượng</div>
-                           <div class="p-child-content">{{jdDetail?.numberRequirement}}</div>
+                           <div class="p-child-content">{{jdDetail?.numberRequirement ? jdDetail?.numberRequirement : 'Không'}}</div>
                         </div>
                      </div>
                      <div class="col-4 p-parent">
@@ -112,7 +112,7 @@
                         </div>
                         <div class="p-child">
                            <div class="p-child-content">Loại việc làm</div>
-                           <div class="p-child-content">{{jdDetail?.employmentTypeName}}</div>
+                           <div class="p-child-content">{{jdDetail?.employmentTypeName ? jdDetail?.employmentTypeName : 'Không'}}</div>
                         </div>
                      </div>
                      <div class="col-4 p-parent">

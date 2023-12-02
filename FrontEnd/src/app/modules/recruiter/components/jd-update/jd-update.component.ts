@@ -91,10 +91,10 @@ export class JdUpdateComponent {
       this.genderRq.setValue(selectGender?.genderId.toString() ? selectGender?.genderId.toString() : "0")
 
       const selectCategoty = this.categories.find((cate: any) => cate?.categoryName === this.jdDetail?.categoryName)
-      this.categoryRq.setValue(selectCategoty?.id.toString())
+      this.categoryRq.setValue(selectCategoty?.id.toString() ? selectCategoty?.id.toString() : "0")
 
       const selectEmlementType = this.employmentTypes.find((elm: any) => elm?.title === this.jdDetail?.employmentTypeName)
-      this.typeRq.setValue(selectEmlementType?.id.toString())
+      this.typeRq.setValue(selectEmlementType?.id.toString() ? selectEmlementType?.id.toString() : "0")
 
       // const createAt = this.converTringDateInput(this.jdDetail?.createdAt)
       // this.CreateAtRq.setValue(createAt)
@@ -103,7 +103,6 @@ export class JdUpdateComponent {
       this.expiredDateRq.setValue(this.endDate)
 
       this.addressRq.setValue(this.jdDetail?.address)
-      console.log(this.addressRq.value)
       this.salaryRq.setValue(this.jdDetail?.salary)
       this.descriptionRq.setValue(this.jdDetail?.jobDetail)
       this.educationRq.setValue(this.jdDetail?.educationRequirement)
@@ -144,27 +143,27 @@ export class JdUpdateComponent {
    public configOtherRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu khác' }
 
 
-   titleRq = new FormControl('', [Validators.required]);
-   numberRequiredRq = new FormControl('', [Validators.required]);
-   emailRq = new FormControl('');
-   positionRq = new FormControl('', [Validators.required]);
-   levelRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   ageRequiredRq = new FormControl('',);
-   genderRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   typeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   expiredDateRq = new FormControl('', [Validators.required]);
-   CreateAtRq = new FormControl('');
-   addressRq = new FormControl('', [Validators.required]);
-   salaryRq = new FormControl('', [Validators.required, Validators.min(0)]);
-   descriptionRq = new FormControl('', [Validators.required]);
-   educationRq = new FormControl('', [Validators.required]);
-   experienceRq = new FormControl('', [Validators.required]);
-   skillRq = new FormControl('', [Validators.required]);
-   certificateRq = new FormControl('', [Validators.required]);
-   projectRq = new FormControl('', [Validators.required]);
-   benefitRq = new FormControl('',);
-   otherRequired = new FormControl('', [Validators.required]);
+   titleRq = new FormControl(null, [Validators.required]);
+   numberRequiredRq = new FormControl(null,);
+   emailRq = new FormControl(null);
+   positionRq = new FormControl(null);
+   levelRq = new FormControl('0');
+   ageRequiredRq = new FormControl(null);
+   genderRq = new FormControl('0');
+   typeRq = new FormControl('0');
+   categoryRq = new FormControl('0');
+   expiredDateRq = new FormControl({value: null, disabled: true});
+   CreateAtRq = new FormControl({value: null, disabled: true});
+   addressRq = new FormControl(null, [Validators.required]);
+   salaryRq = new FormControl(null, [Validators.required, Validators.min(0)]);
+   descriptionRq = new FormControl(null, [Validators.required]);
+   educationRq = new FormControl(null, [Validators.required]);
+   experienceRq = new FormControl(null, [Validators.required]);
+   skillRq = new FormControl(null, [Validators.required]);
+   certificateRq = new FormControl(null);
+   projectRq = new FormControl(null);
+   benefitRq = new FormControl(null, [Validators.required]);
+   otherRequired = new FormControl(null);
 
    getErrorMessageTitle() {
       if (this.titleRq.hasError('required')) {
@@ -274,6 +273,16 @@ export class JdUpdateComponent {
       return
    }
 
+   getErrorMessageEmail() {
+      if (this.emailRq.hasError('required')) {
+         return 'Email không được để trống!'
+      }
+      if (this.emailRq.hasError('email')) {
+         return 'Email không hợp lệ'
+      }
+      return
+   }
+
    checkReq: any = false;
    checkDes: any = false;
    checkBen: any = false;
@@ -294,22 +303,18 @@ export class JdUpdateComponent {
 
 
    submitButtonClicked() {
-      if (this.titleRq.valid && this.numberRequiredRq.valid &&
-         this.positionRq.valid && this.levelRq.valid &&
-         this.genderRq.valid && this.typeRq.valid &&
-         this.categoryRq.valid && this.expiredDateRq.valid &&
-         this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.experienceRq.valid) {
+      if (this.titleRq.valid && this.emailRq.valid && this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.educationRq.valid && this.experienceRq.valid && this.skillRq.valid && this.benefitRq.valid && this.numberRequiredRq.valid) {
 
          const title = this.titleRq.value;
          const numberRequirement = this.numberRequiredRq.value;
          const contactEmail = this.emailRq.value;
          const positionTitle = this.positionRq.value;
 
-         const levelTitle = this.levelRq.value;
+         const levelTitle = this.levelRq.value === '0' ? null :  this.levelRq.value;
          const ageRequirement = this.ageRequiredRq.value;
-         const genderRequirement = this.genderRq.value;
-         const employmentTypeName = this.typeRq.value;
-         const categoryName = this.categoryRq.value;
+         const genderRequirement = this.genderRq.value === '0' ? "3" :  this.genderRq.value;
+         const employmentTypeName = this.typeRq.value === '0' ? null :  this.typeRq.value;
+         const categoryName = this.categoryRq.value === '0' ? null :  this.categoryRq.value;
          const createdAt = this.CreateAtRq.value;
          const expiredDate = this.expiredDateRq.value;
          const address = this.addressRq.value;

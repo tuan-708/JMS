@@ -150,4 +150,24 @@ export class ListJdsComponent {
       this.tabSelected = evt
       this.listJds = this.tabSelected == 0 ? this.listRunning : (evt == 1 ? this.listExpired : this.listDraft)
    }
+
+   searchChange(){
+      const listSearch = []
+      const data = this.tabSelected == 0 ? this.listRunning : this.listExpired
+
+      if(this.inputSearch === ""){
+         this.listJds = this.tabSelected == 0 ? this.listRunning : (this.tabSelected == 1 ? this.listExpired : this.listDraft)
+         return
+      }
+
+      for (let i = 0; i < data.length; i++) {
+         const elm = data[i]
+         const title = elm.title.toUpperCase();
+         if(title.includes(this.inputSearch.toUpperCase())){
+            listSearch.push(elm)
+         }
+      }
+      this.listJds = listSearch
+      return
+   }
 }

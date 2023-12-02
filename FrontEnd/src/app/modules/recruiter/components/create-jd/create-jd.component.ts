@@ -78,26 +78,26 @@ export class CreateJdComponent {
    public configOtherRequirement = { ...this.configDescription, placeholder: 'Nhập yêu cầu khác' }
 
 
-   titleRq = new FormControl('', [Validators.required]);
-   numberRequiredRq = new FormControl('', [Validators.required]);
-   emailRq = new FormControl('');
-   positionRq = new FormControl('', [Validators.required]);
-   levelRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   ageRequiredRq = new FormControl('',);
-   genderRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   typeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   expiredDateRq = new FormControl('', [Validators.required]);
-   addressRq = new FormControl('', [Validators.required]);
-   salaryRq = new FormControl('', [Validators.required, Validators.min(0)]);
-   descriptionRq = new FormControl('', [Validators.required]);
-   educationRq = new FormControl('', [Validators.required]);
-   experienceRq = new FormControl('', [Validators.required]);
-   skillRq = new FormControl('', [Validators.required]);
-   certificateRq = new FormControl('', [Validators.required]);
-   projectRq = new FormControl('', [Validators.required]);
-   benefitRq = new FormControl('');
-   otherRequired = new FormControl('', [Validators.required]);
+   titleRq = new FormControl(null, [Validators.required]);
+   numberRequiredRq = new FormControl(null, [Validators.min(1)]);
+   emailRq = new FormControl(null, [Validators.email]);
+   positionRq = new FormControl(null, [Validators.required]);
+   levelRq = new FormControl('0');
+   ageRequiredRq = new FormControl(null);
+   genderRq = new FormControl('0');
+   typeRq = new FormControl('0');
+   categoryRq = new FormControl('0');
+   expiredDateRq = new FormControl({value: this.getNextMonthFullDateString(), disabled: true}, [Validators.required]);
+   addressRq = new FormControl(null, [Validators.required]);
+   salaryRq = new FormControl(null, [Validators.required, Validators.min(0)]);
+   descriptionRq = new FormControl(null, [Validators.required]);
+   educationRq = new FormControl(null, [Validators.required]);
+   experienceRq = new FormControl(null, [Validators.required]);
+   skillRq = new FormControl(null, [Validators.required]);
+   certificateRq = new FormControl(null);
+   projectRq = new FormControl(null);
+   benefitRq = new FormControl(null, [Validators.required]);
+   otherRequired = new FormControl(null);
 
    getErrorMessageTitle() {
       if (this.titleRq.hasError('required')) {
@@ -107,8 +107,18 @@ export class CreateJdComponent {
    }
 
    getErrorMessageNumberRequired() {
-      if (this.numberRequiredRq.hasError('required')) {
-         return 'Số lượng tuyển dụng không được để trống!'
+      if (this.numberRequiredRq.hasError('min')) {
+         return 'Số lượng tuyển dụng phải lớn hơn 0!'
+      }
+      return
+   }
+
+   getErrorMessageEmail() {
+      if (this.emailRq.hasError('required')) {
+         return 'Email không được để trống!'
+      }
+      if (this.emailRq.hasError('email')) {
+         return 'Email không hợp lệ'
       }
       return
    }
@@ -234,22 +244,18 @@ export class CreateJdComponent {
    }
 
 
-   submitButtonClicked() {
-      if (this.titleRq.valid && this.numberRequiredRq.valid &&
-         this.positionRq.valid && this.levelRq.valid &&
-         this.genderRq.valid && this.typeRq.valid &&
-         this.categoryRq.valid && this.expiredDateRq.valid &&
-         this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.experienceRq.valid) {
+   submitButtonClicked() {            
+      if (this.titleRq.valid && this.emailRq.valid && this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.educationRq.valid && this.experienceRq.valid && this.skillRq.valid && this.benefitRq.valid && this.numberRequiredRq.valid) {
 
          const title = this.titleRq.value;
          const numberRequirement = this.numberRequiredRq.value;
          const contactEmail = this.emailRq.value;
          const positionTitle = this.positionRq.value;
-         const levelTitle = this.levelRq.value;
+         const levelTitle = this.levelRq.value === '0' ? null :  this.levelRq.value;
          const ageRequirement = this.ageRequiredRq.value;
-         const genderRequirement = this.genderRq.value;
-         const employmentTypeName = this.typeRq.value;
-         const categoryName = this.categoryRq.value;
+         const genderRequirement = this.genderRq.value === '0' ? "3" :  this.genderRq.value;
+         const employmentTypeName = this.typeRq.value === '0' ? null :  this.typeRq.value;
+         const categoryName = this.categoryRq.value === '0' ? null :  this.categoryRq.value;
          const expiredDate = this.expiredDateRq.value;
          const address = this.addressRq.value;
          const salary = this.salaryRq.value;
@@ -310,7 +316,7 @@ export class CreateJdComponent {
 
          return
       }
-
+      
       this.checkReq = true;
       this.checkDes = true;
       this.checkBen = true;
@@ -331,4 +337,24 @@ export class CreateJdComponent {
 
       return
    }
+
+   getNextMonthFullDateString(): string {      
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      const nextMonth = currentDate.getMonth() + 1;
+      const year = currentDate.getFullYear();
+      const day = currentDate.getDate();
+      const nextMonthFullDateString = this.formatDate(day, nextMonth, year);
+      console.log(nextMonthFullDateString);
+      
+      return nextMonthFullDateString;
+    }
+  
+    private formatDate(day: number, month: number, year: number): string {
+      return `${this.padNumber(day)}/${this.padNumber(month)}/${year}`;
+    }
+  
+    private padNumber(num: number): string {
+      return num < 10 ? `0${num}` : `${num}`;
+    }
 }
