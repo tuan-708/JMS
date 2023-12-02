@@ -12,11 +12,11 @@
 
    <section class="formListJds container">
       
-      <div class="input-group formInputSearch">
+      <div class="input-group formInputSearch justify-content-center">
          <input type="text" [(ngModel)]="inputSearch" class="form-control shadow-none customInput"
-            placeholder="Tìm kiếm nhanh">
+            placeholder="   Tìm kiếm nhanh..." (keyup.enter)="searchChange()">
          <div class="input-group-append ">
-            <button class="btn btnBlueLight" type="button" style="border-radius: 22px; width: 44px; margin: 0px;">
+            <button class="btn btnBlueLight" type="button" style="border-radius: 22px; width: 44px; margin: 0px;" (click)="searchChange()">
                <i class="fa fa-search"></i>
             </button>
          </div>

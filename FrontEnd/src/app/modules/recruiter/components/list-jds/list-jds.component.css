@@ -141,7 +141,8 @@ button {
 .formInputSearch {
    border: 1px solid var(--blueLight1);
    border-radius: 22px;
-   width: 35%;
+   width: 50%;
+   margin-left: 25%;
    overflow: hidden;
    box-shadow: var(--boxShadow);
    height: 44px;
