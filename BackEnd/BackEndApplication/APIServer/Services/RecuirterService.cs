@@ -403,11 +403,17 @@ namespace APIServer.Services
             using (var context = new JMSDBContext())
             {
                 JobDescription? jobDescription = context.JobDescriptions.FirstOrDefault(x => x.RecuirterId == recruiterId && x.JobId == jobDescriptionId);
-                if (jobDescription != null && jobDescription.MatchingNumberRequirement != null)
+                if (jobDescription != null)
                 {
-                    return CVMatched.Take((int)jobDescription.MatchingNumberRequirement).ToList();
+                    var k = context.CVMatchings
+                        .Where(x => x.JobDescriptionId == jobDescriptionId)
+                        .Count(x => x.IsApplied);
+                    var count = jobDescription.MatchingNumberRequirement == null ?
+                        k : k + (int)jobDescription.MatchingNumberRequirement;
+                    return CVMatched.Take(count).ToList();
                 }
-                return null;
+                else
+                    throw new Exception("JD not found");
             }
         }
 

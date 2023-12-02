@@ -179,6 +179,7 @@ namespace APIServer.Services
                 cvOrigin.Skills = cvChange.Skills;
                 cvOrigin.Projects = cvChange.Projects;
                 cvOrigin.JobExperiences = cvChange.JobExperiences;
+                cvOrigin.LastUpdateDate = DateTime.Now;
 
                 return context.SaveChanges();
             }

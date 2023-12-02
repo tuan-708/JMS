@@ -19,7 +19,7 @@ export class CompanyViewComponent {
 
    constructor(public router: Router) {
       this.profile = getProfile();
-      getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + this.profile.id, AuthorizationMode.PUBLIC)
+      getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + this.profile.companyId, AuthorizationMode.PUBLIC)
          .then(res => {
             this.company = res?.data
             this.htmlContent = this.company?.description;

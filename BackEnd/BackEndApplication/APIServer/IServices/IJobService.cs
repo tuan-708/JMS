@@ -16,5 +16,6 @@ namespace APIServer.IServices
         public int deleteByCompanyId(int? companyId, int JDid);
         public int updateByRecuirterId(int? recuirterId, JobDTO jdDTO);
         public int createById(JobDTO jobDTO, int recuirterId);
+        public JobDescription getByRecruiterIdAndJobId(int recruiterId, int jobId);
     }
 }

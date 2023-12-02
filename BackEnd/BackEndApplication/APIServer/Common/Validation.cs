@@ -25,8 +25,7 @@ namespace APIServer.Common
             {
                 foreach (var input in inputs)
                 {
-                    var o = input.Trim();
-                    if (string.IsNullOrEmpty(o) && string.IsNullOrWhiteSpace(o))
+                    if (string.IsNullOrEmpty(input) && string.IsNullOrWhiteSpace(input))
                     {
                         return true;
                     }

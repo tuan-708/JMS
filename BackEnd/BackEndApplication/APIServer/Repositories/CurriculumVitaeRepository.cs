@@ -54,6 +54,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Category)
                 .Include(x => x.Gender)
                 .Where(x => !x.IsDelete)
+                .OrderByDescending(x => x.LastUpdateDate)
                 .ToList();
         }
 
@@ -89,6 +90,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Category)
                 .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.CandidateId == candidateId)
+                .OrderByDescending(x => x.LastUpdateDate)
                 .ToList();
         }
 
