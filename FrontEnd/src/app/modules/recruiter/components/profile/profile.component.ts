@@ -104,7 +104,7 @@ export class ProfileComponent {
 
 
    
-   SubmitForm() {
+   SubmitFormChangePassword() {
       if (this.validAllFiled()) {
 
          postRequest(`${apiRecruiter.CHANGE_PASSWORD}?recruiterId=${this.profile.id}

@@ -27,8 +27,8 @@ import { ViewCvComponent } from './components/view-cv/view-cv.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
-import { ViewNullComponent } from 'src/app/components/view-null/view-null.component';
-import { ViewLoadingComponent } from 'src/app/components/view-loading/view-loading.component';
+import { ViewNullCandidateComponent } from './components/view-null/view-null.component'; 
+import { ViewLoadingCandidateComponent } from './components/view-loading/view-loading.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
@@ -51,8 +51,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
       ViewCvComponent,
       ProfileComponent,
       NotFoundComponent,
-      ViewNullComponent,
-      ViewLoadingComponent,
+      ViewNullCandidateComponent,
+      ViewLoadingCandidateComponent,
       ChangePasswordComponent
    ],
    imports: [
@@ -66,6 +66,6 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
       NgxPaginationModule,
       MatTabsModule,
       MatDialogModule
-   ]
+   ],
 })
 export class CandidateModule { }

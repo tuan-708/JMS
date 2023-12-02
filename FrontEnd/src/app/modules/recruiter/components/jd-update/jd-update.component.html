@@ -239,8 +239,6 @@
                            <ckeditor id="benefit" [config]="configBenefitRequirement" [editor]="Editor"
                               [data]="jdDetail?.candidateBenefit" required [formControl]="benefitRq">
                            </ckeditor>
-                           <mat-error
-                              *ngIf="benefitRq.invalid && checkReq">{{getErrorMessageBenefitRequirement()}}</mat-error>
                         </div>
                      </div>
 
