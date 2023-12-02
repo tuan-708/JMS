@@ -202,6 +202,27 @@ namespace APIServer.Services
             return _jobRepo.CreateById(data, recuirterId);
         }
 
+        public JobDescription getByRecruiterIdAndJobId(int recruiterId, int jobId)
+        {
+            try
+            {
+                if (recruiterId < 1 || jobId < 1)
+                    throw new Exception("Data not valid");
+                var job = _jobRepo.GetById(jobId);
+                if (job.RecuirterId != recruiterId)
+                    throw new UnauthorizedAccessException("Permission denied");
+                return job;
+            }
+            catch (OverflowException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         //public async List<int> GetVitaeListByMatching(int jobDesciptionId)
         //{
         //    JobDescription jobDescription = _JDRepository.GetById(jobDesciptionId);

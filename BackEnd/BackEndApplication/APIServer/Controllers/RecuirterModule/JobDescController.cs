@@ -153,5 +153,31 @@ namespace APIServer.Controllers.RecuirterModule
                 };
             }
         }
+
+        [Authorize(Roles = $"{GlobalStrings.ROLE_RECUIRTER}," +
+            $"{GlobalStrings.ROLE_ADMIN}")]
+        [HttpGet]
+        [Route("get-jd-detail/{recruiterId}/{jdId}")]
+        public BaseResponseBody<JobDTO> getJDById(int recruiterId, int jdId)
+        {
+            try
+            {
+                var rs = _mapper.Map<JobDTO>(_jobService.getByRecruiterIdAndJobId(recruiterId, jdId));
+                return new BaseResponseBody<JobDTO>
+                {
+                    message = GlobalStrings.SUCCESSFULLY,
+                    data = rs,
+                    statusCode = HttpStatusCode.OK,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<JobDTO>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
+                };
+            }
+        }
     }
 }

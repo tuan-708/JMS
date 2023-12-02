@@ -49,6 +49,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Category)
                 .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now)
+                .OrderByDescending(x => x.CreatedAt)
                 .ToList();
             return rs;
         }
@@ -64,6 +65,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
                 x.CompanyId == companyId)
+                .OrderByDescending(x => x.CreatedAt)
                 .ToList();
             return rs;
         }
@@ -79,6 +81,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now &&
                 x.RecuirterId == id)
+                .OrderByDescending(x => x.CreatedAt)
                 .ToList();
             return rs;
         }
@@ -93,6 +96,7 @@ namespace APIServer.Repositories
                 .Include(x => x.Category)
                 .Include(x => x.Gender)
                 .Where(x => !x.IsDelete && x.RecuirterId == recuirterId)
+                .OrderByDescending(x => x.CreatedAt)
                 .ToList();
             return rs;
         }
@@ -106,7 +110,9 @@ namespace APIServer.Repositories
                 .Include(x => x.Company)
                 .Include(x => x.Category)
                 .Include(x => x.Gender)
-                .Where(x => x.RecuirterId == recruiterId && x.ExpiredDate < DateTime.Now && x.IsDelete == false).ToList();
+                .Where(x => x.RecuirterId == recruiterId && x.ExpiredDate < DateTime.Now && x.IsDelete == false)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToList();
         }
 
         public JobDescription GetById(int id)
