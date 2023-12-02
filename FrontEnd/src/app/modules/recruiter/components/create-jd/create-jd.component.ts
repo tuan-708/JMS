@@ -83,7 +83,7 @@ export class CreateJdComponent {
    emailRq = new FormControl(null, [Validators.email]);
    positionRq = new FormControl(null, [Validators.required]);
    levelRq = new FormControl('0');
-   ageRequiredRq = new FormControl(null,);
+   ageRequiredRq = new FormControl(null);
    genderRq = new FormControl('0');
    typeRq = new FormControl('0');
    categoryRq = new FormControl('0');
@@ -94,10 +94,10 @@ export class CreateJdComponent {
    educationRq = new FormControl(null, [Validators.required]);
    experienceRq = new FormControl(null, [Validators.required]);
    skillRq = new FormControl(null, [Validators.required]);
-   certificateRq = new FormControl(null, [Validators.required]);
-   projectRq = new FormControl(null, [Validators.required]);
-   benefitRq = new FormControl(null);
-   otherRequired = new FormControl(null, [Validators.required]);
+   certificateRq = new FormControl(null);
+   projectRq = new FormControl(null);
+   benefitRq = new FormControl(null, [Validators.required]);
+   otherRequired = new FormControl(null);
 
    getErrorMessageTitle() {
       if (this.titleRq.hasError('required')) {
@@ -246,7 +246,6 @@ export class CreateJdComponent {
 
    submitButtonClicked() {            
       if (this.titleRq.valid && this.emailRq.valid && this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.educationRq.valid && this.experienceRq.valid && this.skillRq.valid && this.benefitRq.valid && this.numberRequiredRq.valid) {
-console.log('ok');
 
          const title = this.titleRq.value;
          const numberRequirement = this.numberRequiredRq.value;
@@ -317,8 +316,6 @@ console.log('ok');
 
          return
       }
-
-      console.log('not ok');
       
       this.checkReq = true;
       this.checkDes = true;
