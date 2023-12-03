@@ -118,8 +118,11 @@
                <!-- Input Name Certificates  -->
                <div *ngIf="ce.CertificateName">
                   <div class="mt-1">
-                     <input type="text" placeholder="Tên chứng chỉ" class="form-info-input certificateName"
-                        [style.color]="colorLeftInput" value="{{ ce.CertificateName }}" disabled [class]="ThemStyle">
+                     <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
+                        <div>
+                           {{ ce.CertificateName }}
+                        </div>
+                     </div>
                   </div>
                </div>
 
@@ -148,9 +151,11 @@
                <!-- Input Description Certificates  -->
                <div *ngIf="ce.CertificateProvider">
                   <div class="mt-1">
-                     <textarea rows="3" maxlength="300" placeholder="Miêu tả"
-                        class="form-info-input certificateProvider" value="{{ ce.CertificateProvider }}" disabled
-                        [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                     <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
+                        <div>
+                           {{ ce.CertificateProvider }}
+                        </div>
+                     </div>
                   </div>
                </div>
 
@@ -178,17 +183,22 @@
                <!-- Input Name Award  -->
                <div *ngIf="aw.AwardName">
                   <div class="mt-1">
-                     <input type="text" placeholder="Tên giải thưởng" class="form-info-input awardName"
-                        [style.color]="colorLeftInput" value="{{ aw.AwardName}}" disabled [class]="ThemStyle">
+                     <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
+                        <div>
+                           {{ aw.AwardName}}
+                        </div>
+                     </div>
                   </div>
                </div>
 
                <!-- Input Description Award  -->
                <div *ngIf="aw.Description">
                   <div class="mt-1">
-                     <textarea rows="3" maxlength="300" type="text" placeholder="Miêu tả"
-                        class="form-info-input awardDescription" value="{{ aw.Description}}" disabled
-                        [style.color]="colorLeftInput" [class]="ThemStyle"></textarea>
+                     <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
+                        <div>
+                           {{ aw.Description}}
+                        </div>
+                     </div>
                   </div>
                </div>
 
@@ -203,13 +213,25 @@
             <!-- Header  Title-->
             <div>
                <input type="text" placeholder="Họ và tên" class="form-right--header mt-2 displayName"
-                  [style.color]="colorRightHeader" value="{{ data.jd.displayName }}" disabled [class]="ThemStyle">
+                  [style.color]="colorRightHeader" value="Họ và tên: {{ data.jd.displayName }}" disabled [class]="ThemStyle">
             </div>
 
             <!-- Header -->
             <div>
                <input type="text" placeholder="Vị trí công việc" class="form-right--header mt-2 positionTitleName"
                   [style.color]="colorRightHeader" value="Vị trí: {{ data.jd.level.description }}" disabled
+                  [class]="ThemStyle">
+            </div>
+
+            <div>
+               <input type="text" placeholder="Vị trí công việc" class="form-right--header mt-2 positionTitleName"
+                  [style.color]="colorRightHeader" value="Lĩnh Vực: {{ data.jd.categoryName}}" disabled
+                  [class]="ThemStyle">
+            </div>
+
+            <div>
+               <input type="text" placeholder="Vị trí công việc" class="form-right--header mt-2 positionTitleName"
+                  [style.color]="colorRightHeader" value="Loại công việc: {{ data.jd.employmentTypeName}}" disabled
                   [class]="ThemStyle">
             </div>
          </div>
