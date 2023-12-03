@@ -5,10 +5,10 @@
       <div class="flex">
 
          <div class="header__tool">
-            <div class="header__preview-cv">
+            <!-- <div class="header__preview-cv">
                <button class="btn-cv btn-cv--success btn-cv--fix-size is-plain">
                   <i class="mr-8 fa-regular fa-eye"></i><span class="btn-cv__text">Xem trước</span></button>
-            </div>
+            </div> -->
             <div class="save-cv" (click)="SubmitCV($event)">
                <button class="save-cv save-cv__btn btn-cv btn-cv--success btn-cv--fix-size">
                   <i class="save-cv__icon fa-solid fa-floppy-disk mr-8"></i>
@@ -314,16 +314,21 @@
             <!-- Name and Position job -->
             <div class="form-position form-input-value">
                <!-- Header  Title-->
-               <div>
-                  <input type="text" placeholder="Họ và tên" class="form-right--header mt-2 displayName"
+               <div style="display: flex;">
+                  <div style="line-height: 40px; font-weight: 600; font-size: 21px; white-space: pre;">
+                     Họ và tên: 
+                  </div> 
+                  <div>
+                     <input type="text" placeholder="Họ và tên" class="form-right--header mt-2 displayName"
                      [style.color]="colorRightHeader" [class]="ThemStyle">
+                  </div>
                </div>
 
                <!-- Header -->
-               <div>
+               <!-- <div>
                   <input type="text" placeholder="Vị trí công việc" class="form-right--header mt-2 positionTitleName"
                      [style.color]="colorRightHeader" [class]="ThemStyle">
-               </div>
+               </div> -->
             </div>
 
             <!-- Form careerGoal  -->

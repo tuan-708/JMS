@@ -348,7 +348,7 @@ export class CandidateCreateCvComponent {
          const dob = $(".inputDob")[0].value;
          const displayName = $(".displayName")[0].value;
          const careerGoal = $(".careerGoal")[0].value;
-         const positionTitleName = $(".positionTitleName")[0].value;
+         // const positionTitleName = $(".positionTitleName")[0].value;
          const cvTitle = $(".cvTitle")[0].value;
          const levelId = $(".levelId")[0].value;
          const categoryId = $(".categoryId")[0].value;
@@ -379,7 +379,7 @@ export class CandidateCreateCvComponent {
             'dob': dob,
             "createdDateDisplay": null,
             "lastUpdateDateDisplay": null,
-            'positionTitleName': positionTitleName,
+            // 'positionTitleName': positionTitleName,
             'jobExperiences': experiences,
             'skills': skills,
             'educations': educations,
