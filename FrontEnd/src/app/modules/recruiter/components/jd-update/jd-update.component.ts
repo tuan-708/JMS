@@ -112,7 +112,7 @@ export class JdUpdateComponent {
       this.projectRq.setValue(this.jdDetail?.projectRequirement)
       this.benefitRq.setValue(this.jdDetail?.candidateBenefit)
       this.otherRequired.setValue(this.jdDetail?.otherInformation)
-
+      this.ageRequiredRq.setValue(this.jdDetail?.ageRequirement)
    }
 
 
