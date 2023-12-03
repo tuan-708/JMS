@@ -458,6 +458,8 @@ export class CandidateCreateCvComponent {
    }
 
    SelectedBackGround(value: any) {
+      this.id = value
+      
       this.colorLeftHeader = themeList[value].colorLeftHeader
       this.colorRightHeader = themeList[value].colorRightHeader
       this.colorLeftInput = themeList[value].colorLeftInput
