@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormControl, Validators } from '@angular/forms';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
-import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
-import { getProfile, isLogin, signOut } from 'src/app/service/localstorage';
+import { AuthorizationMode, RECRUITER_TOKEN, apiRecruiter } from 'src/app/service/constant';
+import { getItem, getProfile, isLogin, saveItem, signOut } from 'src/app/service/localstorage';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { showError } from 'src/app/service/common';
 
 @Component({
    selector: 'app-company-register',
@@ -129,7 +130,7 @@ export class CreateCompanyComponent {
 
       if (this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid
          && this.categoryRq.valid && this.sizeRq.valid && this.addressRq.valid
-         && this.phoneRq.valid) {
+         && this.phoneRq.valid && this.descriptionRq.valid) {
          const companyName = this.nameRq.value;
          const email = this.emailRq.value;
          const phone = this.phoneRq.value;
@@ -153,7 +154,7 @@ export class CreateCompanyComponent {
             tax: tax,
             categoryName: categoryName,
             size: size,
-            recuirterFounder: profile.id,
+            recuirterFounder: profile.id.toString(),
             recuirtersInCompany: [],
             jDs: [],
             yearOfEstablishment: yearOfEstablishment
@@ -161,7 +162,13 @@ export class CreateCompanyComponent {
 
          postRequest(apiRecruiter.CREATE_COMPANY_BY_ID + "/" + profile.id, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
-               this.showSuccess();
+               if (res.statusCode === 201) {
+                  this.showSuccess();
+                  this.updateAccount();
+               } else {
+                  showError(this.toastr, "Tạo công ty thất bại, vui lòng thử lại!")
+               }
+
             })
             .catch(data => {
                this.showFail()
@@ -194,5 +201,31 @@ export class CreateCompanyComponent {
             this.fileSrc = event.target?.result;
          }
       }
+   }
+
+   updateAccount() {
+      let token = getItem(RECRUITER_TOKEN)
+      postRequest(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + token, AuthorizationMode.BEARER_TOKEN, {})
+         .then(res => {
+            if (res.statusCode == 200) {
+               setTimeout(() => {
+                  saveItem("profile", res.data);
+               }, 1000);
+
+               setTimeout(() => {
+                  this.showSuccess()
+                  if (res.data.companyId) {
+                     this.router.navigate(['/recruiter/list-jds']);
+                  } else {
+                     this.router.navigate(['/recruiter/create-company']);
+                  }
+
+               }, 1000);
+
+            }
+         })
+         .catch(data => {
+            console.log(data);
+         })
    }
 }
