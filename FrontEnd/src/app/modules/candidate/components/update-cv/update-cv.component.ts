@@ -315,8 +315,8 @@ export class UpdateCvComponent {
       });
    }
 
-   showErrorInput(message: string) {
-      this.toastr.error(message, 'Thông báo!', {
+   showInfoInput(message: string) {
+      this.toastr.info(message, 'Thông báo!', {
          progressBar: true,
          timeOut: 3000,
          enableHtml: true
@@ -361,7 +361,7 @@ export class UpdateCvComponent {
       }
 
       if (!valid) {
-         this.showErrorInput(massage)
+         this.showInfoInput(massage)
       }
 
       return valid
