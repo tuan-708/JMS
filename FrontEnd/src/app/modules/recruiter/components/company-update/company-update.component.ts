@@ -39,7 +39,7 @@ export class CompanyUpdateComponent {
             console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
          })
 
-      getRequest(`${apiRecruiter.GET_COMPANY_BY_ID}/${this.profile.id}`, AuthorizationMode.PUBLIC, { page: 10 })
+      getRequest(`${apiRecruiter.GET_COMPANY_BY_ID}/${this.profile.companyId}`, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.company = res?.data
             console.log(this.company);
@@ -247,8 +247,10 @@ export class CompanyUpdateComponent {
          postFileRequest(`${apiRecruiter.UPDATE_IMAGE_COMPANY_AVATAR}/${this.profile.id}/${this.profile.companyId}`, AuthorizationMode.PUBLIC, formData)
             .then(res => {
                console.log(res);
+               this.showChangeAvatarSuccess()
             })
             .catch(data => {
+               this.showChangeAvatarCompanyFail()
                console.log(data);
             })
 
