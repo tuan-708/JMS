@@ -230,7 +230,7 @@ export class ProfileComponent {
 
       if (day < 1 || day > maxDays || month < 1 || month > 12) {
          this.invalidDob = true
-         this.invalidDobMsg = 'Ngày tháng không hợp lệ! (dd//MM//yyyy)'
+         this.invalidDobMsg = 'Ngày tháng không hợp lệ!'
          return false; // Ngày tháng không hợp lệ
       }
 
@@ -314,6 +314,8 @@ export class ProfileComponent {
 
                   this.getProfile()
                   this.showUploadAvatarSuccess()
+               }else{
+                  showError(this.toastr, res.message)
                }
             })
             .catch(data => {
