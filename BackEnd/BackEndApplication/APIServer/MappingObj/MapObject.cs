@@ -11,7 +11,7 @@ namespace APIServer.MappingObj
         {
             var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("Properties\\launchSettings.json") 
+    .AddJsonFile("Properties\\launchSettings.json")
     .Build();
             var host = configuration["profiles:APIServer:applicationUrl"];
 
@@ -81,17 +81,21 @@ namespace APIServer.MappingObj
                 .ForMember(x => x.CreatedDate, src => src.MapFrom(src => src.CreatedDate.ToString(GlobalStrings.FORMAT_DATE1)))
                 .ForMember(x => x.GenderDisplay, src => src.MapFrom(src => src.Gender.Title))
                 .ForMember(x => x.EmploymentTypeName, src => src.MapFrom(src => src.EmploymentType.Title))
-                .ForMember(x => x.AvatarURL, src => src.MapFrom(src =>  Validation.checkStringIsEmpty(src.AvatarURL) ?
+                .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
                 host + "\\defaults\\default_avt.jpg" :
-                host + src.AvatarURL ))
+                host + src.AvatarURL))
                 ;
 
             CreateMap<Admin, AdminDTO>();
 
             CreateMap<Candidate, CandidateDTO>()
+                .ForMember(x => x.IsMale, src => src.MapFrom(src => src.GenderId == 1 ? true : false))
                 .ForMember(x => x.AvatarURL, src => src.MapFrom(src => Validation.checkStringIsEmpty(src.AvatarURL) ?
                 host + "\\defaults\\default_avt.jpg" :
                 host + src.AvatarURL))
+            ;
+            CreateMap<CandidateDTO, Candidate>()
+                .ForMember(x => x.GenderId, src => src.MapFrom(src => src.IsMale ? 1 : 2))
             ;
 
             CreateMap<Award, AwardDTO>();
