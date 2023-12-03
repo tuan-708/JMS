@@ -8,6 +8,7 @@ import { OptionMatchModalComponent } from '../option-match-modal/option-match-mo
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ViewportScroller } from '@angular/common';
+import { getProfile } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'app-jd-detail',
@@ -30,6 +31,7 @@ export class JdDetailComponent {
    candidateBenefitJd: any
    isMatching: boolean = false;
    Url = environment.Url;
+   profile: any
 
    showTokenExpiration() {
       this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
@@ -42,11 +44,12 @@ export class JdDetailComponent {
       this.route.params.subscribe(params => {
          this.id = params['id'];
       });
+      this.profile = getProfile()
 
       this.viewportScroller.scrollToPosition([0, 0]);
 
       //get jd detail
-      getRequest(apiRecruiter.GET_JD_BY_ID, AuthorizationMode.BEARER_TOKEN, { jdId: this.id })
+      getRequest(apiRecruiter.GET_JD_BY_RECRUITER + "/" + this.profile?.id + "/" + this.id, AuthorizationMode.BEARER_TOKEN, { jdId: this.id })
          .then(res => {
             this.jdDetail = res.data
             console.log(res);

@@ -26,6 +26,7 @@ export enum apiRecruiter {
 
    POST_CREATE_JD = "/api/JobDesc/new-post",
    GET_JD_BY_ID = "/api/JobDesc/get-jd-by-id",
+   GET_JD_BY_RECRUITER = "/api/JobDesc/get-jd-detail",
    UPDATE_JD_BY_RECRUITER = "/api/JobDesc/update-jd",
    GET_LIST_JD_EXPIRED = "/api/Recuirter/get-all-expired-jd",
 

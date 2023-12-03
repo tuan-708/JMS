@@ -62,7 +62,7 @@ export class RecruiterSignInComponent {
                            if (res.data.companyId) {
                               this.router.navigate(['/recruiter/list-jds']);
                            } else {
-                              this.router.navigate(['/recruiter/create-conpany']);
+                              this.router.navigate(['/recruiter/create-company']);
                            }
 
                         }, 1000);
