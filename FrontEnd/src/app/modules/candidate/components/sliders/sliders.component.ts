@@ -29,7 +29,7 @@ export class SlidersComponent {
    }
 
    constructor() {
-      getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 10 })
+      getRequest(apiRecruiter.GET_COMPANY_PAGING, AuthorizationMode.PUBLIC, { page: 1 })
          .then(res => {
             if (res?.statusCode == 200) {
                this.companies = res?.data
