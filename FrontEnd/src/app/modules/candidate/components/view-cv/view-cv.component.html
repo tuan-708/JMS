@@ -120,7 +120,7 @@
                   <div class="mt-1">
                      <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
                         <div>
-                           {{ ce.CertificateName }}
+                           Tên chứng chỉ: {{ ce.CertificateName }}
                         </div>
                      </div>
                   </div>
@@ -129,13 +129,15 @@
                <!-- Input Time Certificates  -->
                <div class="mt-1 d-flex">
                   <div *ngIf="ce.IssuedDate">
-                     <input type="text" placeholder="Bắt đầu" class="form-info-input width50 issuedDateCertificate"
-                        value="{{ ce.IssuedDate }}" disabled [style.color]="colorLeftInput" [class]="ThemStyle">
-                     <div>-</div>
+                     <div [style.color]="colorLeftInput" [class]="ThemStyle">
+                        Thời gian: {{ ce.IssuedDate }}
+                     </div>
                   </div>
                   <div *ngIf="ce.ExpiredDate">
-                     <input type="text" placeholder="Kết thúc" class="form-info-input width50 expiredDateCertificate"
-                        value="{{ ce.ExpiredDate }}" disabled [style.color]="colorLeftInput" [class]="ThemStyle">
+                     <span>-</span>
+                     <span [style.color]="colorLeftInput" [class]="ThemStyle">
+                        {{ ce.ExpiredDate }}
+                     </span>
                   </div>
 
                </div>
@@ -153,7 +155,7 @@
                   <div class="mt-1">
                      <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
                         <div>
-                           {{ ce.CertificateProvider }}
+                           Miêu tả: {{ ce.CertificateProvider }}
                         </div>
                      </div>
                   </div>
@@ -174,8 +176,11 @@
                <!-- Input Time Award  -->
                <div *ngIf="aw.FromYear">
                   <div class="mt-1">
-                     <input type="text" placeholder="Thời gian" class="form-info-input fromYearAwards"
-                        [style.color]="colorLeftInput" value="{{ aw.FromYear }}" disabled [class]="ThemStyle">
+                     <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
+                        <div>
+                           Thời gian : {{ aw.FromYear }}
+                        </div>
+                     </div>
                   </div>
                </div>
 
@@ -185,7 +190,7 @@
                   <div class="mt-1">
                      <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
                         <div>
-                           {{ aw.AwardName}}
+                           Tên giải thưởng : {{ aw.AwardName}}
                         </div>
                      </div>
                   </div>
