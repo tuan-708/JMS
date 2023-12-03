@@ -33,7 +33,8 @@
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2">
-                           <label class="form-label" for="email">Email</label>
+                           <label class="form-label" for="email">Email</label><span class="link-danger"> *
+                           </span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <input matInput type="email" id="email" placeholder="abc@gmail.com" required
                                  [formControl]="emailRq" />
@@ -53,7 +54,7 @@
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2">
-                           <label class="form-label select-label">Cấp bậc</label><span class="link-danger">
+                           <label class="form-label select-label">Cấp bậc</label><span class="link-danger"> *
                               </span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select [formControl]="levelRq" style="color: black;">
@@ -95,7 +96,7 @@
                      <div class="row">
                         <div class="col-md-6 mb-2">
                            <label class="form-label select-label" for="typeRq">Loại Việc Làm</label><span
-                              class="link-danger">
+                              class="link-danger"> *
                               </span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select [formControl]="typeRq" style="color: black;">
@@ -108,7 +109,7 @@
                         </div>
                         <div class="col-md-6 mb-2">
                            <label class="form-label select-label" for="categoryRq">Lĩnh Vực</label><span
-                              class="link-danger"> </span>
+                              class="link-danger"> *</span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
                               <mat-select [formControl]="categoryRq" style="color: black;">
                                  <mat-option value="0" disabled selected>Chọn lĩnh vực</mat-option>

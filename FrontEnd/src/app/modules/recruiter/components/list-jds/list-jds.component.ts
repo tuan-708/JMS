@@ -48,14 +48,21 @@ export class ListJdsComponent {
       getRequest(`${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, AuthorizationMode.BEARER_TOKEN)
          .then(res => {
             console.log(res?.data);
-            this.listRunning = res?.data
-            this.totalItems = res?.objectLength
-
-            for (let i = 0; i < this.listRunning.length; i++) {
-               this.listRunning[i]['isShow'] = true;
+            if(res.data != null){
+               this.listRunning = res?.data
+               this.totalItems = res?.objectLength
+   
+               for (let i = 0; i < this.listRunning.length; i++) {
+                  this.listRunning[i]['isShow'] = true;
+               }
+               
+               this.firstTabTitle = 'ĐANG TUYỂN DỤNG (' + res.data.length + ')'
+               this.listJds = this.listRunning
+            }else{
+               this.firstTabTitle = 'ĐANG TUYỂN DỤNG (0)'
+               this.listJds = []
             }
-            this.firstTabTitle = 'ĐANG TUYỂN DỤNG (' + res.data.length + ')'
-            this.listJds = this.listRunning
+            
          })
          .catch(data => {
             console.warn('Lỗi', `${apiRecruiter.GET_COMPANY_JDS_PAGING}/${this.profile.companyId}/${this.page}`, data);

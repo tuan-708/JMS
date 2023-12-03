@@ -47,10 +47,10 @@
 
                <div class="row more">
                   <div class="col-4 textOver">
-                     Vị trí tuyển: {{jd?.positionTitle}}
+                     Vị trí tuyển: {{jd?.positionTitle ? jd?.positionTitle : 'Không'}}
                   </div>
                   <div class="col-4 textOver">
-                     Chức danh: {{jd?.levelTitle}}
+                     Chức danh: {{jd?.levelTitle  ? jd?.levelTitle : 'Không'}}
                   </div>
                   <div class="col-4 textOver">
                      Mức lương: {{jd?.salary}}
