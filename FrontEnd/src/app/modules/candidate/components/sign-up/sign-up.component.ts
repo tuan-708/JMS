@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
@@ -20,7 +21,8 @@ export class CandidateRegisterComponent {
    invalidUserName: boolean = false;
    invalidEmail: boolean = false;
    invalidPassword: boolean = false;
-   invalidRePassword: boolean = false
+   invalidRePassword: boolean = false;
+   checkbox: boolean = false;
 
    validateFullName(event: any) {
       this.FullName = event
@@ -81,8 +83,19 @@ export class CandidateRegisterComponent {
       });
    }
 
+   showInfoNoCheck() {
+      this.toastr.info('Hãy chấp nhận điều khoản của chúng tôi', 'Thông báo', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
 
-   constructor(private toastr: ToastrService) {
+   ChangeStatusCheckbox(event: any){
+      this.checkbox = ! this.checkbox 
+   }
+
+
+   constructor(private toastr: ToastrService, private router: Router) {
 
    }
 
@@ -92,18 +105,27 @@ export class CandidateRegisterComponent {
          this.Email !== "" && this.FullName !== "" && this.UserName !== ""
          && this.Password !== "" && this.rePassword !== "") {
          return true
+      }else{
+   
+
+         return false
       }
-      return false
    }
 
    Submit() {
-
       if (this.validAllFiled()) {
+
+         if(!this.checkbox){
+            this.showInfoNoCheck()
+            return
+         } 
+
          postRequest(`${apiCandidate.REGISTER_ACCOUNT_CANDIDATE}?email=${this.Email}
          &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
             .then(res => {
                if (res.statusCode == 200) {
                   this.showSuccess()
+                  this.router.navigate(['/candidate/sign-in']);
                } else {
                   this.showError()
                }
@@ -111,9 +133,9 @@ export class CandidateRegisterComponent {
             .catch(res => {
                this.showError()
                console.warn(res);
-
             })
-      } else {
+      }
+      else {
          this.showInfoInput()
       }
    }

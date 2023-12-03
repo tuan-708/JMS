@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/constant';
@@ -20,7 +21,8 @@ export class RegisterRecruiterComponent {
    invalidUserName: boolean = false;
    invalidEmail: boolean = false;
    invalidPassword: boolean = false;
-   invalidRePassword: boolean = false
+   invalidRePassword: boolean = false;
+   checkbox: boolean = false;
 
    validateFullName(event: any) {
       this.FullName = event
@@ -81,7 +83,19 @@ export class RegisterRecruiterComponent {
       });
    }
 
-   constructor(private toastr: ToastrService) {
+   showInfoNoCheck() {
+      this.toastr.info('Hãy chấp nhận điều khoản của chúng tôi', 'Thông báo', {
+         progressBar: true,
+         timeOut: 3000,
+      });
+   }
+
+   ChangeStatusCheckbox(event: any){
+      this.checkbox = ! this.checkbox 
+   }
+
+
+   constructor(private toastr: ToastrService, private router: Router) {
 
    }
 
@@ -97,11 +111,18 @@ export class RegisterRecruiterComponent {
 
    Submit() {
       if (this.validAllFiled()) {
+
+         if(!this.checkbox){
+            this.showInfoNoCheck()
+            return
+         } 
+
          postRequest(`${apiRecruiter.REGISTER_ACCOUNT_RECRUITER}?email=${this.Email}
          &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
             .then(res => {
                if (res.statusCode == 200) {
                   this.showSuccess()
+                  this.router.navigate(['/recruiter/sign-in']);
                } else {
                   this.showError()
                }

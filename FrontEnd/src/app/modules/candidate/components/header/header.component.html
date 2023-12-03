@@ -24,7 +24,7 @@
             </li>
          </ul>
          <form class="d-flex">
-            <div *ngIf="isLog">
+            <div *ngIf="profile">
                <div class="blockUser">
                   <img class="avatar" src="{{ profile?.avatarURL }}"
                      onerror="this.src='https://cdn1.iconfinder.com/data/icons/main-ui-elements-with-colour-bg/512/male_avatar-512.png'"
@@ -53,7 +53,7 @@
                   </div>
                </div>
             </div>
-            <div *ngIf="!isLog">
+            <div *ngIf="!profile">
                <button type="button" class="btn btn-outline-primary m-2 p-2" [routerLink]="['/candidate/sign-in/']">Đăng
                   nhập</button>
                <button type="button" class="btn btn-success m-2 p-2" [routerLink]="['/candidate/sign-up/']">Đăng
