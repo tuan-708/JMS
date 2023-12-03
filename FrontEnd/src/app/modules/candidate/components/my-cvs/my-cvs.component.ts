@@ -44,12 +44,12 @@ export class CandidateMyCvsComponent {
       getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             this.listCVs = res?.data
-            console.log(this.listCVs);
+
+            this.listCVs.map((item:any) => console.log(item.lastUpdateDateDisplay))
+
+            console.log(this.listCVs[0].lastUpdateDateDisplay);
          })
          .catch(data => {
-            this.router.navigate(['/candidate/sign-in']);
-            this.showTokenExpiration()
-            signOut()
          })
 
 
