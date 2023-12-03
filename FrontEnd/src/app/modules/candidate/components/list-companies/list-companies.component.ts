@@ -62,6 +62,7 @@ export class CandidateListCompaniesComponent {
          getRequest(`${apiRecruiter.SEARCH_COMPANY}?search=${this.inputSearch}&${this.page}`, AuthorizationMode.PUBLIC, { page: 1 })
             .then(res => {
                this.companies = res?.data
+               this.totalItems = res?.objectLength
                console.log( this.companies);
                
             })
