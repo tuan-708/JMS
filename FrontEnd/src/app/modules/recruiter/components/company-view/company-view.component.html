@@ -161,14 +161,14 @@
                      <div class="itemJob" *ngFor="let jd of company.jDs">
                         <div class="col-2">
                            <img
-                              src="https://cdn.pixabay.com/photo/2017/03/01/18/06/satisfaction-guarantee-2109235_1280.png"
+                              src="https://i.postimg.cc/7ZscYqHR/JOB-MATCHING.png"
                               alt="">
                         </div>
                         <div class="col-9">
                            <div class="textHeader" (click)="onClickView(jd)">{{jd?.title}}</div>
                            <div class="row time">
-                              <div class="col-4 textOver">Thời gian đăng bài: 11-2-2023</div>
-                              <div class="col-4 textOver">Thời gian hạn bài đăng: 12-2-2023</div>
+                              <div class="col-4 textOver">Ngày tạo: {{jd?.createdAt}}</div>
+                              <div class="col-4 textOver">Ngày hết hạn: {{jd?.expiredDate}}</div>
                               <div class="col-4 textOver">Số lượng tuyển dụng: {{jd?.numberRequirement ?
                                  jd?.numberRequirement :
                                  0}}</div>
@@ -176,11 +176,11 @@
 
                            <div class="row more">
                               <div class="col-4 textOver">
-                                 Lĩnh vực: {{jd.jobDescription.categoryName}}
+                                 Lĩnh vực: {{jd?.categoryName ? jd?.categoryName : 'Không'}}
                               </div>
             
                               <div class="col-4 textOver">
-                                 Vị trí tuyển: {{jd.jobDescription.positionTitle}}
+                                 Vị trí tuyển: {{jd?.positionTitle ? jd?.positionTitle : 'Không'}}
                               </div>
 
                               <div class="col-4 textOver">
