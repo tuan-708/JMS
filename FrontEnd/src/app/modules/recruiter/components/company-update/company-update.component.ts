@@ -185,7 +185,7 @@ export class CompanyUpdateComponent {
             tax: tax,
             categoryName: categoryName,
             size: size,
-            recuirterFounder: recuirterFounder,
+            recuirterFounder: recuirterFounder.toString(),
             recuirtersInCompany: [],
             jDs: [],
             yearOfEstablishment: yearOfEstablishment
@@ -312,4 +312,15 @@ export class CompanyUpdateComponent {
          }
       }
    }
+
+   isYearValid(inputYearString: string): boolean {
+      // Chuyển đổi chuỗi năm thành số nguyên
+      const inputYear = parseInt(inputYearString, 10);
+  
+      // Lấy năm hiện tại
+      const currentYear = new Date().getFullYear();
+  
+      // So sánh năm
+      return inputYear <= currentYear;
+    }
 }

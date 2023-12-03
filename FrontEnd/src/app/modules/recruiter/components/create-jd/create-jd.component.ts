@@ -82,11 +82,11 @@ export class CreateJdComponent {
    numberRequiredRq = new FormControl(null, [Validators.min(1)]);
    emailRq = new FormControl(null, [Validators.email]);
    positionRq = new FormControl(null, [Validators.required]);
-   levelRq = new FormControl('0');
+   levelRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    ageRequiredRq = new FormControl(null);
    genderRq = new FormControl('0');
-   typeRq = new FormControl('0');
-   categoryRq = new FormControl('0');
+   typeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
+   categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    expiredDateRq = new FormControl({value: this.getNextMonthFullDateString(), disabled: true}, [Validators.required]);
    addressRq = new FormControl(null, [Validators.required]);
    salaryRq = new FormControl(null, [Validators.required, Validators.min(0)]);
@@ -245,7 +245,7 @@ export class CreateJdComponent {
 
 
    submitButtonClicked() {            
-      if (this.titleRq.valid && this.emailRq.valid && this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.educationRq.valid && this.experienceRq.valid && this.skillRq.valid && this.benefitRq.valid && this.numberRequiredRq.valid) {
+      if (this.titleRq.valid && this.emailRq.valid && this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.educationRq.valid && this.experienceRq.valid && this.skillRq.valid && this.benefitRq.valid && this.numberRequiredRq.valid && this.categoryRq.valid && this.levelRq.valid && this.typeRq.valid) {
 
          const title = this.titleRq.value;
          const numberRequirement = this.numberRequiredRq.value;

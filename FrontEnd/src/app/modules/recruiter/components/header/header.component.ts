@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, RECRUITER_TOKEN, apiRecruiter } from 'src/app/service/constant';
@@ -10,7 +10,7 @@ import { getProfile, getToken, isLogin, removeItem, saveItem, signOut } from 'sr
    styleUrls: ['./header.component.css'],
    encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
    isLog: boolean = true;
    hasCompany: boolean = true;
    profile: any;
@@ -25,11 +25,6 @@ export class HeaderComponent {
    }
 
    constructor(private router: Router) {
-      this.profile = getProfile();
-
-      if (this.profile.companyId === null) {
-         this.hasCompany = false
-      }
       this.changeHeader();
    }
 
@@ -41,6 +36,12 @@ export class HeaderComponent {
    }
 
    changeHeader() {
+      this.profile = getProfile();
+
+      if (this.profile.companyId === null) {
+         this.hasCompany = false
+      }
+
       this.currentRouter = this.router.url;
 
       for (let i = 0; i < this.headerTitle.length; i++) {
@@ -50,5 +51,10 @@ export class HeaderComponent {
             this.headerTitle[i].value = false
          }
       }
+   }
+
+   ngOnInit() {
+      this.changeHeader()
+      console.log('Component initialized');
    }
 }
