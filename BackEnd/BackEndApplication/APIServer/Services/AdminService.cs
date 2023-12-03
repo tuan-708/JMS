@@ -126,9 +126,9 @@ namespace APIServer.Services
 
         public int UpdateActiveStatus(int? recruiterId, int? candidateId)
         {
-            if(recruiterId == null || candidateId == null)
+            if(recruiterId == null && candidateId == null)
                 throw new ArgumentNullException("Input not valid");
-            if (recruiterId < 1 || candidateId < 1)
+            if (recruiterId < 1 && candidateId < 1)
                 throw new ArgumentNullException("Input not valid");
             return _adminContext.UpdateActiveStatus(recruiterId, candidateId);
         }
