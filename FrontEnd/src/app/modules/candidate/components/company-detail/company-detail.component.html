@@ -18,8 +18,8 @@
 
 					<div class="d-flex">
 						<div style="color: var(--textColor1);" class="categoryCompany">
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-								style="margin-right: 10px;">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;">
 								<g clip-path="url(#clip0_533_6629)">
 									<path
 										d="M4.02887 4C3.19226 4 2.51464 4.67762 2.51464 5.51423V7.78557V9.29979H16.8998H20.6854V7.02845C20.6854 6.19184 20.0077 5.51423 19.1711 5.51423H9.47949L9.01221 4.73493C8.73889 4.27915 8.24613 4 7.71388 4H4.02887ZM2.13757 10.814C1.37364 10.814 0.82659 11.554 1.0507 12.2839L3.29837 19.5874C3.49447 20.2226 4.08131 20.6565 4.74606 20.6565H11.6H18.4539C19.1187 20.6565 19.7055 20.2226 19.9016 19.5874L22.1493 12.2839C22.3734 11.554 21.8264 10.814 21.0624 10.814H11.6H2.13757Z"
@@ -120,9 +120,13 @@
 							Địa chỉ: {{company?.address ? company?.address : "Không công khai"}}
 						</span>
 					</div>
-					<iframe style="border-radius: 30px;" width="100%" height="300"
-						src="https://maps.google.com/maps?width=100%&amp;height=300&amp;hl=en&amp;q=14 Trần Kim Xuyến, Phường Yên Hoà, Quận Cầu Giấy, Thành phố Hà Nội, Việt Nam&amp;ie=UTF8&amp;t=&amp;z=18&amp;iwloc=B&amp;output=embed"
-						frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+					<iframe style="border-radius: 30px;" width="100%" height="300" src="https://maps.google.com/maps?width=100%&amp;height=300&amp;hl=en&amp;q=14 Trần Kim Xuyến, Phường Yên Hoà, Quận Cầu Giấy, Thành phố Hà Nội, Việt Nam&amp;ie=UTF8&amp;t=&amp;z=18&amp;iwloc=B&amp;output=embed" frameborder="0"
+						scrolling="no" marginheight="0" marginwidth="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+					<!-- <iframe
+						[src]="linkMap"
+						width="100%" height="350" style="border:0;" loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"></iframe> -->
 				</div>
 
 			</div>

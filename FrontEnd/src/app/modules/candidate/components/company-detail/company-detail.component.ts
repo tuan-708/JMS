@@ -3,6 +3,7 @@ import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
    selector: 'app-company-detail',
@@ -14,7 +15,6 @@ export class CompanyDetailComponent {
 
    company: any;
    Url = environment.Url;
-   linkMap: any;
    htmlContent: any;
    countJob: number = 0
 

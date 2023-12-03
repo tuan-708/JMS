@@ -101,9 +101,9 @@
    box-shadow: var(--boxShadow1);
    height: 700px;
    border-radius: 20px 20px 20px 20px;
-   overflow: hidden;
    width: 70%;
    position: relative;
+   overflow: hidden;
 }
 
 .contentMoreRight {
@@ -130,6 +130,8 @@
 
 .contentDetailLeft {
    padding: 15px 20px 15px 20px;
+   height: 660px;
+   overflow-x: scroll;
 }
 
 .contentDetailRight {
