@@ -128,6 +128,7 @@ button {
    top: 5px;
    right: 5px;
    z-index: 2;
+   color: white;
 }
 
 .notApplied {
@@ -140,6 +141,20 @@ button {
    top: 5px;
    right: 5px;
    z-index: 2;
+   color: white;
+}
+
+.rejectCv{
+   width: 150px;
+   text-align: center;
+   background-color: crimson;
+   border-radius: 15px;
+   position: absolute;
+   padding: 5px 10px 5px 10px;
+   top: 5px;
+   right: 5px;
+   z-index: 2;
+   color: white;
 }
 
 .btnEdit {

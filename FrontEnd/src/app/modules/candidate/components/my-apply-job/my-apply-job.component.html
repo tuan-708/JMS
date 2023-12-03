@@ -44,7 +44,7 @@
 
             <i class="fa-regular fa-eye btnEdit" (click)="openViewCVDialog(jd)"></i>
             <div class="aplied" *ngIf="jd.isSelected">Đã ứng tuyển</div>
-            <div class="notApplied" *ngIf="jd.isReject">Đang đợi duyệt</div>
+            <div class="rejectCv" *ngIf="jd.isReject">Đã bị loại</div>
             <div class="notApplied" *ngIf="!jd.isSelected && !jd.isReject">Đang đợi duyệt</div>
 
          </div>
