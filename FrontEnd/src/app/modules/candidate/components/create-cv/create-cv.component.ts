@@ -49,7 +49,7 @@ export class CandidateCreateCvComponent {
          })
    }
 
-   getAllTitle(){
+   getAllTitle() {
       getRequest(apiRecruiter.GET_ALL_LEVEL_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.levels = res.data
@@ -59,7 +59,7 @@ export class CandidateCreateCvComponent {
          })
    }
 
-   getAllEmploymentType(){
+   getAllEmploymentType() {
       getRequest(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.employmentTypes = res.data
@@ -262,6 +262,11 @@ export class CandidateCreateCvComponent {
       return educations
    }
 
+   isValidDate(date: string) {
+      const regex = /^(0[1-9]|1[0-2])\/\d{4}$/;
+      return regex.test(date)
+   }
+
    validInput() {
       var massage = ""
       var valid = true;
@@ -288,10 +293,32 @@ export class CandidateCreateCvComponent {
       if ($(".inputDob")[0].value == "") {
          massage += "- Ngày sinh không được để trống <br/>"
          var valid = false;
+      } else {
+
       }
 
       if ($(".cvTitle")[0].value == "") {
          massage += "- Tên hồ sơ không được để trống <br/>"
+         var valid = false;
+      }
+
+      var fromDate = []
+      var inputs = $(".fromDateExperience");
+      for (const input of inputs) { fromDate.push($(input).val()) }
+
+      let isValidFromDate = fromDate.every((item: any) => this.isValidDate(item))
+      if (!isValidFromDate) {
+         massage += "- Năm băt đầu kinh nghiệm là trường bắt buộc (mm/yyyy)<br/>"
+         var valid = false;
+      }
+
+      var toDate = []
+      var inputs = $(".toDateExperience");
+      for (const input of inputs) { toDate.push($(input).val()) }
+
+      let isValidToDate = fromDate.every((item: any) => this.isValidDate(item))
+      if (!isValidToDate) {
+         massage += "- Năm kết thúc kinh nghiệm là trường bắt buộc (mm/yyyy)<br/>"
          var valid = false;
       }
 
@@ -358,39 +385,36 @@ export class CandidateCreateCvComponent {
             'font': font
          }
 
-         const isLog = isLogin();
-         if (isLog) {
-            postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
-               .then(res => {
-                  if (res?.statusCode == 201) {
-                     const cvIdCreated = res?.data
+         postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
+            .then(res => {
+               if (res?.statusCode == 201) {
+                  const cvIdCreated = res?.data
 
-                     if (this.onChangeAvatar) {
-                        if ($('#avatarCv')[0].files[0]) {
+                  if (this.onChangeAvatar) {
+                     if ($('#avatarCv')[0].files[0]) {
 
-                           let formData: FormData = new FormData();
-                           let file: File = $('#avatarCv')[0].files[0];
-                           formData.append('file', file, file.name);
+                        let formData: FormData = new FormData();
+                        let file: File = $('#avatarCv')[0].files[0];
+                        formData.append('file', file, file.name);
 
-                           postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.BEARER_TOKEN, formData)
-                              .then(res => {
-                                 console.log(res);
-                              })
-                              .catch(data => {
-                                 showError(this.toastr, "Lỗi đăng ảnh hồ sơ")
-                                 console.log(data);
-                              })
-                        }
+                        postFileRequest(`${apiCandidate.UPDATE_IMAGES_CV}/${this.profile.id}/${cvIdCreated}`, AuthorizationMode.BEARER_TOKEN, formData)
+                           .then(res => {
+                              console.log(res);
+                           })
+                           .catch(data => {
+                              showError(this.toastr, "Lỗi đăng ảnh hồ sơ")
+                              console.log(data);
+                           })
                      }
-
-                     showSuccess(this.toastr, "Tạo hồ sơ thành công")
                   }
-               })
-               .catch(data => {
-                  showError(this.toastr, "Đã có lỗi xảy ra, xem lại trường dữ liệu")
-                  console.log(data);
-               })
-         }
+
+                  showSuccess(this.toastr, "Tạo hồ sơ thành công")
+               }
+            })
+            .catch(data => {
+               showError(this.toastr, "Đã có lỗi xảy ra, xem lại trường dữ liệu")
+               console.log(data);
+            })
       }
    }
 
@@ -420,7 +444,7 @@ export class CandidateCreateCvComponent {
 
    SelectedBackGround(value: any) {
       this.id = value
-      
+
       this.colorLeftHeader = themeList[value].colorLeftHeader
       this.colorRightHeader = themeList[value].colorRightHeader
       this.colorLeftInput = themeList[value].colorLeftInput

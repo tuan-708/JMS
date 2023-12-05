@@ -114,7 +114,7 @@ export class ChangePasswordComponent {
                }
             })
             .catch(res => {
-               showError(this.toastr, "Đã có lỗi xảy ra")
+               showError(this.toastr, "Đã có lỗi xảy ra, vui lòng thử lại sau")
                console.warn(res);
             })
       } else {

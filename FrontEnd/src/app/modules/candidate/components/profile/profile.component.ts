@@ -72,9 +72,6 @@ export class ProfileComponent {
             }
          })
          .catch(error => {
-            this.router.navigate(['/candidate/sign-in']);
-            showInfo(this.toastr, "Phiên đăng nhập hết hạn")
-            signOut()
          })
    }
 

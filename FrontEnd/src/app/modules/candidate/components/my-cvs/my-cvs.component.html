@@ -35,21 +35,25 @@
                </a>
             </div>
 
+
             <div class="row mt-4 d-flex blockCV">
                <div *ngIf="!listCVs" style="height: 400px;">
                   <app-view-loading></app-view-loading>
                </div>
 
-               <div class="col-5 itemCv" *ngFor="let cv of listCVs">
+               <div class="itemCv" *ngFor="let cv of listCVs">
                   <div class="d-flex">
                      <div class="imageCV">
                         <img src="{{Url}}/assets/templateCV/theme{{ cv?.theme + 1 }}.png" alt="...">
                      </div>
                      <div class="contentItem">
                         <div class="textBold mb-1">- {{ cv.cvTitle}}</div>
-                        <div class="textStyle mb-1">- Vị trí ứng tuyển: {{ cv.positionTitleName ? cv.positionTitleName :
+                        <div class="textStyle mb-1">- Vị trí ứng tuyển: {{ cv.categoryName ? cv.categoryName :
                            "Chưa cập nhật" }}</div>
-                        <div class="textStyle">- Cập nhật gần nhất {{ cv?.lastUpdateDateDisplay}} </div>
+                        <div class="textStyle">- Cập nhật gần nhất:</div>
+                        <div class="textStyle">
+                           {{ cv?.lastUpdateDateDisplay}}
+                        </div>
                      </div>
 
                   </div>
@@ -63,6 +67,8 @@
                   </div>
                </div>
             </div>
+
+
 
             <!-- Modal HTML embedded directly into document -->
             <div id="ex2" class="modal">

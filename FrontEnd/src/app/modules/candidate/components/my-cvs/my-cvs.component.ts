@@ -8,6 +8,7 @@ import { ViewCvComponent } from '../view-cv/view-cv.component';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { showError, showSuccess } from 'src/app/service/common';
 declare var $: any;
 
 @Component({
@@ -37,6 +38,14 @@ export class CandidateMyCvsComponent {
       });
    }
 
+   convertDate(date: string){
+      var d = date.split("/")
+      if(d){
+         return `${d[1]}-${d[0]}-${d[2]}`
+      }  
+      return ''
+   }
+
    constructor(public dialog: MatDialog, private router: Router, private toastr: ToastrService) {
 
       this.profile = getProfile();
@@ -45,9 +54,8 @@ export class CandidateMyCvsComponent {
          .then(res => {
             this.listCVs = res?.data
 
-            this.listCVs.map((item:any) => console.log(item.lastUpdateDateDisplay))
-
-            console.log(this.listCVs[0].lastUpdateDateDisplay);
+            this.listCVs.map((item:any, index: any) =>  this.listCVs[index].lastUpdateDateDisplay = this.convertDate(item.lastUpdateDateDisplay))
+            console.log(this.listCVs);
          })
          .catch(data => {
          })
@@ -60,9 +68,6 @@ export class CandidateMyCvsComponent {
             }
          })
          .catch(data => {
-            this.router.navigate(['/candidate/sign-in']);
-            this.showTokenExpiration()
-            signOut()
          })
    }
 
@@ -74,33 +79,12 @@ export class CandidateMyCvsComponent {
       this.router.navigate([`/candidate/update-cv/`]);
    }
 
-   showSuccess() {
-      this.toastr.success('Xoá hồ sơ thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showError() {
-      this.toastr.error('Xoá hồ sơ thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
 
    onClickDelete(id: number) {
       postRequest(`${apiCandidate.DELETE_CV_BY_ID}?candidateId=${this.profile.id}&cvId=${id}`, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             if (res?.statusCode) {
-               this.showSuccess()
+               showSuccess(this.toastr, "Xoá hồ sơ thành công")
 
                getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
                   .then(res => {
@@ -112,9 +96,7 @@ export class CandidateMyCvsComponent {
             }
          })
          .catch(data => {
-            this.router.navigate(['/candidate/sign-in']);
-            this.showTokenExpiration()
-            signOut()
+            showError(this.toastr, "Xoá hồ sơ thất bại")
          })
 
    }
@@ -146,18 +128,15 @@ export class CandidateMyCvsComponent {
                      console.log(this.listCVs);
                   })
                   .catch(data => {
-                     this.router.navigate(['/candidate/sign-in']);
-                     this.showTokenExpiration()
-                     signOut()
                   })
 
             } else {
-               this.showError()
+               showError(this.toastr, "Thay đổi trạng thái thất bại, vui lòng thử lại sau")
             }
          })
          .catch(data => {
-            this.showError()
-            console.error(apiCandidate.LOGIN_CANDIDATE);
+            showError(this.toastr, "Thay đổi trạng thái thất bại, vui lòng thử lại sau")
+            console.error(apiCandidate.CHANGE_FINDING_JOB_STATUS);
          })
 
    }

@@ -46,7 +46,7 @@
 }
 
 .textStyle {
-   width: 200px;
+   width: 220px;
    -webkit-line-clamp: 2;
    display: -webkit-box;
    -webkit-box-orient: vertical;
@@ -208,9 +208,8 @@
 
 .blockCV {
    gap: 40px;
-   align-items: center;
-   justify-content: center;
-
+   width: 100%;
+   margin-left: -1px;
 }
 
 .itemCv {
@@ -219,6 +218,7 @@
    border-radius: 15px;
    height: 200px;
    position: relative;
+   width: calc((100% - 40px)/2);
 }
 
 .imageCV {

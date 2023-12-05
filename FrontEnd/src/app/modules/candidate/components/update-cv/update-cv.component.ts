@@ -50,13 +50,6 @@ export class UpdateCvComponent {
       return d[2] + "-" + d[1] + "-" + d[0]
    }
 
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
    constructor(private route: ActivatedRoute, private toastr: ToastrService, private router: Router) {
       this.profile = getProfile()
 
@@ -117,19 +110,11 @@ export class UpdateCvComponent {
          })
          .catch(data => {
             console.log(data);
-
-            // this.router.navigate(['/candidate/sign-in']);
-            // this.showTokenExpiration()
-            // signOut()
          })
    }
 
    getValueSkills() {
-      var titleSkills: any[] = [];
       var descriptionSkills: any[] = [];
-
-      // var inputs = $(".skillTitle");
-      // for (const input of inputs) { titleSkills.push($(input).val()) }
 
       var inputs = $(".skillDescription");
       for (const input of inputs) { descriptionSkills.push($(input).val()) }
@@ -413,7 +398,7 @@ export class UpdateCvComponent {
                            console.log(res);
                         })
                         .catch(data => {
-                           showError(this.toastr, "Upload ảnh thất bại")
+                           showError(this.toastr, "Cập nhật ảnh thất bại")
                            console.log(data);
                         })
                   }

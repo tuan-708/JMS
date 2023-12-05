@@ -240,10 +240,10 @@
 
                   <!-- Input Time Certificates  -->
                   <div class="mt-1 d-flex">
-                     <input type="text" placeholder="Bắt đầu" class="form-info-input width50 issuedDateCertificate"
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input width50 issuedDateCertificate"
                         value="{{ ce?.issuedDate }}" [style.color]="colorLeftInput" [class]="ThemStyle">
                      <div>-</div>
-                     <input type="text" placeholder="Kết thúc" class="form-info-input width50 expiredDateCertificate"
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input width50 expiredDateCertificate"
                         value="{{ ce?.expiredDate }}" [style.color]="colorLeftInput" [class]="ThemStyle">
                   </div>
 
@@ -360,10 +360,10 @@
                         class="form-info-input-right mt-2 positionOfCompany" [style.color]="colorRightHeader"
                         [class]="ThemStyle">
                      <span>//</span>
-                     <input type="text" placeholder="Bắt đầu" value="{{ ex?.fromDate}}"
+                     <input type="text" placeholder="mm/yyyy" value="{{ ex?.fromDate}}"
                         class="form-info-input-Right-Date mt-2 fromDateExperience" [class]="ThemStyle">
                      <span>-</span>
-                     <input type="text" placeholder="Kết thúc" value="{{ ex?.toDate }}"
+                     <input type="text" placeholder="mm/yyyy" value="{{ ex?.toDate }}"
                         class="form-info-input-Right-Date mt-2 toDateExperience" [class]="ThemStyle">
                   </div>
 
@@ -397,10 +397,10 @@
                      <input type="text" value="{{ pr?.projectName }}" placeholder="Tên dự án"
                         class="form-info-input-right mt-2 projectName" [class]="ThemStyle">
                      <span>//</span>
-                     <input type="text" value="{{ pr?.fromDate}}" placeholder="Bắt đầu"
+                     <input type="text" value="{{ pr?.fromDate}}" placeholder="mm/yyyy"
                         class="form-info-input-Right-Date mt-2 fromDateProject" [class]="ThemStyle">
                      <span>-</span>
-                     <input type="text" value="{{ pr?.toDate }}" placeholder="Kết thúc"
+                     <input type="text" value="{{ pr?.toDate }}" placeholder="mm/yyyy"
                         class="form-info-input-Right-Date mt-2 toDateProject" [class]="ThemStyle">
                   </div>
                   <div>
@@ -438,10 +438,10 @@
                      <input type="text" placeholder="Ngành học - môn học " value="{{ ed?.majorName}}"
                         class="form-info-input-right mt-2 majorName" [class]="ThemStyle">
                      <span>//</span>
-                     <input type="text" placeholder="Bắt đầu" value="{{ ed?.fromYear}}"
+                     <input type="text" placeholder="mm/yyyy" value="{{ ed?.fromYear}}"
                         class="form-info-input-Right-Date mt-2 fromYearEducation" [class]="ThemStyle">
                      <span>-</span>
-                     <input type="text" placeholder="Kết thúc" value="{{ ed.toYear}}"
+                     <input type="text" placeholder="mm/yyyy" value="{{ ed.toYear}}"
                         class="form-info-input-Right-Date mt-2 toYearEducation" [class]="ThemStyle">
                   </div>
 

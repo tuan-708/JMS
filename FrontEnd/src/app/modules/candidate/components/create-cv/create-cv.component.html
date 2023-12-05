@@ -227,10 +227,10 @@
 
                   <!-- Input Time Certificates  -->
                   <div class="mt-1 d-flex">
-                     <input type="text" placeholder="Bắt đầu" class="form-info-input width50 issuedDateCertificate"
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input width50 issuedDateCertificate"
                         [style.color]="colorLeftInput" [class]="ThemStyle">
                      <div>-</div>
-                     <input type="text" placeholder="Kết thúc" class="form-info-input width50 expiredDateCertificate"
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input width50 expiredDateCertificate"
                         [style.color]="colorLeftInput" [class]="ThemStyle">
                   </div>
 
@@ -291,11 +291,11 @@
                <!-- Header  Title-->
                <div style="display: flex;">
                   <div style="line-height: 40px; font-weight: 600; font-size: 21px; white-space: pre;">
-                     Họ và tên: 
-                  </div> 
+                     Họ và tên:
+                  </div>
                   <div>
                      <input type="text" placeholder="Họ và tên" class="form-right--header mt-2 displayName"
-                     [style.color]="colorRightHeader" [class]="ThemStyle">
+                        [style.color]="colorRightHeader" [class]="ThemStyle">
                   </div>
                </div>
             </div>
@@ -333,9 +333,10 @@
                         class="form-info-input-right mt-2 positionOfCompany" [style.color]="colorRightHeader"
                         [class]="ThemStyle">
                      <span>//</span>
-                     <input type="text" placeholder="Bắt đầu" class="form-info-input-Right-Date mt-2 fromDateExperience"
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input-Right-Date mt-2 fromDateExperience"
                         [class]="ThemStyle">
-                     <input type="text" placeholder="Kết thúc" class="form-info-input-Right-Date mt-2 toDateExperience"
+                     <span>-</span>
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input-Right-Date mt-2 toDateExperience"
                         [class]="ThemStyle">
                   </div>
 
@@ -369,9 +370,10 @@
                      <input type="text" placeholder="Tên dự án" class="form-info-input-right mt-2 projectName"
                         [class]="ThemStyle">
                      <span>//</span>
-                     <input type="text" placeholder="Bắt đầu" class="form-info-input-Right-Date mt-2 fromDateProject"
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input-Right-Date mt-2 fromDateProject"
                         [class]="ThemStyle">
-                     <input type="text" placeholder="Kết thúc" class="form-info-input-Right-Date mt-2 toDateProject"
+                     <span>-</span>
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input-Right-Date mt-2 toDateProject"
                         [class]="ThemStyle">
                   </div>
                   <div>
@@ -407,9 +409,10 @@
                      <input type="text" placeholder="Ngành học - môn học " class="form-info-input-right mt-2 majorName"
                         [class]="ThemStyle">
                      <span>//</span>
-                     <input type="text" placeholder="Bắt đầu" class="form-info-input-Right-Date mt-2 fromYearEducation"
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input-Right-Date mt-2 fromYearEducation"
                         [class]="ThemStyle">
-                     <input type="text" placeholder="Kết thúc" class="form-info-input-Right-Date mt-2 toYearEducation"
+                     <span>-</span>
+                     <input type="text" placeholder="mm/yyyy" class="form-info-input-Right-Date mt-2 toYearEducation"
                         [class]="ThemStyle">
                   </div>
 

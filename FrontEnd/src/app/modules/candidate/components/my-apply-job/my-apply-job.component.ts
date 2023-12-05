@@ -21,14 +21,6 @@ export class MyApplyJobComponent {
    itemsPerPage = 9;
    totalItems = 0;
 
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
    constructor(private router: Router, private toastr: ToastrService, public dialog: MatDialog) {
       this.profile = getProfile();
 
