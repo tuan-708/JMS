@@ -44,26 +44,18 @@ export class ListCandidateComponent {
 
    async openListCandidateLeft(): Promise<void> {
       if (this.isShowLeftMatched == true) return;
-      
-      let pageLength = 0
-      let currentPage = 1
-      do {         
-         await getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId, pageIndex: currentPage })
+
+      await getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId})
          .then(res => {
             if (res.statusCode === 200 && res.data != null) {
-               this.data.content = this.data.content.concat(res.data)
+               this.data.content = res.data
                this.getPageRange()
                this.isShowLeftMatched = true
-
-               //get more page
-               pageLength = res.totalPage
-               currentPage++
             }
          })
          .catch(data => {
             console.warn(data);
          })
-      } while (currentPage <= pageLength);
    }
 
    openViewCVModal(jd: any) {
@@ -112,7 +104,7 @@ export class ListCandidateComponent {
                if (index !== -1) {
                   this.listDisplay.splice(index, 1);
                }
-            }else{
+            } else {
                this.showFail()
             }
          })

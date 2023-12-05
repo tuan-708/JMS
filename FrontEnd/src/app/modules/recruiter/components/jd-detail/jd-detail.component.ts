@@ -97,21 +97,7 @@ export class JdDetailComponent {
       const typeCandidate = type == 0 ? apiRecruiter.GET_CV_MATCHED : type == 1 ? apiRecruiter.GET_CV_MATCHED_LEFT : apiRecruiter.GET_CV_SELECTED
       await getRequest(typeCandidate, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: 1 })
          .then(async res => {
-            this.listCandidate = res.data
-
-            if (res.totalPage > 1) {
-               for (let i = 2; i <= res.totalPage; i++) {
-                  await getRequest(typeCandidate, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.jdDetail.recuirterId, jobDescriptionId: this.jdDetail.jobId, pageIndex: i })
-                     .then(res => {
-                        if (res.statusCode === 200) {
-                           this.listCandidate = this.listCandidate.concat(res.data)                           
-                        }
-                     })
-                     .catch(data => {
-                        console.warn(data);
-                     })
-               }
-            }            
+            this.listCandidate = res.data           
             this.dialog.open(ListCandidateComponent, {
                width: '60%',
                data: { listType: type, recruiterId: this.jdDetail.recuirterId, jdId: this.jdDetail.jobId, content: this.listCandidate }
