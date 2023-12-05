@@ -30,7 +30,7 @@ export class JdDetailComponent {
    JDId: any;
    profile: any
    selectedCV = "0"
-
+   isLogin = false
    pending = false
 
    convertStringDateInput(str: string) {
@@ -52,7 +52,7 @@ export class JdDetailComponent {
 
    constructor(private route: ActivatedRoute, private toastr: ToastrService, private router: Router) {
       this.profile = getProfile();
-
+      this.isLogin = this.profile !== null
       let id: any;
       this.route.params.subscribe(params => {
          id = params['id'];
@@ -83,16 +83,17 @@ export class JdDetailComponent {
          .catch(error => {
          })
 
-      getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
-         .then(res => {
-
-            this.listCvs = res?.data;
-            console.log(this.listCvs);
-
-         })
-         .catch(data => {
-         })
-
+         if(this.isLogin){
+            getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
+            .then(res => {
+   
+               this.listCvs = res?.data;
+               console.log(this.listCvs);
+   
+            })
+            .catch(data => {
+            })
+         }
    }
 
 

@@ -91,7 +91,7 @@
 
                <ng-template #ExpiredDate>
                   <!-- Link to open the modal -->
-                  <a href="#ex1" class="btnRecruiment" rel="modal:open">Ứng tuyển ngay</a>
+                  <a *ngIf="isLogin" href="#ex1" class="btnRecruiment" rel="modal:open">Ứng tuyển ngay</a>
                </ng-template>
 
 
@@ -262,7 +262,7 @@
                      <div class="line"></div>
 
                      <div class="d-flex itemSmall">
-                        <i class="fa-solid fa-person"></i>
+                        <i class="fa-solid fa-user"></i>
                         <div class="contentItemSmal">
                            <div>Nhà sáng lập</div>
                            <div>{{ jd?.companyDTO?.recuirterFounder }}</div>
@@ -272,10 +272,10 @@
                      <div class="line"></div>
 
                      <div class="d-flex itemSmall">
-                        <i class="fa-solid fa-briefcase"></i>
+                        <i class="fa-solid fa-building"></i>
                         <div class="contentItemSmal">
-                           <div>Lĩnh vực</div>
-                           <div>{{ jd?.companyDTO?.categoryName}}</div>
+                           <div>Năm thành lập</div>
+                           <div>{{ jd?.companyDTO?.yearOfEstablishment }}</div>
                         </div>
                      </div>
 
@@ -289,8 +289,12 @@
                         </div>
                      </div>
                      <div class="line"></div>
-                     <div>
-                        Link web: {{ jd?.companyDTO?.webURL}}
+                     <div class="d-flex itemSmall">
+                        <i class="fa-solid fa-globe"></i>
+                        <div class="contentItemSmal">
+                           <div>Website</div>
+                           <div><a href= '{{ jd?.companyDTO?.webURL}}' target="_blank">{{ jd?.companyDTO?.webURL}}</a></div>
+                        </div>
                      </div>
                   </div>
                </div>

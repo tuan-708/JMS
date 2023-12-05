@@ -213,7 +213,6 @@ export class CreateCompanyComponent {
                }, 1000);
 
                setTimeout(() => {
-                  this.showSuccess()
                   if (res.data.companyId) {
                      this.router.navigate(['/recruiter/list-jds']);
                   } else {
