@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { ViewCvComponent } from 'src/app/modules/candidate/components/view-cv/view-cv.component';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
+import { showError, showSuccess } from 'src/app/service/common';
 import { AVATAR_DEFAULT_URL, AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 @Component({
    selector: 'app-list-candidate',
@@ -99,17 +100,17 @@ export class ListCandidateComponent {
       postRequest(`${apiRecruiter.REJECT_CV}?recruiterId=${this.data.recruiterId}&jobDescriptionId=${this.data.jdId}&CVMatchingId=${cv.id}`, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             if (res.statusCode == 200) {
-               this.showSuccess()
+               showSuccess(this.toastr, "Xoá thành công hồ sơ")
                const index = this.listDisplay.indexOf(cv);
                if (index !== -1) {
                   this.listDisplay.splice(index, 1);
                }
             } else {
-               this.showFail()
+               showError(this.toastr, "Xoá thất bại hồ sơ <br/> Vui lòng thử lại sau")
             }
          })
          .catch(data => {
-            this.showFail()
+            showError(this.toastr, "Xoá thất bại hồ sơ <br/> Vui lòng thử lại sau")
          })
    }
 
@@ -123,21 +124,6 @@ export class ListCandidateComponent {
          if (result === true) {
             this.onClickRejectCv(jd);
          }
-      });
-   }
-
-   showSuccess() {
-      this.toastr.success('Xoá thành công hồ sơ', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showFail() {
-      this.toastr.error('Xoá thất bại hồ sơ <br/> Vui lòng thử lại sau!', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-         enableHtml: true
       });
    }
 }

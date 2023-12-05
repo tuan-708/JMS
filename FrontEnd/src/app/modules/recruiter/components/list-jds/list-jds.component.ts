@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { getToken, saveItem, signOut, getProfile } from 'src/app/service/localstorage';
 import { ToastrService } from 'ngx-toastr';
+import { showError, showSuccess } from 'src/app/service/common';
 
 
 @Component({
@@ -91,32 +92,17 @@ export class ListJdsComponent {
       this.router.navigate(['/recruiter/jd-detail', jd?.jobId]);
    }
 
-   showSuccess() {
-      this.toastr.success('Xoá công việc thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showFail() {
-      this.toastr.error('Xoá công việc thất bại <br/> Vui lòng thử lại sau', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-         enableHtml: true
-      });
-   }
-
    onClickDelete(jd: any) {
       //API handle delete JD
       postRequest(`${apiRecruiter.DELETE_JD_BY_ID}/${this.profile.id}/${jd?.jobId}`, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             if (res.statusCode == 200) {
-               this.showSuccess()
+               showSuccess(this.toastr, "Xoá công việc thành công")
                jd.isShow = false;
             }
          })
          .catch(data => {
-            this.showFail()
+            showError(this.toastr, "Xoá công việc thất bại <br/> Vui lòng thử lại sau")
          })
    }
 

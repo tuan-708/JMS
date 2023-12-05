@@ -48,7 +48,6 @@ export class ViewCvComponent {
       this.colorLeftInput = themeList[data.jd.theme].colorLeftInput
       this.ThemStyle = themeList[data.jd.theme].ThemStyle
       this.backgroudSelectedLink = themeList[data.jd.theme].backgroudSelectedLink
-      
       this.fontCV = data.jd.font
    }
 

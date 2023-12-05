@@ -6,7 +6,7 @@ import { AuthorizationMode, RECRUITER_TOKEN, apiRecruiter } from 'src/app/servic
 import { getItem, getProfile, isLogin, saveItem, signOut } from 'src/app/service/localstorage';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { showError } from 'src/app/service/common';
+import { showError, showSuccess } from 'src/app/service/common';
 
 @Component({
    selector: 'app-company-register',
@@ -104,28 +104,6 @@ export class CreateCompanyComponent {
 
    checkReq: any = false;
 
-   showSuccess() {
-      this.toastr.success('Đăng ký công ty thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showFail() {
-      this.toastr.error('Đăng ký công ty thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
    submitButtonClicked() {
 
       if (this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid
@@ -163,15 +141,14 @@ export class CreateCompanyComponent {
          postRequest(apiRecruiter.CREATE_COMPANY_BY_ID + "/" + profile.id, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
                if (res.statusCode === 201) {
-                  this.showSuccess();
+                  showSuccess(this.toastr, "Đăng ký công ty thành công")
                   this.updateAccount();
                } else {
-                  showError(this.toastr, "Tạo công ty thất bại, vui lòng thử lại!")
+                  showError(this.toastr, "Tạo công ty thất bại, vui lòng thử lại")
                }
-
             })
             .catch(data => {
-               this.showFail()
+               showError(this.toastr, "Tạo công ty thất bại, vui lòng thử lại")
             })
       }
 
@@ -184,7 +161,6 @@ export class CreateCompanyComponent {
       this.addressRq.markAllAsTouched()
       this.phoneRq.markAllAsTouched()
       this.descriptionRq.markAllAsTouched()
-
 
       return
    }

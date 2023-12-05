@@ -45,6 +45,8 @@ export enum apiRecruiter {
    REGISTER_ACCOUNT_RECRUITER = "/api/Registers/register-for-recuirter",
    UPDATE_PROFILE = "/api/Recuirter/update-profile",
    CHANGE_PASSWORD = "/api/Recuirter/change-password",
+   FORGOT_PASSWORD_RECRUITER = "/api/Email/forgot-recruiter-password",
+
 
    //Company
    GET_COMPANY_JDS_PAGING = "/api/JobDesc/all-jd-by-company",

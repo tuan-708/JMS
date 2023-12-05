@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postFileRequest, postRequest } from 'src/app/service/api-requests';
+import { showError, showInfo, showSuccess } from 'src/app/service/common';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { getProfile, getToken, saveItem, saveToken, signOut } from 'src/app/service/localstorage';
 
@@ -55,42 +56,6 @@ export class ProfileComponent {
       return false
    }
 
-   showSuccess() {
-      this.toastr.success('Chỉnh sửa thông tin cá nhân thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showError() {
-      this.toastr.error('Chỉnh sửa thông tin cá nhân thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showInfoInput() {
-      this.toastr.info('Điền các trường ở bên dưới', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showUploadAvatarSuccess() {
-      this.toastr.success('Chỉnh sửa ảnh thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
    getProfile = () => {
       var token = getToken()
 
@@ -108,7 +73,7 @@ export class ProfileComponent {
          })
          .catch(error => {
             this.router.navigate(['/candidate/sign-in']);
-            this.showTokenExpiration()
+            showInfo(this.toastr, "Phiên đăng nhập hết hạn")
             signOut()
          })
    }
@@ -127,12 +92,12 @@ export class ProfileComponent {
          postFileRequest(`${apiCandidate.UPDATE_AVATAR_CANDIDATE}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, formData)
             .then(res => {
                if (res.statusCode == 200) {
-                  this.showUploadAvatarSuccess()
+                  showSuccess(this.toastr, "Chỉnh sửa ảnh thành công")
                   this.getProfile()
                }
             })
             .catch(data => {
-               this.showError()
+               showError(this.toastr, "Chỉnh sửa ảnh thất bại")
                console.log(data);
             })
       }
@@ -146,20 +111,20 @@ export class ProfileComponent {
          &fullName=${this.FullName}&phone=${this.Phone}&DOB=${this.Dob}&genderId=${$('input[name="gender"]:checked').val()}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
                if (res.statusCode == 200) {
-                  this.showSuccess()
+                  showSuccess(this.toastr, "Chỉnh sửa thông tin cá nhân thành công")
                   this.getProfile()
                }
                if (res.statusCode == 400) {
-                  this.showError()
+                  showError(this.toastr, "Chỉnh sửa thông tin cá nhân thất bại")
                }
             })
             .catch(res => {
-               this.showError()
+               showError(this.toastr, "Chỉnh sửa thông tin cá nhân thất bại")
                console.warn(res);
 
             })
       } else {
-         this.showInfoInput()
+         showInfo(this.toastr, "Điền các trường ở bên dưới")
       }
    }
 }

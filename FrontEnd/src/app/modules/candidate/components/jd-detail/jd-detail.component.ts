@@ -2,9 +2,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { getProfile, signOut } from 'src/app/service/localstorage';
+import { showError, showInfo, showSuccess } from 'src/app/service/common';
 @Component({
    selector: 'app-jd-detail',
    templateUrl: './jd-detail.component.html',
@@ -40,15 +40,6 @@ export class JdDetailComponent {
       const originalDate: Date = new Date(newDateString);
       return originalDate
    }
-
-
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
 
    constructor(private route: ActivatedRoute, private toastr: ToastrService, private router: Router) {
       this.profile = getProfile();
@@ -86,49 +77,17 @@ export class JdDetailComponent {
          if(this.isLogin){
             getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
-   
                this.listCvs = res?.data;
                console.log(this.listCvs);
-   
             })
             .catch(data => {
             })
          }
    }
 
-
-   showSuccess() {
-      this.toastr.success('Nhà tuyển dụng sẽ duyệt hồ sơ của bạn', 'Thành công', {
-         progressBar: true,
-         timeOut: 5000,
-         enableHtml: true
-      });
-   }
-
-   showError() {
-      this.toastr.error('Ứng tuyển thất bại vui lòng thứ lại sau', 'Thất bại', {
-         progressBar: true,
-         timeOut: 5000,
-      });
-   }
-
-   showErrorDuplicate() {
-      this.toastr.error('Hồ sơ của bạn đã ứng tuyển', 'Thất bại', {
-         progressBar: true,
-         timeOut: 5000,
-      });
-   }
-
-   showInfoChooseCv() {
-      this.toastr.info('Vui lòng chọn hồ sơ ứng tuyển', 'Thông báo', {
-         progressBar: true,
-         timeOut: 5000,
-      });
-   }
-
    validateSubmitCv() {
       if (this.selectedCV == "0") {
-         this.showInfoChooseCv()
+         showInfo(this.toastr, "Vui lòng chọn hồ sơ ứng tuyển")
          return false
       }
       return true
@@ -141,23 +100,23 @@ export class JdDetailComponent {
          postRequest(`${apiCandidate.CANDIDATE_APPLYJOB}?candidateId=${this.profile.id}&CVid=${this.selectedCV}&jobDescriptionId=${this.JDId}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
                if (res?.statusCode == 200) {
-                  this.showSuccess()
+                  showSuccess(this.toastr, "Nhà tuyển dụng sẽ duyệt hồ sơ của bạn")
                   console.log(res);
                   this.pending = false
                }
                if (res?.statusCode == 204) {
-                  this.showErrorDuplicate()
+                  showError(this.toastr, "Hồ sơ của bạn đã ứng tuyển")
                   console.log(res);
                   this.pending = false
                }
                if (res?.statusCode == 400) {
-                  this.showError()
+                  showError(this.toastr, "Ứng tuyển thất bại vui lòng thứ lại sau")
                   console.log(res);
                   this.pending = false
                }
             })
             .catch(data => {
-               this.showError()
+               showError(this.toastr, "Ứng tuyển thất bại vui lòng thứ lại sau")
                console.log(data);
                this.pending = false
             })

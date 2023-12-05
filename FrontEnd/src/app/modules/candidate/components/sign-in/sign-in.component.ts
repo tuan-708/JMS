@@ -4,6 +4,7 @@ import { AuthorizationMode, CANDIDATE_TOKEN, apiCandidate } from 'src/app/servic
 import { ToastrService } from 'ngx-toastr';
 import { saveToken, saveItem, setItem } from 'src/app/service/localstorage';
 import { Router } from '@angular/router';
+import { showError, showSuccess } from 'src/app/service/common';
 
 declare var $: any;
 @Component({
@@ -16,21 +17,6 @@ declare var $: any;
 export class CandidateSignInComponent {
    username: any;
    password: any;
-
-   showSuccess() {
-      this.toastr.success('Đăng nhập thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showError() {
-      this.toastr.error('Tài khoản hoặc mật khẩu không chính xác', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
 
    constructor(private toastr: ToastrService, private router: Router) {
    }
@@ -54,11 +40,11 @@ export class CandidateSignInComponent {
                this.getProfileUser(res?.data)
 
             } else {
-               this.showError()
+               showError(this.toastr, "Tài khoản hoặc mật khẩu không chính xác")
             }
          })
          .catch(data => {
-            this.showError()
+            showError(this.toastr, "Tài khoản hoặc mật khẩu không chính xác")
             console.error(apiCandidate.LOGIN_CANDIDATE);
          })
    }
@@ -73,13 +59,13 @@ export class CandidateSignInComponent {
                }, 1000);
 
                setTimeout(() => {
-                  this.showSuccess()
+                  showSuccess(this.toastr, "Đăng nhập thành công")
                   this.router.navigate(['/candidate/']);
                }, 1000);
             }
          })
          .catch(data => {
-            this.showError()
+            showError(this.toastr, "Token Không hợp lệ")
             console.error(apiCandidate.GET_PROFILE_USER);
          })
    }

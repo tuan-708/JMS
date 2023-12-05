@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
 import { showError, showSuccess } from 'src/app/service/common';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
-import { getProfile, getToken, isLogin, saveItem, signOut } from 'src/app/service/localstorage';
-import { environment } from 'src/environments/environment';
+import { getProfile } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'candidate-change-password',
@@ -36,9 +34,9 @@ export class ChangePasswordComponent {
       this.oldPassword = event
 
       console.log(this.oldPassword);
-      
-      if(this.oldPassword === "" || this.oldPassword === null ) this.invalidOldPassword = true
-      else{
+
+      if (this.oldPassword === "" || this.oldPassword === null) this.invalidOldPassword = true
+      else {
          this.invalidOldPassword = false
       }
 
@@ -101,7 +99,6 @@ export class ChangePasswordComponent {
 
    SubmitForm() {
       if (this.validAllFiled()) {
-
          postRequest(`${apiCandidate.CHANGE_PASSWORD_CANDIDATE}?candidateId=${this.profile.id}
       &oldPassword=${this.oldPassword}&newPassword=${this.newPassword}&confirmPassword=${this.conformPassword}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
@@ -119,7 +116,6 @@ export class ChangePasswordComponent {
             .catch(res => {
                showError(this.toastr, "Đã có lỗi xảy ra")
                console.warn(res);
-
             })
       } else {
          this.showInfoInput()

@@ -7,6 +7,7 @@ import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile } from 'src/app/service/localstorage';
 import { DatePipe } from '@angular/common';
+import { showError, showSuccess } from 'src/app/service/common';
 
 @Component({
    selector: 'app-jd-update',
@@ -287,21 +288,6 @@ export class JdUpdateComponent {
    checkDes: any = false;
    checkBen: any = false;
 
-   showUpdateJDSuccess() {
-      this.toastr.success('Cập nhật bài viết thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showUpdateJDFail() {
-      this.toastr.error('Cập nhật bài viết thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
    submitButtonClicked() {
       if (this.titleRq.valid && this.emailRq.valid && this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.educationRq.valid && this.experienceRq.valid && this.skillRq.valid && this.benefitRq.valid && this.numberRequiredRq.valid && this.levelRq.valid && this.typeRq.valid && this.categoryRq.valid) {
 
@@ -361,18 +347,16 @@ export class JdUpdateComponent {
          postRequest(`${apiRecruiter.UPDATE_JD_BY_RECRUITER}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
                if (res?.statusCode == 200) {
-                  this.showUpdateJDSuccess()
+                  showSuccess(this.toastr, "Cập nhật bài viết thành công")
                }else{
-                  this.showUpdateJDFail()
+                  showError(this.toastr, "Cập nhật bài viết thất bại")
                }
                console.log(res);
             })
             .catch(data => {
-               this.showUpdateJDFail()
+               showError(this.toastr, "Cập nhật bài viết thất bại")
                console.log(data);
             })
-
-
          return
       }
 

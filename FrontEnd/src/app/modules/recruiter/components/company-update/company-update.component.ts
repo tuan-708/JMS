@@ -6,7 +6,7 @@ import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile, signOut } from 'src/app/service/localstorage';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { showError } from 'src/app/service/common';
+import { showError, showSuccess } from 'src/app/service/common';
 
 @Component({
    selector: 'app-company-update',
@@ -137,28 +137,6 @@ export class CompanyUpdateComponent {
 
    checkReq: any = false;
 
-   showUpdateCompanySuccess() {
-      this.toastr.success('Cập nhật thành công công ty', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showUpdateCompanyFail() {
-      this.toastr.error('Cập nhật công ty thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
    submitButtonClicked() {
 
       if (this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid
@@ -195,19 +173,14 @@ export class CompanyUpdateComponent {
          postRequest(apiRecruiter.UPDATE_COMPANY + "/" + recuirterFounder, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
                if(res.statusCode === 200){
-                  this.showUpdateCompanySuccess()
+                  showSuccess(this.toastr, "Cập nhật thành công công ty")
                   this.router.navigate(['/view-company'])
                }else{
                   showError(this.toastr, "Cập nhật thất bại")
                }
-               
                console.log(res);
             })
             .catch(data => {
-               // this.showUpdateCompanyFail()
-               // this.router.navigate(['/recruiter/sign-in']);
-               // this.showTokenExpiration()
-               // signOut()
                showError(this.toastr, "Cập nhật thất bại")
             })
       }
@@ -222,22 +195,7 @@ export class CompanyUpdateComponent {
       this.phoneRq.markAllAsTouched()
       this.descriptionRq.markAllAsTouched()
 
-
       return
-   }
-
-   showChangeAvatarSuccess() {
-      this.toastr.success('Cập nhật logo thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showChangeAvatarCompanyFail() {
-      this.toastr.error('Cập nhật logo thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
    }
 
    loadAvatar(event: any) {
@@ -255,13 +213,12 @@ export class CompanyUpdateComponent {
          postFileRequest(`${apiRecruiter.UPDATE_IMAGE_COMPANY_AVATAR}/${this.profile.id}/${this.profile.companyId}`, AuthorizationMode.PUBLIC, formData)
             .then(res => {
                console.log(res);
-               this.showChangeAvatarSuccess()
+               showSuccess(this.toastr, "Cập nhật logo thành công")
             })
             .catch(data => {
-               this.showChangeAvatarCompanyFail()
+               showError(this.toastr, "Cập nhật logo thất bại")
                console.log(data);
             })
-
 
          this.displayImageAvatar = "block"
 
@@ -275,22 +232,6 @@ export class CompanyUpdateComponent {
       }
    }
 
-
-   showChangeBackgroundSuccess() {
-      this.toastr.success('Cập nhật ảnh nền thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showChangeBackgroundCompanyFail() {
-      this.toastr.error('Cập nhật ảnh nền thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
    loadBackGround(event: any) {
       if (event.target.files && event.target.files[0]) {
 
@@ -302,11 +243,11 @@ export class CompanyUpdateComponent {
          }
          postFileRequest(`${apiRecruiter.UPDATE_IMAGE_COMPANY_BACKGROUND}/${this.profile.id}/${this.profile.companyId}`, AuthorizationMode.PUBLIC, formData)
             .then(res => {
-               this.showChangeBackgroundSuccess()
+               showSuccess(this.toastr, "Cập nhật ảnh nền thành công")
                console.log(res);
             })
             .catch(data => {
-               this.showChangeBackgroundCompanyFail()
+               showError(this.toastr, "Cập nhật ảnh nền thất bại")
                console.log(data);
             })
 

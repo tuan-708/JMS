@@ -50,7 +50,6 @@ export async function getRequest(url: string, authorizationMode: AuthorizationMo
       return res
    } catch (ex) {
       console.log(ex);
-
    }
 
 }

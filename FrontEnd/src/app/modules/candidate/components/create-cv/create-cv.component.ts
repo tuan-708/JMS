@@ -1,7 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
-import DecoupledEditor from 'ckeditor5-custom-build/build/ckeditor';
-import Editor from 'ckeditor5-custom-build/build/ckeditor';
+import { Component } from '@angular/core';
 import { themeList } from './constant';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +6,7 @@ import { getRequest, postFileRequest, postRequest } from 'src/app/service/api-re
 import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/constant';
 import { ToastrService } from 'ngx-toastr';
 import { getProfile, isLogin } from 'src/app/service/localstorage';
+import { showError, showSuccess } from 'src/app/service/common';
 
 declare var $: any;
 
@@ -91,11 +89,7 @@ export class CandidateCreateCvComponent {
    }
 
    getValueSkills() {
-      var titleSkills: any[] = [];
       var descriptionSkills: any[] = [];
-
-      // var inputs = $(".skillTitle");
-      // for (const input of inputs) { titleSkills.push($(input).val())}
 
       var inputs = $(".skillDescription");
       for (const input of inputs) { descriptionSkills.push($(input).val()) }
@@ -268,36 +262,6 @@ export class CandidateCreateCvComponent {
       return educations
    }
 
-   showSuccess() {
-      this.toastr.success('Tạo hồ sơ thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showError() {
-      this.toastr.error('Đã có lỗi xảy ra, xem lại trường dữ liệu', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showErrorUploadImage() {
-      this.toastr.error('Đăng ảnh hồ sơ lỗi', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
-   showErrorInput(message: string) {
-      this.toastr.error(message, 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-         enableHtml: true
-      });
-   }
-
    validInput() {
       var massage = ""
       var valid = true;
@@ -332,7 +296,7 @@ export class CandidateCreateCvComponent {
       }
 
       if (!valid) {
-         this.showErrorInput(massage)
+         showError(this.toastr, massage)
       }
 
       return valid
@@ -343,12 +307,10 @@ export class CandidateCreateCvComponent {
       if (this.validInput()) {
          const displayEmail = $(".inputEmail")[0].value;
          const phone = $(".inputPhone")[0].value;
-
          const address = $(".inputAddress")[0].value;
          const dob = $(".inputDob")[0].value;
          const displayName = $(".displayName")[0].value;
          const careerGoal = $(".careerGoal")[0].value;
-         // const positionTitleName = $(".positionTitleName")[0].value;
          const cvTitle = $(".cvTitle")[0].value;
          const levelId = $(".levelId")[0].value;
          const categoryId = $(".categoryId")[0].value;
@@ -379,7 +341,6 @@ export class CandidateCreateCvComponent {
             'dob': dob,
             "createdDateDisplay": null,
             "lastUpdateDateDisplay": null,
-            // 'positionTitleName': positionTitleName,
             'jobExperiences': experiences,
             'skills': skills,
             'educations': educations,
@@ -416,17 +377,17 @@ export class CandidateCreateCvComponent {
                                  console.log(res);
                               })
                               .catch(data => {
-                                 this.showErrorUploadImage()
+                                 showError(this.toastr, "Lỗi đăng ảnh hồ sơ")
                                  console.log(data);
                               })
                         }
                      }
 
-                     this.showSuccess()
+                     showSuccess(this.toastr, "Tạo hồ sơ thành công")
                   }
                })
                .catch(data => {
-                  this.showError()
+                  showError(this.toastr, "Đã có lỗi xảy ra, xem lại trường dữ liệu")
                   console.log(data);
                })
          }

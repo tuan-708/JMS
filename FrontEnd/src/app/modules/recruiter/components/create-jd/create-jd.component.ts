@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
-import { showError, showInfo } from 'src/app/service/common';
+import { showError, showInfo, showSuccess } from 'src/app/service/common';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile, signOut } from 'src/app/service/localstorage';
 
@@ -215,29 +215,6 @@ export class CreateJdComponent {
    checkDes: any = false;
    checkBen: any = false;
 
-      
-   showCreateJDSuccess() {
-      this.toastr.success('Tạo bài viết thành công', 'Thành công',  {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showCreateJDFail() {
-      this.toastr.error('Tạo bài viết thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
    submitButtonClicked() {            
       if (this.titleRq.valid && this.emailRq.valid && this.addressRq.valid && this.salaryRq.valid && this.descriptionRq.valid && this.educationRq.valid && this.experienceRq.valid && this.skillRq.valid && this.benefitRq.valid && this.numberRequiredRq.valid && this.categoryRq.valid && this.levelRq.valid && this.typeRq.valid) {
 
@@ -295,18 +272,15 @@ export class CreateJdComponent {
          postRequest(`${apiRecruiter.POST_CREATE_JD}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
                if(res.statusCode == 201){
-                  this.showCreateJDSuccess()
+                  showSuccess(this.toastr, "Tạo bài viết thành công")
                   setTimeout(() => this.router.navigate(['/recruiter/list-jds']), 1000);
                }else{
-                  this.showCreateJDFail()
+                  showError(this.toastr, "Tạo bài viết thất bại")
                }
                console.log(res);
             })
             .catch(data => {
-               // this.router.navigate(['/recruiter/sign-in']);
-               // this.showTokenExpiration()
-               // signOut()
-               this.showCreateJDFail()
+               showError(this.toastr, "Tạo bài viết thất bại")
             })
 
 

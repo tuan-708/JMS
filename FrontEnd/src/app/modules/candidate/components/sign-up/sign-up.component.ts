@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
+import { showError, showInfo, showSuccess } from 'src/app/service/common';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 
 @Component({
@@ -62,34 +63,6 @@ export class CandidateRegisterComponent {
       }
    }
 
-   showSuccess() {
-      this.toastr.success('Đăng ký tài khoản thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showError() {
-      this.toastr.error('Đăng ký tài khoản thất bại, vui lòng thử lại sau', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showInfoInput() {
-      this.toastr.info('Điền các trường ở bên dưới', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showInfoNoCheck() {
-      this.toastr.info('Hãy chấp nhận điều khoản của chúng tôi', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
    ChangeStatusCheckbox(event: any){
       this.checkbox = ! this.checkbox 
    }
@@ -114,9 +87,8 @@ export class CandidateRegisterComponent {
 
    Submit() {
       if (this.validAllFiled()) {
-
          if(!this.checkbox){
-            this.showInfoNoCheck()
+            showInfo(this.toastr, "Hãy chấp nhận điều khoản của chúng tôi")
             return
          } 
 
@@ -124,19 +96,19 @@ export class CandidateRegisterComponent {
          &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
             .then(res => {
                if (res.statusCode == 200) {
-                  this.showSuccess()
+                  showSuccess(this.toastr, "Đăng ký tài khoản thành công")
                   this.router.navigate(['/candidate/sign-in']);
                } else {
-                  this.showError()
+                  showError(this.toastr, "Đăng ký tài khoản thất bại, vui lòng thử lại sau")
                }
             })
             .catch(res => {
-               this.showError()
+               showError(this.toastr, "Đăng ký tài khoản thất bại, vui lòng thử lại sau")
                console.warn(res);
             })
       }
       else {
-         this.showInfoInput()
+         showInfo(this.toastr, "Điền các trường ở bên dưới")
       }
    }
 }

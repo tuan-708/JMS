@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
-import { showError } from 'src/app/service/common';
+import { showError, showInfo, showSuccess } from 'src/app/service/common';
 import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/constant';
 
 @Component({
@@ -63,34 +63,6 @@ export class RegisterRecruiterComponent {
       }
    }
 
-   showSuccess() {
-      this.toastr.success('Thông báo!', 'Đăng ký tài khoản thành công!', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showError() {
-      this.toastr.error('Thông báo!', 'Đăng ký tài khoản thất bại, vui lòng thử lại sau', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showInfoInput() {
-      this.toastr.info('Điền các trường ở bên dưới', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showInfoNoCheck() {
-      this.toastr.info('Hãy chấp nhận điều khoản của chúng tôi', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
    ChangeStatusCheckbox(event: any){
       this.checkbox = ! this.checkbox 
    }
@@ -114,7 +86,7 @@ export class RegisterRecruiterComponent {
       if (this.validAllFiled()) {
 
          if(!this.checkbox){
-            this.showInfoNoCheck()
+            showInfo(this.toastr, "Hãy chấp nhận điều khoản của chúng tôi")
             return
          } 
 
@@ -122,21 +94,21 @@ export class RegisterRecruiterComponent {
          &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
             .then(res => {
                if (res.statusCode == 200 && res.data === "Register successful") {
-                  this.showSuccess()
+                  showSuccess(this.toastr, "Đăng ký tài khoản thành công")
                   this.router.navigate(['/recruiter/sign-in']);
                }else if(res.data === "Email exist in system"){
                   showError(this.toastr ,"Email đã tồn tại trên hệ thống!")
                }else {
-                  this.showError()
+                  showError(this.toastr, "Đăng ký tài khoản thất bại, vui lòng thử lại sau")
                }
             })
             .catch(data => {
-               this.showError()
+               showError(this.toastr, "Đăng ký tài khoản thất bại, vui lòng thử lại sau")
                console.warn(data);
 
             })
       } else {
-         this.showInfoInput()
+         showInfo(this.toastr, "Điền các trường ở bên dưới")
       }
    }
 }

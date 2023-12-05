@@ -45,9 +45,6 @@ export class ListJobsComponent {
 
 
    onClick(jd: any) {
-
-      console.log(jd);
-
       this.router.navigate(['/candidate/jd-detail/', jd?.jobId]);
    }
 }

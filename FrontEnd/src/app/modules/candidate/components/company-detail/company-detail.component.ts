@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { getRequest, postRequest } from 'src/app/service/api-requests';
+import { getRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
    selector: 'app-company-detail',

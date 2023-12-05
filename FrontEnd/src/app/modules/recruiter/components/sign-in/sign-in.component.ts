@@ -5,6 +5,7 @@ import { AuthorizationMode, RECRUITER_TOKEN, apiRecruiter } from 'src/app/servic
 import { environment } from 'src/environments/environment';
 import { getToken, saveItem, saveToken, setItem } from 'src/app/service/localstorage';
 import { Router } from '@angular/router';
+import { showError, showSuccess } from 'src/app/service/common';
 
 @Component({
    selector: 'app-sign-in',
@@ -17,21 +18,6 @@ export class RecruiterSignInComponent {
 
    username: any;
    password: any;
-
-   showSuccess() {
-      this.toastr.success('Đăng nhập thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showError() {
-      this.toastr.error('Tài khoản mật khẩu không chính xác', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-         enableHtml: true
-      });
-   }
 
    constructor(private toastr: ToastrService, private router: Router) {
 
@@ -58,7 +44,8 @@ export class RecruiterSignInComponent {
                         }, 1000);
 
                         setTimeout(() => {
-                           this.showSuccess()
+                           showSuccess(this.toastr, "Đăng nhập thành công")
+
                            if (res.data.companyId) {
                               this.router.navigate(['/recruiter/list-jds']);
                            } else {
@@ -73,11 +60,11 @@ export class RecruiterSignInComponent {
                      console.log(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data, data);
                   })
             } else {
-               this.showError()
+               showError(this.toastr, "Tài khoản mật khẩu không chính xác")
             }
          })
          .catch(data => {
-            this.showError()
+            showError(this.toastr, "Tài khoản mật khẩu không chính xác")
             console.error(apiRecruiter.LOGIN_RECRUITER, data);
 
          })

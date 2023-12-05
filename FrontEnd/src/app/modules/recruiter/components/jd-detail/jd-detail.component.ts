@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ViewportScroller } from '@angular/common';
 import { getProfile } from 'src/app/service/localstorage';
+import { showError, showInfo, showSuccess } from 'src/app/service/common';
 
 @Component({
    selector: 'app-jd-detail',
@@ -32,13 +33,6 @@ export class JdDetailComponent {
    isMatching: boolean = false;
    Url = environment.Url;
    profile: any
-
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
 
    constructor(public dialog: MatDialog, private route: ActivatedRoute, private toastr: ToastrService, private viewportScroller: ViewportScroller) {
       this.route.params.subscribe(params => {
@@ -70,20 +64,20 @@ export class JdDetailComponent {
             this.matchOption = result;
             console.log(this.matchOption);
             this.isMatching = true;
-            this.showSuccess();
+            showSuccess(this.toastr, "Xác nhận thành công <br/> Hệ thống đang tìm ứng viên phù hợp");
             // call matching api
             postRequest(apiRecruiter.MATCHING_JOB + "?recruiterId=" + this.jdDetail.recuirterId + "&jobDescriptionId=" + this.jdDetail.jobId + "&numberRequirement=" + this.matchOption.quantity, AuthorizationMode.BEARER_TOKEN, {})
                .then(res => {
                   if (res.statusCode == 200) {
                      this.isMatching = false;
-                     this.showInfo();
+                     showSuccess(this.toastr, "Đề xuất thành công <br/> Vui lòng xem chi tiết tại danh sách đề xuất");
                   } else {
-                     this.showError();
+                     showError(this.toastr, "Đề xuất thất bại <br/> Vui lòng thử lại sau")
                   }
                   console.log(res);
                })
                .catch(data => {
-                  this.showError();
+                  showError(this.toastr, "Đề xuất thất bại <br/> Vui lòng thử lại sau")
                   console.log(data);
                })
          }
@@ -122,29 +116,5 @@ export class JdDetailComponent {
       const linesWithHyphen: string[] = lines.map((line: string) => (line.startsWith('-') ? line : `${line}`));
       const newText: string = linesWithHyphen.join('\n');
       return newText
-   }
-
-   showSuccess() {
-      this.toastr.success('Xác nhận thành công <br/> Hệ thống đang tìm ứng viên phù hợp', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-         enableHtml: true
-      });
-   }
-
-   showInfo() {
-      this.toastr.success('Đề xuất thành công <br/> Vui lòng xem chi tiết tại danh sách đề xuất', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-         enableHtml: true
-      });
-   }
-
-   showError() {
-      this.toastr.error('Đề xuất thất bại <br/> Vui lòng thử lại sau', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-         enableHtml: true
-      });
    }
 }

@@ -56,9 +56,6 @@ export class MyApplyJobComponent {
 
          })
          .catch(data => {
-            this.router.navigate(['/candidate/sign-in']);
-            this.showTokenExpiration()
-            signOut()
          })
    }
 
@@ -78,7 +75,6 @@ export class MyApplyJobComponent {
    }
 
    openViewCVDialog(jd: any) {
-
       this.dialog.open(ViewCvComponent, {
          width: '50%',
          height: '100%',

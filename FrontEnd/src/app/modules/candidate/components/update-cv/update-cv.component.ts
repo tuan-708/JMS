@@ -6,6 +6,7 @@ import { getRequest, postFileRequest, postRequest } from 'src/app/service/api-re
 import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/constant';
 import { ToastrService } from 'ngx-toastr';
 import { getProfile, isLogin, signOut } from 'src/app/service/localstorage';
+import { showError, showInfo, showSuccess } from 'src/app/service/common';
 
 declare var $: any;
 
@@ -301,29 +302,6 @@ export class UpdateCvComponent {
       return educations
    }
 
-   showSuccess() {
-      this.toastr.success('Chỉnh sửa hồ sơ thành công!', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showError() {
-      this.toastr.error('Đã có lỗi xảy ra, xem lại trường dữ liệu!', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showInfoInput(message: string) {
-      this.toastr.info(message, 'Thông báo!', {
-         progressBar: true,
-         timeOut: 3000,
-         enableHtml: true
-      });
-   }
-
-
    validInput() {
       var massage = ""
       var valid = true;
@@ -342,9 +320,6 @@ export class UpdateCvComponent {
          var valid = false;
       }
 
-      console.log($(".inputPhone")[0].value);
-
-
       if ($(".inputPhone")[0].value == "") {
          massage += "- Số điện thoại không được để trống <br/>"
          var valid = false;
@@ -361,7 +336,7 @@ export class UpdateCvComponent {
       }
 
       if (!valid) {
-         this.showInfoInput(massage)
+         showInfo(this.toastr, massage)
       }
 
       return valid
@@ -371,12 +346,10 @@ export class UpdateCvComponent {
       if (this.validInput()) {
          const displayEmail = $(".inputEmail")[0].value;
          const phone = $(".inputPhone")[0].value;
-         // const linkMedia = $(".inputLinkMedia")[0].value;
          const address = $(".inputAddress")[0].value;
          const dob = $(".inputDob")[0].value;
          const displayName = $(".displayName")[0].value;
          const careerGoal = $(".careerGoal")[0].value;
-         // const positionTitleName = $(".positionTitleName")[0].value;
          const cvTitle = $(".cvTitle")[0].value;
          const levelId = $(".levelId")[0].value;
          const categoryId = $(".categoryId")[0].value;
@@ -384,8 +357,6 @@ export class UpdateCvComponent {
          const theme = this.theme;
          const font = this.fontCV;
          const gender = $("input[name='gender']:checked").val();
-
-
          const skills = this.getValueSkills()
          const certificates = this.getValueCertificates()
          const awards = this.getValueAwards()
@@ -407,7 +378,6 @@ export class UpdateCvComponent {
             'dob': dob,
             "createdDateDisplay": null,
             "lastUpdateDateDisplay": null,
-            // 'positionTitleName': positionTitleName,
             'jobExperiences': experiences,
             'skills': skills,
             'educations': educations,
@@ -443,15 +413,15 @@ export class UpdateCvComponent {
                            console.log(res);
                         })
                         .catch(data => {
-                           this.showError()
+                           showError(this.toastr, "Upload ảnh thất bại")
                            console.log(data);
                         })
                   }
                }
-               this.showSuccess()
+               showSuccess(this.toastr, "Chỉnh sửa hồ sơ thành công")
             })
             .catch(data => {
-               this.showError()
+               showError(this.toastr, "Cập nhật hồ sơ thất bại")
                console.log(data);
             })
 

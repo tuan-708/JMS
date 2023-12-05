@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { getRequest, postFileRequest, postRequest } from 'src/app/service/api-requests';
-import { showError, showSuccess } from 'src/app/service/common';
+import { showError, showInfo, showSuccess } from 'src/app/service/common';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile, getToken, saveItem, signOut } from 'src/app/service/localstorage';
 
@@ -102,15 +102,6 @@ export class ProfileComponent {
       return false
    }
 
-   showInfoInput() {
-      this.toastr.info('Điền các trường ở bên dưới', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-
-   
    SubmitFormChangePassword() {
       if (this.validAllFiled()) {
 
@@ -134,14 +125,9 @@ export class ProfileComponent {
 
             })
       } else {
-         this.showInfoInput()
+         showInfo(this.toastr, 'Điền các trường ở bên dưới')
       }
    }
-
-
-
-
-
 
    getCompany() {
       getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + this.profile.companyId, AuthorizationMode.PUBLIC)
@@ -211,7 +197,7 @@ export class ProfileComponent {
 
       if (!regex.test(dateString)) {
          this.invalidDob = true
-         this.invalidDobMsg = 'Ngày tháng không hợp lệ! (dd//MM//yyyy)'
+         this.invalidDobMsg = 'Ngày sinh không hợp lệ! (dd//MM//yyyy)'
          return false
       }
 
@@ -222,7 +208,7 @@ export class ProfileComponent {
 
       if (isNaN(day) || isNaN(month) || isNaN(year)) {
          this.invalidDob = true
-         this.invalidDobMsg = 'Ngày tháng không hợp lệ! (dd//MM//yyyy)'
+         this.invalidDobMsg = 'Ngày sinh không hợp lệ! (dd//MM//yyyy)'
          return false; // Không phải là số
       }
 
@@ -230,7 +216,7 @@ export class ProfileComponent {
 
       if (day < 1 || day > maxDays || month < 1 || month > 12) {
          this.invalidDob = true
-         this.invalidDobMsg = 'Ngày tháng không hợp lệ!'
+         this.invalidDobMsg = 'Ngày sinh không hợp lệ!'
          return false; // Ngày tháng không hợp lệ
       }
 
@@ -258,21 +244,6 @@ export class ProfileComponent {
       return true
    }
 
-
-   showUploadAvatarSuccess() {
-      this.toastr.success('Chỉnh sửa ảnh thành công', 'Thành công', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
-   showTokenExpiration() {
-      this.toastr.info('Phiên đăng nhập hết hạn', 'Thông báo', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
    getProfile = () => {
       var token = getToken()
 
@@ -287,19 +258,9 @@ export class ProfileComponent {
             }
          })
          .catch(error => {
-            this.router.navigate(['/candidate/sign-in']);
-            this.showTokenExpiration()
-            signOut()
+
          })
    }
-
-   showErrorUploadImage() {
-      this.toastr.error('Chỉnh sửa thông tin cá nhân thất bại', 'Thất bại', {
-         progressBar: true,
-         timeOut: 3000,
-      });
-   }
-
 
    getFile(event: any) {
       if ($('#avatarCv')[0].files[0]) {
@@ -313,14 +274,13 @@ export class ProfileComponent {
                if (res.statusCode == 200) {
 
                   this.getProfile()
-                  this.showUploadAvatarSuccess()
+                  showSuccess(this.toastr, "Chỉnh sửa ảnh thành công")
                }else{
                   showError(this.toastr, "Ảnh không hợp lệ, vui lòng thử lại!")
                }
             })
             .catch(data => {
                showError(this.toastr, "Tải ảnh mới thất bại, vui lòng thử lại!")
-               console.log(data);
             })
       }
    }

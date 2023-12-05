@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { getProfile, getToken, isLogin, saveItem, signOut } from 'src/app/service/localstorage';
-import { environment } from 'src/environments/environment';
+import { getProfile, signOut } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'candidate-header',
@@ -9,7 +8,6 @@ import { environment } from 'src/environments/environment';
    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-   backgroundSelectedLink = `${environment.Url}/assets/background-gradients/gradients-backgrounds-sexy-blue1.png`
 
    isLog: boolean = true;
    profile: any;
@@ -19,15 +17,12 @@ export class HeaderComponent {
    { title: 'yourWork', router: '/candidate/your-apply-job', value: false }];
    currentRouter: any;
 
-
    loadProfile() {
       this.profile = getProfile();
    }
 
    constructor(private router: Router) {
-
       this.loadProfile()
-
       this.changeHeader();
    }
 
