@@ -383,18 +383,10 @@ namespace APIServer.Services
             return CVSelected;
         }
 
-        public List<CVMatching> GetCVMatchedLeft(int recruiterId, int jobDescriptionId)
+        public List<CVMatching> GetAllCVMatched(int recruiterId, int jobDescriptionId)
         {
-            List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatchedLeft(recruiterId, jobDescriptionId);
-            using (var context = new JMSDBContext())
-            {
-                JobDescription? jobDescription = context.JobDescriptions.FirstOrDefault(x => x.RecuirterId == recruiterId && x.JobId == jobDescriptionId);
-                if (jobDescription != null && jobDescription.MatchingNumberRequirement != null)
-                {
-                    return CVMatched.Skip((int)jobDescription.MatchingNumberRequirement).ToList();
-                }
-                return null;
-            }
+            List<CVMatching> CVMatched = _cVMatchingRepository.GetAllByIsMatchedByNumberRequirement(recruiterId, jobDescriptionId);
+            return CVMatched;
         }
 
         public List<CVMatching> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId)
@@ -405,12 +397,10 @@ namespace APIServer.Services
                 JobDescription? jobDescription = context.JobDescriptions.FirstOrDefault(x => x.RecuirterId == recruiterId && x.JobId == jobDescriptionId);
                 if (jobDescription != null)
                 {
-                    var k = context.CVMatchings
-                        .Where(x => x.JobDescriptionId == jobDescriptionId)
-                        .Count(x => x.IsApplied);
-                    var count = jobDescription.MatchingNumberRequirement == null ?
-                        k : k + (int)jobDescription.MatchingNumberRequirement;
-                    return CVMatched.Take(count).ToList();
+                    var appliedCount = context.CVMatchings.Where(x => x.JobDescriptionId == jobDescriptionId).Count(x => x.IsApplied);
+                    if (jobDescription.MatchingNumberRequirement <= appliedCount || jobDescription.MatchingNumberRequirement == null)
+                        return CVMatched.Take(appliedCount).ToList();
+                    else return CVMatched.Take((int)jobDescription.MatchingNumberRequirement).ToList();
                 }
                 else
                     throw new Exception("JD not found");
