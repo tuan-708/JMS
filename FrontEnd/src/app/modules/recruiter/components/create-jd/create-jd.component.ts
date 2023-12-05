@@ -82,7 +82,7 @@ export class CreateJdComponent {
    titleRq = new FormControl(null, [Validators.required]);
    numberRequiredRq = new FormControl(null, [Validators.min(1)]);
    emailRq = new FormControl(null, [Validators.email]);
-   positionRq = new FormControl(null, [Validators.required]);
+   positionRq = new FormControl(null);
    levelRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    ageRequiredRq = new FormControl(null);
    genderRq = new FormControl('0');
@@ -120,13 +120,6 @@ export class CreateJdComponent {
       }
       if (this.emailRq.hasError('email')) {
          return 'Email không hợp lệ'
-      }
-      return
-   }
-
-   getErrorMessagePosition() {
-      if (this.positionRq.hasError('required')) {
-         return 'Chức danh công việc không được để trống!'
       }
       return
    }

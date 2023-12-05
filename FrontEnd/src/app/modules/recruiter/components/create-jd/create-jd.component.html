@@ -48,8 +48,8 @@
                            <label class="form-label" for="position">Chức danh</label><span class="link-danger">
                            </span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
-                              <input matInput type="text" id="position" placeholder="VD: Senior .NET core" />
-                              <mat-error *ngIf="positionRq.invalid">{{getErrorMessagePosition()}}</mat-error>
+                              <input matInput type="text" id="position" placeholder="VD: Senior .NET core" [formControl] = "positionRq" />
+                              <mat-error *ngIf="positionRq.invalid"></mat-error>
                            </mat-form-field>
                         </div>
                         <div class="col-md-6 mb-2">

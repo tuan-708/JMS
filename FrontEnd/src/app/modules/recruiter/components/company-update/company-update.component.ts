@@ -6,6 +6,7 @@ import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile, signOut } from 'src/app/service/localstorage';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { showError } from 'src/app/service/common';
 
 @Component({
    selector: 'app-company-update',
@@ -175,7 +176,7 @@ export class CompanyUpdateComponent {
          const yearOfEstablishment = this.yearOfEstablishmentRq.value;
 
          const data = {
-            companyId: 1,
+            companyId: this.company.companyId,
             companyName: companyName,
             email: email,
             phone: phone,
@@ -193,7 +194,13 @@ export class CompanyUpdateComponent {
 
          postRequest(apiRecruiter.UPDATE_COMPANY + "/" + recuirterFounder, AuthorizationMode.BEARER_TOKEN, data)
             .then(res => {
-               this.showUpdateCompanySuccess()
+               if(res.statusCode === 200){
+                  this.showUpdateCompanySuccess()
+                  this.router.navigate(['/view-company'])
+               }else{
+                  showError(this.toastr, "Cập nhật thất bại")
+               }
+               
                console.log(res);
             })
             .catch(data => {
@@ -201,6 +208,7 @@ export class CompanyUpdateComponent {
                // this.router.navigate(['/recruiter/sign-in']);
                // this.showTokenExpiration()
                // signOut()
+               showError(this.toastr, "Cập nhật thất bại")
             })
       }
 
