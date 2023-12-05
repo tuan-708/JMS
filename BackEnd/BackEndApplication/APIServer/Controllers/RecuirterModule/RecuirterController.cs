@@ -68,19 +68,29 @@ namespace APIServer.Controllers.RecuirterModule
         [HttpGet]
         [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("get-all-cv-matched-by-number-requirement")]
-        public PagingResponseBody<List<CVMatchingDTO>> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId, int? pageIndex)
+        public BaseResponseBody<List<CVMatchingDTO>> GetCVMatchedByNumberRequirement(int recruiterId, int jobDescriptionId)
         {
             List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatchedByNumberRequirement(recruiterId, jobDescriptionId));
-            return _recuirterService.GetCVPaging(pageIndex, rs);
+            return new BaseResponseBody<List<CVMatchingDTO>>
+            {
+                statusCode = HttpStatusCode.OK,
+                message = GlobalStrings.SUCCESSFULLY,
+                data = rs,
+            };
         }
 
         [HttpGet]
         [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
-        [Route("get-all-cv-matched-left")]
-        public PagingResponseBody<List<CVMatchingDTO>> GetCVMatchedLeft(int recruiterId, int jobDescriptionId, int? pageIndex)
+        [Route("get-all-cv-matched")]
+        public BaseResponseBody<List<CVMatchingDTO>> GetAllCVMatched(int recruiterId, int jobDescriptionId)
         {
-            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetCVMatchedLeft(recruiterId, jobDescriptionId));
-            return _recuirterService.GetCVPaging(pageIndex, rs);
+            List<CVMatchingDTO> rs = _mapper.Map<List<CVMatchingDTO>>(_recuirterService.GetAllCVMatched(recruiterId, jobDescriptionId));
+            return new BaseResponseBody<List<CVMatchingDTO>>
+            {
+                statusCode = HttpStatusCode.OK,
+                message = GlobalStrings.SUCCESSFULLY,
+                data = rs,
+            };
         }
 
         [HttpGet]
