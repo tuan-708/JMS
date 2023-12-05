@@ -19,7 +19,7 @@ export enum apiRecruiter {
 
 
    GET_CV_MATCHED = "/api/Recuirter/get-all-cv-matched-by-number-requirement",
-   GET_CV_MATCHED_LEFT = "/api/Recuirter/get-all-cv-matched-left",
+   GET_CV_MATCHED_LEFT = "/api/Recuirter/get-all-cv-matched",
    GET_CV_SELECTED = "/api/Recuirter/get-all-cv-selected",
    MATCHING_JOB = "/api/Recuirter/matching-job",
    GET_ESTIMATE_TIME = "/api/Recuirter/get-estimate-date-to-matching/",

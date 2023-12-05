@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
+import { showError } from 'src/app/service/common';
 import { AuthorizationMode, apiCandidate, apiRecruiter } from 'src/app/service/constant';
 
 @Component({
@@ -120,10 +121,12 @@ export class RegisterRecruiterComponent {
          postRequest(`${apiRecruiter.REGISTER_ACCOUNT_RECRUITER}?email=${this.Email}
          &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
             .then(res => {
-               if (res.statusCode == 200) {
+               if (res.statusCode == 200 && res.data === "Register successful") {
                   this.showSuccess()
                   this.router.navigate(['/recruiter/sign-in']);
-               } else {
+               }else if(res.data === "Email exist in system"){
+                  showError(this.toastr ,"Email đã tồn tại trên hệ thống!")
+               }else {
                   this.showError()
                }
             })
