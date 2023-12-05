@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
+import { showError, showInfo } from 'src/app/service/common';
 import { AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
 import { getProfile, signOut } from 'src/app/service/localstorage';
 
@@ -302,6 +303,7 @@ export class CreateJdComponent {
             .then(res => {
                if(res.statusCode == 201){
                   this.showCreateJDSuccess()
+                  setTimeout(() => this.router.navigate(['/recruiter/list-jds']), 1000);
                }else{
                   this.showCreateJDFail()
                }
@@ -311,6 +313,7 @@ export class CreateJdComponent {
                // this.router.navigate(['/recruiter/sign-in']);
                // this.showTokenExpiration()
                // signOut()
+               this.showCreateJDFail()
             })
 
 
@@ -334,7 +337,7 @@ export class CreateJdComponent {
       this.experienceRq.markAllAsTouched();
       this.skillRq.markAllAsTouched();
       this.benefitRq.markAllAsTouched();
-
+      showInfo(this.toastr, "Vui lòng nhập đủ thông tin yêu cầu!")
       return
    }
 

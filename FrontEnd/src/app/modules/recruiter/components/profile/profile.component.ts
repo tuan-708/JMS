@@ -144,7 +144,7 @@ export class ProfileComponent {
 
 
    getCompany() {
-      getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + this.profile.id, AuthorizationMode.PUBLIC)
+      getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + this.profile.companyId, AuthorizationMode.PUBLIC)
          .then(res => {
             this.company = res?.data
          })
@@ -315,11 +315,11 @@ export class ProfileComponent {
                   this.getProfile()
                   this.showUploadAvatarSuccess()
                }else{
-                  showError(this.toastr, res.message)
+                  showError(this.toastr, "Ảnh không hợp lệ, vui lòng thử lại!")
                }
             })
             .catch(data => {
-               this.showErrorUploadImage()
+               showError(this.toastr, "Tải ảnh mới thất bại, vui lòng thử lại!")
                console.log(data);
             })
       }

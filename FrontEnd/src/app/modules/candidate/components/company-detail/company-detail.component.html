@@ -64,7 +64,7 @@
 			<div class="contentMoreLeft">
 				<div class="contentMoreHeader">
 					<img src="{{Url}}/assets/background-gradients/gradients-backgrounds-sexy-blue.png" alt="">
-					<div class="texHeaderLeft">Gới thiệu công ty</div>
+					<div class="texHeaderLeft">Giới thiệu công ty</div>
 				</div>
 				<div class="contentDetailLeft">
 					<div [innerHTML]="htmlContent">
@@ -88,7 +88,7 @@
 					<div class="item">
 						<i class="fa-solid fa-calendar-days"></i>
 						<span>
-							Năm thành lập: {{company?.dateCreatedDisplay? company?.dateCreatedDisplay : "Không công
+							Năm thành lập: {{company?.yearOfEstablishment? company?.yearOfEstablishment : "Không công
 							khai"}}
 						</span>
 					</div>
@@ -107,10 +107,9 @@
 
 
 					<div class="item">
-						<i class="fa-solid fa-calendar-days"></i>
+						<i class="fa-solid fa-globe"></i>
 						<span>
-							Năm thành lập: {{company?.dateCreatedDisplay? company?.dateCreatedDisplay : "Không công
-							khai"}}
+							Website: <a href="{{company?.webURL}}" target="_blank"> {{company?.webURL? company?.webURL : "Không công khai"}} </a>
 						</span>
 					</div>
 
