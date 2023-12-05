@@ -24,7 +24,7 @@ export class HeaderComponent {
 
   getProfile(){
     this.profile = getItemJson(ADMIN_PROFILE)
-    console.log(this.profile?.fullName);
+    // console.log(this.profile?.fullName);
     
   }
 }
