@@ -1,0 +1,58 @@
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Nhập thông tin..." [(ngModel)]="searchText"
+                    (input)="onInputChange()">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <table class="table table-striped text-center table-hover ">
+        <thead class="table-success">
+            <tr>
+                <th>STT</th>
+                <th>ID</th>
+                <th>Tài Khoản</th>
+                <th>Họ Tên</th>
+                <th>Ngày Sinh</th>
+                <th>Email</th>
+                <th>SĐT</th>
+                <th>Giới Tính</th>
+                <th>Mã Công Ty</th>
+                <th>Trạng thái</th>
+                <!-- <th>Tùy chọn</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let elm of listDisplay | CustomFilterPipePipe: searchText;  let i = index">
+                <td>{{i+1}}</td>
+                <td>{{elm.id}}</td>
+                <td>{{elm.userName}}</td>
+                <td>{{elm.fullName}}</td>
+                <td>{{elm.doB_Display}}</td>
+                <td>{{elm.email}}</td>
+                <td>{{elm.phoneNumber}}</td>
+                <td>{{elm.genderTitle == true ? 'Nam' : elm.genderTitle == false ? 'Nữ' : 'Không'}}</td>
+                <td>{{elm.companyId}}</td>
+                <td><button [ngClass]="{ 'btn': true, 'btn-success': elm.isActive, 'btn-danger': !elm.isActive }" (click)="changeActive(elm?.id, elm.isActive)">{{elm.isActive ? 'Active' : 'Locked'}}</button></td>
+                <!-- <td> -->
+                    <!-- <button class="btn" title="Xem Chi Tiết" (click)="openCVDialog(elm.id)"><i
+                            class="bi bi-eye"></i></button> -->
+                    <!-- <button class="btn" title="Chỉnh Sửa"><i class="bi bi-pencil-square"></i></button> -->
+                    <!-- <button class="btn" title="Xóa"><i class="bi bi-person-x"></i></button> -->
+                <!-- </td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <mat-paginator class="col-7" *ngIf="recruiters != null" [length]="recruiters?.length" [pageSize]="pageSize"
+        [showFirstLastButtons]="true" [hidePageSize]="true" [pageIndex]="pageIndex"
+        (page)="handlePage($event)"></mat-paginator>
+</div>
