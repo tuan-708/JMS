@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 BackEnd/BackEndApplication/APIServer/Common/gptkey.txt
+FrontEnd/yarn.lock

@@ -185,6 +185,14 @@ namespace APIServer.Services
             var data = _companyRepository.GetById(id);
             if (data == null)
                 throw new Exception("Not found");
+            if(data.JobDescriptions.Any(x => x.IsDelete))
+            {
+                var listJD = data.JobDescriptions.Where(x => x.IsDelete).ToList();
+                foreach (var o in listJD)
+                {
+                    data.JobDescriptions.Remove(o);
+                }
+            }
             var rs = _mapper.Map<CompanyDTO>(data);
             rs.RecuirtersInCompany = _mapper.Map<List<EmployeeDTO>>(data.EmployeeInCompanies);
             return rs;
