@@ -2,6 +2,7 @@
 using APIServer.IRepositories;
 using APIServer.IServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace APIServer.Services
 {
@@ -11,15 +12,17 @@ namespace APIServer.Services
         private readonly IRecuirterRepository _recruiterRepository;
         private readonly IConfiguration _configuration;
 
-
         public EmailService(ICandidateRepository candidateRepository, IRecuirterRepository recruiterRepository, IConfiguration configuration)
         {
             _configuration = configuration;
             _candidateRepository = candidateRepository;
             _recruiterRepository = recruiterRepository;
         }
+
         public string ForgotPasswordForCandidate(string email)
         {
+            if (!IsInputValid(email))
+                throw new Exception("Email not valid");
             bool isEmailExist = _candidateRepository.IsEmailExist(email);
             if (isEmailExist)
             {
@@ -34,13 +37,13 @@ namespace APIServer.Services
                     return "send mail successfully";
                 }
             }
-            
-            return "email does not exist! Check again";
+            throw new Exception("email does not exist! Check again");
         }
 
         public string ForgotPasswordForRecruiter(string email)
         {
-
+            if (!IsInputValid(email))
+                throw new Exception("Email not valid");
             bool isEmailExist = _recruiterRepository.IsEmailExist(email);
             if (isEmailExist)
             {
@@ -55,11 +58,8 @@ namespace APIServer.Services
                     return "send mail successfully";
                 }
             }
-
-            return "email does not exist! Check again";
+            throw new Exception("email does not exist! Check again");
         }
-
-         
 
         public string GenerateRandomString(int length)
         {
@@ -74,6 +74,16 @@ namespace APIServer.Services
             }
 
             return stringBuilder.ToString();
+        }
+
+        private bool IsInputValid(string? email)
+        {
+            if (email != null)
+            {
+                string emailPattern = @"^.+@.+\..{1,35}$";
+                return Regex.IsMatch(email, emailPattern);
+            }
+            return false;
         }
     }
 }
