@@ -1,0 +1,17 @@
+<div class="nav-items">
+    <div class="nav-item" routerLink="dashboard" [class.tabSelect]="headerTitle[0].value" (click)="changeNav(0)">
+        <span>THỐNG KÊ</span>
+      </div>
+      <div class="nav-item" routerLink="company-page" [class.tabSelect]="headerTitle[1].value" (click)="changeNav(1)">
+        <span>CÔNG TY</span>
+      </div>
+      <div class="nav-item" routerLink="candidate-page" [class.tabSelect]="headerTitle[2].value" (click)="changeNav(2)">
+        <span>ỨNG VIÊN</span>
+      </div>
+      <div class="nav-item" routerLink="recruiter-page" [class.tabSelect]="headerTitle[3].value" (click)="changeNav(3)">
+        <span>NHÀ TUYỂN DỤNG</span>
+      </div>
+      <!-- <div class="nav-item">
+        <span>Help</span>
+      </div> -->
+</div>

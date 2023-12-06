@@ -19,12 +19,17 @@ export function saveItem(key: any, data: any) {
    localStorage.setItem(key, item);
 }
 
-export function setItem(key: any, value: any) {
-   localStorage.setItem(key, value);
+export function setItem(key:any, value:any){
+    localStorage.setItem(key, value);
 }
 
-export function removeItem(key: any) {
-   localStorage.removeItem(key);
+export function getItemJson(key:any){
+    var value = localStorage.getItem(key);
+    return value !== null ? JSON.parse(value) : null
+}
+
+export function removeItem(key:any){
+    return localStorage.removeItem(key)
 }
 
 export function getItem(key: any) {

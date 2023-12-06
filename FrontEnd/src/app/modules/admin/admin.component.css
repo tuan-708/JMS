@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Exo", sans-serif;
+    background-color: #d8d8d8;
+}
+
+.main-container {
+    display: flex;
+    height: 90vh;
+
+    /* height: calc(100% - 70px); */
+    /* flex-direction: column; */
+    .side-nav {
+        /* background: linear-gradient(109.6deg, rgb(6, 84, 59) 11.2%, rgb(44, 51, 59) 91.3%); */
+        background: linear-gradient(120deg, #256bdc 0%, #15445a 100%);
+        color: #fff;
+        box-shadow: 5px 5px 5px #939393;
+    }
+
+    .main {
+        padding: 30px;
+        overflow-y: auto;
+        height: calc(100% - 30px);
+    }
+}

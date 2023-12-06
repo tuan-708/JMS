@@ -1,0 +1,23 @@
+<div class="header">
+  <div class="logo">JOB MATCHING SYSTEM</div>
+  <!-- <div class="user">
+        <div class="user-name">Nguyen Hoa</div>
+        <div class="user-image">NH</div>
+    </div> -->
+  <div class="dropdown text-end">
+    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      <img
+        src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+        alt="mdo" width="32" height="32" class="rounded-circle"> {{getProfile()}}{{profile?.fullName}}
+    </a>
+    <ul class="dropdown-menu text-small">
+      <li><a class="dropdown-item" [routerLink]="['/admin/profile']">Thông tin cá nhân</a></li>
+      <!-- <li><a class="dropdown-item" href="">Cài đặt</a></li> -->
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item" (click)="signOut()">Đăng xuất</a></li>
+    </ul>
+  </div>
+</div>
