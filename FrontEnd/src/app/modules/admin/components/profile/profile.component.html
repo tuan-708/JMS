@@ -9,7 +9,7 @@
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Họ và tên</label>
-                            <input #fullname class="form-control" type="text" placeholder="Nhập tên của bạn"
+                            <input #fullname class="form-control disableInput" type="text" placeholder="Nhập tên của bạn"
                                 [value]="profile?.fullName" disabled>
                         </div>
                         <!-- Form Row-->
@@ -17,7 +17,7 @@
                             <!-- Form Group (first name)-->
                             <div class="col-md-12">
                                 <label class="small mb-1" for="inputFirstName">Tài khoản</label>
-                                <input class="form-control" id="inputFirstName" type="text"
+                                <input class="form-control disableInput" id="inputFirstName" type="text"
                                     placeholder="Tài khoản của bạn" value={{profile?.userName}} disabled>
                             </div>
                             </div>
@@ -26,14 +26,14 @@
                             <!-- Form Group (phone number)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Số điện thoại</label>
-                                <input #phone class="form-control" id="inputPhone" type="tel"
-                                    placeholder="Nhập số điện thoại" [value]="profile?.phoneNumber">
+                                <input #phone class="form-control disableInput" id="inputPhone" type="tel"
+                                    placeholder="Nhập số điện thoại" [value]="profile?.phoneNumber" disabled>
                             </div>
                             <!-- Form Group (birthday)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputBirthday">Ngày sinh</label>
-                                <input #dob class="form-control" id="inputBirthday" type="text" name="birthday"
-                                    placeholder="Nhập ngày sinh" [value]="dobb">
+                                <input #dob class="form-control disableInput" id="inputBirthday" type="text" name="birthday"
+                                    placeholder="Nhập ngày sinh" [value]="dobb" disabled>
                             </div>
                         </div>
                         <!-- Save changes button-->

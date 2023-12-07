@@ -6,7 +6,7 @@
                <div class="card-body p-4 p-md-4">
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">{{jdDetail?.title | uppercase}}</h3>
                   <div class="row text-center">
-                     <div class="col-4"><i class="bi bi-person-circle h4"></i> NGƯỜI ĐĂNG: {{jdDetail?.recuirterId}}
+                     <div class="col-4"><i class="bi bi-person-circle h4"></i> NGƯỜI ĐĂNG: {{jdDetail?.companyDTO?.recuirterFounder}}
                      </div>
                      <div class="col-4"><i class="bi bi-calendar h4"></i> NGÀY TẠO: {{jdDetail?.createdAt}}</div>
                      <div class="col-4"><i class="bi bi-calendar-check h4"></i> NGÀY HẾT HẠN: {{jdDetail?.expiredDate}}

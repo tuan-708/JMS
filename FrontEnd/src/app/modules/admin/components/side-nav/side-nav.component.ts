@@ -14,7 +14,8 @@ export class SideNavComponent{
   { title: 'recruiter', router: '/admin/recruiter-page', value: false }];
 
   constructor(private router: Router){
-    this.changeNav(0);
+    console.log(router.url);
+    this.checkTab()
   }
 
   changeNav(number: any){
@@ -24,6 +25,15 @@ export class SideNavComponent{
         elm.value = true
       }else{
         elm.value = false
+      }
+    }
+  }
+
+  checkTab(){
+    for (let i = 0; i < this.headerTitle.length; i++) {
+      const elm = this.headerTitle[i];
+      if(this.router.url === elm.router){
+        this.changeNav(i)
       }
     }
   }

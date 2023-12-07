@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { postRequest } from 'src/app/service/api-requests';
 import { AuthorizationMode, RECRUITER_TOKEN, apiRecruiter } from 'src/app/service/constant';
 import { environment } from 'src/environments/environment';
-import { getToken, saveItem, saveToken, setItem } from 'src/app/service/localstorage';
+import { getToken, saveItem, saveToken, setItem, signOut } from 'src/app/service/localstorage';
 import { Router } from '@angular/router';
 import { showError, showSuccess } from 'src/app/service/common';
 
@@ -31,6 +31,7 @@ export class RecruiterSignInComponent {
       postRequest(apiRecruiter.LOGIN_RECRUITER, AuthorizationMode.PUBLIC, data)
          .then(res => {
             if (res?.statusCode == 200) {
+               signOut()
                saveToken(res.data)
                setItem(RECRUITER_TOKEN, res.data)
 
