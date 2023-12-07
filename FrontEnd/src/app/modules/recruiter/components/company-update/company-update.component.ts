@@ -174,7 +174,7 @@ export class CompanyUpdateComponent {
             .then(res => {
                if(res.statusCode === 200){
                   showSuccess(this.toastr, "Cập nhật thành công công ty")
-                  this.router.navigate(['/view-company'])
+                  this.router.navigate(['recruiter/view-company'])
                }else{
                   showError(this.toastr, "Cập nhật thất bại")
                }

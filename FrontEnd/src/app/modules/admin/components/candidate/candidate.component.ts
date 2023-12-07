@@ -22,7 +22,7 @@ interface cv {
   lastUpdateDateDisplay: any,
   level: { description: any },
   jobExperience: [
-    { ComapanyName: '', Position: '', FromDate: '', ToDate: '', Description: '', EmploymentTypeName: '' }],
+    { ComapanyName: '', Position: '', FromDate: '', ToDate: '', Description: any, EmploymentTypeName: '' }],
   skill: [
     { title: any, SkillDescription: any }],
   project: [
@@ -206,5 +206,10 @@ export class CandidateComponent {
       .catch(data => {
         console.warn("Call API GET COMPANY Fail:" + data)
       })
+  }
+
+  handleNewLine(input: string) {
+    const modifiedString = input.replace(/-/g, '\n-');
+    return modifiedString;
   }
 }

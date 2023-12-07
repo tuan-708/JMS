@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
@@ -26,7 +26,7 @@ export class JdUpdateComponent {
    startDate: any
    endDate: any
 
-   constructor(private route: ActivatedRoute, private toastr: ToastrService, public datePipe: DatePipe) {
+   constructor(private route: ActivatedRoute, private toastr: ToastrService, public datePipe: DatePipe, private router: Router) {
       this.profile = getProfile();
 
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
@@ -348,6 +348,9 @@ export class JdUpdateComponent {
             .then(res => {
                if (res?.statusCode == 200) {
                   showSuccess(this.toastr, "Cập nhật bài viết thành công")
+                  setTimeout(() => {
+                     this.router.navigate(['recruiter/list-jds'])
+                  }, 1000);
                }else{
                   showError(this.toastr, "Cập nhật bài viết thất bại")
                }

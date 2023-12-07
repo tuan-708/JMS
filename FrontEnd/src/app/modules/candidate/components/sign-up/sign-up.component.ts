@@ -98,7 +98,11 @@ export class CandidateRegisterComponent {
                if (res.statusCode == 200) {
                   showSuccess(this.toastr, "Đăng ký tài khoản thành công")
                   this.router.navigate(['/candidate/sign-in']);
-               } else {
+               } else if(res.message === 'Email exist in system'){
+                  showError(this.toastr, "Địa chỉ email đã được sử dụng!")
+               } else if(res.message === 'Username exist in system'){
+                  showError(this.toastr, "Tài khoản đã được sử dụng!")
+               }else{
                   showError(this.toastr, "Đăng ký tài khoản thất bại, vui lòng thử lại sau")
                }
             })

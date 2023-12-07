@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { getRequest } from 'src/app/service/api-requests';
@@ -17,7 +18,8 @@ export class CompanyViewComponent {
    htmlContent: any;
    profile: any;
 
-   constructor(public router: Router) {
+   constructor(public router: Router, private viewportScroller: ViewportScroller) {
+      this.viewportScroller.scrollToPosition([0, 0]);
       this.profile = getProfile();
       getRequest(apiRecruiter.GET_COMPANY_BY_ID + "/" + this.profile.companyId, AuthorizationMode.PUBLIC)
          .then(res => {

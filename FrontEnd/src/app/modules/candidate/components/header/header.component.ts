@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { getProfile, signOut } from 'src/app/service/localstorage';
+import { ADMIN_TOKEN, RECRUITER_TOKEN } from 'src/app/service/constant';
+import { getItem, getProfile, signOut } from 'src/app/service/localstorage';
 
 @Component({
    selector: 'candidate-header',
@@ -16,9 +17,18 @@ export class HeaderComponent {
    { title: 'company', router: '/candidate/list-companies', value: false },
    { title: 'yourWork', router: '/candidate/your-apply-job', value: false }];
    currentRouter: any;
+   isRecruiter: any
+   isAdmin: any
 
    loadProfile() {
-      this.profile = getProfile();
+      this.isRecruiter = getItem(RECRUITER_TOKEN) !== null
+      this.isAdmin = getItem(ADMIN_TOKEN) !== null
+      if(this.isRecruiter || this.isAdmin){
+         signOut()
+         this.profile = null
+      }else{
+         this.profile = getProfile();
+      }
    }
 
    constructor(private router: Router) {

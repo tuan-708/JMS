@@ -26,11 +26,10 @@ export class CandidateForgotPasswordComponent {
          postRequest(`${apiCandidate.FORGOT_PASSWORD_CANDIDATE}?email=${this.Email}`, AuthorizationMode.PUBLIC, { Email: this.Email })
          .then(res => {
             if(res?.statusCode == 200){
-               if(res?.data == "email does not exist! Check again"){
-                  showError(this.toastr, "Email không tồn tại.")
-                  return
-               }
-               showSuccess(this.toastr, "Tại mật khẩu mới thành công, vui lòng kiểm tra Email")
+               showSuccess(this.toastr, "Tạo mật khẩu mới thành công, vui lòng kiểm tra Email")
+            } else if(res?.data == "email does not exist! Check again"){
+               showError(this.toastr, "Email không tồn tại, vui lòng kiểm tra lại!")
+               return
             }
             console.log(res);
          })

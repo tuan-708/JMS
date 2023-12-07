@@ -3,6 +3,7 @@ export function signOut() {
    localStorage.removeItem('profile');
    localStorage.removeItem('recruiter-token');
    localStorage.removeItem('admin-token');
+   localStorage.removeItem('admin-profile');
    localStorage.removeItem('candidate-token');
 }
 

@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { showError, showSuccess } from 'src/app/service/common';
 import { ADMIN_PROFILE, ADMIN_TOKEN, AuthorizationMode, apiAdmin } from 'src/app/service/constant';
-import { getItem, saveItem, saveToken, setItem } from 'src/app/service/localstorage';
+import { getItem, saveItem, saveToken, setItem, signOut } from 'src/app/service/localstorage';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,6 +20,7 @@ export class AdminSignInComponent {
     postRequest(apiAdmin.LOGIN_ADMIN, AuthorizationMode.PUBLIC, data)
       .then(async res => {
         if (res?.statusCode == 200) {
+          signOut()
           setItem(ADMIN_TOKEN, res.data)
           saveToken(res.data)
           await this.getAdminProfile(res.data)
