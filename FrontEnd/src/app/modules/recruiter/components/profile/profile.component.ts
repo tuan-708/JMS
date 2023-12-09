@@ -47,9 +47,9 @@ export class ProfileComponent {
       this.oldPassword = event
 
       console.log(this.oldPassword);
-      
-      if(this.oldPassword === "" || this.oldPassword === null ) this.invalidOldPassword = true
-      else{
+
+      if (this.oldPassword === "" || this.oldPassword === null) this.invalidOldPassword = true
+      else {
          this.invalidOldPassword = false
       }
 
@@ -143,7 +143,7 @@ export class ProfileComponent {
       if (this.validatePhoneNumber(phone.value.trim()) && this.validateDate(dob.value.trim()) && this.validateString(fullname.value)) {
          this.newProfile.fullname = fullname.value == "" ? this.profile.fullName : fullname.value
          this.newProfile.phone = this.validatePhoneNumber(phone.value.trim()) ? phone.value : this.profile.phoneNumber
-         this.newProfile.dob = this.validateDate(dob.value.trim()) ? dob.value : this.profile.doB_Display
+         this.newProfile.dob = this.validateDate(dob.value.trim()) ? this.convertDateFormat(dob.value) : this.profile.doB_Display
          this.newProfile.gender = gender.value == "" ? this.profile.genderTitle : gender.value
       } else {
          return
@@ -160,7 +160,7 @@ export class ProfileComponent {
             if (res.statusCode == 200) {
                this.profile.fullName = this.newProfile.fullname
                this.profile.phoneNumber = this.newProfile.phone
-               this.profile.doB_Display = this.newProfile.dob
+               this.profile.doB_Display = dob.value
                this.profile.genderTitle = this.newProfile.gender
                console.log(this.profile)
                saveItem("profile", this.profile);
@@ -275,7 +275,7 @@ export class ProfileComponent {
 
                   this.getProfile()
                   showSuccess(this.toastr, "Chỉnh sửa ảnh thành công")
-               }else{
+               } else {
                   showError(this.toastr, "Ảnh không hợp lệ, vui lòng thử lại!")
                }
             })
@@ -284,4 +284,27 @@ export class ProfileComponent {
             })
       }
    }
+
+   convertDateFormat(inputDate: string): string {
+      const parts = inputDate.split('/');
+
+      if (parts.length === 3) {
+         const outputDate = `${parts[1]}/${parts[0]}/${parts[2]}`;
+         return outputDate;
+      } else {
+         return inputDate;
+      }
+   }
+
+   reverseDateFormat(inputDate: string): string {
+      const parts = inputDate.split('/');
+
+      if (parts.length === 3) {
+         const outputDate = `${parts[1]}/${parts[0]}/${parts[2]}`;
+         return outputDate;
+      } else {
+         return inputDate;
+      }
+   }
+
 }

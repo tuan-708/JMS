@@ -36,6 +36,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ViewNullComponent } from './components/view-null/view-null.component';
 import { ViewLoadingComponent } from './components/view-loading/view-loading.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
    declarations: [
@@ -79,6 +80,7 @@ import { ViewLoadingComponent } from './components/view-loading/view-loading.com
       MatCheckboxModule,
       MatPaginatorModule,
       MatMenuModule,
+      MatTooltipModule,
    ],
    providers: [
       DatePipe,
