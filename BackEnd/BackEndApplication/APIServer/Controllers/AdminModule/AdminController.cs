@@ -2,7 +2,9 @@
 using APIServer.DTO.EntityDTO;
 using APIServer.DTO.ResponseBody;
 using APIServer.IServices;
+using APIServer.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -425,6 +427,65 @@ namespace APIServer.Controllers.AdminModule
                     data = null,
                     statusCode = HttpStatusCode.BadRequest,
                     message = ex.Message,
+                };
+            }
+        }
+
+        [Route("get-statistic")]
+        [HttpGet]
+        public BaseResponseBody<StatisticDTO> getStatistic()
+        {
+            return new BaseResponseBody<StatisticDTO>
+            {
+                message = GlobalStrings.SUCCESSFULLY,
+                statusCode = HttpStatusCode.OK,
+                data = _adminService.GetStatisticDTO()
+            };
+        }
+
+        [AllowAnonymous]
+        [HttpPost("change-password")]
+        public BaseResponseBody<int> ChangePassword(int adminId, string oldPassword, string newPassword, string confirmPassword)
+        {
+            try
+            {
+                int n = _adminService.UpdatePassword(adminId, oldPassword, newPassword, confirmPassword);
+                if (n > 0)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Change password successfully",
+                        statusCode = HttpStatusCode.OK,
+                    };
+                else if (n == 0)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Old password is not correct",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+                else if (n == -1)
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Password have to have number of characters >= 8 and <= 20",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+                else
+                    return new BaseResponseBody<int>
+                    {
+                        data = n,
+                        message = "Password and confirmPassword are not matching",
+                        statusCode = HttpStatusCode.BadRequest,
+                    };
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<int>
+                {
+                    message = ex.Message,
+                    statusCode = HttpStatusCode.BadRequest,
                 };
             }
         }

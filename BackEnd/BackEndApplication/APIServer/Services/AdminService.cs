@@ -2,6 +2,7 @@
 using APIServer.DTO.EntityDTO;
 using APIServer.IRepositories;
 using APIServer.IServices;
+using APIServer.Models;
 using APIServer.Models.Entity;
 using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
@@ -126,7 +127,7 @@ namespace APIServer.Services
 
         public int UpdateActiveStatus(int? recruiterId, int? candidateId)
         {
-            if(recruiterId == null && candidateId == null)
+            if (recruiterId == null && candidateId == null)
                 throw new ArgumentNullException("Input not valid");
             if (recruiterId < 1 && candidateId < 1)
                 throw new ArgumentNullException("Input not valid");
@@ -199,6 +200,40 @@ namespace APIServer.Services
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+        }
+
+        public int UpdatePassword(int adminId, string oldPassword, string newPassword, string confirmPassword)
+        {
+            Admin candidate = _adminContext.GetById(adminId);
+            if (VerifyPassword(oldPassword, candidate.Password))
+            {
+                if (newPassword.Length < 8 || newPassword.Length > 20) return -1;
+                if (newPassword.Equals(confirmPassword))
+                    return _adminContext.UpdatePassword(adminId, newPassword);
+                else return -2;
+            }
+            return 0;
+        }
+
+        public StatisticDTO GetStatisticDTO()
+        {
+            using (var context = new JMSDBContext())
+            {
+                return new StatisticDTO()
+                {
+                    TotalCompany = context.Companies.Count(),
+                    TotalCV = context.CurriculumVitaes
+                    .Where(x => !x.IsDelete && x.IsFindingJob == true).Count(),
+                    TotalJDs = context.JobDescriptions
+                    .Where(x => !x.IsDelete && x.ExpiredDate > DateTime.Now).Count(),
+                    TotalMatching = context.CVMatchings.Count(),
+                };
             }
         }
     }
