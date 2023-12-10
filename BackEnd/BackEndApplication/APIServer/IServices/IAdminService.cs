@@ -19,6 +19,7 @@ namespace APIServer.IServices
         public string generateToken(Admin? admin);
         public Admin Login(string? username, string? password);
         public AdminDTO getAdminInformationByToken(string? token);
-
+        public int UpdatePassword(int adminId, string oldPassword, string newPassword, string confirmPassword);
+        public StatisticDTO GetStatisticDTO();
     }
 }

@@ -16,6 +16,6 @@ namespace APIServer.IRepositories
         public Company GetCompanyById(int id);
         public int UpdateActiveStatus(int? recruiterId, int? candidateId);
         public Admin Login(string? username, string? password);
-
+        public int UpdatePassword(int adminId, string newPassword);
     }
 }

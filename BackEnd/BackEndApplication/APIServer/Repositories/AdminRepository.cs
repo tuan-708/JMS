@@ -205,5 +205,17 @@ namespace APIServer.Repositories
         {
             return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
+
+        public int UpdatePassword(int adminId, string newPassword)
+        {
+            Admin candidate = _context.Admins.FirstOrDefault(x => x.Id == adminId);
+            if (candidate != null)
+            {
+                string hashPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                candidate.Password = hashPassword;
+                return _context.SaveChanges();
+            }
+            return 0;
+        }
     }
 }
