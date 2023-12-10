@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { showError, showSuccess } from 'src/app/service/common';
-import { ADMIN_PROFILE, AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { ADMIN_PROFILE, AuthorizationMode, apiAdmin, apiRecruiter } from 'src/app/service/constant';
 import { getItem, getItemJson, getProfile, saveItem } from 'src/app/service/localstorage';
 
 @Component({
@@ -24,22 +24,30 @@ export class ProfileComponent {
   }
 
   changePassword(oldPass: HTMLInputElement, newPass: HTMLInputElement, rePass: HTMLInputElement) {
-    // console.log(oldPass.value + " = " + newPass.value + " = " + rePass.value)
-    // if (this.isOldPassValid(oldPass.value) && this.isPasswordValid(newPass.value) && this.isRePassMatch(newPass.value, rePass.value)) {
-    //   postRequest(apiRecruiter.CHANGE_PASSWORD + "?recruiterId=" + this.profile.id + "&fullName=" + this.newProfile.fullname + "&oldPassword=" + oldPass.value + "&newPassword=" + newPass.value + "&confirmPassword=" + rePass.value, AuthorizationMode.BEARER_TOKEN, {})
-    //     .then(res => {
-    //       console.log(res)
-    //       if (res.statusCode == 200) {
+    console.log(oldPass.value + " = " + newPass.value + " = " + rePass.value)
+    if (this.isOldPassValid(oldPass.value) && this.isPasswordValid(newPass.value) && this.isRePassMatch(newPass.value, rePass.value)) {
+      postRequest(apiAdmin.CHANGE_PASSWORD + "?adminId=" + this.profile.id + "&oldPassword=" + oldPass.value + "&newPassword=" + newPass.value + "&confirmPassword=" + rePass.value, AuthorizationMode.BEARER_TOKEN, {})
+        .then(res => {
+          console.log(res)
+          if (res.statusCode == 200) {
             showSuccess(this.toastr, "Thay đổi mật khẩu thành công!")
-    //       } else {
-    //         showError(this.toastr, "Thay đổi thất bại! Vui lòng thử lại sau.")
-    //       }
-    //     })
-    //     .catch(data => {
-    //       console.log("Update fail", data);
-    //       showError(this.toastr, "Thay đổi thất bại! Vui lòng thử lại sau.")
-    //     })
-    // }
+          } else {
+            if(res.message === "Password have to have number of characters >= 8 and <= 20"){
+              showError(this.toastr, "Độ dài mật khẩu không hợp lệ!")
+            }else if(res.message === "Old password is not correct"){
+              showError(this.toastr, "Mật khẩu cũ không đúng!")
+            }else if(res.message === "Password and confirmPassword are not matching"){
+              showError(this.toastr, "Mật khẩu mới không khớp. Vui lòng kiểm tra lại!")
+            }else{
+              showError(this.toastr, "Đổi mật khẩu thất bại, vui lòng thử lại sau!")
+            }
+          }
+        })
+        .catch(data => {
+          console.log("Update fail", data);
+          showError(this.toastr, "Thay đổi thất bại! Vui lòng thử lại sau.")
+        })
+    }
   }
 
   isOldPassValid(oldPass:any){

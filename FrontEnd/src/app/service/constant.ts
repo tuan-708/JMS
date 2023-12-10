@@ -105,4 +105,6 @@ export enum apiAdmin{
     GET_ADMIN_PROFILE = '/api/Token/get-data-admin?token=',
     CHANGE_ACTIVE_CANDIDATE = '/api/Admin/update-active-status?candidateId=',
     CHANGE_ACTIVE_RECRUITER = '/api/Admin/update-active-status?recruiterId=',
+    GET_STATISTIC = '/api/Admin/get-statistic',
+    CHANGE_PASSWORD = '/api/Admin/change-password',
 }
