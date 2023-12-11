@@ -237,9 +237,12 @@ namespace APIServer.Services
                                     matchedList.Add(cvAfterMatching);
                                 }
                             }
-                            catch (Exception ex)
+                            catch (NullReferenceException)
                             {
-                                Console.WriteLine(ex.Message);
+                                continue;
+                            }
+                            catch (ArgumentNullException)
+                            {
                                 continue;
                             }
                         }
@@ -251,7 +254,7 @@ namespace APIServer.Services
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw ex;
             }
         }
 

@@ -107,14 +107,27 @@ namespace APIServer.Controllers.RecuirterModule
         [Route("matching-job")]
         public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId, int numberRequirement)
         {
-            List<CVMatchingDTO> cVApplies = _mapper.Map<List<CVMatchingDTO>>(await _recuirterService.GetCVFromMatchingJD(recruiterId, jobDescriptionId, numberRequirement));
-
-            return new BaseResponseBody<List<CVMatchingDTO>>
+            try
             {
-                statusCode = HttpStatusCode.OK,
-                message = GlobalStrings.SUCCESSFULLY,
-                data = _mapper.Map<List<CVMatchingDTO>>(cVApplies),
-            };
+                List<CVMatchingDTO> cVApplies = _mapper.Map<List<CVMatchingDTO>>(await _recuirterService.GetCVFromMatchingJD(recruiterId, jobDescriptionId, numberRequirement));
+
+                return new BaseResponseBody<List<CVMatchingDTO>>
+                {
+                    statusCode = HttpStatusCode.OK,
+                    message = GlobalStrings.SUCCESSFULLY,
+                    data = _mapper.Map<List<CVMatchingDTO>>(cVApplies),
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponseBody<List<CVMatchingDTO>>
+                {
+                    statusCode = HttpStatusCode.InternalServerError,
+                    message = ex.Message,
+                    data = null
+                };
+            }
+            
         }
 
         [HttpPost]
