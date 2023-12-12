@@ -62,6 +62,10 @@ namespace APIServer.Common
             {
                 return null;
             }
+            catch(IndexOutOfRangeException e)
+            {
+                return null;
+            }
         }
 
         public static int CalculateAge(DateTime ngaySinh)
@@ -124,6 +128,8 @@ namespace APIServer.Common
             // Tìm vị trí bắt đầu và kết thúc của thẻ <li>
             int startIndex = html.IndexOf("<li>");
             int endIndex = html.IndexOf("</li>");
+
+            if (startIndex == -1 || endIndex == -1) return html;
 
             while (startIndex >= 0 && endIndex >= 0)
             {

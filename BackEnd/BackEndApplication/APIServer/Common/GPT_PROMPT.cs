@@ -220,6 +220,7 @@ namespace APIServer.Common
             try
             {
                 string apiKey = Validation.readKey();
+                if (apiKey == null) throw new Exception("Api key has no availiable");
                 var api = new OpenAIAPI(apiKey);
                 var result = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
                 {

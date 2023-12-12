@@ -82,12 +82,7 @@ namespace APIServer.Controllers.CandidateModule
             }
             catch (Exception ex)
             {
-                return new BaseResponseBody<string>
-                {
-                    data = ex.Message,
-                    message = GlobalStrings.BAD_REQUEST,
-                    statusCode = HttpStatusCode.BadRequest,
-                };
+                throw ex;
             }
         }
 
