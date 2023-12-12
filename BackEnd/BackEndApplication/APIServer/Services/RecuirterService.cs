@@ -400,7 +400,7 @@ namespace APIServer.Services
                 JobDescription? jobDescription = context.JobDescriptions.FirstOrDefault(x => x.RecuirterId == recruiterId && x.JobId == jobDescriptionId);
                 if (jobDescription != null)
                 {
-                    var appliedCount = context.CVMatchings.Where(x => x.JobDescriptionId == jobDescriptionId).Count(x => x.IsApplied);
+                    var appliedCount = context.CVMatchings.Where(x => x.JobDescriptionId == jobDescriptionId && x.IsReject == false).Count(x => x.IsApplied);
                     if (jobDescription.MatchingNumberRequirement <= appliedCount || jobDescription.MatchingNumberRequirement == null)
                         return CVMatched.Take(appliedCount).ToList();
                     else return CVMatched.Take((int)jobDescription.MatchingNumberRequirement).ToList();

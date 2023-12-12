@@ -93,20 +93,20 @@ namespace APIServer.Services
                 List<CurriculumVitae> curriculumVitaes = getAllCVByCandidateId(candidateId);
                 var CVList = _mapper.Map<List<CurriculumVitaeDTO>>(curriculumVitaes);
                 List<CVMatching> cVMatchings = _CVMatchingRepository.GetByCVIdAndJobDescriptionId(CVid, jobDescriptionId);
-                CurriculumVitae? cv = GetCVById(CVid);
-                var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
+                CurriculumVitae? cv1 = GetCVById(CVid);
+                var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv1);
                 JobDescription jobDescription = _JobContext.GetById(jobDescriptionId);
                 if (jobDescription == null)
                     throw new Exception("JD not found");
-                if (cv != null)
+                if (cv1 != null)
                 {
-                    if (curriculumVitaes.Any(cv => cv.Id == cv.Id))
+                    if (curriculumVitaes.Any(cv => cv.Id == cv1.Id))
                     {
                         CVMatching CVApplied = new CVMatching();
 
-                        if (cVMatchings.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsApplied == false && x.IsReject == false))
+                        if (cVMatchings.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv1.LastUpdateDate && x.IsMatched == true && x.IsApplied == false && x.IsReject == false))
                         {
-                            CVApplied = _CVMatchingRepository.GetByCVIdAndLastUpdateDate(curriculumVitae.Id, cv.LastUpdateDate);
+                            CVApplied = _CVMatchingRepository.GetByCVIdAndLastUpdateDate(curriculumVitae.Id, cv1.LastUpdateDate);
                             CVApplied.IsApplied = true;
                             CVApplied.IsReject = false;
                             return _CVMatchingRepository.Update(CVApplied);
@@ -124,7 +124,7 @@ namespace APIServer.Services
                             CVApplied.DisplayName = curriculumVitae.DisplayName;
                             CVApplied.GenderId = curriculumVitae.GenderId;
                             CVApplied.CategoryName = curriculumVitae.CategoryName;
-                            CVApplied.EmploymentTypeId = cv.EmploymentTypeId;
+                            CVApplied.EmploymentTypeId = cv1.EmploymentTypeId;
                             CVApplied.DisplayEmail = curriculumVitae.DisplayEmail;
                             CVApplied.DOB = Convert.ToDateTime(curriculumVitae.DOB);
                             CVApplied.Address = curriculumVitae.Address;
@@ -135,11 +135,11 @@ namespace APIServer.Services
                             CVApplied.Certificate = JsonConvert.SerializeObject(curriculumVitae.Certificates);
                             CVApplied.Award = JsonConvert.SerializeObject(curriculumVitae.Awards);
                             CVApplied.ApplyDate = DateTime.Now;
-                            CVApplied.CreatedDate = cv.CreatedDate;
-                            CVApplied.LastUpdateDate = cv.LastUpdateDate;
+                            CVApplied.CreatedDate = cv1.CreatedDate;
+                            CVApplied.LastUpdateDate = cv1.LastUpdateDate;
                             CVApplied.CurriculumVitaeId = curriculumVitae.Id;
                             CVApplied.Theme = curriculumVitae.Theme;
-                            CVApplied.LevelId = cv.LevelId;
+                            CVApplied.LevelId = cv1.LevelId;
                             CVApplied.Font = curriculumVitae.Font;
                             CVApplied.IsMatched = true;
                             CVApplied.IsApplied = true;
@@ -147,18 +147,18 @@ namespace APIServer.Services
                             CVApplied.IsReject = false;
 
                             //clone avt img to another folder
-                            if(!Validation.checkStringIsEmpty(cv.AvatarURL))
+                            if(!Validation.checkStringIsEmpty(cv1.AvatarURL))
                             {
                                 string fileToCopy = Directory.GetCurrentDirectory()
-                                    + "/wwwroot" + cv.AvatarURL;
-                                var fileName = cv.AvatarURL.Replace("\\images\\", "");
+                                    + "/wwwroot" + cv1.AvatarURL;
+                                var fileName = cv1.AvatarURL.Replace("\\images\\", "");
                                 string destinationDirectory = Directory.GetCurrentDirectory()
                                     + "/wwwroot/images_clone/";
 
                                 File.Copy(fileToCopy, destinationDirectory + fileName);
                                 CVApplied.AvatarURL = "/images_clone/" + fileName;
                             }
-                            string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv));
+                            string JSONrs = await GPT_PROMPT.GetResult(GPT_PROMPT.PromptForRecruiter(jobDescription, cv1));
                             CVApplied.JSONMatching = JSONrs;
                             CVApplied.PercentMatching = Validation.checkPercentMatchingFromJSON(JSONrs);
 
