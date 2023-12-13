@@ -317,7 +317,7 @@ export class JdUpdateComponent {
          const data = {
             jobId: this.jdDetail?.jobId,
             title: title,
-            createdAt: this.formatDate1(this.jdDetail?.createdAt),
+            createdAt: this.formatDate2(this.jdDetail?.createdAt),
             employmentTypeName: employmentTypeName,
             genderRequirement: genderRequirement,
             ageRequirement: ageRequirement,
@@ -335,7 +335,7 @@ export class JdUpdateComponent {
             numberRequirement: numberRequirement,
             companyName: this.profile.companyId.toString(),
             categoryName: categoryName,
-            expiredDate: expiredDate,
+            expiredDate: this.formatDate2(this.jdDetail?.expiredDate),
             levelTitle: levelTitle,
             positionTitle: positionTitle,
             companyDTO: {}
@@ -385,13 +385,13 @@ export class JdUpdateComponent {
    }
 
 
-   formatDate1(str:string){
+   formatDate2(str:string){
       const dateParts = str.split('/');
       const year = + dateParts[2];
       const month = + dateParts[1];
       const day = + dateParts[0];
 
-      return year+"-"+month+"-"+day
+      return month+"/"+day+"/"+year
    }
 
    formatDate(): void {
@@ -412,7 +412,9 @@ export class JdUpdateComponent {
       const date2 = new Date(year2, month2, day2);
 
       // Format the date using DatePipe
-      this.startDate = this.datePipe.transform(date, 'yyyy-MM-dd');
-      this.endDate = this.datePipe.transform(date2, 'yyyy-MM-dd');
+      // this.startDate = this.datePipe.transform(date, 'yyyy-MM-dd');
+      // this.endDate = this.datePipe.transform(date2, 'yyyy-MM-dd');
+      this.startDate = this.jdDetail.createdAt
+      this.endDate = this.jdDetail.expiredDate
    }
 }

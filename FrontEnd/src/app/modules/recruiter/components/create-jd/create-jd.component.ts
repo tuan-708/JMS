@@ -88,7 +88,7 @@ export class CreateJdComponent {
    genderRq = new FormControl('0');
    typeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    categoryRq = new FormControl('0', [Validators.required, Validators.min(1)]);
-   expiredDateRq = new FormControl({value: this.getNextMonthFullDateString(), disabled: true}, [Validators.required]);
+   expiredDateRq = new FormControl({value: this.getNextMonthFullDateStringDisplay(), disabled: true}, [Validators.required]);
    addressRq = new FormControl(null, [Validators.required]);
    salaryRq = new FormControl(null, [Validators.required, Validators.min(0)]);
    descriptionRq = new FormControl(null, [Validators.required]);
@@ -227,7 +227,7 @@ export class CreateJdComponent {
          const genderRequirement = this.genderRq.value === '0' ? "3" :  this.genderRq.value;
          const employmentTypeName = this.typeRq.value === '0' ? null :  this.typeRq.value;
          const categoryName = this.categoryRq.value === '0' ? null :  this.categoryRq.value;
-         const expiredDate = this.expiredDateRq.value;
+         const expiredDate = this.getNextMonthFullDateString();
          const address = this.addressRq.value;
          const salary = this.salaryRq.value;
          const jobDetail = this.descriptionRq.value;
@@ -309,6 +309,18 @@ export class CreateJdComponent {
    }
 
    getNextMonthFullDateString(): string {      
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      const nextMonth = currentDate.getMonth() + 1;
+      const year = currentDate.getFullYear();
+      const day = currentDate.getDate();
+      const nextMonthFullDateString = this.formatDate(nextMonth, day, year);
+      console.log(nextMonthFullDateString);
+      
+      return nextMonthFullDateString;
+    }
+
+    getNextMonthFullDateStringDisplay(): string {      
       const currentDate = new Date();
       currentDate.setMonth(currentDate.getMonth() + 1);
       const nextMonth = currentDate.getMonth() + 1;
