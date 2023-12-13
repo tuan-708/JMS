@@ -30,8 +30,7 @@ namespace APIServer.Controllers.UserModule
                 string registerMess = _registerService.RegisterForCandidate(email,fullName,username,password,confirmPassword);
                 return new BaseResponseBody<string>
                 {
-                    data = registerMess,
-                    message = GlobalStrings.SUCCESSFULLY_SAVED,
+                    message = registerMess,
                     statusCode = HttpStatusCode.OK,
                 };
             }
@@ -54,8 +53,7 @@ namespace APIServer.Controllers.UserModule
                 string registerMess = _registerService.RegisterForRecruiter(email, fullName, username, password, confirmPassword);
                 return new BaseResponseBody<string>
                 {
-                    data = registerMess,
-                    message = GlobalStrings.SUCCESSFULLY_SAVED,
+                    message = registerMess,
                     statusCode = HttpStatusCode.OK,
                 };
             }

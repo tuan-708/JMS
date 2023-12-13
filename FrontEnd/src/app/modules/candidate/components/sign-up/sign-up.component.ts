@@ -95,7 +95,7 @@ export class CandidateRegisterComponent {
          postRequest(`${apiCandidate.REGISTER_ACCOUNT_CANDIDATE}?email=${this.Email}
          &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
             .then(res => {
-               if (res.statusCode == 200) {
+               if (res.statusCode == 200 && res.message === 'Register successful') {
                   showSuccess(this.toastr, "Đăng ký tài khoản thành công")
                   this.router.navigate(['/candidate/sign-in']);
                } else if(res.message === 'Email exist in system'){

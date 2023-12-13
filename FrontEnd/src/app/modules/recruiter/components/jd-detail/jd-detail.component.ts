@@ -71,7 +71,11 @@ export class JdDetailComponent {
                   if (res.statusCode == 200) {
                      this.isMatching = false;
                      showSuccess(this.toastr, "Đề xuất thành công <br/> Vui lòng xem chi tiết tại danh sách đề xuất");
-                  } else {
+                  } else if(res.statusCode == 500){
+                     this.isMatching = false;
+                     showError(this.toastr, "Đề xuất thất bại <br/> GPT AI hiện tại đang có vấn đề. Vui lòng thử lại sau");
+                  } 
+                  else {
                      showError(this.toastr, "Đề xuất thất bại <br/> Vui lòng thử lại sau")
                   }
                   console.log(res);

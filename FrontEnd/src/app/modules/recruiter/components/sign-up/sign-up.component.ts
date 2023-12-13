@@ -93,11 +93,13 @@ export class RegisterRecruiterComponent {
          postRequest(`${apiRecruiter.REGISTER_ACCOUNT_RECRUITER}?email=${this.Email}
          &fullName=${this.FullName}&username=${this.UserName}&password=${this.Password}&confirmPassword=${this.rePassword}`, AuthorizationMode.PUBLIC, {})
             .then(res => {
-               if (res.statusCode == 200 && res.data === "Register successful") {
+               if (res.statusCode == 200 && res.message === "Register successful") {
                   showSuccess(this.toastr, "Đăng ký tài khoản thành công")
                   this.router.navigate(['/recruiter/sign-in']);
-               }else if(res.data === "Email exist in system"){
+               }else if(res.message === "Email exist in system"){
                   showError(this.toastr ,"Email đã tồn tại trên hệ thống!")
+               }else if(res.message === 'Username exist in system'){
+                     showError(this.toastr, "Tài khoản đã được sử dụng!")
                }else {
                   showError(this.toastr, "Đăng ký tài khoản thất bại, vui lòng thử lại sau")
                }
