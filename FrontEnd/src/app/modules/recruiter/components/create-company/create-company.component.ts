@@ -39,7 +39,7 @@ export class CreateCompanyComponent {
    sizeRq = new FormControl('0', [Validators.required, Validators.min(1)]);
    addressRq = new FormControl('', [Validators.required]);
    yearOfEstablishmentRq = new FormControl('');
-   phoneRq = new FormControl('', [Validators.required, Validators.pattern(/^\d{10,}$/)]);
+   phoneRq = new FormControl('', [Validators.required, Validators.pattern(/^\d{9,10}$/)]);
    descriptionRq = new FormControl('', [Validators.required]);
 
    getErrorMessageName() {
@@ -90,6 +90,9 @@ export class CreateCompanyComponent {
 
    getErrorMessagePhone() {
       if (this.phoneRq.hasError('required')) {
+         return 'Số điện thoại không được để trống!'
+      }
+      if (this.phoneRq.hasError('pattern')){
          return 'Số điện thoại không hợp lệ!'
       }
       return
@@ -97,7 +100,7 @@ export class CreateCompanyComponent {
 
    getErrorMessageDescriptionRequirement() {
       if (this.descriptionRq.hasError('required')) {
-         return 'Miêu cả không được để trống!'
+         return 'Mô tả không được để trống!'
       }
       return
    }
@@ -118,7 +121,7 @@ export class CreateCompanyComponent {
          const webURL = this.websiteRq.value;
          const categoryName = this.categoryRq.value;
          const size = this.sizeRq.value;
-         const yearOfEstablishment = this.yearOfEstablishmentRq.value;
+         const yearOfEstablishment = this.yearOfEstablishmentRq.value === "" ? null : this.yearOfEstablishmentRq.value;
 
          const profile = getProfile();
 

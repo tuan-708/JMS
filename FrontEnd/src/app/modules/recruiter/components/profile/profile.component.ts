@@ -165,6 +165,8 @@ export class ProfileComponent {
                console.log(this.profile)
                saveItem("profile", this.profile);
                showSuccess(this.toastr, "Cập nhật thông tin thành công!")
+            }else if(res.message === "DOB have to >= 18 and < 100"){
+               showError(this.toastr, "Ngày sinh không hợp lệ. Yêu cầu phải từ 18 tuổi trở lên.")
             } else {
                showError(this.toastr, "Cập nhật thất bại! Vui lòng thử lại.")
             }
@@ -197,7 +199,7 @@ export class ProfileComponent {
 
       if (!regex.test(dateString)) {
          this.invalidDob = true
-         this.invalidDobMsg = 'Ngày sinh không hợp lệ! (dd//MM//yyyy)'
+         this.invalidDobMsg = 'Ngày sinh không hợp lệ! (dd/MM/yyyy)'
          return false
       }
 
@@ -208,7 +210,7 @@ export class ProfileComponent {
 
       if (isNaN(day) || isNaN(month) || isNaN(year)) {
          this.invalidDob = true
-         this.invalidDobMsg = 'Ngày sinh không hợp lệ! (dd//MM//yyyy)'
+         this.invalidDobMsg = 'Ngày sinh không hợp lệ! (dd/MM/yyyy)'
          return false; // Không phải là số
       }
 

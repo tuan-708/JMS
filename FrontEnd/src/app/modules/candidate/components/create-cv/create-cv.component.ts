@@ -38,6 +38,7 @@ export class CandidateCreateCvComponent {
 
    profile: any
    onChangeAvatar = false
+   isAllDataValid = true
 
    getAllCategory() {
       getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
@@ -92,7 +93,10 @@ export class CandidateCreateCvComponent {
       var descriptionSkills: any[] = [];
 
       var inputs = $(".skillDescription");
-      for (const input of inputs) { descriptionSkills.push($(input).val()) }
+      for (const input of inputs) {
+         if (!this.checkAllDataValid(input, "Kỹ năng")) return
+         descriptionSkills.push($(input).val())
+      }
 
       var skills = [];
       for (var i = 0; i < descriptionSkills.length; i++) {
@@ -164,12 +168,20 @@ export class CandidateCreateCvComponent {
       var fromDate: any[] = [];
       var toDate: any[] = [];
       var description: any[] = [];
+      //check condition of data to submit
+      this.isAllDataValid = true
 
       var inputs = $(".companyName");
-      for (const input of inputs) { companyName.push($(input).val()) }
+      for (const input of inputs) {
+         if (!this.checkAllDataValid(input, "Tên công ty")) return
+         companyName.push($(input).val())
+      }
 
       var inputs = $(".positionOfCompany");
-      for (const input of inputs) { position.push($(input).val()) }
+      for (const input of inputs) {
+         if (!this.checkAllDataValid(input, "Vị trí công việc")) return
+         position.push($(input).val())
+      }
 
       var inputs = $(".fromDateExperience");
       for (const input of inputs) { fromDate.push($(input).val()) }
@@ -178,7 +190,10 @@ export class CandidateCreateCvComponent {
       for (const input of inputs) { toDate.push($(input).val()) }
 
       var inputs = $(".experienceDescription");
-      for (const input of inputs) { description.push($(input).val()) }
+      for (const input of inputs) {
+         if (!this.checkAllDataValid(input, "Mô tả công việc")) return
+         description.push($(input).val())
+      }
 
       var experiences = [];
       for (var i = 0; i < companyName.length; i++) {
@@ -235,10 +250,16 @@ export class CandidateCreateCvComponent {
       var stillLearning: any[] = [];
 
       var inputs = $(".schoolName");
-      for (const input of inputs) { schoolName.push($(input).val()) }
+      for (const input of inputs) {
+         if (!this.checkAllDataValid(input, "Tên trường học")) return
+         schoolName.push($(input).val())
+      }
 
       var inputs = $(".majorName");
-      for (const input of inputs) { majorName.push($(input).val()) }
+      for (const input of inputs) {
+         if (!this.checkAllDataValid(input, "Tên ngành")) return
+         majorName.push($(input).val())
+      }
 
       var inputs = $(".educationDescription");
       for (const input of inputs) { description.push($(input).val()) }
@@ -263,7 +284,7 @@ export class CandidateCreateCvComponent {
    }
 
    isValidDate(date: string) {
-      const regex = /^(0[1-9]|1[0-2])\/\d{4}$/;
+      const regex = /^(0?[1-9]|1[0-2])\/\d{4}$/;
       return regex.test(date)
    }
 
@@ -285,16 +306,29 @@ export class CandidateCreateCvComponent {
          var valid = false;
       }
 
-      if ($(".inputPhone")[0].value == "") {
-         massage += "- Số điện thoại không được để trống <br/>"
+      if ($(".inputPhone")[0].value === "") {
+         massage += "- Số điện thoại không được để trống <br/>";
          var valid = false;
+      } else {
+         var phoneNumber = $(".inputPhone")[0].value;
+         if (!/^\d{9,10}$/.test(phoneNumber)) {
+            massage += "- Số điện thoại phải có 9 hoặc 10 chữ số <br/>";
+            var valid = false;
+         }
       }
 
       if ($(".inputDob")[0].value == "") {
          massage += "- Ngày sinh không được để trống <br/>"
          var valid = false;
       } else {
-
+         var dob = $(".inputDob")[0].value;
+         const birthDate = new Date(dob);
+         const currentDate = new Date();
+         const age = currentDate.getFullYear() - birthDate.getFullYear();
+         if(!(age >= 16 && age <= 100)){
+            massage += "- Ngày sinh không hợp lệ<br/>"
+            var valid = false;
+         }
       }
 
       if ($(".cvTitle")[0].value == "") {
@@ -383,6 +417,10 @@ export class CandidateCreateCvComponent {
             'cvTitle': cvTitle,
             'theme': theme,
             'font': font
+         }
+
+         if (!this.isAllDataValid) {
+            return
          }
 
          postRequest(`${apiCandidate.CREATE_CV_BY_CANDIDATE_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, data)
@@ -520,5 +558,15 @@ export class CandidateCreateCvComponent {
       if ($(".education").length > 1) {
          $(".education:last").remove();
       }
+   }
+
+   // check validate data
+   checkAllDataValid(input: any, name: any) {
+      if ($(input).val() === null || $(input).val() === "") {
+         showError(this.toastr, name + " không thể để trống!")
+         this.isAllDataValid = false
+         return false
+      }
+      return true
    }
 }

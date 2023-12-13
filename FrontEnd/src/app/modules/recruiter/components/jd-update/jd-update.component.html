@@ -125,7 +125,7 @@
                         <div class="col-md-12 mb-2">
                            <label for="createAt" class="form-label">Ngày Tạo</label>
                            <mat-form-field appearance="outline" class="col-12 p-0">
-                              <input matInput type="date" id="createAt"  [formControl]="CreateAtRq"
+                              <input matInput id="createAt"  [formControl]="CreateAtRq"
                                  [value]="startDate" readonly />
                            </mat-form-field>
                         </div>
@@ -136,7 +136,7 @@
                            <label for="expiredDate" class="form-label">Ngày Hết Hạn</label><span class="link-danger">
                               </span>
                            <mat-form-field appearance="outline" class="col-12 p-0">
-                              <input matInput type="date" id="expiredDate"
+                              <input matInput id="expiredDate"
                                  [formControl]="expiredDateRq" [value]="endDate" readonly/>
                               <mat-error *ngIf="expiredDateRq.invalid">{{getErrorMessageExpiredDateRq()}}</mat-error>
                            </mat-form-field>

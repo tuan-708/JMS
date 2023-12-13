@@ -26,6 +26,9 @@ export class ListCandidateComponent {
       public dialog: MatDialog,
       private toastr: ToastrService,
       @Inject(MAT_DIALOG_DATA) public data: any) {
+      if (data.content?.length == 0) {
+         data.content = null
+      }
       if (data.content != null) this.getPageRange()
    }
 
@@ -46,7 +49,7 @@ export class ListCandidateComponent {
    async openListCandidateLeft(): Promise<void> {
       if (this.isShowLeftMatched == true) return;
 
-      await getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId})
+      await getRequest(apiRecruiter.GET_CV_MATCHED_LEFT, AuthorizationMode.BEARER_TOKEN, { recruiterId: this.data.recruiterId, jobDescriptionId: this.data.jdId })
          .then(res => {
             if (res.statusCode === 200 && res.data != null) {
                this.data.content = res.data
