@@ -104,7 +104,7 @@ namespace APIServer.Services
                     {
                         CVMatching CVApplied = new CVMatching();
 
-                        if (cVMatchings.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv1.LastUpdateDate && x.IsMatched == true && x.IsApplied == false && x.IsReject == false))
+                        if (cVMatchings.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.JobDescriptionId == jobDescriptionId && x.LastUpdateDate == cv1.LastUpdateDate && x.IsMatched == true && x.IsApplied == false && x.IsReject == false))
                         {
                             CVApplied = _CVMatchingRepository.GetByCVIdAndLastUpdateDate(curriculumVitae.Id, cv1.LastUpdateDate);
                             CVApplied.IsApplied = true;
