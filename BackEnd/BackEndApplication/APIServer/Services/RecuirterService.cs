@@ -275,11 +275,15 @@ namespace APIServer.Services
                         var curriculumVitae = _mapper.Map<CurriculumVitaeDTO>(cv);
                         CVMatching CVApplied = new CVMatching();
 
-                        if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsApplied == true && x.IsMatched == true && x.IsReject == false))
+                        if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.JobDescriptionId == jobDescriptionId && x.LastUpdateDate == cv.LastUpdateDate && x.IsApplied == true && x.IsMatched == true && x.IsReject == false))
                         {
                             return null;
                         }
-                        if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsReject == false))
+                        if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.JobDescriptionId == jobDescriptionId && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsReject == false))
+                        {
+                            return null;
+                        }
+                        if (cVApplyList.Any(x => x.CurriculumVitaeId == curriculumVitae.Id && x.JobDescriptionId == jobDescriptionId && x.LastUpdateDate == cv.LastUpdateDate && x.IsMatched == true && x.IsApplied == false && x.IsReject == true))
                         {
                             return null;
                         }
