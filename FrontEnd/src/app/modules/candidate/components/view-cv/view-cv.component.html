@@ -200,9 +200,7 @@
                <div *ngIf="aw.Description">
                   <div class="mt-1">
                      <div class="inputEmail width90" [style.color]="colorLeftInput" [class]="ThemStyle">
-                        <div>
-                           {{ aw.Description}}
-                        </div>
+                        <pre>{{ aw.Description.trim() }}</pre>
                      </div>
                   </div>
                </div>
@@ -273,16 +271,17 @@
                      <span [style.color]="colorRightHeader" [class]="ThemStyle ">
                         {{ ex.Position}}
                      </span>
-                     <span>//</span>
+                 
                   </span>
                   <span *ngIf="ex.FromDate">
+                     <span>//</span>
                      <span style="padding-left: 10px; padding-right: 10px;" [style.color]="colorRightHeader" [class]="ThemStyle ">
                         {{ ex.FromDate }}
                      </span>
                   </span>
-                  <span>-</span>
 
                   <span *ngIf="ex.ToDate">
+                     <span>-</span>
                      <span style="padding-left: 10px; padding-right: 10px;"  [style.color]="colorRightHeader" [class]="ThemStyle ">
                         {{ ex.ToDate }}
                      </span>
@@ -298,9 +297,7 @@
                </div>
 
                <div *ngIf="ex.Description">
-                  <div [class]="ThemStyle" [style.color]="colorRightHeader">
-                     {{ ex.Description }}
-                  </div>
+                  <pre [class]="ThemStyle" style="white-space: pre-wrap;" [style.color]="colorRightHeader">{{ ex.Description.trim() }}</pre>
                </div>
 
             </div>
@@ -322,16 +319,18 @@
                      <span [class]="ThemStyle" [style.color]="colorRightHeader">
                         {{ pr.ProjectName }}
                      </span>
-                     <span>//</span>
+             
                   </span>
 
                   <span *ngIf="pr.FromDate">
+                     <span>//</span>
                      <span style="padding-left: 10px; padding-right: 10px;"  [style.color]="colorRightHeader" [class]="ThemStyle ">
                         {{ pr.FromDate }}
                      </span>
                   </span>
-                  <span>-</span>
+            
                   <span *ngIf="pr.ToDate">
+                     <span>-</span>
                      <span style="padding-left: 10px; padding-right: 10px;"  [style.color]="colorRightHeader" [class]="ThemStyle ">
                         {{ pr.ToDate }}
                      </span>
@@ -344,9 +343,7 @@
                </div>
                <div>
                   <div *ngIf="pr.Description">
-                     <div style="text-align: justify;" [style.color]="colorRightHeader" [class]="ThemStyle">
-                        {{ pr.Description}}
-                     </div>
+                     <pre style="white-space: pre-wrap;" [style.color]="colorRightHeader" [class]="ThemStyle">{{ pr.Description}}</pre>
                   </div>
                </div>
             </div>
@@ -368,16 +365,16 @@
                      <span [class]="ThemStyle" [style.color]="colorRightHeader">
                         {{ ed.MajorName }}
                      </span>
-                     <span>//</span>
                   </span>
 
                   <span *ngIf="ed.FromYear">
+                     <span>//</span>
                      <span style="padding-left: 10px; padding-right: 10px;"  [style.color]="colorRightHeader" [class]="ThemStyle">
                         {{ ed.FromYear }}
                      </span>
                   </span>
-                  <span>-</span>
                   <span *ngIf="ed.ToYear">
+                     <span>-</span>
                      <span style="padding-left: 10px; padding-right: 10px;"  [style.color]="colorRightHeader" [class]="ThemStyle">
                         {{ ed.ToYear }}
                      </span>
