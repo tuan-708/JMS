@@ -5,6 +5,8 @@ import { showError, showSuccess } from 'src/app/service/common';
 import { AuthorizationMode, apiCandidate } from 'src/app/service/constant';
 import { getProfile } from 'src/app/service/localstorage';
 
+declare var $: any;
+
 @Component({
    selector: 'candidate-change-password',
    templateUrl: './change-password.component.html',
@@ -97,10 +99,10 @@ export class ChangePasswordComponent {
    }
 
 
-   SubmitForm() {
+   SubmitForm() {    
       if (this.validAllFiled()) {
          postRequest(`${apiCandidate.CHANGE_PASSWORD_CANDIDATE}?candidateId=${this.profile.id}
-      &oldPassword=${this.oldPassword}&newPassword=${this.newPassword}&confirmPassword=${this.conformPassword}`, AuthorizationMode.BEARER_TOKEN, {})
+      &oldPassword=${this.encodeText(this.oldPassword)}&newPassword=${this.encodeText(this.newPassword)}&confirmPassword=${this.encodeText(this.conformPassword)}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
                console.log(res);
                if (res.statusCode == 200) {
@@ -122,4 +124,8 @@ export class ChangePasswordComponent {
       }
    }
 
+   encodeText(text: any){
+      const encode = `${encodeURIComponent(text.trim())}`;
+      return encode
+   }
 }

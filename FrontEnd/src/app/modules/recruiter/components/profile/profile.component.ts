@@ -106,7 +106,7 @@ export class ProfileComponent {
       if (this.validAllFiled()) {
 
          postRequest(`${apiRecruiter.CHANGE_PASSWORD}?recruiterId=${this.profile.id}
-      &oldPassword=${this.oldPassword}&newPassword=${this.newPassword}&confirmPassword=${this.conformPassword}`, AuthorizationMode.BEARER_TOKEN, {})
+      &oldPassword=${this.encodeText(this.oldPassword)}&newPassword=${this.encodeText(this.newPassword)}&confirmPassword=${this.encodeText(this.conformPassword)}`, AuthorizationMode.BEARER_TOKEN, {})
             .then(res => {
                console.log(res);
                if (res.statusCode == 200) {
@@ -309,4 +309,8 @@ export class ProfileComponent {
       }
    }
 
+   encodeText(text: any){
+      const encode = `${encodeURIComponent(text.trim())}`;
+      return encode
+   }
 }
