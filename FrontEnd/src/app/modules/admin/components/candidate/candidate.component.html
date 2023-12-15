@@ -17,7 +17,7 @@
         <thead class="table-success">
             <tr>
                 <th>STT</th>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Tài Khoản</th>
                 <th>Họ Tên</th>
                 <th>Ngày Sinh</th>
@@ -31,7 +31,7 @@
         <tbody>
             <tr *ngFor="let elm of listDisplay | CustomFilterPipePipe: searchText;  let i = index">
                 <td>{{i+1}}</td>
-                <td>{{elm.id}}</td>
+                <!-- <td>{{elm.id}}</td> -->
                 <td>{{elm.userName}}</td>
                 <td>{{elm.fullName}}</td>
                 <td>{{elm.dob | date:'dd/MM/yyyy'}}</td>
