@@ -31,7 +31,7 @@
     <table class="table table-striped text-center table-hover ">
         <thead class="table-success">
             <tr>
-                <th>STT</th>
+                <!-- <th>STT</th> -->
                 <th>ID</th>
                 <th>Tên Công Ty</th>
                 <th>Địa Chỉ</th>
@@ -45,7 +45,7 @@
         <tbody>
             <tr *ngFor="let elm of listDisplay | CustomFilterPipePipe: searchText;  let i = index">
                 <td>{{i+1}}</td>
-                <td>{{elm.companyId}}</td>
+                <!-- <td>{{elm.companyId}}</td> -->
                 <td>{{elm.companyName}}</td>
                 <td>{{elm.address}}</td>
                 <td>{{elm.categoryName}}</td>

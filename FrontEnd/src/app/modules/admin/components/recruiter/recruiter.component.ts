@@ -15,9 +15,11 @@ export class RecruiterComponent {
   pageIndex: any = 0
   pageSize: any = 10
   listDisplay: any
+  companies: any
 
   constructor(public dialog: MatDialog) {
     this.getListRecruiter();
+    this.getListCompany();
   }
 
   getListRecruiter() {
@@ -25,7 +27,7 @@ export class RecruiterComponent {
       .then(res => {
         this.recruiters = res?.data
         console.log(this.recruiters);
-        
+
         this.getPageRange()
       })
       .catch(data => {
@@ -57,14 +59,14 @@ export class RecruiterComponent {
     }
   }
 
-  changeActive(id: any, isActive: any){
+  changeActive(id: any, isActive: any) {
     postRequest(apiAdmin.CHANGE_ACTIVE_RECRUITER + id, AuthorizationMode.PUBLIC, {})
       .then(res => {
-        if(res.statusCode === 200){
+        if (res.statusCode === 200) {
           console.log('success')
           for (let i = 0; i < this.listDisplay.length; i++) {
             const e = this.listDisplay[i];
-            if(e.id === id){
+            if (e.id === id) {
               this.listDisplay[i].isActive = !isActive
             }
           }
@@ -73,5 +75,26 @@ export class RecruiterComponent {
       .catch(data => {
         console.warn("Call API GET COMPANY Fail:" + data)
       })
+  }
+
+  getListCompany() {
+    getRequest(apiAdmin.GET_ALL_COMPANY, AuthorizationMode.PUBLIC)
+      .then(res => {
+        this.companies = res?.data
+        console.log(this.companies)
+      })
+      .catch(data => {
+        console.warn("Call API GET COMPANY Fail:" + data)
+      })
+  }
+
+  getCompanyName(cId: any){
+    for (let i = 0; i < this.companies.length; i++) {
+      const elm = this.companies[i];
+      if(elm.companyId === cId){
+        return elm.companyName
+      }
+    }
+    return ""
   }
 }

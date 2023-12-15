@@ -15,7 +15,8 @@ export class SideNavComponent{
 
   constructor(private router: Router){
     console.log(router.url);
-    this.checkTab()
+    if(router.url === "/admin/sign-in"){this.changeNav(0)}else{this.checkTab()}
+    
   }
 
   changeNav(number: any){
