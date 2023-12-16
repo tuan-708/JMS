@@ -55,9 +55,11 @@
    </mat-list>
 </mat-dialog-content>
 <mat-dialog-actions class="float-end col-12" [class.hidden]="isHideModal">
-   <div class="col-3 d-flex align-items-center"><a *ngIf="data.listType != 2 && data.content != null" class="ml-auto"
-         (click)="openListCandidateLeft()">Nhiều ứng viên hơn</a></div>
-   <mat-paginator class="col-7" *ngIf="data.content != null" [length]="data.content?.length" [pageSize]="pageSize"
+   <div class="col-3 d-flex align-items-center">
+      <!-- <a *ngIf="data.listType != 2 && data.content != null" class="ml-auto"
+         (click)="openListCandidateLeft()">Nhiều ứng viên hơn</a> -->
+      </div>
+   <mat-paginator class="col-6" *ngIf="data.content != null" [length]="data.content?.length" [pageSize]="pageSize"
       [showFirstLastButtons]="true" [hidePageSize]="true" [pageIndex]="pageIndex"
       (page)="handlePage($event)"></mat-paginator>
    <button mat-button mat-dialog-close class="col-1 ml-auto">Close</button>

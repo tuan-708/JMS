@@ -4,7 +4,7 @@
       </div>
       <div class="col-2 pb-2">
          <div class="btn-option float-end">
-            <button class="pr-2" title="Loại khỏi danh sách" ><i class="bi bi-person-dash h4"></i></button>
+            <button class="pr-2" title="Loại khỏi danh sách" (click)="openConfirmDialog(data.jd)"><i class="bi bi-person-dash h4"></i></button>
             <button *ngIf="data.jd?.isSelected == 0" (click)="onClickSelect(data.jd)" title="Yêu thích"><i
                   class="bi bi-star h4"></i></button>
             <button *ngIf="data.jd?.isSelected == 1" (click)="onClickSelect(data.jd)" title="Bỏ yêu thích"><i
