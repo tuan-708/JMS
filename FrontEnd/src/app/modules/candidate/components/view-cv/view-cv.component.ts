@@ -54,7 +54,7 @@ export class ViewCvComponent {
    // function for recruiter
    onClickSelect(item: any) {
       //call api update cv selected status
-      postRequest(apiRecruiter.UPDATE_CV_SELECTED_STATUS + "?recruiterId=" + this.data.recruiterId + "&jobDescriptionId=" + item.jobDescriptionId + "&CVMatchingId=" + item.id, AuthorizationMode.PUBLIC, {})
+      postRequest(apiRecruiter.UPDATE_CV_SELECTED_STATUS + "?recruiterId=" + this.data.recruiterId + "&jobDescriptionId=" + item.jobDescriptionId + "&CVMatchingId=" + item.id, AuthorizationMode.BEARER_TOKEN, {})
          .then(res => {
             if (res.statusCode == 200) {
                item.isSelected = item.isSelected == 0 ? 1 : 0
@@ -64,4 +64,6 @@ export class ViewCvComponent {
             console.log(this.data.jd);
          })
    }
+
+   
 }
