@@ -70,7 +70,7 @@ export class JdDetailComponent {
                .then(res => {
                   if (res.statusCode == 200) {
                      this.isMatching = false;
-                     showSuccess(this.toastr, "Đề xuất thành công <br/> Vui lòng xem chi tiết tại danh sách đề xuất");
+                     showSuccess(this.toastr, "Đề xuất thành công <br/>Đã tìm thấy " + res.data.length + " ứng viên. Vui lòng xem chi tiết tại danh sách đề xuất");
                   } else if(res.statusCode == 500){
                      this.isMatching = false;
                      showError(this.toastr, "Đề xuất thất bại <br/> GPT AI hiện tại đang có vấn đề. Vui lòng thử lại sau");
