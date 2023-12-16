@@ -105,11 +105,11 @@ namespace APIServer.Controllers.RecuirterModule
         [HttpPost]
         [Authorize(Roles = GlobalStrings.ROLE_RECUIRTER)]
         [Route("matching-job")]
-        public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId, int numberRequirement)
+        public async Task<BaseResponseBody<List<CVMatchingDTO>>> MatchingJob(int recruiterId, int jobDescriptionId)
         {
             try
             {
-                List<CVMatchingDTO> cVApplies = _mapper.Map<List<CVMatchingDTO>>(await _recuirterService.GetCVFromMatchingJD(recruiterId, jobDescriptionId, numberRequirement));
+                List<CVMatchingDTO> cVApplies = _mapper.Map<List<CVMatchingDTO>>(await _recuirterService.GetCVFromMatchingJD(recruiterId, jobDescriptionId));
 
                 return new BaseResponseBody<List<CVMatchingDTO>>
                 {
