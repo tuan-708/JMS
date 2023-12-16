@@ -66,7 +66,7 @@ export class JdDetailComponent {
             this.isMatching = true;
             showSuccess(this.toastr, "Xác nhận thành công <br/> Hệ thống đang tìm ứng viên phù hợp");
             // call matching api
-            postRequest(apiRecruiter.MATCHING_JOB + "?recruiterId=" + this.jdDetail.recuirterId + "&jobDescriptionId=" + this.jdDetail.jobId + "&numberRequirement=" + this.matchOption.quantity, AuthorizationMode.BEARER_TOKEN, {})
+            postRequest(apiRecruiter.MATCHING_JOB + "?recruiterId=" + this.jdDetail.recuirterId + "&jobDescriptionId=" + this.jdDetail.jobId, AuthorizationMode.BEARER_TOKEN, {})
                .then(res => {
                   if (res.statusCode == 200) {
                      this.isMatching = false;
