@@ -110,9 +110,10 @@ export class ChangePasswordComponent {
                   this.oldPassword = ""
                   this.newPassword = ""
                   this.conformPassword = ""
-               }
-               if (res.statusCode == 400) {
+               }else if (res.statusCode == 400) {
                   if (res?.message == "Old password is not correct") showError(this.toastr, "Mật khẩu cũ không chính xác")
+               }else {
+                  showError(this.toastr, "Đã có lỗi xảy ra, vui lòng thử lại sau")
                }
             })
             .catch(res => {

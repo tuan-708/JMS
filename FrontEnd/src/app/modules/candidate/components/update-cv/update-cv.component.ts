@@ -57,7 +57,11 @@ export class UpdateCvComponent {
          this.id = params['id'];
       });
 
-      getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
+      this.setDataCv()
+   }
+
+   async setDataCv() {
+      await getRequest(apiRecruiter.GET_ALL_CATEGORY, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.categories = res.data
          })
@@ -65,7 +69,7 @@ export class UpdateCvComponent {
             console.warn(apiRecruiter.GET_ALL_CATEGORY, data);
          })
 
-      getRequest(apiRecruiter.GET_ALL_LEVEL_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
+      await getRequest(apiRecruiter.GET_ALL_LEVEL_TITLE, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.levels = res.data
          })
@@ -73,7 +77,7 @@ export class UpdateCvComponent {
             console.warn(apiRecruiter.GET_ALL_LEVEL_TITLE, data);
          })
 
-      getRequest(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, AuthorizationMode.PUBLIC, { page: 10 })
+      await getRequest(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, AuthorizationMode.PUBLIC, { page: 10 })
          .then(res => {
             this.employmentTypes = res.data
          })
@@ -81,7 +85,7 @@ export class UpdateCvComponent {
             console.warn(apiRecruiter.GET_ALL_EMPLOYMENT_TYPE, data);
          })
 
-      getRequest(`${apiCandidate.GET_CV_CANDIDATE_BY_ID}/${this.profile.id}/${this.id}`, AuthorizationMode.BEARER_TOKEN)
+      await getRequest(`${apiCandidate.GET_CV_CANDIDATE_BY_ID}/${this.profile.id}/${this.id}`, AuthorizationMode.BEARER_TOKEN)
          .then(res => {
             this.cv = res.data
 

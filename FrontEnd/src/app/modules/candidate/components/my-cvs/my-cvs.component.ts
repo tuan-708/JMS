@@ -41,7 +41,7 @@ export class CandidateMyCvsComponent {
    convertDate(date: string){
       var d = date.split("/")
       if(d){
-         return `${d[1]}-${d[0]}-${d[2]}`
+         return `${d[1]}/${d[0]}/${d[2]}`
       }  
       return ''
    }
@@ -89,6 +89,7 @@ export class CandidateMyCvsComponent {
                getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
                   .then(res => {
                      this.listCVs = res?.data
+                     this.listCVs.map((item:any, index: any) =>  this.listCVs[index].lastUpdateDateDisplay = this.convertDate(item.lastUpdateDateDisplay))
                   })
                   .catch(data => {
                      console.warn(apiCandidate.GET_ALL_CV_BY_ID, data);
@@ -125,6 +126,7 @@ export class CandidateMyCvsComponent {
                getRequest(`${apiCandidate.GET_ALL_CV_BY_ID}/${this.profile.id}`, AuthorizationMode.BEARER_TOKEN, {})
                   .then(res => {
                      this.listCVs = res?.data
+                     this.listCVs.map((item:any, index: any) =>  this.listCVs[index].lastUpdateDateDisplay = this.convertDate(item.lastUpdateDateDisplay))
                      console.log(this.listCVs);
                   })
                   .catch(data => {
