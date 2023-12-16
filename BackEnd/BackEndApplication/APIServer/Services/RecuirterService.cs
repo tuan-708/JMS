@@ -207,17 +207,10 @@ namespace APIServer.Services
             return cVApply;
         }
 
-        public async Task<List<CVMatching>> GetCVFromMatchingJD(int recruiterId, int jobDescriptionId, int matchingNumberRequirement)
+        public async Task<List<CVMatching>> GetCVFromMatchingJD(int recruiterId, int jobDescriptionId)
         {
             try
             {
-                using (var context = new JMSDBContext())
-                {
-                    JobDescription? jd1 = context.JobDescriptions.FirstOrDefault(x => x.JobId == jobDescriptionId);
-                    if (jd1 != null)
-                        jd1.MatchingNumberRequirement = matchingNumberRequirement;
-                    context.SaveChanges();
-                }
                 var JDList = _jobContext.getAllByRecuirterId(recruiterId);
                 List<CVMatching> matchedList = new List<CVMatching>();
                 JobDescription jd = _jobContext.GetById(jobDescriptionId);
@@ -268,7 +261,7 @@ namespace APIServer.Services
                     .Include(j => j.JobDescription).ThenInclude(c => c.Company)
                     .Include(j => j.JobDescription).ThenInclude(c => c.Category)
                     .Include(j => j.JobDescription).ThenInclude(c => c.Recuirter)
-                    .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).Where(x => x.CurriculumVitaeId == CVid && x.JobDescriptionId == jobDescriptionId && x.IsReject == false).ToList();
+                    .Include(j => j.JobDescription).ThenInclude(e => e.EmploymentType).Where(x => x.CurriculumVitaeId == CVid && x.JobDescriptionId == jobDescriptionId).ToList();
                     var CVAppliedByCVIdList = _mapper.Map<List<CVMatchingDTO>>(cVApplyList);
                     if (cv != null && jd != null)
                     {
