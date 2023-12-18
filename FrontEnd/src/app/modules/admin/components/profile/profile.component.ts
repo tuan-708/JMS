@@ -53,9 +53,9 @@ export class ProfileComponent {
   isOldPassValid(oldPass:any){
     if (oldPass.trim().length == 0) {
       showError(this.toastr, "Hãy nhập mật khẩu!")      
-      return false
+      return false;
     }
-    return true
+    return true;
   }
 
   isPasswordValid(password: string): boolean {
