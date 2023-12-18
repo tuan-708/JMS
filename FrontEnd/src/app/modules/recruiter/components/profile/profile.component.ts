@@ -96,10 +96,18 @@ export class ProfileComponent {
 
    validAllFiled() {
       if (!this.invalidOldPassword && !this.invalidNewPassword && !this.invalidConformPassword &&
-         this.oldPassword !== "" && this.newPassword !== "" && this.conformPassword !== "") {
+         this.oldPassword !== "" && this.newPassword !== "" && this.conformPassword !== "" && this.validNewPassword()) {
          return true
       }
       return false
+   }
+   validNewPassword(){
+      if(this.newPassword === this.conformPassword){
+         return true
+      }else{
+         showError(this.toastr, "Mật khẩu mới không trùng khớp")
+         return false
+      }
    }
 
    SubmitFormChangePassword() {
@@ -125,7 +133,7 @@ export class ProfileComponent {
 
             })
       } else {
-         showInfo(this.toastr, 'Điền các trường ở bên dưới')
+         // showInfo(this.toastr, 'Điền các trường ở bên dưới')
       }
    }
 

@@ -92,10 +92,19 @@ export class ChangePasswordComponent {
 
    validAllFiled() {
       if (!this.invalidOldPassword && !this.invalidNewPassword && !this.invalidConformPassword &&
-         this.oldPassword !== "" && this.newPassword !== "" && this.conformPassword !== "") {
+         this.oldPassword !== "" && this.newPassword !== "" && this.conformPassword !== "" && this.validNewPassword()) {
          return true
       }
       return false
+   }
+
+   validNewPassword(){
+      if(this.newPassword === this.conformPassword){
+         return true
+      }else{
+         showError(this.toastr, "Mật khẩu mới không trùng khớp")
+         return false
+      }
    }
 
 
@@ -121,7 +130,7 @@ export class ChangePasswordComponent {
                console.warn(res);
             })
       } else {
-         this.showInfoInput()
+         // this.showInfoInput()
       }
    }
 
