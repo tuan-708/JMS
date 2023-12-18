@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace APIServer.Common
@@ -33,21 +34,6 @@ namespace APIServer.Common
                 return false;
             }
             catch { return true; }
-        }
-
-        public static string processStringGpt(string input)
-        {
-            Match match = Regex.Match(input, @"\{([^}]+)\}");
-
-            if (match.Success)
-            {
-                string innerText = match.Groups[1].Value.Trim();
-                return "{" + innerText + "}";
-            }
-            else
-            {
-                return input;
-            }
         }
 
         public static string readKey()
@@ -105,21 +91,53 @@ namespace APIServer.Common
             }
             try
             {
-                JObject jsonObject = JObject.Parse(json);
-                float trueVal = 0;
-                foreach (var property in jsonObject.Properties())
+                float pcEdu = 25, pcS = 35, pcExp = 40;
+                float countS = 0, countExp = 0, countEdu = 0;
+                var jObj = JObject.Parse(json);
+                var lstS = GetValuesByKey(jObj, "skill");
+                var lstExp = GetValuesByKey(jObj, "Exp");
+                var lstEdu = GetValuesByKey(jObj, "edu");
+                //Console.WriteLine(lstEdu.Count);
+                //Console.WriteLine(lstExp.Count);
+                //Console.WriteLine(lstS.Count);
+                foreach (var o in lstS)
                 {
-                    if(property.Value.ToString().ToLower() == "true")
-                    {
-                        trueVal++;
-                    } 
+                    if (o.ToLower() == "true")
+                        countS++;
                 }
-                return trueVal / jsonObject.Properties().Count();
+                foreach (var o in lstExp)
+                {
+                    if (o.ToLower() == "true")
+                        countExp++;
+                }
+                foreach (var o in lstEdu)
+                {
+                    if (o.ToLower() == "true")
+                        countEdu++;
+                }
+
+                float result = countS / lstS.Count * pcS +
+                    countEdu / lstEdu.Count * pcEdu +
+                    countExp / lstExp.Count * pcExp;
+                return result / 100;
             }
             catch (Exception e)
             {
                 throw e;
             }
+        }
+
+        private static List<string> GetValuesByKey(JObject jsonObject, string key)
+        {
+            List<string> values = new List<string>();
+            foreach (JProperty property in jsonObject.Properties())
+            {
+                if (property.Name.ToLower().Contains(key.ToLower()))
+                {
+                    values.Add(property.Value.ToString());
+                }
+            }
+            return values;
         }
 
         public static string ConvertHTMLToData(string html)
