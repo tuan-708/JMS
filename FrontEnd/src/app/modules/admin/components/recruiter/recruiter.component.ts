@@ -16,6 +16,8 @@ export class RecruiterComponent {
   pageSize: any = 10
   listDisplay: any
   companies: any
+  pageLength: any
+  listSearch: any
 
   constructor(public dialog: MatDialog) {
     this.getListRecruiter();
@@ -42,18 +44,24 @@ export class RecruiterComponent {
   }
 
   getPageRange() {
+    let list = null
+    if(this.searchText.length == 0){
+      list = this.recruiters
+    }else{
+      list = this.listSearch
+    }
+    this.pageLength = list.length
     const start = this.pageIndex * this.pageSize;
-    const end = Math.min((this.pageIndex + 1) * this.pageSize, this.recruiters.length);
-    this.listDisplay = this.recruiters.slice(start, end)
+    const end = Math.min((this.pageIndex + 1) * this.pageSize, list.length);
+    this.listDisplay = list.slice(start, end)
   }
 
   onInputChange() {
     try {
       if (this.searchText.length != 0) {
-        this.listDisplay = this.recruiters.filter((obj: { name: string | any[]; }) => obj?.name.includes(this.searchText));
-      } else {
-        this.getPageRange()
+        this.listSearch = this.recruiters.filter((obj: { fullName: string }) => obj?.fullName.toUpperCase().includes(this.searchText.toUpperCase()));
       }
+      this.getPageRange()
     } catch (error) {
       console.warn('Fail in search:' + error)
     }
@@ -89,7 +97,7 @@ export class RecruiterComponent {
   }
 
   getCompanyName(cId: any){
-    for (let i = 0; i < this.companies.length; i++) {
+    for (let i = 0; i < this.companies?.length; i++) {
       const elm = this.companies[i];
       if(elm.companyId === cId){
         return elm.companyName

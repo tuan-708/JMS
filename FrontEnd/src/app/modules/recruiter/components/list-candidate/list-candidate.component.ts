@@ -7,6 +7,7 @@ import { ViewCvComponent } from 'src/app/modules/candidate/components/view-cv/vi
 import { getRequest, postRequest } from 'src/app/service/api-requests';
 import { showError, showSuccess } from 'src/app/service/common';
 import { AVATAR_DEFAULT_URL, AuthorizationMode, apiRecruiter } from 'src/app/service/constant';
+import { environment } from 'src/environments/environment';
 @Component({
    selector: 'app-list-candidate',
    templateUrl: './list-candidate.component.html',
@@ -19,6 +20,7 @@ export class ListCandidateComponent {
    listDisplay: any
    isShowLeftMatched: boolean = false
    isHideModal: boolean = false
+   URL: any = environment.Url
 
    constructor(
       public dialogRef: MatDialogRef<ListCandidateComponent>,
