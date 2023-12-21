@@ -53,6 +53,8 @@ export class CandidateComponent {
   pageIndex: any = 0
   pageSize: any = 10
   listDisplay: any
+  pageLength: any
+  listSearch: any
 
   constructor(public dialog: MatDialog, public toastr: ToastrService) {
     this.getListCandidate();
@@ -78,18 +80,24 @@ export class CandidateComponent {
   }
 
   getPageRange() {
+    let list = null
+    if(this.searchText.length == 0){
+      list = this.candidates
+    }else{
+      list = this.listSearch
+    }
+    this.pageLength = list.length
     const start = this.pageIndex * this.pageSize;
-    const end = Math.min((this.pageIndex + 1) * this.pageSize, this.candidates.length);
-    this.listDisplay = this.candidates.slice(start, end)
+    const end = Math.min((this.pageIndex + 1) * this.pageSize, list.length);
+    this.listDisplay = list.slice(start, end)
   }
 
   onInputChange() {
     try {
       if (this.searchText.length != 0) {
-        this.listDisplay = this.candidates.filter((obj: { name: string | any[]; }) => obj?.name.includes(this.searchText));
-      } else {
-        this.getPageRange()
+        this.listSearch = this.candidates.filter((obj: { fullName: string }) => obj?.fullName.toUpperCase().includes(this.searchText.toUpperCase()));
       }
+      this.getPageRange()
     } catch (error) {
       console.warn('Fail in search:' + error)
     }

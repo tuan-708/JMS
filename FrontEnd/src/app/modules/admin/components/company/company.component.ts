@@ -18,6 +18,8 @@ export class CompanyComponent {
   pageIndex: any = 0
   pageSize: any = 10
   listDisplay: any
+  pageLength: any
+  listSearch: any
 
   constructor(public dialog: MatDialog) {
     this.getListCompany();
@@ -43,17 +45,26 @@ export class CompanyComponent {
 
   getPageRange() {
     const start = this.pageIndex * this.pageSize;
-    const end = Math.min((this.pageIndex + 1) * this.pageSize, this.companies.length);
-    this.listDisplay = this.companies.slice(start, end)
+
+    if(this.searchText.length == 0){
+      this.pageLength = this.companies.length
+      const end = Math.min((this.pageIndex + 1) * this.pageSize, this.companies.length);
+      this.listDisplay = this.companies.slice(start, end)
+    }else{
+      this.pageLength = this.listSearch.length
+      const end = Math.min((this.pageIndex + 1) * this.pageSize, this.listSearch.length);
+      this.listDisplay = this.listSearch.slice(start, end)
+    }
+    
   }
 
   onInputChange() {
     try {
       if (this.searchText.length != 0) {
-        this.listDisplay = this.companies.filter((obj: { name: string | any[]; }) => obj?.name.includes(this.searchText));
-      } else {
-        this.getPageRange()
+        this.listSearch = this.companies.filter((obj: { companyName: string }) => obj?.companyName.toUpperCase().includes(this.searchText.toUpperCase()));
       }
+      this.getPageRange()
+      
     } catch (error) {
       console.warn('Fail in search:' + error)
     }

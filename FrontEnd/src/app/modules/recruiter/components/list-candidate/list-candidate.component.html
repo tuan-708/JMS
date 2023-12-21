@@ -14,10 +14,10 @@
                <div class="textHeader">
                   <span class="candidate-name" (click)="openViewCVModal(candidate)">{{candidate?.displayName}}</span>
                   <img class="icon-img-tap" *ngIf="candidate.isApplied" title="Ứng viên ứng tuyển"
-                     src="https://icons-for-free.com/iconfiles/png/512/finger+gesture+hand+one+tap+icon-1320183620658585234.png">
+                     src="{{URL}}/assets/images/match_finger.png">
                   <img class="icon-img-gpt" *ngIf="!candidate.isApplied" title="Ứng viên được đề xuất"
-                     src="https://static.vecteezy.com/system/resources/previews/021/059/827/non_2x/chatgpt-logo-chat-gpt-icon-on-white-background-free-vector.jpg">
-               </div>
+                     src="{{URL}}/assets/images/match_gpt.jpg">           
+                  </div>
                <div class="row more">
                   <div class="col-5 textOver">
                      Ngày Sinh: {{candidate?.dob | date:'yyyy-MM-dd'}}
