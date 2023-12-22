@@ -60,7 +60,13 @@ export class RecruiterSignInComponent {
                   .catch(data => {
                      console.log(apiRecruiter.GET_PROFILE_RECRUITER + "?token=" + res.data, data);
                   })
-            } else {
+            }else if(res?.statusCode == 401){
+               if(res.message == "Account cannot access"){
+                  showError(this.toastr, "Tài khoản đã bị khóa! Liên hệ quản trị viên để biết thêm thông tin.")
+               }else{
+                  showError(this.toastr, "Tài khoản mật khẩu không chính xác")
+               }
+             } else {
                showError(this.toastr, "Tài khoản mật khẩu không chính xác")
             }
          })

@@ -39,6 +39,10 @@ export class CandidateSignInComponent {
 
                this.getProfileUser(res?.data)
 
+            }else if(res?.statusCode == 401){
+               if(res.message == "Account cannot access"){
+                  showError(this.toastr, "Tài khoản đã bị khóa! Liên hệ quản trị viên để biết thêm thông tin.")
+               }
             } else {
                showError(this.toastr, "Tài khoản hoặc mật khẩu không chính xác")
             }
