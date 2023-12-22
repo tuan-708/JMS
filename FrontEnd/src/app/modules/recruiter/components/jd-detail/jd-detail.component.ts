@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ViewportScroller } from '@angular/common';
 import { getProfile } from 'src/app/service/localstorage';
-import { showError, showInfo, showSuccess } from 'src/app/service/common';
+import { showError, showInfo, showSuccess, showSuccessWithTime } from 'src/app/service/common';
 
 @Component({
    selector: 'app-jd-detail',
@@ -70,7 +70,7 @@ export class JdDetailComponent {
                .then(res => {
                   if (res.statusCode == 200) {
                      this.isMatching = false;
-                     showSuccess(this.toastr, "Đề xuất thành công <br/>Đã tìm thấy " + res.data.length + " ứng viên. Vui lòng xem chi tiết tại danh sách đề xuất");
+                     showSuccessWithTime(this.toastr, "Đề xuất thành công <br/>Đã tìm thấy " + res.data.length + " ứng viên. Vui lòng xem chi tiết tại danh sách đề xuất", 3000);
                   } else if(res.statusCode == 500){
                      this.isMatching = false;
                      showError(this.toastr, "Đề xuất thất bại <br/> GPT AI hiện tại đang có vấn đề. Vui lòng thử lại sau");
