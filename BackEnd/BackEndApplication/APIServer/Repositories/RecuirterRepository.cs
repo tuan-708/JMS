@@ -82,6 +82,8 @@ namespace APIServer.Repositories
         {
             var data = context.Recuirters
                 .FirstOrDefault(x => x.UserName.ToLower() == username.ToLower());
+            if (!data.IsActive)
+                throw new Exception("Account cannot access");
             if (VerifyPassword(password, data.Password))
                 return data;
             return null;
