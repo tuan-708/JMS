@@ -140,7 +140,7 @@ export class CompanyUpdateComponent {
    submitButtonClicked() {
 
       if (this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid
-         && this.categoryRq.valid && this.sizeRq.valid && this.addressRq.valid) {
+         && this.sizeRq.valid && this.addressRq.valid) {
          const companyName = this.nameRq.value;
          const email = this.emailRq.value;
          const phone = this.phoneRq.value;
@@ -148,7 +148,7 @@ export class CompanyUpdateComponent {
          const description = this.descriptionRq.value;
          const tax = this.taxNumRq.value?.toString();
          const webURL = this.websiteRq.value;
-         const categoryName = this.categoryRq.value;
+         const categoryName = null;
          const size = this.sizeRq.value;
          const recuirterFounder = this.profile.id;
          const yearOfEstablishment = this.yearOfEstablishmentRq.value;
