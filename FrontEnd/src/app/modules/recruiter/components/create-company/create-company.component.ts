@@ -110,7 +110,7 @@ export class CreateCompanyComponent {
    submitButtonClicked() {
 
       if (this.nameRq.valid && this.emailRq.valid && this.taxNumRq.valid
-         && this.categoryRq.valid && this.sizeRq.valid && this.addressRq.valid
+         && this.sizeRq.valid && this.addressRq.valid
          && this.phoneRq.valid && this.descriptionRq.valid) {
          const companyName = this.nameRq.value;
          const email = this.emailRq.value;
@@ -119,7 +119,7 @@ export class CreateCompanyComponent {
          const description = this.descriptionRq.value;
          const tax = this.taxNumRq.value?.toString();
          const webURL = this.websiteRq.value;
-         const categoryName = this.categoryRq.value;
+         const categoryName = null;
          const size = this.sizeRq.value;
          const yearOfEstablishment = this.yearOfEstablishmentRq.value === "" ? null : this.yearOfEstablishmentRq.value;
 
